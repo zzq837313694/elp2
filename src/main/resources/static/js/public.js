@@ -59,3 +59,20 @@ $(function(){
 	});
 })
 // left.html 的切换节点  JS end
+
+
+
+//head显示系统时间
+
+function setDate() {
+	var mydate=new Date();
+	var str=""+mydate.getFullYear()+"年";
+	str+=(mydate.getMonth()+1)+"月";
+	str+=mydate.getDate()+"日";
+	str+=mydate.getHours()+"时";
+	str+=mydate.getMinutes()+"分";
+	str+=mydate.getSeconds()+"秒";
+	str+="    星期" + "日一二三四五六".charAt(mydate.getDay());
+	$("#current-time").text(str);
+}
+setInterval(setDate,1000);
