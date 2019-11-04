@@ -26,7 +26,7 @@ public class LoginController {
     @RequestMapping(value = "/login.html",method = RequestMethod.POST)
     public String dologin(String userNo, String password, Model model, HttpSession session){
         Workerinfo workerinfo=workerinfoService.findAllWorker(userNo);
-        if(workerinfo.equals("")||workerinfo==null){
+        if(workerinfo==null){
             model.addAttribute("error","用户名不存在！");
             return "login";
         }else if(workerinfo.getPassword().equals(password)){
@@ -41,6 +41,19 @@ public class LoginController {
     @RequestMapping("index.html")
     public  String index(){
         return "index";
+    }
+
+    @RequestMapping("head.html")
+    public  String head(){
+        return "head";
+    }
+    @RequestMapping("left.html")
+    public  String left(){
+        return "left";
+    }
+    @RequestMapping("main.html")
+    public  String main(){
+        return "main";
     }
 
 }
