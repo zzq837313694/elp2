@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title>塔杆管理</title>
-    <link type="text/css" href="webjars/bootstrap" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.css}" rel="stylesheet">
+    <link type="text/css" href="webjars/bootstrap" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}" rel="stylesheet">
     <script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
-    <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.js}"></script>
+    <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}"></script>
 </head>
 <body>
 <div style="padding: 30px 50px 30px 20px">电力巡检系统 -->塔杆管理</div>
@@ -23,16 +23,22 @@
         <input type="submit" value="查 询" style="background-color: #4390B9;color:white;width: 80px">
     </form>
 
-
-    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" style="background-color: #4390B9;width: 150px;font-size: 12px;">开始演示模态框</button>
-    <!-- Modal -->
+    <div class="row">
+        <div class="col-md-6 col-md-offset-9">
+            <button type="button" class="btn btn-round btn-primary" data-toggle="modal" data-target="#myModal"
+                    style="background-color: #4390B9">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 添加杆塔
+            </button>
+        </div>
+    </div>
+            <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title" id="myModalLabel">添加缺陷类型</h6>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-
+                    <h6 class="modal-title" id="myModalLabel">添加杆塔
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </h6>
                 </div>
                 <div class="modal-body">
                     <form action="flawType.html" method="post">
@@ -51,8 +57,10 @@
                                     <input type="radio" value="不启用" name="status">不启用</td>
                             </tr>
                         </table>
-                        <button type="submit" class="btn btn-primary" style="margin-left: 335px;background-color:#4390B9">保存</button>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal" style="background-color: #4390B9">返回</button>
+                        <div class="row">
+                            <button type="submit" class="btn btn-primary col-md-1 col-md-offset-8" >保存</button>
+                            <button type="button" class="btn btn-primary col-md-1" style="margin-left: 10px" data-dismiss="modal">返回</button>
+                        </div>
                     </form>
                 </div>
             </div>
