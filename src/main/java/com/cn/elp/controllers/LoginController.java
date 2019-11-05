@@ -48,7 +48,7 @@ public class LoginController {
     @RequestMapping("exit.html")
     public String exit(HttpSession session){
         session.invalidate();
-        return  "login";
+        return  "redirect:login.html";
     }
     @RequestMapping("head.html")
     public  String head(){

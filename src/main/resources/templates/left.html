@@ -1,4 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -37,6 +38,7 @@
 					<img class="icon5" src="img/coin21.png" />
 				</dd>
 			</dl>
+<span th:if="${session.worker.getRoleId()==1}">
 			<dl class="system_log">
 				<dt>
 					<img class="icon1" src="img/coinL1.png" />
@@ -69,6 +71,8 @@
 					<img class="icon5" src="img/coin21.png" />
 				</dd>
 			</dl>
+</span>
+<span th:if="${session.worker.getRoleId()==1 ||  session.worker.getRoleId()==2}">
 			<dl class="system_log">
 				<dt>
 					<img class="icon1" src="img/coin07.png" />
@@ -83,6 +87,7 @@
 					<img class="icon5" src="img/coin21.png" />
 				</dd>
 			</dl>
+
 			<dl class="system_log">
 				<dt>
 					<img class="icon1" src="img/coin10.png" />
@@ -97,6 +102,8 @@
 					<img class="icon5" src="img/coin21.png" />
 				</dd>
 			</dl>
+
+
 			<dl class="system_log">
 				<dt>
 					<img class="icon1" src="img/coin11.png" />
@@ -117,6 +124,8 @@
 					<img class="icon5" src="img/coin21.png" />
 				</dd>
 			</dl>
+</span>
+<span th:if="${session.worker.getRoleId()==2 || session.worker.getRoleId()==3 ||session.worker.getRoleId()==1}">
 			<dl class="system_log">
 				<dt>
 					<img class="icon1" src="img/coin14.png" />
@@ -143,6 +152,8 @@
 					<img class="icon5" src="img/coin21.png" />
 				</dd>
 			</dl>
+</span>
+			<span th:if="${session.worker.getRoleId()==4 || session.worker.getRoleId()==1 || session.worker.getRoleId()==2}">
 			<dl class="system_log">
 				<dt>
 					<img class="icon1" src="img/coin15.png" />
@@ -169,6 +180,8 @@
 					<img class="icon5" src="img/coin21.png" />
 				</dd>
 			</dl>
+				</span>
+<span th:if="${session.worker.getRoleId()==1 ||  session.worker.getRoleId()==2}">
 			<dl class="system_log">
 				<dt>
 					<img class="icon1" src="img/coin17.png" />
@@ -189,6 +202,7 @@
 					<img class="icon5" src="img/coin21.png" />
 				</dd>
 			</dl>
+</span>
 		</div>
 
 	</div>
