@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.elp.dao.FlawTypeDao">
+
+    <insert id="addFlawType" parameterType="Flawtype">
+        insert into flawtype(flawName, status) values (#{flawName},#{status})
+    </insert>
+
+    <select id="findAllFlawType" resultType="Flawtype">
+        select flawTypeId,flawName,status from flawtype
+    </select>
+
+</mapper>
