@@ -27,7 +27,7 @@ public class LoginController {
     public String dologin(String userNo, String password, Model model, HttpSession session){
         Workerinfo workerinfo=workerinfoService.findAllWorker(userNo);
         if(workerinfo==null){
-            model.addAttribute("error","用户名caizai不存在！");
+            model.addAttribute("error","用户名不存在！");
             return "login";
         }else if(workerinfo.getPassword().equals(password)){
             session.setAttribute(MyContents.WORKER_SESSION,workerinfo);
