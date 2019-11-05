@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -17,9 +18,15 @@
 		</div>
 
 		<div class="headR">
-			<span style="color:#FFF">欢迎：admin   角色：系统管理员</span> <a href="head2.html" rel="external">【修改密码】</a>
-			<a href="head2.html" rel="external">【退出1】</a><br/>
-			<span id="current-time">2019年11月4日 周一 下午16:04</span>
+			<span style="color:#FFF">欢迎：<span th:text="${session.worker.getUserName()}"></span>
+				角色：<span th:if="${session.worker.getRoleId()==1}">系统管理员</span>
+				<span th:if="${session.worker.getRoleId()==2}">线路管理员</span>
+				<span th:if="${session.worker.getRoleId()==3}">巡检员</span>
+				<span th:if="${session.worker.getRoleId()==4}">消缺员</span>
+			</span>
+			<a href="head2.html" rel="external">【修改密码】</a>
+			<a href="/exit.html" rel="external">【退出】</a><br/>
+			<span id="current-time" style="color:#FFF">2019年11月4日 周一 下午16:04</span>
 		</div>
 	</div>
 </body>

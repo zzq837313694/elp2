@@ -3,7 +3,7 @@ package com.cn.elp.util;
 import java.util.List;
 
 public class PageSurpport<T> {
-    private int pageIndex;//当前页 是哪个页
+    private int pageIndex;//当前页
     private int pageCount;//总页数
     private int pageSize;//页大小
     private int totalCount;//总记录数

@@ -43,6 +43,13 @@ public class LoginController {
         return "index";
     }
 
+
+
+    @RequestMapping("exit.html")
+    public String exit(HttpSession session){
+        session.invalidate();
+        return  "redirect:login.html";
+    }
     @RequestMapping("head.html")
     public  String head(){
         return "head";

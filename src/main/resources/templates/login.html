@@ -8,6 +8,10 @@
 <link rel="stylesheet" type="text/css" href="css/page.css" />
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/public.js"></script>
+	<script language="JavaScript">
+		if (window != top)
+			top.location.href = location.href;
+	</script>
 </head>
 <body>
 
@@ -28,7 +32,7 @@
 			</div>
 			<div class="lgD">
 				<img class="img1" src="img/logPwd.png" />
-				<input type="text" placeholder="输入用户密码" name="password" />
+				<input type="password" placeholder="输入用户密码" name="password" />
 				<span th:text="${errorpwd}" style="color: red"></span>
 			</div>
 			<div class="logC">
