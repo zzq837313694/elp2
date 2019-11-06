@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>消缺任务制定与分配</title>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script th:src="@{/webjars/bootstrap/3.3.7/js/}"></script>
+    <link type="text/css" href="webjars/bootstrap" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}" rel="stylesheet">
+</head>
+<body>
+<p>
+    <span>消缺任务管理</span>
+    <span>&gt;&gt;&nbsp;</span>
+    <span>消缺任务制定与分配</span>
+</p>
+<div >
+
+<label>任务编号：</label><input type="text"/>
+<label>线路编号：</label><input type="text"/>
+<label>任务状态：</label><input type="text"/>
+<label>下&nbsp;发&nbsp;人：</label><input type="text"/>
+<label>下发时间：</label>
+    <div class="input-prepend input-group">
+        <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+        <input type="text" style="width: 200px" name="reservation" id="reservation" class="form-control active" value="03/18/2013 - 03/23/2013">
+    </div>
+
+
+</div>
+
+</body>
+</html>
