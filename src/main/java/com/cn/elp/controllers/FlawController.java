@@ -19,8 +19,10 @@ public class FlawController {
     //显示缺陷类型
     @RequestMapping("/flawType.html")
     public String flawType(Model model){
+
         List<Flawtype> flawtypeList = flawTypeService.findAllFlawType();
         model.addAttribute("flawtypeList",flawtypeList);
+
         return "flawType";
     }
     //添加缺陷类型
@@ -28,6 +30,16 @@ public class FlawController {
     public String flawType(Flawtype flawtype){
         int rel=flawTypeService.addFlawType(flawtype);
         if (rel>0){
+            System.out.println("成功");
+        }
+        return "redirect:/flawType.html";
+    }
+    //修改缺陷类型
+    @RequestMapping(value = "updateFlawType.html",method = RequestMethod.POST)
+    public String updateFlawType(Flawtype flawtype,Model model){
+        System.out.println(flawtype.getFlawTypeId());
+        int rel = flawTypeService.updateFlawTypeById(flawtype);
+        if(rel>0){
             System.out.println("成功");
         }
         return "redirect:/flawType.html";
