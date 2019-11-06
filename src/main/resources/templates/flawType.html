@@ -84,7 +84,7 @@
                         <input type="checkbox" readonly="readonly">
                     </td>
                     <td>
-                        <a th:href="@{updateFlawType.html(id=${type.flawTypeId})}">修改</a>
+                        <a href="javascript(void)" th:flawname="${type.flawName}" th:flawstatus="${type.status}" th:id="${type.flawTypeId}" onclick="updateFlawType(this)" data-toggle="modal" data-target="#myModal2">修改</a>
                         &nbsp;&nbsp;丨&nbsp;
                         <a class="delFlawType" href="#" th:id="${type.flawTypeId}">删除</a>
                 </tr>
@@ -92,5 +92,65 @@
             </table>
         </div>
     </div>
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="myModalLabel2">修改缺陷类型
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </h6>
+                </div>
+                <div class="modal-body">
+                    <form action="updateFlawType.html" method="post">
+
+                        <table style="margin: auto">
+                            <input type="hidden" id="flawTypeId" name="flawTypeId">
+                            <tr>
+                                <td>缺陷类型名称：</td>
+                                <td><input type="text" name="flawName" id="updatename"></td>
+                            </tr>
+                            <tr>
+                                <td>启用状态：</td>
+                                <td><input type="radio" value="启用" name="status" id="statusON">启用
+                                    <input type="radio" value="不启用" name="status" id="statusOFF">不启用</td>
+                            </tr>
+                        </table>
+                        <div class="row">
+                            <button type="submit" class="btn btn-primary col-md-1 col-md-offset-8" >保存</button>
+                            <button type="button" class="btn btn-primary col-md-1" style="margin-left: 10px" data-dismiss="modal">返回</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 </body>
+
+<script type="text/javascript">
+    function updateFlawType(obj) {
+        var name=$(obj).attr("flawname");
+        var flawstatus=$(obj).attr("flawstatus");
+        var typeId=$(obj).attr("id");
+        $("#updatename").val(name);
+        if($("#statusON").val()==flawstatus){
+            $("#statusON").attr("checked",true);
+        }else{
+            $("#statusON").attr("checked",false);
+        }
+        if($("#statusOFF").val()==flawstatus){
+            $("#statusOFF").attr("checked",true);
+        }else{
+            $("#statusOFF").attr("checked",false);
+        }
+        $("#flawTypeId").val(typeId);
+    }
+</script>
+
 </html>
