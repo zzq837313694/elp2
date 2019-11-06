@@ -12,13 +12,14 @@
 <div style="padding: 30px 50px 30px 20px">电力巡检系统 -->塔杆管理</div>
 <div style="padding: 0px 50px 0px 50px">
     <form method="post" action="#">
-        所属路线：&nbsp;<select name="solve">
+        所属路线：&nbsp;<select name="solve" >
         <option>-请选择-</option>
-        <option>西渭线</option>
+        <option th:each="c:${circuitList}" th:value="${c.circuitNo}" th:text="${c.circuitName}">西渭线</option>
     </select>
         &nbsp;&nbsp;&nbsp;是否启用：&nbsp;<select name="statu">
         <option>-请选择-</option>
-        <option>启用</option>
+        <option value="启用">启用</option>
+        <option value="停用">停用</option>
     </select>
         <input type="submit" value="查 询" style="background-color: #4390B9;color:white;width: 80px">
     </form>
@@ -41,7 +42,7 @@
                     </h6>
                 </div>
                 <div class="modal-body">
-                    <form action="flawType.html" method="post">
+                    <form action="addOneTower.html" method="post">
                         <table style="margin: auto">
                             <tr>
                                 <td>杆塔编号：</td>
@@ -49,11 +50,16 @@
                             </tr>
                             <tr>
                                 <td>所属线路</td>
-                                <td><select name="circuitNo"><option>西渭线</option></select></td>
+                                <td>
+                                    <select name="circuitNo">
+                                        <option>-请选择-</option>
+                                        <option th:each="c:${circuitList}" th:value="${c.circuitNo}" th:text="${c.circuitName}">西渭线</option>
+                                    </select>
+                                </td>
                             </tr>
                             <tr>
                                 <td>启用状态：</td>
-                                <td><input type="radio" value="启用" name="status">启用
+                                <td><input type="radio" value="启用" name="status" checked="checked">启用
                                     <input type="radio" value="不启用" name="status">不启用</td>
                             </tr>
                         </table>
@@ -66,43 +72,125 @@
             </div>
         </div>
     </div>
+
 </div>
 <!-- lh表格 -->
 <div class="row" style="padding: 30px 50px 50px 50px">
     <div class="col-sm-12">
         <table id="datatable" class="table table-striped table-bordered dataTable no-footer" role="grid"
-               aria-describedby="datatable_info">
+               aria-describedby="datatable_info" style="text-align: center">
             <thead>
-            <tr role="row">
+            <tr role="row" >
                 <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"
                     aria-sort="ascending" aria-label="Name: activate to sort column descending"
-                    style="width: 141px;">缺陷类型名称
+                    style="width: 141px;text-align: center">缺陷类型名称
                 </th>
                 <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"
-                    aria-label="Position: activate to sort column ascending" style="width: 234px;">状态(启用/未启用)
+                    aria-label="Position: activate to sort column ascending" style="width: 234px;text-align: center">所属线路
                 </th>
                 <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"
-                    aria-label="Office: activate to sort column ascending" style="width: 104px;">操作
+                    aria-label="Position: activate to sort column ascending" style="width: 234px;text-align: center">状态(启用/未启用)
+                </th>
+                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"
+                    aria-label="Office: activate to sort column ascending" style="width: 104px;text-align: center">操作
                 </th>
             </tr>
             </thead>
-            <tbody>
-            <tr role="row" class="odd">
-                <td class="sorting_1">Airi Satou</td>
-                <td>Accountant</td>
-                <td>Tokyo</td>
-            </tr>
-            <tr role="row" class="even">
-                <td class="sorting_1">Angelica Ramos</td>
-                <td>Chief Executive Officer (CEO)</td>
-                <td>London</td>
-            </tr>
 
+            <tbody>
+            <tr role="row" class="odd" th:each="tList:${towerinfoList}">
+                <td class="sorting_1" th:text="${tList.towerNo}" >Airi Satou</td>
+                <td th:each="cList:${circuitList}" th:if="${cList.circuitNo==tList.circuitNo}" th:text="${cList.circuitName}">Accountant</td>
+                <td th:text="${tList.status}">Tokyo</td>
+                <td>
+                    <a href="JavaScript:(void);" onclick="update(this)" th:towerNo="${tList.towerNo}" th:circuitNo="${cList.circuitNo}"
+                       th:each="cList:${circuitList}" th:if="${cList.circuitNo==tList.circuitNo}" th:circuitName="${cList.circuitName}"
+                       th:status="${tList.status}" data-toggle="modal" data-target="#myModal2" >修改</a>
+                    &nbsp;&nbsp;丨&nbsp;
+                    <a class="delFlawType" id="del" href="javascript:(void);" onclick="del(this)" th:no="${tList.towerNo}">删除</a></td>
+            </tr>
             </tbody>
+
         </table>
     </div>
 </div>
-
+<!-- Modal -->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="myModalLabel2">修改杆塔
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </h6>
+            </div>
+            <div class="modal-body">
+                <form action="/updateTower.html" method="post">
+                    <table style="margin: auto">
+                        <tr>
+                            <td>杆塔编号：</td>
+                            <td><input type="text" name="towerNo" id="towerNo1" readonly="readonly"></td>
+                        </tr>
+                        <tr>
+                            <td>所属线路</td>
+                            <td>
+                                <select name="circuitNo" id="mycircuitNo">
+                                    <option>-请选择-</option>
+                                    <option th:each="c,var:${circuitList}" th:value="${c.circuitNo}" th:text="${c.circuitName}" >西渭线</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>启用状态：</td>
+                            <td><input type="radio" value="启用" name="status"  id="statusON">启用
+                                <input type="radio" value="不启用" name="status" id="statusOFF">不启用</td>
+                        </tr>
+                    </table>
+                    <div class="row">
+                        <button type="submit" class="btn btn-primary col-md-1 col-md-offset-8" >保存</button>
+                        <button type="button" class="btn btn-primary col-md-1" style="margin-left: 10px" data-dismiss="modal">返回</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
+<script type="text/javascript">
+    function update(obj) {
+        var towerNo=$(obj).attr("towerNo");
+        var circuitname=$(obj).attr("circuitName");
+        var status=$(obj).attr("status");
+        var circuitNo=$(obj).attr("circuitNo");
+        $("#mycircuitNo>option[value="+circuitNo+"]").attr("selected",true);
+        $("#towerNo1").val(towerNo);
+        if($("#statusON").val()==status){
+            $("#statusOFF").removeAttr("checked");
+            $("#statusON").attr("checked",true);
+        }
+        if($("#statusOFF").val()==status){
+            $("#statusON").removeAttr("checked");
+            $("#statusOFF").attr("checked",true);
+        }
+    }
+    //实现异步删除
+
+    function del(obj) {
+        var no=$(obj).attr("no");
+        var data="towerNo="+no;
+        $.get("delOneTower.html",data,function(relData){
+            if(relData>"0"){
+                alert("删除成功!");
+                //刷新页面
+                //1.重新从服务器端加载新闻列表数据
+                //2.从客户端删除该条数据
+                $(obj).parent().parent().remove();
+            }else{
+                alert("删除失败!");
+            }
+        });
+    }
+
+
+</script>
