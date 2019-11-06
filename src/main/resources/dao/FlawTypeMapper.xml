@@ -12,4 +12,16 @@
         select flawTypeId,flawName,status from flawtype
     </select>
 
+    <select id="findFlawTypeById" resultType="Flawtype" parameterType="Integer">
+        select flawTypeId,flawName,status from flawtype where flawTypeId=#{flawTypeId}
+    </select>
+
+    <update id="updateFlawTypeById" parameterType="Flawtype">
+        update flawtype set flawName=#{flawName},status=#{status} where flawTypeId=#{flawTypeId}
+    </update>
+
+    <delete id="delFlawTypeById" parameterType="Integer">
+        delete from flawtype where flawTypeId=#{flawTypeId}
+    </delete>
+
 </mapper>

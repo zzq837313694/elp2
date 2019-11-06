@@ -22,4 +22,19 @@ public class FlawTypeServiceImpl implements FlawTypeService {
     public List<Flawtype> findAllFlawType() {
         return flawTypeDao.findAllFlawType();
     }
+
+    @Override
+    public Flawtype findFlawTypeById(Integer id) {
+        return flawTypeDao.findFlawTypeById(id);
+    }
+
+    @Override
+    public int updateFlawTypeById(Flawtype flawtype) {
+        return flawTypeDao.updateFlawTypeById(flawtype);
+    }
+
+    @Override
+    public int delFlawTypeById(Integer id) {
+        return flawTypeDao.delFlawTypeById(id);
+    }
 }
