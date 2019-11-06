@@ -34,16 +34,21 @@ li {
 	text-align: center;
 	float: left;
 	display: inline-block;
-	padding-top: 38px;
+	padding-top: 19px;
 }
 
 .head .headL img.headLogo {
 	vertical-align: middle;
+	width: 60px;
+	height: 60px;
 
 }
+
+
 .head .headL span {
 	vertical-align: middle;
-
+	font-size: 45px;
+	color: white;
 }
 
 .head .headR {
