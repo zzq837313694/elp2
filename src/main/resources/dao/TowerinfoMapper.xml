@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.elp.dao.TowerinfoDao">
+    <select id="findAllTower" resultType="Towerinfo">
+        select * from towerinfo
+    </select>
+
+    <insert id="addOneTower" parameterType="Towerinfo">
+        insert into towerinfo (towerNo, circuitNo, status) value (#{towerNo},#{circuitNo},#{status})
+    </insert>
+    <update id="updateTower" parameterType="Towerinfo">
+        update towerinfo set circuitNo=#{circuitNo},status=#{status} where towerNo=#{towerNo}
+    </update>
+    <select id="findOneTower" parameterType="String" resultType="Towerinfo">
+        select towerNo from towerinfo;
+    </select>
+    <delete id="delOneTower" parameterType="String">
+        delete  from towerinfo where towerNo=#{towerNo}
+    </delete>
+</mapper>
