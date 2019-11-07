@@ -33,7 +33,7 @@
                 and a.createDate>#{ChecktaskCondition.CreateDateMin}
             </if>
             <if test="ChecktaskCondition.CreateDateMax!=null and ChecktaskCondition.CreateDateMax!=''">
-                and a.createDate < #{ChecktaskCondition.CreateDateMax}
+                and a.createDate &lt;#{ChecktaskCondition.CreateDateMax}
             </if>
         </where>
     </sql>
