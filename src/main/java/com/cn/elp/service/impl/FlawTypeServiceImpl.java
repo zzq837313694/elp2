@@ -37,4 +37,14 @@ public class FlawTypeServiceImpl implements FlawTypeService {
     public int delFlawTypeById(Integer id) {
         return flawTypeDao.delFlawTypeById(id);
     }
+
+    @Override
+    public List<Flawtype> findAllFlawTypePaging(int pageIndex, int pageSize) {
+        return flawTypeDao.findAllFlawTypePaging((pageIndex-1)*pageSize,pageSize);
+    }
+
+    @Override
+    public int findAllFlawCount() {
+        return flawTypeDao.findAllFlawCount();
+    }
 }

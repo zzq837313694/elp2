@@ -3,8 +3,29 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cn.elp.dao.TowerinfoDao">
-    <select id="findAllTower" resultType="Towerinfo">
+    <select id="findAllTowerPage" resultType="Towerinfo">
         select * from towerinfo
+        <where>
+            <if test="circuitNo!=null and circuitNo!=''">
+                and circuitNo like concat('%',#{circuitNo},'%')
+            </if>
+            <if test="status!=null and status!=''">
+                and status=#{status}
+            </if>
+        </where>
+        limit #{pageIndex},#{pageSize}
+    </select>
+
+    <select id="findAllTowerPageCount" parameterType="String" resultType="int">
+        select count(1) as count from towerinfo
+        <where>
+            <if test="circuitNo!=null and circuitNo!=''">
+                and circuitNo like concat('%',#{circuitNo},'%')
+            </if>
+            <if test="status!=null and status!=''">
+                and status=#{status}
+            </if>
+        </where>
     </select>
 
     <insert id="addOneTower" parameterType="Towerinfo">

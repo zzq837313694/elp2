@@ -6,4 +6,31 @@
     <select id="findAllCircuit" resultType="Circuit">
         select * from circuit
     </select>
+    <select id="findAllCircuitPage" resultType="Circuit">
+        select * from circuit
+        <where>
+            <if test="circuitNo!=null and circuitNo!=''">
+                and circuitNo like concat('%',#{circuitNo},'%')
+            </if>
+            <if test="status!=null and status!=''">
+                and runStatus=#{status}
+            </if>
+        </where>
+        limit #{pageIndex},#{pageSize}
+    </select>
+    <select id="findAllCircuitCount" resultType="int">
+        select count(1) as count from circuit
+        <where>
+            <if test="circuitNo!=null and circuitNo!=''">
+                and circuitNo like concat('%',#{circuitNo},'%')
+            </if>
+            <if test="status!=null and status!=''">
+                and runStatus=#{status}
+            </if>
+        </where>
+    </select>
+    <insert id="addOneCircuit" parameterType="circuit">
+        insert into circuit values (#{circuitNo},#{circuitName},#{lineLength},#{circuitLength},
+        #{towerCount},#{startNo},#{stopNo},#{onlineDate},#{voltLv},#{runStatus},#{useStatus},#{comment})
+    </insert>
 </mapper>

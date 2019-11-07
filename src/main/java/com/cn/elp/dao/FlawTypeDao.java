@@ -1,6 +1,7 @@
 package com.cn.elp.dao;
 
 import com.cn.elp.POJO.Flawtype;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -38,4 +39,18 @@ public interface FlawTypeDao {
      * @return
      */
     int delFlawTypeById(Integer id);
+
+    /**
+     * 分页查询
+     * @param from  起始条数
+     * @param pageSize  页大小
+     * @return
+     */
+    List<Flawtype> findAllFlawTypePaging(@Param("from") int from, @Param("pageSize") int pageSize);
+
+    /**
+     * 查找全部缺陷条数
+     * @return
+     */
+    int findAllFlawCount();
 }
