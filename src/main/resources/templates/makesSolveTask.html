@@ -25,14 +25,15 @@
         }
 
         .input-group {
-            margin-bottom: 8px;
+            margin: 5px;
         }
 
         .input-group-addon {
             width: 90px;
         }
-
-
+        td{
+           text-align:center;
+        }
 
     </style>
 </head>
@@ -77,10 +78,12 @@
             <div class="col-lg-4 col-sm-6 col-xs-12 ">
                 <div class="input-prepend input-group">
                     <span class="add-on input-group-addon ">下发时间:</span>
-                    <div class="  J-datepicker-range-day  form-control date"  style="width: 200px">
-                        <input placeholder="开始日期" name="createDate_from" class="c-datepicker-data-input only-date">
+                    <div class="  J-datepicker-range-day  form-control date" style="width: 200px">
+                        <input placeholder="开始日期" name="createDate_from" class="c-datepicker-data-input only-date"
+                               style="width: 77px">
                         <span class="c-datepicker-range-separator">-</span>
-                        <input placeholder="结束日期" name="createDate_to" class="c-datepicker-data-input only-date">
+                        <input placeholder="结束日期" name="createDate_to" class="c-datepicker-data-input only-date"
+                               style="width: 77px">
                     </div>
                 </div>
             </div>
@@ -91,19 +94,20 @@
     </div>
 </form>
 
-
-<div class="col-lg-12 col-sm-12col-sm-12 ">
-    <div class="col-lg-12 col-md-12 col-sm-12 ">
-        <div class=" col-lg-3 col-md-3 col-sm-3 col-lg-push-9 col-md-push-9 col-sm-push-9 ">
-            <a class="btn btn-primary" href="url(creatSovleTask)"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>制定消缺任务</a>
+<div class="row">
+    <div class="col-lg-12 col-sm-12col-sm-12 ">
+        <div class="col-lg-12 col-md-12 col-sm-12 ">
+            <div class=" col-lg-3 col-md-3 col-sm-3 col-lg-push-9 col-md-push-9 col-sm-push-9 ">
+                <a class="btn btn-primary" href="url(creatSovleTask)"><span class="glyphicon glyphicon-plus"
+                                                                            aria-hidden="true"></span>制定消缺任务</a>
+            </div>
         </div>
     </div>
 </div>
 
 
-
-
-<div id="data">
+<br/>
+<div class="col-sm-11  ">
     <table class="table table-striped" border="1px">
         <thead style="background-color: grey">
         <th>任务编号</th>
@@ -111,17 +115,28 @@
         <th>下发人</th>
         <th>下发时间</th>
         <th>任务状态</th>
-        <th>下发人</th>
-        <th>任务完成时间</th>
+        <th>任务完成人</th>
         <th>操作</th>
         </thead>
-        <tbody>
+        <tbody th:each="sovleTask :${solveTasks}">
+            <tr>
+                <td th:text="${sovleTask.getSolveTaskNo()}"></td>
+                <td th:text="${sovleTask.getSolveTaskName()}"></td>
+                <td th:text="${sovleTask.getCreatBy()}"></td>
+                <td th:text="${#dates.format(sovleTask.getCreateDate(),'YYYY-MM-dd')}"></td>
+                <td th:text="${sovleTask.getStatus()}"></td>
+                <td th:text="${sovleTask.getFinishiworkerId()}"></td>
+                <td>
+                    <a href="">查看</a>
+                    <span>|</span>
+                    <a href="">分配任务</a>
+                    <span>|</span>
+                    <a href="">修改</a>
+                    <span>|</span>
+                    <a href="">取消</a>
+                </td>
+            </tr>
 
-        <tr>
-            <td>a</td>
-            <td>b</td>
-            <td>c</td>
-        </tr>
 
         </tbody>
     </table>
