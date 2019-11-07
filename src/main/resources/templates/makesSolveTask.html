@@ -7,29 +7,77 @@
     <meta charset="UTF-8">
     <title>消缺任务制定与分配</title>
     <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script th:src="@{/webjars/bootstrap/3.3.7/js/}"></script>
+    <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}"></script>
     <link type="text/css" href="webjars/bootstrap" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}" rel="stylesheet">
+    <style>
+        #van{
+            padding: 20px;
+        }
+        .row input[type='text']{
+            width: 200px;
+        }
+        .input-group{
+            margin-bottom: 8px;
+        }
+        .input-group-addon{
+            width:90px;
+        }
+
+    </style>
 </head>
 <body>
-<p>
+<p id="van">
     <span>消缺任务管理</span>
     <span>&gt;&gt;&nbsp;</span>
     <span>消缺任务制定与分配</span>
 </p>
-<div >
+    <div class="row">
+        <div  class="col-lg-9 col-sm-9 col-xs-9 " >
+                <div class="col-lg-4 col-sm-6 col-xs-12">
+                    <div class="input-prepend input-group">
+                        <span class="add-on input-group-addon">任务编号:</span>
+                        <input type="text"  name="reservation" id="reservation1" class="form-control" value="">
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 col-xs-12 ">
+                    <div class="input-prepend input-group">
+                        <span class="add-on input-group-addon">线路编号:</span>
+                        <input type="text"  name="reservation" id="reservation2" class="form-control" value="">
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 col-xs-12 ">
+                        <div class="input-prepend input-group">
+                            <span class="add-on input-group-addon">任务状态:</span>
+                            <input type="text"  name="reservation" id="reservation3" class="form-control" value="">
+                        </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 col-xs-12 ">
+                    <div class="input-prepend input-group">
+                        <span class="add-on input-group-addon">下发人:&nbsp;&nbsp;</span>
+                        <input type="text"  name="reservation" id="reservation4" class="form-control" value="">
+                    </div>
+                    <div></div>
+                </div>
+                <div class="col-lg-4 col-sm-6 col-xs-12 ">
+                        <div class="input-prepend input-group">
+                            <span class="add-on input-group-addon">下发时间:</span>
+                            <input type="text"  name="reservation5" id="reservation" class="form-control" value="03/18/2013 - 03/23/2013">
+                        </div>
+                </div>
+            <div class="col-lg-4 col-sm-6 col-xs-12 ">
+                <button type="submit" class="btn btn-primary">查询</button>
+            </div>
+        </div>
+    </div>
+<div class="col-lg-12 col-sm-12col-sm-12 " >
 
-<label>任务编号：</label><input type="text"/>
-<label>线路编号：</label><input type="text"/>
-<label>任务状态：</label><input type="text"/>
-<label>下&nbsp;发&nbsp;人：</label><input type="text"/>
-<label>下发时间：</label>
-    <div class="input-prepend input-group">
-        <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
-        <input type="text" style="width: 200px" name="reservation" id="reservation" class="form-control active" value="03/18/2013 - 03/23/2013">
+    <div class="col-lg-12 col-md-12 col-sm-12 ">
+        <div class=" col-lg-3 col-md-3 col-sm-3 col-lg-push-9 col-md-push-9 col-sm-push-9 " >
+            <a class="btn btn-primary"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>制定消缺任务</a>
+        </div>
+
     </div>
 
-
 </div>
-
 </body>
 </html>
