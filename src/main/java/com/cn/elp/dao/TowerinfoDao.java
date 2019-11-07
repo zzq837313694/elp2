@@ -1,6 +1,7 @@
 package com.cn.elp.dao;
 
 import com.cn.elp.POJO.Towerinfo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -15,4 +16,8 @@ public interface TowerinfoDao {
     Towerinfo findOneTower(String towerNo);
     //根据塔杆编号删除一条
     int delOneTower(String towerNo);
+    //查询所有塔杆 分页条件查询
+    List<Towerinfo> findAllTowerPage(@Param("circuitNo") String circuitNo,@Param("status") String status,@Param("pageIndex") int from,@Param("pageSize") int pageSize);
+    //查询条数 分页条件查询
+    int findAllTowerPageCount(@Param("circuitNo") String circuitNo,@Param("status") String status);
 }

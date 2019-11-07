@@ -15,4 +15,8 @@ public interface TowerinfoService {
     boolean findOneTower(String towerNo);
     //根据塔杆编号删除一条
     int delOneTower(String towerNo);
+    //查询所有塔杆 分页条件查询
+    List<Towerinfo> findAllTowerPage(String circuitNo,String status,int pageIndex,int pageSize);
+    //查询条数 分页条件查询
+    int findAllTowerPageCount(String circuitNo,String status);
 }
