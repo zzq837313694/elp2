@@ -9,7 +9,7 @@ public class Flawinfo {
   private String checkJobNo;
   private String circuitNo;
   private String towerNo;
-  private String towerTypeId;
+  private int flawTypeId;
   private String flawLv;
   private String checkBy;
   private Date checkDate;
@@ -53,12 +53,12 @@ public class Flawinfo {
   }
 
 
-  public String getTowerTypeId() {
-    return towerTypeId;
+  public int getFlawTypeId() {
+    return flawTypeId;
   }
 
-  public void setTowerTypeId(String towerTypeId) {
-    this.towerTypeId = towerTypeId;
+  public void setFlawTypeId(int flawTypeId) {
+    this.flawTypeId = flawTypeId;
   }
 
 

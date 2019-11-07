@@ -7,5 +7,9 @@
         select  * from  workerinfo where userNo=#{userNo}
     </select>
 
+    <select id="findWorkerByRoleId" resultType="Workerinfo" parameterType="int">
+        select * from workerinfo where roleId=#{roleId};
+    </select>
+
 
 </mapper>

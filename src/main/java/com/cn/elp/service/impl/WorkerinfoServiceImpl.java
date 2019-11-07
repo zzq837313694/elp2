@@ -6,6 +6,7 @@ import com.cn.elp.service.WorkerinfoService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class WorkerinfoServiceImpl implements WorkerinfoService {
@@ -15,5 +16,10 @@ public class WorkerinfoServiceImpl implements WorkerinfoService {
     @Override
     public Workerinfo findAllWorker(String userNo) {
         return workerinfoDao.findAllWorker(userNo);
+    }
+
+    @Override
+    public List<Workerinfo> findWorkerByRoleId(int roleId) {
+        return workerinfoDao.findWorkerByRoleId(roleId);
     }
 }

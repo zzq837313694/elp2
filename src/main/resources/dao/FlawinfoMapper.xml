@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.elp.dao.FlawinfoDao">
+
+    <!-- sql片段，可重复使用 -->
+    <sql id="flawinfoQuery">
+        <if test="condition.checkJobNo!=null and condition.checkJobNo!=''">
+            and checkJobNo like concat('%',#{condition.checkJobNo},'%')
+        </if>
+        <if test="condition.circuitNo!=null and condition.circuitNo!=''">
+            and circuitNo=#{condition.circuitNo}
+        </if>
+        <if test="condition.towerNo!=null and condition.towerNo!=''">
+            and towerNo=#{condition.towerNo}
+        </if>
+        <if test="condition.checkBy!=null and condition.checkBy!=''">
+            and checkBy=#{condition.checkBy}
+        </if>
+        <if test="condition.flawTypeId!=null and condition.flawTypeId!=''">
+            and flawTypeId=#{condition.flawTypeId}
+        </if>
+        <if test="condition.flawLv!=null and condition.flawLv!=''">
+            and flawLv=#{condition.flawLv}
+        </if>
+        <if test="condition.startTime!=null and condition.startTime!=''">
+            and checkDate>=#{condition.startTime}
+        </if>
+        <if test="condition.endTime!=null and condition.endTime!=''">
+            and checkDate&lt;=#{condition.endTime}
+        </if>
+    </sql>
+
+    <select id="findAllFlawInfo" resultType="Flawinfo">
+        select * from flawinfo
+        <where>
+            <include refid="flawinfoQuery"></include>
+        </where>
+        order by checkDate desc limit #{from},#{pageSize}
+    </select>
+
+    <select id="findAllFlawInfoCount" resultType="int">
+        select count(1) from flawinfo
+        <where>
+            <include refid="flawinfoQuery"></include>
+        </where>
+    </select>
+
+
+</mapper>

@@ -3,10 +3,13 @@ package com.cn.elp.controllers;
 import com.cn.elp.POJO.Flawtype;
 import com.cn.elp.service.FlawTypeService;
 import com.cn.elp.util.MyContents;
+import com.cn.elp.util.PageSurpport;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -18,10 +21,18 @@ public class FlawController {
     FlawTypeService flawTypeService;
     //显示缺陷类型
     @RequestMapping("/flawType.html")
-    public String flawType(Model model){
+    public String flawType(
+            @RequestParam(value = "pageIndex",defaultValue = "1") int pageIndex,
+            Model model){
+        List<Flawtype> flawtypeList = flawTypeService.findAllFlawTypePaging(pageIndex,MyContents.PAGESIZE);
 
-        List<Flawtype> flawtypeList = flawTypeService.findAllFlawType();
-        model.addAttribute("flawtypeList",flawtypeList);
+        PageSurpport<Flawtype> pageSurpport=new PageSurpport<Flawtype>();
+        pageSurpport.setPageIndex(pageIndex);
+        pageSurpport.setPageSize(MyContents.PAGESIZE);
+        pageSurpport.setTotalCount(flawTypeService.findAllFlawCount());
+        pageSurpport.setDataList(flawtypeList);
+
+        model.addAttribute("pageSurpport",pageSurpport);
 
         return "flawType";
     }
@@ -44,4 +55,12 @@ public class FlawController {
         }
         return "redirect:/flawType.html";
     }
+    //删除缺陷类型
+    @RequestMapping("delFlawType.html")
+    @ResponseBody
+    public int delFlawType(Integer typeid){
+        int rel=flawTypeService.delFlawTypeById(typeid);
+        return rel;
+    }
+
 }
