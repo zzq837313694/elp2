@@ -36,4 +36,16 @@ public interface FlawTypeService {
      * @return
      */
     int delFlawTypeById(Integer id);
+    /**
+     * 分页查询
+     * @param pageIndex  当前页
+     * @param pageSize  页大小
+     * @return
+     */
+    List<Flawtype> findAllFlawTypePaging(int pageIndex,int pageSize);
+    /**
+     * 查找全部缺陷条数
+     * @return
+     */
+    int findAllFlawCount();
 }
