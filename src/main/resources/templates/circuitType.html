@@ -31,7 +31,7 @@
                         <span class="add-on input-group-addon">线路编号：</span>
                         <select name="circuitNo"  class="form-control">
                             <option value="">-请选择-</option>
-                            <option th:each="c:${pageSurpport.dataList}" th:value="${c.circuitNo}" th:text="${c.circuitNo}" th:selected="${circuitNoMy==c.circuitNo}?true:false">西渭线</option>
+                            <option th:each="c:${CircuitList}" th:value="${c.circuitNo}" th:text="${c.circuitNo}" th:selected="${circuitNoMy==c.circuitNo}?true:false">西渭线</option>
                         </select>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
 
             <div class="col-lg-12 col-md-12 col-sm-12 ">
                 <div class=" col-lg-3 col-md-3 col-sm-3 col-lg-push-9 col-md-push-9 col-sm-push-9 " >
-                    <a class="btn btn-primary" href="circuitAddUpdate.html"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加杆塔</a>
+                    <a class="btn btn-primary" href="circuitAdd.html"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加线路</a>
                 </div>
 
             </div>
@@ -99,30 +99,66 @@
                     </thead>
 
                     <tbody>
-                    <tr role="row" class="odd" th:each="cList:${pageSurpport.dataList}">
-                        <td class="sorting_1" th:text="${cList.circuitNo}">Airi Satou</td>
+                    <tr role="row" class="odd" th:each="cList:${pageSurpport.dataList}" id="table">
+                        <td class="sorting_1" th:text="${cList.circuitNo}" th:value="${cList.circuitNo}">Airi Satou</td>
                         <td th:text="${cList.circuitName}">Accountant</td>
                         <td th:text="${cList.startNo}">Tokyo</td>
                         <td th:text="${cList.stopNo}">Tokyo</td>
                         <td th:text="${cList.towerCount}">Tokyo</td>
                         <td th:text="${cList.runStatus}">Tokyo</td>
-                        <td th:text="${cList.useStatus}">Tokyo</td>
+                        <td th:text="${cList.useStatus}" class="useStatus">Tokyo</td>
                         <td >
-                            <a href="#"  data-toggle="modal" data-target="#myModal2" >停用</a>
+                            <a href="JavaScript:(void);" th:if="${cList.useStatus=='启用'}" th:No="${cList.circuitNo}" onclick="update(this)" >停用</a>
+                            <a href="JavaScript:(void);" th:if="${cList.useStatus=='停用'}" th:No="${cList.circuitNo}" onclick="update(this)">启用</a>
                             &nbsp;&nbsp;丨&nbsp;
-                            <a href="#"  data-toggle="modal" data-target="#myModal2" >修改</a>
+                            <a th:href="@{updateOneCircuit.html(circuitNo=${cList.circuitNo})}">修改</a>
                             &nbsp;&nbsp;丨&nbsp;
-                            <a class="delFlawType"  href="#">删除</a>
+                            <a  href="JavaScript:(void);" th:No="${cList.circuitNo}"  onclick="del(this)">删除</a>
                         </td>
                     </tr>
 
                     </tbody>
-
                 </table>
             </div>
         </div>
     </div>
-
-
 </body>
 </html>
+<script type="text/javascript">
+
+    //修改 线路状态和线路下的塔杆状态
+    function update(obj) {
+        var No=$(obj).attr("No");
+        var text=$(obj).text();
+        data="circuitNo="+No+"&useStatus="+text;
+        $.get("updateStatusTwo.html",data,function (relData) {
+            if (relData>0){
+                alert(No+"路线及其以下的杆塔已全部"+text);
+                window.location.reload();
+            } else{
+                alert("失败")
+            }
+        });
+    }
+
+    //异步删除 线路 以及线路下的塔杆
+    function del(obj) {
+        var no=$(obj).attr("no");
+
+        if(confirm("确定删除该路线及其以下的杆塔吗？")){
+            var data="circuitNo="+no;
+            //发送异步请求
+            $.get("delOneTwo.html",data,function(relData){
+                if(relData>"0"){
+                    alert("该路线及其以下的杆塔删除成功!");
+                    $(obj).parent().parent().remove();
+                }else{
+                    alert("删除失败!");
+                }
+            });
+            return true;
+        }else{
+            return false;
+        }
+    }
+</script>
