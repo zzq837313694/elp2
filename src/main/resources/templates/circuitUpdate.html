@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <title>线路修改</title>
     <link type="text/css" href="webjars/bootstrap" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}" rel="stylesheet">
-    <link type="text/css" href="css/datepicker.css">
     <script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
     <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}"></script>
+    <link rel="stylesheet" type="text/css" href="css/datepicker.css"/>
     <script src="js/moment.js"></script>
     <script src="js/datepicker.js"></script>
     <script src="js/date.js"></script>
@@ -57,7 +57,12 @@
                 <div class="col-lg-6 col-sm-12 col-xs-12 ">
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">投运日期：</span>
-                        <input type="text" name="onlineDate"  class="form-control" th:value="${#dates.format(updateCircuit.onlineDate,'yyyy-MM-dd')}">
+                        <div class="c-datepicker-date-editor c-datepicker-single-editor J-datepicker-day mt10">
+                            <i class="c-datepicker-range__icon kxiconfont icon-clock"></i>
+                            <input type="text" autocomplete="off" name="onlineDate" placeholder="选择日期"
+                                   th:value="${#dates.format(updateCircuit.onlineDate,'yyyy-MM-dd')}"
+                                   class=" c-datepicker-data-input only-date"style="width: 148px">
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-6 col-sm-12 col-xs-12 ">
