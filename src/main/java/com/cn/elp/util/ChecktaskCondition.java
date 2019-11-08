@@ -9,6 +9,10 @@ public class ChecktaskCondition extends Checktaskinfo {
     private Date CreateDateMax;
     private PageSurpport<Checktaskinfo> pageSurpport;
     private String checkByName;
+
+    public ChecktaskCondition() {
+    }
+
     public String getCheckByName() {
         return checkByName;
     }

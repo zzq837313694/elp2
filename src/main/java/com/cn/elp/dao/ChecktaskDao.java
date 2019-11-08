@@ -8,6 +8,6 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface ChecktaskDao {
-    List<Checktaskinfo> SelectChecktaskByParam(@Param("checktaskCondition")ChecktaskCondition checktaskCondition);
-    int SelectChecktaskByParamCount(@Param("checktaskCondition")ChecktaskCondition checktaskCondition);
+    List<Checktaskinfo> SelectChecktaskByParam(@Param("ChecktaskCondition")ChecktaskCondition checktaskCondition);
+    int SelectChecktaskByParamCount(@Param("ChecktaskCondition")ChecktaskCondition checktaskCondition);
 }
