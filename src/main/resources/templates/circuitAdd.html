@@ -5,8 +5,12 @@
     <meta charset="UTF-8">
     <title>线路添加或修改</title>
     <link type="text/css" href="webjars/bootstrap" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}" rel="stylesheet">
+    <link type="text/css" href="css/datepicker.css">
     <script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
     <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}"></script>
+    <script src="js/moment.js"></script>
+    <script src="js/datepicker.js"></script>
+    <script src="js/date.js"></script>
     <style>
 
         .row input[type='text']{
@@ -30,7 +34,6 @@
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">线路编号：</span>
                         <input type="text" name="circuitNo" id="circuitNo" class="form-control" value="">
-
                     </div>
                 </div>
                 <div class="col-lg-6 col-sm-12 col-xs-12 ">
@@ -85,9 +88,9 @@
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">是否启用：</span>
                         <span class="form-control">
-                        <input type="radio" value="启用" name="runStatus" checked="checked" >启用
+                        <input type="radio" value="启用" name="useStatus" checked="checked" >启用
                             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
-                        <input type="radio" value="停用" name="runStatus">停用</td>
+                        <input type="radio" value="停用" name="useStatus">停用</td>
                             </span>
                     </div>
                 </div>
@@ -95,7 +98,7 @@
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">备注：</span>
                         <textarea name="comment" cols="66"rows="5" class="form-control">
-                        请输入 ----默认的文字
+                        请输入
                         </textarea>
                     </div>
                 </div>
@@ -106,8 +109,14 @@
             </div>
         </div>
     </form>
+
 </div>
 
+<div>年月日单个选择，无最大最小值</div>
+<div class="c-datepicker-date-editor c-datepicker-single-editor J-datepicker-day mt10">
+    <i class="c-datepicker-range__icon kxiconfont icon-clock"></i>
+    <input type="text" autocomplete="off" name="" placeholder="选择日期" class=" c-datepicker-data-input only-date">
+</div>
 </body>
 
 </html>

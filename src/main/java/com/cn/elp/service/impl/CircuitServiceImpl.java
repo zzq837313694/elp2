@@ -18,6 +18,11 @@ public class CircuitServiceImpl implements CircuitService {
     }
 
     @Override
+    public Circuit findOneCircuit(String circuitNo) {
+        return circuitDao.findOneCircuit(circuitNo);
+    }
+
+    @Override
     public List<Circuit> findAllCircuitPage(String circuitNo, String status, int pageIndex, int pageSize) {
         int from=(pageIndex-1)*pageSize;
         return circuitDao.findAllCircuitPage(circuitNo, status, from, pageSize);
@@ -31,5 +36,20 @@ public class CircuitServiceImpl implements CircuitService {
     @Override
     public int addOneCircuit(Circuit circuit) {
         return circuitDao.addOneCircuit(circuit);
+    }
+
+    @Override
+    public int updateOneStatus(String circuitNo,String useStatus) {
+        return circuitDao.updateOneStatus(circuitNo,useStatus);
+    }
+
+    @Override
+    public int delOneCircuit(String circuitNo) {
+        return circuitDao.delOneCircuit(circuitNo);
+    }
+
+    @Override
+    public int updateOneCircuit(Circuit circuit) {
+        return circuitDao.updateOneCircuit(circuit);
     }
 }
