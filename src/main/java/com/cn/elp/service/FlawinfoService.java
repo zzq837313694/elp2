@@ -25,4 +25,21 @@ public interface FlawinfoService {
      * @return
      */
     int findAllFlawInfoCount(@Param("condition") FlawInfoCondition flawInfoCondition);
+
+    /**
+     * 根据缺陷编号修改缺陷等级
+     * @param flawNo
+     * @param flawLv
+     * @return
+     */
+    int updateFlawLvByFlawNo(@Param("flawNo") String flawNo,@Param("flawLv") String flawLv);
+
+    /**
+     * 根据缺陷编号查找一条缺陷信息
+     * @param flawNo
+     * @return
+     */
+    Flawinfo findFlawInfoByFlawNo(String flawNo);
+
+
 }

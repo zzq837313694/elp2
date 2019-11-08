@@ -10,19 +10,19 @@
             and checkJobNo like concat('%',#{condition.checkJobNo},'%')
         </if>
         <if test="condition.circuitNo!=null and condition.circuitNo!=''">
-            and circuitNo=#{condition.circuitNo}
+            and circuitNo like concat('%',#{condition.circuitNo},'%')
         </if>
         <if test="condition.towerNo!=null and condition.towerNo!=''">
-            and towerNo=#{condition.towerNo}
+            and towerNo like concat('%',#{condition.towerNo},'%')
         </if>
         <if test="condition.checkBy!=null and condition.checkBy!=''">
-            and checkBy=#{condition.checkBy}
+            and checkBy like concat('%',#{condition.checkBy},'%')
         </if>
         <if test="condition.flawTypeId!=null and condition.flawTypeId!=''">
             and flawTypeId=#{condition.flawTypeId}
         </if>
         <if test="condition.flawLv!=null and condition.flawLv!=''">
-            and flawLv=#{condition.flawLv}
+            and flawLv like concat('%',#{condition.flawLv},'%')
         </if>
         <if test="condition.startTime!=null and condition.startTime!=''">
             and checkDate>=#{condition.startTime}
@@ -45,6 +45,14 @@
         <where>
             <include refid="flawinfoQuery"></include>
         </where>
+    </select>
+
+    <update id="updateFlawLvByFlawNo" parameterType="Flawinfo">
+        update flawinfo set flawLV=#{flawLv} where flawNo=#{flawNo}
+    </update>
+
+    <select id="findFlawInfoByFlawNo" resultType="Flawinfo" parameterType="java.lang.String">
+        select * from flawinfo where flawNo=#{flawNo}
     </select>
 
 

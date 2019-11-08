@@ -22,4 +22,15 @@ public class FlawinfoServiceImpl implements FlawinfoService {
     public int findAllFlawInfoCount(FlawInfoCondition flawInfoCondition) {
         return flawinfoDao.findAllFlawInfoCount(flawInfoCondition);
     }
+
+    @Override
+    public int updateFlawLvByFlawNo(String flawNo, String flawLv) {
+        return flawinfoDao.updateFlawLvByFlawNo(flawNo,flawLv);
+    }
+
+    @Override
+    public Flawinfo findFlawInfoByFlawNo(String flawNo) {
+        return flawinfoDao.findFlawInfoByFlawNo(flawNo);
+    }
+
 }
