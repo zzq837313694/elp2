@@ -17,6 +17,7 @@ public class solveTaskController {
     @Resource
     SolvetaskServices solvetaskServices;
 
+
     @RequestMapping("/makesSolveTask.html")
     public String makesSolveTask(Model model){
       List<Solvetaskinfo> solveTasks = solvetaskServices.findAllSolveTask();
