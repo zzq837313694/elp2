@@ -3,17 +3,29 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cn.elp.dao.ChecktaskDao">
-    <select id="SelectChecktaskByParam" resultType="Checktaskinfo" >
+    <select id="SelectChecktaskByParam" resultType="Checktaskinfo">
         select *  from checktaskinfo a
         <include refid="Param"></include>
-        order  by a.createDate desc limit #{ChecktaskCondition.pageSurpport.pageIndex},
-        #{ChecktaskCondition.pageSurpport.pageSize}
+        order  by a.createDate desc
+        <if test="ChecktaskCondition.pageSurpport!=null">
+            <if test="ChecktaskCondition.pageSurpport.pageIndex!=null and ChecktaskCondition.pageSurpport.pageIndex!='' and
+ChecktaskCondition.pageSurpport.pageSize!=null and ChecktaskCondition.pageSurpport.pageSize!=''">
+                limit #{ChecktaskCondition.pageSurpport.pageIndex},
+                #{ChecktaskCondition.pageSurpport.pageSize}
+            </if>
+        </if>
+
     </select>
     <select id="SelectChecktaskByParamCount" resultType="int" >
-        select *  from checktaskinfo a
-        <include refid="Param"></include>
-        order  by a.createDate desc limit #{ChecktaskCondition.pageSurpport.pageIndex},
-        #{ChecktaskCondition.pageSurpport.pageSize}
+        select count(0) from checktaskinfo a
+        <!--<include refid="Param"></include>-->
+        <!--<if test="ChecktaskCondition.pageSurpport!=null">
+            <if test="ChecktaskCondition.pageSurpport.pageIndex!=null and ChecktaskCondition.pageSurpport.pageIndex!='' and
+ChecktaskCondition.pageSurpport.pageSize!=null and ChecktaskCondition.pageSurpport.pageSize!=''">
+                limit #{ChecktaskCondition.pageSurpport.pageIndex},
+                #{ChecktaskCondition.pageSurpport.pageSize}
+            </if>
+        </if>-->
     </select>
     <sql id="Param">
         <where>

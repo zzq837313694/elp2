@@ -19,7 +19,12 @@ public class ChecktaskServiceImpl implements ChecktaskService
         PageSurpport<Checktaskinfo> pageSurpport=new PageSurpport<>();
         pageSurpport.setDataList(checktaskDao.SelectChecktaskByParam(checktaskCondition));
         pageSurpport.setTotalCount(checktaskDao.SelectChecktaskByParamCount(checktaskCondition));
-        pageSurpport.setPageIndex(checktaskCondition.getPageSurpport().getPageIndex());
+        if(checktaskCondition.getPageSurpport()==null){
+            pageSurpport.setPageIndex(1);
+        }else{
+            pageSurpport.setPageIndex(checktaskCondition.getPageSurpport().getPageIndex());
+        }
+
         return pageSurpport;
     }
 }

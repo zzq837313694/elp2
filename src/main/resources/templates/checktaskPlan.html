@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>巡检任务管理</title>
     <link type="text/css" href="webjars/bootstrap" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/ShowPage.css"/>
     <script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
     <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}"></script>
 </head>
@@ -35,12 +36,11 @@
     <span>消缺任务制定与分配</span>
 </p>
 <div class="row">
-    <form action="getchecktaskList.html" method="post">
     <div  class="col-lg-9 col-sm-9 col-xs-9 " >
         <div class="col-lg-4 col-sm-6 col-xs-12">
             <div class="input-prepend input-group">
                 <span class="add-on input-group-addon">任务编号:</span>
-                <input type="text"  name="jobId" id="jobId" class="form-control" value="jobId">
+                <input type="text"  name="jobId" id="jobId" class="form-control" value="">
             </div>
         </div>
         <div class="col-lg-4 col-sm-6 col-xs-12 ">
@@ -69,7 +69,7 @@
             </div>
         </div>
         <div class="col-lg-4 col-sm-6 col-xs-12 ">
-            <button type="submit" id="selects" class="btn btn-primary">查询</button>
+            <button  id="#submit_btn" class="btn btn-primary">查询</button>
         </div>
     </div>
     </form>
@@ -115,9 +115,12 @@
                 </div>
             </tr>
 
-           <!-- <tr th:each="checkList:${checktaskList.dataList}">
+           <tr th:if="${pageSurpport}!=null" >
+               <div th:each="checkList:${pageSurpport.dataList}">
+                   <input type="hidden" id="pageCount" th:value="${pageSurpport.pageCount}">
                 <div class="col-md-4 col-sm-6 col-xs-12" style="background-color:red;height: 20px">
-                    <div class="he" style="width: 30%" th:text="${checkList.jobId}">任务编号</div>
+
+                    <<div class="he" style="width: 30%" th:text="${checkList.jobId}">任务编号</div>
                     <div class="he" style="width: 30%" th:text="${checkList.jobName}">任务名称</div>
                     <div class="he" style="width: 30%" th:text="${checkList.jobName}">巡检线路</div>
                 </div>
@@ -133,38 +136,24 @@
                     <div class="he" style="width: 30%">巡检线路</div>
                     <div class="he" style="width: 30%">巡检线路</div>
                 </div>
-            </tr>-->
+               </div>
+            </tr>
         </table>
     </div>
 </div>
 
-<!-- 分页 -->
-
-<nav aria-label="Page navigation">
-    <ul class="pagination">
-        <li>
-            <a href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-            </a>
-        </li>
-        <li><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-        <li>
-            <a href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-        </li>
-    </ul>
-</nav>
+<div class="zxf_pagediv"></div>
 </body>
-<script>
-    $(function () {
-        $("#selects").click(function () {
 
-        });
+<script src="js/ShowPage.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(".zxf_pagediv").createPage({
+        //pageNum: $("#pageCount").val(),
+        pageNum:20,
+        current: 1,
+        backfun: function(e) {
+        }
     });
+
 </script>
 </html>
