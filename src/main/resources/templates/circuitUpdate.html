@@ -3,10 +3,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>线路添加或修改</title>
+    <title>线路修改</title>
     <link type="text/css" href="webjars/bootstrap" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}" rel="stylesheet">
     <script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
     <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}"></script>
+    <link rel="stylesheet" type="text/css" href="css/datepicker.css"/>
+    <script src="js/moment.js"></script>
+    <script src="js/datepicker.js"></script>
+    <script src="js/date.js"></script>
     <style>
 
         .row input[type='text']{
@@ -21,82 +25,84 @@
     </style>
 </head>
 <body>
-<div style="padding: 30px 50px 80px 20px">电力巡检系统 -->线路 --> 新增线路</div>
+<div style="padding: 30px 50px 80px 20px">电力巡检系统 -->线路 --> 修改线路</div>
 <div style="padding: 0px 50px 50px 50px">
-    <form method="post" action="addCircuit.html">
+    <form method="post" action="doUpdateCirciut.html">
         <div class="row">
             <div  class="col-lg-9 col-sm-9 col-xs-9 col-lg-push-2" >
                 <div class="col-lg-6 col-sm-12 col-xs-12">
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">线路编号：</span>
-                        <input type="text" name="circuitNo" id="circuitNo" class="form-control" value="">
-
+                        <input type="text" name="circuitNo" id="circuitNo" class="form-control" th:value="${updateCircuit.circuitNo}">
                     </div>
                 </div>
                 <div class="col-lg-6 col-sm-12 col-xs-12 ">
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">线路名称：</span>
-                        <input type="text" name="circuitName" id="circuitName" class="form-control" value="">
+                        <input type="text" name="circuitName" id="circuitName" class="form-control" th:value="${updateCircuit.circuitName}">
                     </div>
                 </div>
                 <div class="col-lg-6 col-sm-12 col-xs-12 ">
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">线路长度：</span>
-                        <input type="text" name="lineLength" class="form-control" value="">
+                        <input type="text" name="lineLength" class="form-control" th:value="${updateCircuit.lineLength}">
                     </div>
                 </div>
                 <div class="col-lg-6 col-sm-12 col-xs-12 ">
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">回路长度：</span>
-                        <input type="text" name="circuitLength"  class="form-control" value="">
+                        <input type="text" name="circuitLength"  class="form-control" th:value="${updateCircuit.circuitLength}">
                     </div>
                 </div>
                 <div class="col-lg-6 col-sm-12 col-xs-12 ">
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">投运日期：</span>
-                        <input type="text" name="onlineDate"  class="form-control" value="">
+                        <div class="c-datepicker-date-editor c-datepicker-single-editor J-datepicker-day mt10">
+                            <i class="c-datepicker-range__icon kxiconfont icon-clock"></i>
+                            <input type="text" autocomplete="off" name="onlineDate" placeholder="选择日期"
+                                   th:value="${#dates.format(updateCircuit.onlineDate,'yyyy-MM-dd')}"
+                                   class=" c-datepicker-data-input only-date"style="width: 148px">
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-6 col-sm-12 col-xs-12 ">
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">电压等级：</span>
-                        <input type="text" name="voltLv"  class="form-control" value="">
+                        <input type="text" name="voltLv"  class="form-control" th:value="${updateCircuit.voltLv}">
                     </div>
                 </div>
                 <div class="col-lg-6 col-sm-12 col-xs-12 ">
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">起始杆号：</span>
-                        <input type="text" name="startNo"  class="form-control" value="">
+                        <input type="text" name="startNo"  class="form-control" th:value="${updateCircuit.startNo}">
                     </div>
                 </div>
                 <div class="col-lg-6 col-sm-12 col-xs-12 ">
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">终止杆号：</span>
-                        <input type="text" name="stopNo"  class="form-control" value="">
+                        <input type="text" name="stopNo"  class="form-control" th:value="${updateCircuit.stopNo}">
                     </div>
                 </div>
                 <div class="col-lg-6 col-sm-12 col-xs-12 ">
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">塔基数：</span>
-                        <input type="text" name="towerCount"  class="form-control" value="">
+                        <input type="text" name="towerCount"  class="form-control" th:value="${updateCircuit.towerCount}">
                     </div>
                 </div>
                 <div class="col-lg-6 col-sm-12 col-xs-12 ">
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">是否启用：</span>
                         <span class="form-control">
-                        <input type="radio" value="启用" name="runStatus" checked="checked" >启用
+                        <input type="radio" value="启用" name="useStatus" th:checked="${updateCircuit.useStatus=='启用'?true:false}" >启用
                             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
-                        <input type="radio" value="停用" name="runStatus">停用</td>
+                        <input type="radio" value="停用" name="useStatus" th:checked="${updateCircuit.useStatus=='停用'?true:false}">停用</td>
                             </span>
                     </div>
                 </div>
                 <div class="col-lg-12 col-sm-12 col-xs-12 ">
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">备注：</span>
-                        <textarea name="comment" cols="66"rows="5" class="form-control">
-                        请输入 ----默认的文字
-                        </textarea>
+                        <textarea name="comment" cols="66"rows="5" class="form-control" th:value="${updateCircuit.comment}" th:text="${updateCircuit.comment}"></textarea>
                     </div>
                 </div>
                 <div class="col-lg-6 col-sm-12 col-xs-12 ">
@@ -106,8 +112,8 @@
             </div>
         </div>
     </form>
-</div>
 
+</div>
 </body>
 
 </html>

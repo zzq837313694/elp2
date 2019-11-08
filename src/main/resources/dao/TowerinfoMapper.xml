@@ -40,4 +40,10 @@
     <delete id="delOneTower" parameterType="String">
         delete  from towerinfo where towerNo=#{towerNo}
     </delete>
+    <update id="updateOneStatus" parameterType="String">
+        update towerinfo set status=#{useStatus} where circuitNo=#{circuitNo}
+    </update>
+    <delete id="delAllTower">
+        delete from towerinfo where circuitNo=#{circuitNo}
+    </delete>
 </mapper>

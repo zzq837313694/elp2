@@ -1,17 +1,25 @@
 package com.cn.elp.POJO;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class Circuit {
 
+  @NotNull(message = "不能为空")
   private String circuitNo;
+  @NotNull(message = "名不能为空")
   private String circuitName;
   private int lineLength;
   private int circuitLength;
   private int towerCount;
   private String startNo;
   private String stopNo;
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
+  @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
   private Date onlineDate;
   private int voltLv;
   private String runStatus;

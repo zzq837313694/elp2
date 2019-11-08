@@ -56,5 +56,15 @@ public class TowerinfoServiceImpl implements TowerinfoService
         return towerinfoDao.findAllTowerPageCount(circuitNo,status);
     }
 
+    @Override
+    public int updateOneStatus(String circuitNo,String useStatus) {
+        return towerinfoDao.updateOneStatus(circuitNo,useStatus);
+    }
+
+    @Override
+    public int delAllTower(String circuitNo) {
+        return towerinfoDao.delAllTower(circuitNo);
+    }
+
 
 }

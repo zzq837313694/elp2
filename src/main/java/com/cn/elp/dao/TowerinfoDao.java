@@ -20,4 +20,9 @@ public interface TowerinfoDao {
     List<Towerinfo> findAllTowerPage(@Param("circuitNo") String circuitNo,@Param("status") String status,@Param("pageIndex") int from,@Param("pageSize") int pageSize);
     //查询条数 分页条件查询
     int findAllTowerPageCount(@Param("circuitNo") String circuitNo,@Param("status") String status);
+    //根据线路编号修改一条中的状态
+    int updateOneStatus(@Param("circuitNo") String circuitNo,@Param("useStatus") String useStatus);
+    //根据线路编号删除一条
+    int delAllTower(@Param("circuitNo") String circuitNo);
+
 }
