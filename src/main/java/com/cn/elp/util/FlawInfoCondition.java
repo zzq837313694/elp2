@@ -1,5 +1,8 @@
 package com.cn.elp.util;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class FlawInfoCondition {
@@ -9,7 +12,9 @@ public class FlawInfoCondition {
     private String checkBy;
     private String flawTypeId;
     private String flawLv;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date startTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endTime;
 
 

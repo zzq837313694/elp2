@@ -7,6 +7,11 @@
     <link type="text/css" href="webjars/bootstrap" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}" rel="stylesheet">
     <script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
     <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}"></script>
+    <link rel="stylesheet" href="css/datepicker.css">
+    <link rel="stylesheet" type="text/css" href="css/ShowPage.css"/>
+    <script src="js/moment.js"></script>
+    <script src="js/datepicker.js"></script>
+    <script src="js/date.js"></script>
     <style>
         .row input[type='text']{
             width: 150px;
@@ -17,6 +22,10 @@
         .input-group-addon{
             width:90px;
         }
+        /*#save{
+            margin-top: 60px;
+            margin-left: 60px;
+        }*/
 
     </style>
 </head>
@@ -25,29 +34,29 @@
     <form action="/flawLevel.html" method="post">
 
         <div class="row">
-            <div class="col-lg-9 col-sm-9 col-xs-9 ">
+            <div class="col-lg-9 col-sm-9 col-xs-9">
                 <div class="col-lg-4 col-sm-6 col-xs-12">
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">任务编号:</span>
-                        <input type="text" name="checkJobNo" id="checkJobNo" class="form-control" value="">
+                        <input type="text" name="checkJobNo" id="checkJobNo" class="form-control" th:value="${condition.checkJobNo}">
                     </div>
                 </div>
                 <div class="col-lg-4 col-sm-6 col-xs-12">
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">线路编号:</span>
-                        <input type="text" name="circuitNo" id="circuitNo" class="form-control" value="">
+                        <input type="text" name="circuitNo" id="circuitNo" class="form-control" th:value="${condition.circuitNo}">
                     </div>
                 </div>
                 <div class="col-lg-4 col-sm-6 col-xs-12">
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">杆塔编号:</span>
-                        <input type="text" name="towerNo" id="towerNo" class="form-control" value="">
+                        <input type="text" name="towerNo" id="towerNo" class="form-control" th:value="${condition.towerNo}">
                     </div>
                 </div>
                 <div class="col-lg-4 col-sm-6 col-xs-12">
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">发现人:&nbsp;&nbsp;</span>
-                        <input type="text" name="checkBy" id="checkBy" class="form-control" value="">
+                        <input type="text" name="checkBy" id="checkBy" class="form-control" th:value="${condition.checkBy}">
                     </div>
                 </div>
                 <div class="col-lg-4 col-sm-6 col-xs-12">
@@ -55,27 +64,32 @@
                         <span class="add-on input-group-addon">缺陷类型:</span>
                             <select name="flawTypeId" class="form-control">
                                 <option value="">-请选择-</option>
-                                <option th:each="type:${flawtypeList}" th:value="${type.flawTypeId}" th:text="${type.flawName}"></option>
+                                <option th:each="type:${flawtypeList}" th:value="${type.flawTypeId}" th:selected="${type.flawTypeId==condition.flawTypeId}?true:false" th:text="${type.flawName}" ></option>
                             </select>
                     </div>
                 </div>
                 <div class="col-lg-4 col-sm-6 col-xs-12">
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">缺陷级别:</span>
-                        <select name="flawLV"  class="form-control">
+                        <select name="flawLv"  class="form-control">
                             <option value="">--请选择--</option>
-                            <option value="一般">一般</option>
-                            <option value="紧急">紧急</option>
-                            <option value="严重">严重</option>
+                            <option value="一般" th:selected="${condition.flawLv=='一般'}?true:false">一般</option>
+                            <option value="紧急" th:selected="${condition.flawLv=='紧急'}?true:false">紧急</option>
+                            <option value="严重" th:selected="${condition.flawLv=='严重'}?true:false">严重</option>
                         </select>
                     </div>
                 </div>
                 <div class="col-lg-4 col-sm-6 col-xs-12">
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">发现时间:</span>
-                        <input type="text" name="startTime" id="startTime" class="form-control" value="03/18/2013">
-                        <span>to</span>
-                        <input type="text" name="endTime" id="endTime" class="form-control" value="03/23/2013">
+
+                        <div class="  J-datepicker-range-day  form-control date" style="width: 200px">
+                            <input placeholder="开始日期" name="startTime" class="c-datepicker-data-input only-date"
+                                   style="width: 77px" th:value="${#dates.format(condition.startTime,'yyyy-MM-dd')}">
+                            <span class="c-datepicker-range-separator">-</span>
+                            <input placeholder="结束日期" name="endTime" class="c-datepicker-data-input only-date"
+                                   style="width: 77px" th:value="${#dates.format(condition.endTime,'yyyy-MM-dd')}">
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-sm-6 col-xs-12">
@@ -85,6 +99,9 @@
         </div>
 
     </form>
+
+
+
 
 
     <!--缺陷类型列表-->
@@ -122,38 +139,82 @@
                     <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"
                         aria-label="Office: activate to sort column ascending" style="width: 131px;text-align: center">缺陷级别
                     </th>
+                    <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"
+                        aria-label="Office: activate to sort column ascending" style="width: 131px;text-align: center">操作
+                    </th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr role="row" class="odd" th:each="flawinfo:${pageSurpport.dataList}">
-                    <td class="sorting_1" th:text="${flawinfo.checkJobNo}"></td>
-                    <td th:text="${flawinfo.circuitNo}"></td>
-                    <td th:text="${flawinfo.towerNo}"></td>
-                    <td th:each="type:${flawtypeList}" th:if="${type.flawTypeId==flawinfo.flawTypeId}" th:text="${type.flawName}"></td>
-                    <td th:text="${flawinfo.intcatRate}+'%'"></td>
-                    <td th:text="${flawinfo.comment}"></td>
-                    <td th:text="${#dates.format(flawinfo.checkDate,'yyyy-MM-dd HH:mm:ss')}"></td>
-                    <td th:each="worker:${workerList}" th:if="${worker.userNo==flawinfo.checkBy}" th:text="${worker.userName}"></td>
-                    <!--<td th:each="worker:${workerList}" th:text="${worker.userNo==flawinfo.checkBy}?${worker.userName}:''"></td>-->
-                    <!--<td th:each="worker:${workerList}" th:text="${worker.userNo==flawinfo.checkBy?worker.userName:''}"></td>-->
-                    <td>
-                        <select>
+                    <td class="sorting_1" name="checkJobNo" th:text="${flawinfo.checkJobNo}"></td>
+                    <td th:text="${flawinfo.circuitNo}" name="circuitNo"></td>
+                    <td th:text="${flawinfo.towerNo}" name="towerNo"></td>
+                    <td name="flawTypeId" th:each="type:${flawtypeList}" th:if="${type.flawTypeId==flawinfo.flawTypeId}" th:text="${type.flawName}"></td>
+                    <td name="intcatRate" th:text="${flawinfo.intcatRate}+'%'"></td>
+                    <td name="comment" th:text="${flawinfo.comment}"></td>
+                    <td name="checkDate" th:text="${#dates.format(flawinfo.checkDate,'yyyy-MM-dd')}"></td>
+                    <td name="checkBy" th:each="worker:${workerList}" th:text="${worker.userNo==flawinfo.checkBy}?${worker.userName}" th:if="${worker.userNo==flawinfo.checkBy}"></td>
+                    <td id="updateFlawLv">
+                        <select name="flawLv"  th:id="modifyLv+${flawinfo.flawNo}" th:name="modifyLv">
                             <option value="">--请选择--</option>
-                            <option value="一般">一般</option>
-                            <option value="紧急">紧急</option>
-                            <option value="严重">严重</option>
+                            <option value="一般" th:selected="${flawinfo.flawLv=='一般'}?true:false">一般</option>
+                            <option value="紧急" th:selected="${flawinfo.flawLv=='紧急'}?true:false">紧急</option>
+                            <option value="严重" th:selected="${flawinfo.flawLv=='严重'}?true:false">严重</option>
                         </select>
                     </td>
-
+                    <td>
+                        <div class="row">
+                            <button type="submit" id="save" class="btn btn-primary" th:flawLv="${flawinfo.flawLv}" th:flawNo="${flawinfo.flawNo}" onclick="save(this);">保存</button>
+                        </div>
+                    </td>
+                    <input id="pageCount" type="hidden" th:value="${pageSurpport.pageCount}">
                 </tr>
                 </tbody>
             </table>
+
         </div>
     </div>
 
 
 
 
+    <div class="zxf_pagediv"></div>
+
+
 
 </body>
+<script src="js/ShowPage.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(".zxf_pagediv").createPage({
+        //pageNum: $("#pageCount").val(),
+        pageNum:$("#pageCount").val(),
+        current: 1,
+        backfun: function(e) {
+        }
+    });
+    function save(obj) {
+        var flawNo = $(obj).attr("flawNo");
+        //var flawLv = $(obj).attr("flawLv");
+        var modifyLv=$("#modifyLv"+flawNo).val();
+
+        alert(flawNo);
+        alert(modifyLv);
+
+        var data="flawNo="+flawNo+"&flawLv="+modifyLv;
+        alert(data);
+        $.get("updateFlawLv.html",data,function(relData){
+            if(relData>0){
+                alert("修改成功！")
+                window.location.reload();
+            }else {
+                alert("未修改！")
+            }
+        });
+
+
+
+
+    }
+
+</script>
 </html>

@@ -1,6 +1,7 @@
 package com.cn.elp.service;
 
 import com.cn.elp.POJO.Towerinfo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -19,4 +20,8 @@ public interface TowerinfoService {
     List<Towerinfo> findAllTowerPage(String circuitNo,String status,int pageIndex,int pageSize);
     //查询条数 分页条件查询
     int findAllTowerPageCount(String circuitNo,String status);
+    //根据线路编号修改一条中的状态
+    int updateOneStatus(@Param("circuitNo") String circuitNo, @Param("useStatus") String useStatus);
+    //根据线路编号删除一条
+    int delAllTower(String circuitNo);
 }

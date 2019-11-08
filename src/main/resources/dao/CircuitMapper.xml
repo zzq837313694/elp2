@@ -6,6 +6,9 @@
     <select id="findAllCircuit" resultType="Circuit">
         select * from circuit
     </select>
+    <select id="findOneCircuit" resultType="Circuit">
+        select * from circuit where circuitNo=#{circuitNo}
+    </select>
     <select id="findAllCircuitPage" resultType="Circuit">
         select * from circuit
         <where>
@@ -33,4 +36,17 @@
         insert into circuit values (#{circuitNo},#{circuitName},#{lineLength},#{circuitLength},
         #{towerCount},#{startNo},#{stopNo},#{onlineDate},#{voltLv},#{runStatus},#{useStatus},#{comment})
     </insert>
+
+    <update id="updateOneStatus" parameterType="String">
+        update circuit set useStatus=#{useStatus} where circuitNo=#{circuitNo}
+    </update>
+
+    <delete id="delOneCircuit">
+        delete from circuit where  circuitNo=#{circuitNo}
+    </delete>
+    <update id="updateOneCircuit" parameterType="Circuit">
+        update circuit set circuitNo=#{circuitNo},circuitName=#{circuitName},lineLength=#{lineLength},circuitLength=#{circuitLength},
+        towerCount=#{towerCount},startNo=#{startNo},stopNo=#{stopNo},onlineDate=#{onlineDate},voltLV=#{voltLv},runStatus=#{runStatus},
+        useStatus=#{useStatus},comment=#{comment} where circuitNo=#{circuitNo};
+    </update>
 </mapper>

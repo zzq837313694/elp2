@@ -7,12 +7,15 @@ import com.cn.elp.service.FlawTypeService;
 import com.cn.elp.service.FlawinfoService;
 import com.cn.elp.service.WorkerinfoService;
 import com.cn.elp.util.FlawInfoCondition;
+import com.cn.elp.util.FlawLvCondition;
 import com.cn.elp.util.MyContents;
 import com.cn.elp.util.PageSurpport;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -42,7 +45,24 @@ public class FlawinfoController {
         model.addAttribute("workerList",workerList);
         model.addAttribute("flawtypeList",flawtypeList);
         model.addAttribute("pageSurpport",pageSurpport);
+
+        //回显查询条件
+        model.addAttribute("condition",condition);
         return "flawLevel";
     }
+
+    //修改并确认缺陷等级
+    @RequestMapping("/updateFlawLv.html")
+    @ResponseBody
+    public Integer updateFlawLv(@RequestParam("flawNo") String flawNo,
+                                @RequestParam("flawLv") String flawLv){
+        System.out.println(flawNo+flawLv);
+        int rel=-1;
+        if(flawLv!=null || !flawLv.equals("")){
+            rel = flawinfoService.updateFlawLvByFlawNo(flawNo, flawLv);
+        }
+        return rel;
+    }
+
 
 }
