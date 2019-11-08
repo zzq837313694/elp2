@@ -4,9 +4,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cn.elp.dao.SolveTaskInfoDao">
 
+    <!--动态查询-->
     <select id="findAllSolveTaskInfo" resultType="SolveTaskInfo">
         select `solveTaskNo`,solveTaskName,floawList,manager,finishiworkerId,creatBy
         ,createDate,documents,`describe`,`status` from solvetaskInfo;
+    </select>
+
+    <select id="countSolveTask" resultType="int">
+        SELECT COUNT(`solveTaskNo`) from  solvetaskInfo;
     </select>
 
 </mapper>

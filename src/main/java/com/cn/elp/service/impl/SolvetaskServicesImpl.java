@@ -23,8 +23,13 @@ public class SolvetaskServicesImpl implements SolvetaskServices {
         for (Solvetaskinfo solvetask:solveTasks){
             solvetask.setCreaterName(workerinfoService.findAllWorker(solvetask.getCreatBy()).getUserName());
         }
-
-
         return solveTasks;
     }
+
+    @Override
+    public int countSolveTask() {
+        return solveTaskInfoDao.countSolveTask();
+    }
+
+
 }

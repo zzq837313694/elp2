@@ -30,7 +30,7 @@
                 for (;start <= end;start++) {
                     if (start <= pageinit.pageNum && start >=1) {
                         if (start == pageinit.current) {
-                            obj.append('<span class="current">'+ start +'</span>');
+                            obj.append('<span id="nowPage" class="current" onclick="getData(this)">'+ start +'</span>');
 
                         }else  if (start == pageinit.current-1) {
                             obj.append('<span class="zxfPagenum previouspage ">' + start + '</span>');
