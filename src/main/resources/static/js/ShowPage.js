@@ -31,7 +31,10 @@
                     if (start <= pageinit.pageNum && start >=1) {
                         if (start == pageinit.current) {
                             obj.append('<span class="current">'+ start +'</span>');
-                        } else if(start == pageinit.current+1){
+
+                        }else  if (start == pageinit.current-1) {
+                            obj.append('<span class="zxfPagenum previouspage ">' + start + '</span>');
+                        }else if(start == pageinit.current+1){
                             obj.append('<a href="javascript:;" class="zxfPagenum nextpage">'+ start +'</a>');
                         }else{
                             obj.append('<a href="javascript:;" class="zxfPagenum">'+ start +'</a>');
