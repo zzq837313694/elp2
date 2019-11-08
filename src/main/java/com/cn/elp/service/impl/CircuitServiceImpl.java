@@ -16,4 +16,20 @@ public class CircuitServiceImpl implements CircuitService {
     public List<Circuit> findAllCircuit() {
         return circuitDao.findAllCircuit();
     }
+
+    @Override
+    public List<Circuit> findAllCircuitPage(String circuitNo, String status, int pageIndex, int pageSize) {
+        int from=(pageIndex-1)*pageSize;
+        return circuitDao.findAllCircuitPage(circuitNo, status, from, pageSize);
+    }
+
+    @Override
+    public int findAllCircuitCount(String circuitNo, String status) {
+        return circuitDao.findAllCircuitCount(circuitNo, status);
+    }
+
+    @Override
+    public int addOneCircuit(Circuit circuit) {
+        return circuitDao.addOneCircuit(circuit);
+    }
 }

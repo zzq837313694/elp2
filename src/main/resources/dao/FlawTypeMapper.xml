@@ -12,6 +12,14 @@
         select flawTypeId,flawName,status from flawtype
     </select>
 
+    <select id="findAllFlawTypePaging" resultType="Flawtype">
+        select flawTypeId,flawName,status from flawtype limit #{from},#{pageSize}
+    </select>
+
+    <select id="findAllFlawCount" resultType="int">
+        select count(1) from flawtype;
+    </select>
+
     <select id="findFlawTypeById" resultType="Flawtype" parameterType="Integer">
         select flawTypeId,flawName,status from flawtype where flawTypeId=#{flawTypeId}
     </select>
