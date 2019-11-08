@@ -17,13 +17,14 @@ public class checktaskController {
     @Resource
     ChecktaskService checktaskService;
 
-    @RequestMapping(value="/checktaskController/getchecktaskList",method = RequestMethod.POST)
+    @RequestMapping("/getchecktaskList.html")
     @ResponseBody
-    public String getchecktaskList(ChecktaskCondition checktaskCondition, Model model){
-        System.out.println(checktaskCondition.getJobId());
-        PageSurpport<Checktaskinfo> pageSurpport= checktaskService.SelectChecktaskByParam(checktaskCondition);
+    public PageSurpport<ChecktaskCondition> getchecktaskList(ChecktaskCondition checktaskCondition, Model model){
+        PageSurpport<ChecktaskCondition> pageSurpport= checktaskService.SelectChecktaskByParam(checktaskCondition);
         model.addAttribute(pageSurpport);
-        return "checktaskPlan";
+        model.addAttribute("pageSurpport",pageSurpport);
+        System.out.println(pageSurpport.getDataList().get(0).getJobName());
+        return pageSurpport;
     }
     @RequestMapping("/checktaskPlan.html")
     public String checktaskPlan(){

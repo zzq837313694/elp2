@@ -97,7 +97,6 @@
     }
 
     $('#submit_btn').click(function() {
-        alert(123)
         var myDate = new Date();
         var obj={};
         obj.jobId=$("#jobId").val();

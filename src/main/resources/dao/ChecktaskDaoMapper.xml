@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cn.elp.dao.ChecktaskDao">
-    <select id="SelectChecktaskByParam" resultType="Checktaskinfo">
+    <select id="SelectChecktaskByParam" resultType="ChecktaskCondition">
         select *  from checktaskinfo a
         <include refid="Param"></include>
         order  by a.createDate desc
