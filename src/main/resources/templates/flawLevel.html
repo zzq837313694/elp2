@@ -30,7 +30,7 @@
     </style>
 </head>
 <body>
-    <p style="text-indent: 2em">缺陷管理-->缺陷等级确认..</p><br>
+    <p style="text-indent: 2em">缺陷管理-->缺陷等级确认</p><br>
     <form action="/flawLevel.html" method="post">
 
         <div class="row">
@@ -84,10 +84,10 @@
                         <span class="add-on input-group-addon">发现时间:</span>
 
                         <div class="  J-datepicker-range-day  form-control date" style="width: 200px">
-                            <input placeholder="开始日期" name="startTime" class="c-datepicker-data-input only-date"
+                            <input type="text" placeholder="开始日期" name="startTime" class="c-datepicker-data-input only-date"
                                    style="width: 77px" th:value="${#dates.format(condition.startTime,'yyyy-MM-dd')}">
                             <span class="c-datepicker-range-separator">-</span>
-                            <input placeholder="结束日期" name="endTime" class="c-datepicker-data-input only-date"
+                            <input type="text" placeholder="结束日期" name="endTime" class="c-datepicker-data-input only-date"
                                    style="width: 77px" th:value="${#dates.format(condition.endTime,'yyyy-MM-dd')}">
                         </div>
                     </div>
@@ -146,16 +146,16 @@
                 </thead>
                 <tbody>
                 <tr role="row" class="odd" th:each="flawinfo:${pageSurpport.dataList}">
-                    <td class="sorting_1" name="checkJobNo" th:text="${flawinfo.checkJobNo}"></td>
-                    <td th:text="${flawinfo.circuitNo}" name="circuitNo"></td>
-                    <td th:text="${flawinfo.towerNo}" name="towerNo"></td>
-                    <td name="flawTypeId" th:each="type:${flawtypeList}" th:if="${type.flawTypeId==flawinfo.flawTypeId}" th:text="${type.flawName}"></td>
-                    <td name="intcatRate" th:text="${flawinfo.intcatRate}+'%'"></td>
-                    <td name="comment" th:text="${flawinfo.comment}"></td>
-                    <td name="checkDate" th:text="${#dates.format(flawinfo.checkDate,'yyyy-MM-dd')}"></td>
-                    <td name="checkBy" th:each="worker:${workerList}" th:text="${worker.userNo==flawinfo.checkBy}?${worker.userName}" th:if="${worker.userNo==flawinfo.checkBy}"></td>
-                    <td id="updateFlawLv">
-                        <select name="flawLv"  th:id="modifyLv+${flawinfo.flawNo}" th:name="modifyLv">
+                    <td class="sorting_1" th:text="${flawinfo.checkJobNo}"></td>
+                    <td th:text="${flawinfo.circuitNo}"></td>
+                    <td th:text="${flawinfo.towerNo}"></td>
+                    <td th:each="type:${flawtypeList}" th:if="${type.flawTypeId==flawinfo.flawTypeId}" th:text="${type.flawName}"></td>
+                    <td th:text="${flawinfo.intcatRate}+'%'"></td>
+                    <td th:text="${flawinfo.comment}"></td>
+                    <td th:text="${#dates.format(flawinfo.checkDate,'yyyy-MM-dd')}"></td>
+                    <td th:each="worker:${workerList}" th:text="${worker.userNo==flawinfo.checkBy}?${worker.userName}" th:if="${worker.userNo==flawinfo.checkBy}"></td>
+                    <td>
+                        <select th:id="modifyLv+${flawinfo.flawNo}">
                             <option value="">--请选择--</option>
                             <option value="一般" th:selected="${flawinfo.flawLv=='一般'}?true:false">一般</option>
                             <option value="紧急" th:selected="${flawinfo.flawLv=='紧急'}?true:false">紧急</option>
@@ -168,6 +168,7 @@
                         </div>
                     </td>
                     <input id="pageCount" type="hidden" th:value="${pageSurpport.pageCount}">
+                    <input id="totalCount" type="hidden" th:value="${pageSurpport.totalCount}">
                 </tr>
                 </tbody>
             </table>
@@ -194,14 +195,9 @@
     });
     function save(obj) {
         var flawNo = $(obj).attr("flawNo");
-        //var flawLv = $(obj).attr("flawLv");
         var modifyLv=$("#modifyLv"+flawNo).val();
 
-        alert(flawNo);
-        alert(modifyLv);
-
         var data="flawNo="+flawNo+"&flawLv="+modifyLv;
-        alert(data);
         $.get("updateFlawLv.html",data,function(relData){
             if(relData>0){
                 alert("修改成功！")

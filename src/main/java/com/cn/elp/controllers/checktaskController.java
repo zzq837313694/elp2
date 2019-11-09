@@ -20,6 +20,7 @@ public class checktaskController {
     @RequestMapping("/getchecktaskList.html")
     @ResponseBody
     public PageSurpport<ChecktaskCondition> getchecktaskList(ChecktaskCondition checktaskCondition, Model model){
+        System.out.println(checktaskCondition.getPageIndex()+"---"+checktaskCondition.getPageSize());
         PageSurpport<ChecktaskCondition> pageSurpport= checktaskService.SelectChecktaskByParam(checktaskCondition);
       //model.addAttribute("pageSurpport",pageSurpport);
         return pageSurpport;

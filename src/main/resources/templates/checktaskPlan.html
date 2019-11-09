@@ -4,28 +4,33 @@
 <head>
     <meta charset="UTF-8">
     <title>巡检任务管理</title>
-    <link type="text/css" href="webjars/bootstrap" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}" rel="stylesheet">
+    <link type="text/css" href="webjars/bootstrap" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}"
+          rel="stylesheet">
     <!--//<script src="js/jquery.form.js" type="text/javascript"></script>-->
     <link rel="stylesheet" type="text/css" href="css/ShowPage.css"/>
     <script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
-    <script th:src="@{/webjars/jquery/3.4.1/jquery.form.js}"></script>
     <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous"></script>
+    <script src="js/jsform.js" type="text/javascript"></script>
+    <!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous"></script>-->
 </head>
 <style>
-    #van{
+    #van {
         padding: 20px;
     }
-    .row input[type='text']{
+
+    .row input[type='text'] {
         width: 200px;
     }
-    .input-group{
+
+    .input-group {
         margin-bottom: 8px;
     }
-    .input-group-addon{
-        width:90px;
+
+    .input-group-addon {
+        width: 90px;
     }
-    .he{
+
+    .he {
         display: inline-block;
         text-align: center;
         font-size: larger;
@@ -39,49 +44,53 @@
     <span>消缺任务制定与分配</span>
 </p>
 <div class="row">
-    <form  id="su">
-    <div  class="col-lg-9 col-sm-9 col-xs-9 " >
-        <div class="col-lg-4 col-sm-6 col-xs-12">
-            <div class="input-prepend input-group">
-                <span class="add-on input-group-addon">任务编号:</span>
-                <input type="text"  name="jobId" id="jobId" class="form-control" value="">
+    <form id="su">
+        <div class="col-lg-9 col-sm-9 col-xs-9 ">
+            <div class="col-lg-4 col-sm-6 col-xs-12">
+                <div class="input-prepend input-group">
+                    <span class="add-on input-group-addon">任务编号:</span>
+                    <input type="text" name="jobId" id="jobId" class="form-control" value="">
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 col-xs-12 ">
+                <div class="input-prepend input-group">
+                    <span class="add-on input-group-addon">线路编号:</span>
+                    <input type="text" name="circuitNo" id="circuitNo" class="form-control" value="">
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 col-xs-12 ">
+                <div class="input-prepend input-group">
+                    <span class="add-on input-group-addon">任务状态:</span>
+                    <input type="text" name="status" id="status" class="form-control" value="">
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 col-xs-12 ">
+                <div class="input-prepend input-group">
+                    <span class="add-on input-group-addon">下发人:&nbsp;&nbsp;</span>
+                    <input type="text" name="checkByName" id="checkBy" class="form-control" value="">
+                </div>
+                <div></div>
+            </div>
+            <div class="col-lg-4 col-sm-6 col-xs-12 ">
+                <div class="input-prepend input-group">
+                    <span class="add-on input-group-addon">下发时间:</span>
+                    <input type="text" name="reservation5" id="reservation" class="form-control"
+                           value="03/18/2013 - 03/23/2013">
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 col-xs-12 ">
+                <input hidden="hidden" name="pageIndex" id="pageIndex" value="1">
+                <input hidden="hidden" name="pageSize" id="pageSize" value="1">
+                <button type="submit" id="#submit_btn" class="btn btn-primary btn-regist">查询</button>
+                <input hidden="hidden" id="pageCount" value="">
             </div>
         </div>
-        <div class="col-lg-4 col-sm-6 col-xs-12 ">
-            <div class="input-prepend input-group">
-                <span class="add-on input-group-addon">线路编号:</span>
-                <input type="text"  name="circuitNo" id="circuitNo" class="form-control" value="">
-            </div>
-        </div>
-        <div class="col-lg-4 col-sm-6 col-xs-12 ">
-            <div class="input-prepend input-group">
-                <span class="add-on input-group-addon">任务状态:</span>
-                <input type="text"  name="status" id="status" class="form-control" value="">
-            </div>
-        </div>
-        <div class="col-lg-4 col-sm-6 col-xs-12 ">
-            <div class="input-prepend input-group">
-                <span class="add-on input-group-addon">下发人:&nbsp;&nbsp;</span>
-                <input type="text"  name="checkByName" id="checkBy" class="form-control" value="">
-            </div>
-            <div></div>
-        </div>
-        <div class="col-lg-4 col-sm-6 col-xs-12 ">
-            <div class="input-prepend input-group">
-                <span class="add-on input-group-addon">下发时间:</span>
-                <input type="text"  name="reservation5" id="reservation" class="form-control" value="03/18/2013 - 03/23/2013">
-            </div>
-        </div>
-        <div class="col-lg-4 col-sm-6 col-xs-12 ">
-            <button type="submit" id="#submit_btn" class="btn btn-primary btn-regist">查询</button>
-        </div>
-    </div>
     </form>
-</div>
-<div class="col-lg-12 col-sm-12col-sm-12 " >
+</div>0.0P
+<div class="col-lg-12 col-sm-12col-sm-12 ">
 
     <div class="col-lg-12 col-md-12 col-sm-12 ">
-        <div class=" col-lg-3 col-md-3 col-sm-3 col-lg-push-9 col-md-push-9 col-sm-push-9 " >
+        <div class=" col-lg-3 col-md-3 col-sm-3 col-lg-push-9 col-md-push-9 col-sm-push-9 ">
             <a class="btn btn-primary"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>制定消缺任务</a>
         </div>
 
@@ -131,26 +140,34 @@
 <script src="js/ShowPage.js" type="text/javascript"></script>
 <script type="text/javascript">
     $(".zxf_pagediv").createPage({
-        //pageNum: $("#pageCount").val(),
-        pageNum:20,
+        /*pageNum: $("#pageCount").val(),*/
+        pageNum: 20,
         current: 1,
-        backfun: function(e) {
+        backfun: function (e) {
         }
     });
-    $(document).on("click","a.zxfPagenum",function(){
+    $(document).on("click", "a.zxfPagenum", function () {
         var cur = parseInt($(this).text());
+        alert(cur);
+        $("#pageIndex").val(cur);
+        submint();
 
+    });
+    $(document).on("click", "a.prebtn", function () {
+        var cur = parseInt($("span.current").text());
+        $("#pageIndex").val(cur);
+        submint();
+    });
+    $(document).on("click", "a.nextbtn", function () {
+        var cur = parseInt($("span.current").text());
+        $("#pageIndex").val(cur);
+        submint();
+    });
+    $(document).on("click","span.zxfokbtn",function(){
+        var cur = parseInt($("input.zxfinput").val());
+        alert(cur)
+    });
 
-        alert(cur)
-    });
-    $(document).on("click","a.prebtn",function(){
-        var cur = parseInt($("span.current").text());
-        alert(cur)
-    });
-    $(document).on("click","a.nextbtn",function(){
-        var cur = parseInt($("span.current").text());
-        alert(cur)
-    });
     /*$(document).on("click","span.zxfokbtn",function(){
         var cur = parseInt($("input.zxfinput").val());
         var current = $.extend(pageinit, {"current":cur});
@@ -158,49 +175,49 @@
         if (typeof(pageinit.backfun)=="function") {
             pageinit.backfun(current);
         }*/
+    function submint() {
+        $("#su").ajaxSubmit({
+            type: "post",  //提交方式
+            dataType: "json", //数据类型
+            url: "getchecktaskList.html", //请求url
+            success: function (data) {//提交成功的回调函数
+                $("#pageCount").val(data.pageCount);
+                alert(data.pageCount);
+                var options=""
+                $.each(data.dataList, function (i, obj) {
+                        options+=
+                            "<div class=\"col-md-4 col-sm-6 col-xs-12\">" +
+                            "                    <div class=\"he\" style=\"width: 30%\">" + obj.jobId + "</div>" +
+                            "                    <div class=\"he\" style=\"width: 30%\">" + obj.jobName + "</div>" +
+                            "                    <div class=\"he\" style=\"width: 30%\">" + obj.circuitName + "</div>" +
+                            "                </div>" /*+
+                            "                <div class=\"col-md-4 col-sm-6 col-xs-12\">" +
+                            "                    <div class=\"he\" style=\"width: 30%\">" + obj.startNo + "</div>" +
+                            "                    <div class=\"he\" style=\"width: 30%\">" + obj.stopNo + "</div>" +
+                            "                    <div class=\"he\" style=\"width: 30%\">" + obj.createByName + "</div>" +
+                            "                    <div class=\"he\" style=\"width: 30%\">" + obj.createBy + "</div>" +
+                            "                </div>" +
+                            "                <div class=\"col-md-4 col-sm-6 col-xs-12\">" +
+                            "                    <div class=\"he\" style=\"width: 30%\">" + obj.status + "</div>" +
+                            "                    <div class=\"he\" style=\"width: 30%\">" + obj.finishDate + "</div>" +
+                            "                    <div class=\"he\" style=\"width: 30%\">" + obj.finishDate + "</div>";
+                        +
+                            "                </div>"*/;
 
-        function f() {
-            alert(123);
-            $("#su").submit(function () {
-                $(this).ajaxSubmit({
-                    type: "post",  //提交方式
-                    dataType: "json", //数据类型
-                    url: "getchecktaskList.html", //请求url
-                    success: function (data) { //提交成功的回调函数
-                        $("#app").html("");
-                        var options = "<input type=\"hidden\" id=\"pageCount\" th:value=\"${data.pageSurpport.pageCount}\">";
-                        $.each(data.dataList, function (i, obj) {
-                            options += "<tr>" +
-                                "<div class=\"col-md-4 col-sm-6 col-xs-12\">" +
-                                "                    <div class=\"he\" style=\"width: 30%\">" + obj.jobId + "</div>" +
-                                "                    <div class=\"he\" style=\"width: 30%\">" + obj.jobName + "</div>" +
-                                "                    <div class=\"he\" style=\"width: 30%\">" + obj.circuitName + "</div>" +
-                                "                </div>" +
-                                "                <div class=\"col-md-4 col-sm-6 col-xs-12\">" +
-                                "                    <div class=\"he\" style=\"width: 30%\">" + obj.startNo + "</div>" +
-                                "                    <div class=\"he\" style=\"width: 30%\">" + obj.stopNo + "</div>" +
-                                "                    <div class=\"he\" style=\"width: 30%\">" + obj.createByName + "</div>" +
-                                "                    <div class=\"he\" style=\"width: 30%\">" + obj.createBy + "</div>" +
-                                "                </div>" +
-                                "                <div class=\"col-md-4 col-sm-6 col-xs-12\">" +
-                                "                    <div class=\"he\" style=\"width: 30%\">" + obj.status + "</div>" +
-                                "                    <div class=\"he\" style=\"width: 30%\">" + obj.finishDate + "</div>" +
-                                "                    <div class=\"he\" style=\"width: 30%\">" + obj.finishDate + "</div>" +
-                                "                </div></tr>";
-                        })
-                        $("#app").html(options);
-                    }
-                });
-                return false; //不刷新页面
-            })
-        }
-            $(function () {
+                    });
+                $("#app").html(options);
+            }
+            });
+    return false; //不刷新页面
+    }
 
-        f();
 
-/*    obj.on("click","a.nextbtn",function(){
-    });*/
-
-})
+    $(function () {
+        submint();
+        $("#su").submit(function () {
+            submint();
+            return false;
+        })
+    })
 </script>
 </html>
