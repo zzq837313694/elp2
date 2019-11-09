@@ -16,14 +16,6 @@ ChecktaskCondition.pageSize!=null and ChecktaskCondition.pageSize!=''">
     </select>
     <select id="SelectChecktaskByParamCount" resultType="int" >
         select count(0) from checktaskinfo a
-        <!--<include refid="Param"></include>-->
-        <!--<if test="ChecktaskCondition.pageSurpport!=null">
-            <if test="ChecktaskCondition.pageSurpport.pageIndex!=null and ChecktaskCondition.pageSurpport.pageIndex!='' and
-ChecktaskCondition.pageSurpport.pageSize!=null and ChecktaskCondition.pageSurpport.pageSize!=''">
-                limit #{ChecktaskCondition.pageSurpport.pageIndex},
-                #{ChecktaskCondition.pageSurpport.pageSize}
-            </if>
-        </if>-->
     </select>
     <sql id="Param">
         <where>
@@ -39,10 +31,10 @@ ChecktaskCondition.pageSurpport.pageSize!=null and ChecktaskCondition.pageSurppo
             <if test="ChecktaskCondition.createBy!=null and ChecktaskCondition.createBy!=''">
                 and a.jobId like concat('%',#{ChecktaskCondition.createBy},'%')
             </if>
-            <if test="ChecktaskCondition.CreateDateMin!=null and ChecktaskCondition.CreateDateMin!=''">
+            <if test="ChecktaskCondition.CreateDateMin!=null">
                 and a.createDate>#{ChecktaskCondition.CreateDateMin}
             </if>
-            <if test="ChecktaskCondition.CreateDateMax!=null and ChecktaskCondition.CreateDateMax!=''">
+            <if test="ChecktaskCondition.CreateDateMax!=null">
                 and a.createDate &lt;#{ChecktaskCondition.CreateDateMax}
             </if>
         </where>
