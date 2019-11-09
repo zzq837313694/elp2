@@ -8,4 +8,5 @@ public interface SolvetaskServices {
 
     List<Solvetaskinfo> findAllSolveTask();
 
+    int countSolveTask();
 }

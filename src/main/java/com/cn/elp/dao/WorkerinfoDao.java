@@ -5,6 +5,11 @@ import com.cn.elp.POJO.Workerinfo;
 import java.util.List;
 
 public interface WorkerinfoDao {
+    /**
+     * 
+     * @param userNo
+     * @return
+     */
     Workerinfo findAllWorker(String userNo);
 
     /**
@@ -13,5 +18,6 @@ public interface WorkerinfoDao {
      * @return
      */
     List<Workerinfo> findWorkerByRoleId(int roleId);
+
 
 }
