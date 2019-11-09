@@ -21,9 +21,7 @@ public class checktaskController {
     @ResponseBody
     public PageSurpport<ChecktaskCondition> getchecktaskList(ChecktaskCondition checktaskCondition, Model model){
         PageSurpport<ChecktaskCondition> pageSurpport= checktaskService.SelectChecktaskByParam(checktaskCondition);
-        model.addAttribute(pageSurpport);
-        model.addAttribute("pageSurpport",pageSurpport);
-        System.out.println(pageSurpport.getDataList().get(0).getJobName());
+      //model.addAttribute("pageSurpport",pageSurpport);
         return pageSurpport;
     }
     @RequestMapping("/checktaskPlan.html")
