@@ -31,10 +31,9 @@ public class FlawinfoController {
     WorkerinfoService workerinfoService;
     //缺陷等级确认页面显示
     @RequestMapping("/flawLevel.html")
-    public String flawLevel(FlawInfoCondition condition, Date startTime, String endTime,
+    public String flawLevel(FlawInfoCondition condition,
                             @RequestParam(required=false,defaultValue="1") Integer pageIndex,
                             Model model){
-        System.out.println(startTime+"----"+endTime);
         List<Flawtype> flawtypeList = flawTypeService.findAllFlawType();//所有缺陷类型
         List<Workerinfo> workerList = workerinfoService.findWorkerByRoleId(3);//查找所有的巡检员
         List<Flawinfo> flawinfoList = flawinfoService.findAllFlawInfo(condition, pageIndex, MyContents.PAGESIZE);

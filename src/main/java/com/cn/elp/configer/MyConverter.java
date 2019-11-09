@@ -1,3 +1,4 @@
+
 package com.cn.elp.configer;
 
 import org.springframework.context.annotation.Bean;
@@ -19,7 +20,7 @@ public class MyConverter {
                 Date date = null;
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_TIME_FORMATE);
                 try{
-                    simpleDateFormat.parse(source);
+                    date=simpleDateFormat.parse(source);
                 }catch (Exception e){
                     System.out.println("有异常");
                 }
@@ -28,3 +29,4 @@ public class MyConverter {
         };
     }
 }
+
