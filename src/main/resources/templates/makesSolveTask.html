@@ -100,8 +100,8 @@
 <div class="row">
     <div class="col-lg-12 col-sm-12col-sm-12 ">
         <div class=" col-lg-3 col-md-3 col-sm-3 col-lg-push-9 col-md-push-9 col-sm-push-9 ">
-            <a class="btn btn-primary" href="" onclick="getData()"><span class="glyphicon glyphicon-plus"
-                                                                         aria-hidden="true"></span>制定消缺任务</a>
+            <a class="btn btn-primary" onclick="getData()"><span class="glyphicon glyphicon-plus"
+                                                                 aria-hidden="true"></span>制定消缺任务</a>
         </div>
     </div>
 </div>
@@ -119,7 +119,7 @@
             <th>任务完成人</th>
             <th>操作</th>
             </thead>
-            <tbody >
+            <tbody id="solveTaskdata">
 
 
             </tbody>
@@ -137,51 +137,64 @@
 
 <script type="text/javascript">
 
+    $(function () {
+        getData()
+    })
 
-    $(".zxf_pagediv").createPage({
-        pageNum: 6,
-        current: 2,
-        backfun: function (e) {
-        }
-    });
 
-    function getData(obj) {
-        var nowPage = parseInt($(obj).text())
+    function getData() {
         $.post({
             url: "getDate",
             data: "nowPage=" + 1,
             dataType: "json",
             success: function (data) {
-                $.each(data,function (k,item) {
-                    if(k=="dataList"){
-                      $.each(item,function (key, solveTask) {
-                         var trsTR="<tr>\n" +
-                             "                <td th:text=\"${sovleTask.getSolveTaskNo()}\"></td>\n" +
-                             "                <td th:text=\"${sovleTask.getSolveTaskName()}\"></td>\n" +
-                             "                <td th:text=\"${sovleTask.getCreaterName()}\"></td>\n" +
-                             "                <td th:text=\"${#dates.format(sovleTask.getCreateDate(),'YYYY-MM-dd')}\"></td>\n" +
-                             "                <td th:text=\"${sovleTask.getStatus()}\"></td>\n" +
-                             "                <td th:text=\"${sovleTask.getFinishiworkerId()}\"></td>\n" +
-                             "                <td>\n" +
-                             "                    <a href=\"\">查看</a>\n" +
-                             "                    <span>|</span>\n" +
-                             "                    <a href=\"\">分配任务</a>\n" +
-                             "                    <span>|</span>\n" +
-                             "                    <a href=\"\">修改</a>\n" +
-                             "                    <span>|</span>\n" +
-                             "                    <a href=\"\">取消</a>\n" +
-                             "                </td>\n" +
-                             "            </tr>"
-
-                        $('tbody').append($(trsTR))
-                     })
-
-                     }
+                $('tbody').text("")
+                $(".zxf_pagediv").createPage({
+                    pageNum: data.pageCount,
+                    current: data.pageIndex,
+                    backfun: function (e) {
+                    }
                 });
 
+                $.each(data, function (k, item) {
+                    if (k == "dataList") {
+                        $.each(item, function (key, sovleTask) {
+                            var finishiworkerId = sovleTask.finishiworkerId == null ? "" : sovleTask.finishiworkerId;
+                            var solveTaskNo = sovleTask.solveTaskNo == null ? "" : sovleTask.solveTaskNo
+                            var solveTaskNo = sovleTask.solveTaskNo == null ? "" : sovleTask.solveTaskNo;
+                            var solveTaskName = sovleTask.solveTaskName == null ? "" : sovleTask.solveTaskName;
+                            var createDate;
+                            if (sovleTask.createDate == null) {
+                                createDate = " ";
+                            } else {
+                                var date = new Date(sovleTask.createDate == null ? "" : sovleTask.createDate);
+                                createDate = date.getFullYear() + "/" + eval(date.getMonth() + "+1") + "/" + date.getDate()
+                            }
+                            var createrName = sovleTask.createrName == null ? "" : sovleTask.createrName;
+                            var status = sovleTask.status == null ? "" : sovleTask.status;
+
+                            var trsTR = "<tr><td >" + solveTaskNo + "</td>" +
+                                "<td>" + solveTaskName + "</td>" +
+                                "<td>" + createrName + "</td>" +
+                                "<td >" + createDate + "</td>" +
+                                "<td >" + status + "</td>" +
+                                "<td>" + finishiworkerId + "</td>" +
+                                "<td>" +
+                                "<a href=\"\">查看</a>" +
+                                "                    <span>|</span>" +
+                                "                    <a href=\"\">分配任务</a>" +
+                                "                    <span>|</span>" +
+                                "                    <a href=\"\">修改</a>" +
+                                "                    <span>|</span>" +
+                                "                    <a href=\"\">取消</a>" +
+                                "                </td></tr>";
+
+                            $('tbody').append($(trsTR))
+                        })
 
 
-
+                    }
+                });
             },
             error: function (e) {
                 alert("error:" + e)
