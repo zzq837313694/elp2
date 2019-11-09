@@ -1,0 +1,64 @@
+function update(obj) {
+    var towerNo=$(obj).attr("towerNo");
+    var circuitname=$(obj).attr("circuitName");
+    var status=$(obj).attr("status");
+    var circuitNo=$(obj).attr("circuitNo");
+    $("#mycircuitNo>option[value="+circuitNo+"]").attr("selected",true);
+    $("#towerNo1").val(towerNo);
+    if($("#statusON").val()==status){
+        $("#statusOFF").removeAttr("checked");
+        $("#statusON").attr("checked",true);
+    }
+    if($("#statusOFF").val()==status){
+        $("#statusON").removeAttr("checked");
+        $("#statusOFF").attr("checked",true);
+    }
+}
+//实现异步删除
+
+function del(obj) {
+    var no=$(obj).attr("no");
+    var data="towerNo="+no;
+    $.get("delOneTower.html",data,function(relData){
+        if(relData>"0"){
+            alert("删除成功!");
+            //刷新页面
+            //1.重新从服务器端加载新闻列表数据
+            //2.从客户端删除该条数据
+            $(obj).parent().parent().remove();
+        }else{
+            alert("删除失败!");
+        }
+    });
+}
+//线路停无法修改
+function stop(){
+    confirm("所属线路已停用,无法修改请先启用线路后在修改！")
+}
+
+$(".zxf_pagediv").createPage({
+    pageNum: $("#pageCount").val(),
+    current: $("#returnpageIndex").val(),
+    backfun: function(e) {
+    }
+});
+$(document).on("click", "a.zxfPagenum", function () {
+    var cur = parseInt($(this).text());
+    $("#pageIndex").val(cur);
+    $("#test").submit();
+});
+$(document).on("click", "a.prebtn", function () {
+    var cur = parseInt($("span.current").text());
+    $("#pageIndex").val(cur);
+    $("#test").submit();
+});
+$(document).on("click", "a.nextbtn", function () {
+    var cur = parseInt($("span.current").text());
+    $("#pageIndex").val(cur);
+    $("#test").submit();
+});
+$(document).on("click","span.zxfokbtn",function(){
+    var cur = parseInt($("input.zxfinput").val());
+    $("#pageIndex").val(cur);
+    $("#test").submit();
+});

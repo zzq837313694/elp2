@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -50,10 +51,6 @@ public class CircuitController {
         System.out.println(circuitNo+useStatus);
         int rel=circuitService.updateOneStatus(circuitNo,useStatus);
         int rel1=towerinfoService.updateOneStatus(circuitNo,useStatus);
-        int rel2=0;
-        if(rel>0 && rel1>0){
-            rel2=1;
-        }
         return rel;
     }
     //异步删除线路以及线路下的所有塔杆
@@ -62,11 +59,7 @@ public class CircuitController {
     public Integer delOneTwo(String circuitNo){
         int rel1=towerinfoService.delAllTower(circuitNo);
         int rel=circuitService.delOneCircuit(circuitNo);
-        int rel2=0;
-        if(rel>0 && rel1>0){
-            rel2=1;
-        }
-        return  rel2;
+        return  rel;
     }
 
     //显示添加页面
@@ -76,8 +69,10 @@ public class CircuitController {
     }
     //处理添加数据
     @RequestMapping("addCircuit.html")
-    public String addCircuit(Circuit circuit){
+    public String addCircuit(Circuit circuit, String onlineDate){
+
         circuit.setRunStatus("正常");
+        System.out.println(circuit.getOnlineDate());
         int rel= circuitService.addOneCircuit(circuit);
         if(rel>0){
             return  "redirect:circuitType.html";

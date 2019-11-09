@@ -182,7 +182,36 @@
         backfun: function(e) {
         }
     });
-
+    $(".zxf_pagediv").createPage({
+        pageNum: $("#pageCount").val(),
+        current: $("#returnpageIndex").val(),
+        backfun: function(e) {
+        }
+    });
+    $(document).on("click", "a.zxfPagenum", function () {
+        var cur = parseInt($(this).text());
+        alert(cur);
+        $("#pageIndex").val(cur);
+        $("#test").submit();
+    });
+    $(document).on("click", "a.prebtn", function () {
+        var cur = parseInt($("span.current").text());
+        alert(cur);
+        $("#pageIndex").val(cur);
+        $("#test").submit();
+    });
+    $(document).on("click", "a.nextbtn", function () {
+        var cur = parseInt($("span.current").text());
+        alert(cur);
+        $("#pageIndex").val(cur);
+        $("#test").submit();
+    });
+    $(document).on("click","span.zxfokbtn",function(){
+        var cur = parseInt($("input.zxfinput").val());
+        alert(cur)
+        $("#pageIndex").val(cur);
+        $("#test").submit();
+    });
 </script>
 
 </html>
