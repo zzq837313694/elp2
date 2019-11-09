@@ -17,13 +17,13 @@ span.disabled{
 	background: #f2f2f2;
 	margin: 0 5px;
 }
-.current{
+span.current{
 	color: #ffffff;
-	background: #d71f1b;
+	background: #337AB7;
 	width: 35px;
 	height: 35px;
 	line-height: 35px;
-	margin: 0 5 px;
+	margin: 0 5px;
 }
 .zxfPagenum{
 	color: #999999;
@@ -34,11 +34,15 @@ span.disabled{
 	border: 1px solid #dfdfdf;
 	margin: 0 5px;
 }
-.nextpage{
-	color: #d71f1b;
+.nextpage,.previouspage{
+	color: #337AB7;
 	margin: 0 5px;
-	border: 1px solid #d71f1b;
+	border: 1px solid #337AB7;
 }
+
+
+
+
 .nextbtn,.prebtn{
 	color: #999999;
 	background: #FFFFFF;

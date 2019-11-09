@@ -9,6 +9,24 @@ public class ChecktaskCondition extends Checktaskinfo {
     private Date CreateDateMax;
     private PageSurpport<Checktaskinfo> pageSurpport;
     private String checkByName;
+    private String circuitName;
+    private String createByName;
+
+    public String getCircuitName() {
+        return circuitName;
+    }
+
+    public void setCircuitName(String circuitName) {
+        this.circuitName = circuitName;
+    }
+
+    public String getCreateByName() {
+        return createByName;
+    }
+
+    public void setCreateByName(String createByName) {
+        this.createByName = createByName;
+    }
 
     public ChecktaskCondition() {
     }

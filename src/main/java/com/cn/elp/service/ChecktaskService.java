@@ -5,5 +5,5 @@ import com.cn.elp.util.ChecktaskCondition;
 import com.cn.elp.util.PageSurpport;
 
 public interface ChecktaskService {
-    PageSurpport<Checktaskinfo>SelectChecktaskByParam(ChecktaskCondition checktaskCondition);
+    PageSurpport<ChecktaskCondition>SelectChecktaskByParam(ChecktaskCondition checktaskCondition);
 }

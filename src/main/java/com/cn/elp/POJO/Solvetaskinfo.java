@@ -5,6 +5,7 @@ import java.util.Date;
 
 public class Solvetaskinfo {
 
+
   private String solveTaskNo;
   private String solveTaskName;
   private String floawList;
@@ -15,7 +16,15 @@ public class Solvetaskinfo {
   private String documents;
   private String describe;
   private String status;
+  private String createrName;
 
+  public  String  getCreaterName(){
+    return this.createrName;
+  }
+
+  public  void setCreaterName(String createrName){
+    this.createrName=createrName;
+  }
 
   public String getSolveTaskNo() {
     return solveTaskNo;
