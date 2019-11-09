@@ -103,7 +103,7 @@
             </div>
         </div>
     </form>
-</div>0.0P
+</div>
 
 
 <div class="col-lg-12 col-sm-12col-sm-12 ">
@@ -131,41 +131,38 @@
             <tr role="row">
                 <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"
                     aria-sort="ascending" aria-label="Name: activate to sort column descending"
-                    style="width: 217px; text-align: center">任务编号
+                    style="width:80px; text-align: center;line-height: 55px">任务编号
                 </th>
                 <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"
-                    aria-label="Position: activate to sort column ascending" style="width: 131px;text-align: center">任务名称
+                    aria-label="Position: activate to sort column ascending" style="width:80px;text-align: center;line-height: 55px">任务名称
                 </th>
                 <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"
-                    aria-label="Office: activate to sort column ascending" style="width: 131px;text-align: center">巡检线路
+                    aria-label="Office: activate to sort column ascending" style="width:80px;text-align: center;line-height: 55px">巡检线路
                 </th>
                 <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"
-                    aria-label="Office: activate to sort column ascending" style="width: 131px;text-align: center">起始杆号
+                    aria-label="Office: activate to sort column ascending" style="width:80px;text-align: center;line-height: 55px">起始杆号
                 </th>
                 <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"
-                    aria-label="Office: activate to sort column ascending" style="width: 131px;text-align: center">终止杆号
+                    aria-label="Office: activate to sort column ascending" style="width:80px;text-align: center;line-height: 55px">终止杆号
                 </th>
                 <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"
-                    aria-label="Office: activate to sort column ascending" style="width: 131px;text-align: center">下发人
+                    aria-label="Office: activate to sort column ascending" style="width:80px;text-align: center;line-height: 55px">下发人
                 </th>
                 <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"
-                    aria-label="Office: activate to sort column ascending" style="width: 131px;text-align: center">下发时间
+                    aria-label="Office: activate to sort column ascending" style="width:80px;text-align: center;line-height: 55px">下发时间
                 </th>
                 <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"
-                    aria-label="Office: activate to sort column ascending" style="width: 131px;text-align: center">任务状态
+                    aria-label="Office: activate to sort column ascending" style="width:80px;text-align: center;line-height: 55px">任务状态
                 </th>
                 <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"
-                    aria-label="Office: activate to sort column ascending" style="width: 131px;text-align: center">任务完成时间
+                    aria-label="Office: activate to sort column ascending" style="width:60px;text-align: center">任务完成时间
                 </th>
                 <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"
-                    aria-label="Office: activate to sort column ascending" style="width: 131px;text-align: center">任务是否取消
-                </th>
-                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1" colspan="1"
-                    aria-label="Office: activate to sort column ascending" style="width: 201px;text-align: center">操作
+                    aria-label="Office: activate to sort column ascending" style="width: 241px;text-align: center;line-height: 55px">操作
                 </th>
             </tr>
             </thead>
-            <tbody>
+            <tbody id="app">
             <tr role="row" class="odd" >
                 <td class="sorting_1" ></td>
                 <td></td>
@@ -176,11 +173,10 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
                 <td>
-                    <a>查看</a>&nbsp;&nbsp;丨&nbsp;
-                    <a>分配任务</a>&nbsp;&nbsp;丨&nbsp;
-                    <a>修改</a>&nbsp;&nbsp;丨&nbsp;
+                    <a>查看</a>丨
+                    <a>分配任务</a>丨
+                    <a>修改</a>丨
                     <a>取消</a>
                 </td>
             </tr>
@@ -241,25 +237,18 @@
                 var options=""
                 $.each(data.dataList, function (i, obj) {
                         options+=
-                            "<div class=\"col-md-4 col-sm-6 col-xs-12\">" +
-                            "                    <div class=\"he\" style=\"width: 30%\">" + obj.jobId + "</div>" +
-                            "                    <div class=\"he\" style=\"width: 30%\">" + obj.jobName + "</div>" +
-                            "                    <div class=\"he\" style=\"width: 30%\">" + obj.circuitName + "</div>" +
-                            "                </div>" /*+
-                            "                <div class=\"col-md-4 col-sm-6 col-xs-12\">" +
-                            "                    <div class=\"he\" style=\"width: 30%\">" + obj.startNo + "</div>" +
-                            "                    <div class=\"he\" style=\"width: 30%\">" + obj.stopNo + "</div>" +
-                            "                    <div class=\"he\" style=\"width: 30%\">" + obj.createByName + "</div>" +
-                            "                    <div class=\"he\" style=\"width: 30%\">" + obj.createBy + "</div>" +
-                            "                </div>" +
-                            "                <div class=\"col-md-4 col-sm-6 col-xs-12\">" +
-                            "                    <div class=\"he\" style=\"width: 30%\">" + obj.status + "</div>" +
-                            "                    <div class=\"he\" style=\"width: 30%\">" + obj.finishDate + "</div>" +
-                            "                    <div class=\"he\" style=\"width: 30%\">" + obj.finishDate + "</div>";
-                        +
-                            "                </div>"*/;
-
+                "<td>"+obj.jobId+"</td>"+
+                "<td>"+obj.jobId+"</td>"+
+                "<td>"+obj.jobId+"</td>"+
+                "<td>"+obj.jobId+"</td>"+
+                "<td>"+obj.jobId+"</td>"+
+                "<td>"+obj.jobId+"</td>"+
+                "<td>"+obj.jobId+"</td>"+
+                "<td>"+obj.jobId+"</td>"+
+                "<td>"+obj.jobId+"</td>"
+                ;
                     });
+                alert(options)
                 $("#app").html(options);
             }
             });
