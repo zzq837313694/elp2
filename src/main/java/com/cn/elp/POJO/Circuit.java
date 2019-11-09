@@ -18,8 +18,6 @@ public class Circuit {
   private int towerCount;
   private String startNo;
   private String stopNo;
-  @DateTimeFormat(pattern = "yyyy-MM-dd")
-  @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
   private Date onlineDate;
   private int voltLv;
   private String runStatus;
