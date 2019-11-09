@@ -27,13 +27,13 @@
                 }else{
                     var start = 1,end = 6;
                 }
+
                 for (;start <= end;start++) {
                     if (start <= pageinit.pageNum && start >=1) {
                         if (start == pageinit.current) {
                             obj.append('<span id="nowPage" class="current" onclick="getData(this)">'+ start +'</span>');
-
                         }else  if (start == pageinit.current-1) {
-                            obj.append('<span class="zxfPagenum previouspage ">' + start + '</span>');
+                            obj.append('<a href="javascript:;" class="zxfPagenum previouspage ">' + start + '</a>');
                         }else if(start == pageinit.current+1){
                             obj.append('<a href="javascript:;" class="zxfPagenum nextpage">'+ start +'</a>');
                         }else{
@@ -51,7 +51,7 @@
                     obj.append('<a href="javascript:;" class="nextbtn">下一页</a>');
                 }
                 obj.append('<span>'+'共'+'<b>'+pageinit.pageNum+'</b>'+'页,'+'</span>');
-                obj.append('<span>'+'到第'+'<input type="text" class="zxfinput" value="5"/>'+'页'+'</span>');
+                obj.append('<span>'+'到第'+'<input type="text" class="zxfinput" />'+'页'+'</span>');
                 obj.append('<span class="zxfokbtn">'+'确定'+'</span>');
             }());
         },
@@ -83,7 +83,8 @@
                 });
                 obj.on("click","span.zxfokbtn",function(){
                     var cur = parseInt($("input.zxfinput").val());
-                    var current = $.extend(pageinit, {"current":cur});
+
+                    var current = $.extend(pageinit, {"current":cur}).val();
                     zp.addhtml(obj,{"current":cur,"pageNum":pageinit.pageNum});
                     if (typeof(pageinit.backfun)=="function") {
                         pageinit.backfun(current);
@@ -98,31 +99,4 @@
         },options);
         zp.init(this,pageinit);
     }
-
-    $('#submit_btn').click(function() {
-        var myDate = new Date();
-        var obj={};
-        obj.jobId=$("#jobId").val();
-        obj.circuitNo=$("#circuitNo").val();
-        obj.status=$("#status").val();
-        obj.checkBy=$("#checkBy").val();
-        var description = "";
-        for(var i in obj){
-            var property=obj[i];
-            description+=i+" = "+property+"\n";
-        }
-        $.ajax({
-            type: "POST",
-            url: "checktaskController/getchecktaskList",
-            dataType: "json",
-            data:JSON.stringify(obj),
-            contentType : "application/json",
-            success: function (data) {
-                console.log(data)
-            },
-            error: function (e) {
-                console.log(e)
-            }
-        })
-    })
 }(jQuery));

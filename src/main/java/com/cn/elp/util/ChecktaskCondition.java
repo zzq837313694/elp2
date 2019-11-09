@@ -1,16 +1,40 @@
 package com.cn.elp.util;
 
 import com.cn.elp.POJO.Checktaskinfo;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
 public class ChecktaskCondition extends Checktaskinfo {
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
     private Date CreateDateMin;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
     private Date CreateDateMax;
     private PageSurpport<Checktaskinfo> pageSurpport;
     private String checkByName;
     private String circuitName;
     private String createByName;
+    private int pageIndex;
+    private int pageSize;
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public int getPageIndex() {
+        return pageIndex;
+    }
+
+    public void setPageIndex(int pageIndex) {
+        this.pageIndex = pageIndex;
+    }
 
     public String getCircuitName() {
         return circuitName;
