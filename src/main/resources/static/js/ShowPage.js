@@ -30,11 +30,8 @@
                 for (;start <= end;start++) {
                     if (start <= pageinit.pageNum && start >=1) {
                         if (start == pageinit.current) {
-                            obj.append('<span id="nowPage" class="current" onclick="getData(this)">'+ start +'</span>');
-
-                        }else  if (start == pageinit.current-1) {
-                            obj.append('<span class="zxfPagenum previouspage ">' + start + '</span>');
-                        }else if(start == pageinit.current+1){
+                            obj.append('<span class="current">'+ start +'</span>');
+                        } else if(start == pageinit.current+1){
                             obj.append('<a href="javascript:;" class="zxfPagenum nextpage">'+ start +'</a>');
                         }else{
                             obj.append('<a href="javascript:;" class="zxfPagenum">'+ start +'</a>');
@@ -83,6 +80,7 @@
                 });
                 obj.on("click","span.zxfokbtn",function(){
                     var cur = parseInt($("input.zxfinput").val());
+                    alert("aaa"+cur);
                     var current = $.extend(pageinit, {"current":cur});
                     zp.addhtml(obj,{"current":cur,"pageNum":pageinit.pageNum});
                     if (typeof(pageinit.backfun)=="function") {
@@ -98,31 +96,4 @@
         },options);
         zp.init(this,pageinit);
     }
-
-    $('#submit_btn').click(function() {
-        var myDate = new Date();
-        var obj={};
-        obj.jobId=$("#jobId").val();
-        obj.circuitNo=$("#circuitNo").val();
-        obj.status=$("#status").val();
-        obj.checkBy=$("#checkBy").val();
-        var description = "";
-        for(var i in obj){
-            var property=obj[i];
-            description+=i+" = "+property+"\n";
-        }
-        $.ajax({
-            type: "POST",
-            url: "checktaskController/getchecktaskList",
-            dataType: "json",
-            data:JSON.stringify(obj),
-            contentType : "application/json",
-            success: function (data) {
-                console.log(data)
-            },
-            error: function (e) {
-                console.log(e)
-            }
-        })
-    })
 }(jQuery));
