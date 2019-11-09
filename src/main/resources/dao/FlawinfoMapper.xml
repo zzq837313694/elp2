@@ -24,10 +24,10 @@
         <if test="condition.flawLv!=null and condition.flawLv!=''">
             and flawLv like concat('%',#{condition.flawLv},'%')
         </if>
-        <if test="condition.startTime!=null and condition.startTime!=''">
+        <if test="condition.startTime!=null">
             and checkDate>=#{condition.startTime}
         </if>
-        <if test="condition.endTime!=null and condition.endTime!=''">
+        <if test="condition.endTime!=null">
             and checkDate&lt;=#{condition.endTime}
         </if>
     </sql>
