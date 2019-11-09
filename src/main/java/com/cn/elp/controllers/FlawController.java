@@ -37,7 +37,7 @@ public class FlawController {
         return "flawType";
     }
     //添加缺陷类型
-    @RequestMapping(value = "/flawType.html",method = RequestMethod.POST)
+    @RequestMapping(value = "/addFlawType.html",method = RequestMethod.POST)
     public String flawType(Flawtype flawtype){
         int rel=flawTypeService.addFlawType(flawtype);
         if (rel>0){

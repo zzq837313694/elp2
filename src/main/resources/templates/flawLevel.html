@@ -31,7 +31,7 @@
 </head>
 <body>
     <p style="text-indent: 2em">缺陷管理-->缺陷等级确认</p><br>
-    <form action="/flawLevel.html" method="post">
+    <form action="/flawLevel.html" method="post" id="test">
 
         <div class="row">
             <div class="col-lg-9 col-sm-9 col-xs-9">
@@ -92,6 +92,7 @@
                         </div>
                     </div>
                 </div>
+                <input type="hidden" id="pageIndex" name="pageIndex" value="1">
                 <div class="col-lg-4 col-sm-6 col-xs-12">
                     <button type="submit" class="btn btn-primary">查询</button>
                 </div>
@@ -167,6 +168,7 @@
                             <button type="submit" id="save" class="btn btn-primary" th:flawLv="${flawinfo.flawLv}" th:flawNo="${flawinfo.flawNo}" onclick="save(this);">保存</button>
                         </div>
                     </td>
+                    <input type="hidden" id="returnpageIndex" th:value="${pageSurpport.pageIndex}">
                     <input id="pageCount" type="hidden" th:value="${pageSurpport.pageCount}">
                     <input id="totalCount" type="hidden" th:value="${pageSurpport.totalCount}">
                 </tr>
@@ -186,13 +188,7 @@
 </body>
 <script src="js/ShowPage.js" type="text/javascript"></script>
 <script type="text/javascript">
-    $(".zxf_pagediv").createPage({
-        //pageNum: $("#pageCount").val(),
-        pageNum:$("#pageCount").val(),
-        current: 1,
-        backfun: function(e) {
-        }
-    });
+
     function save(obj) {
         var flawNo = $(obj).attr("flawNo");
         var modifyLv=$("#modifyLv"+flawNo).val();
@@ -206,11 +202,34 @@
                 alert("未修改！")
             }
         });
-
-
-
-
     }
+    $(".zxf_pagediv").createPage({
+        pageNum: $("#pageCount").val(),
+        current: $("#returnpageIndex").val(),
+        backfun: function(e) {
+        }
+    });
+    $(document).on("click", "a.zxfPagenum", function () {
+        var cur = parseInt($(this).text());
+        $("#pageIndex").val(cur);
+        $("#test").submit();
+    });
+    $(document).on("click", "a.prebtn", function () {
+        var cur = parseInt($("span.current").text());
+        $("#pageIndex").val(cur);
+        $("#test").submit();
+    });
+    $(document).on("click", "a.nextbtn", function () {
+        var cur = parseInt($("span.current").text());
+        $("#pageIndex").val(cur);
+        $("#test").submit();
+    });
+
+    $(document).on("click","span.zxfokbtn",function(){
+        var cur = parseInt($("input.zxfinput").val());
+        $("#pageIndex").val(cur);
+        $("#test").submit();
+    });
 
 </script>
 </html>
