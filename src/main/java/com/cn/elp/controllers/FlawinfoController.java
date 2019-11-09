@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -30,9 +31,10 @@ public class FlawinfoController {
     WorkerinfoService workerinfoService;
     //缺陷等级确认页面显示
     @RequestMapping("/flawLevel.html")
-    public String flawLevel(FlawInfoCondition condition,
+    public String flawLevel(FlawInfoCondition condition, Date startTime, String endTime,
                             @RequestParam(required=false,defaultValue="1") Integer pageIndex,
                             Model model){
+        System.out.println(startTime+"----"+endTime);
         List<Flawtype> flawtypeList = flawTypeService.findAllFlawType();//所有缺陷类型
         List<Workerinfo> workerList = workerinfoService.findWorkerByRoleId(3);//查找所有的巡检员
         List<Flawinfo> flawinfoList = flawinfoService.findAllFlawInfo(condition, pageIndex, MyContents.PAGESIZE);
@@ -56,11 +58,11 @@ public class FlawinfoController {
     @ResponseBody
     public Integer updateFlawLv(@RequestParam("flawNo") String flawNo,
                                 @RequestParam("flawLv") String flawLv){
-        System.out.println(flawNo+flawLv);
         int rel=-1;
-        if(flawLv!=null || !flawLv.equals("")){
+        if(!flawLv.equals("") || flawLv!=null){
             rel = flawinfoService.updateFlawLvByFlawNo(flawNo, flawLv);
         }
+        System.out.println(rel);
         return rel;
     }
 

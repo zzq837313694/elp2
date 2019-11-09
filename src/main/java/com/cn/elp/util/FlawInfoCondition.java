@@ -13,8 +13,10 @@ public class FlawInfoCondition {
     private String flawTypeId;
     private String flawLv;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
     private Date startTime;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
     private Date endTime;
 
 
