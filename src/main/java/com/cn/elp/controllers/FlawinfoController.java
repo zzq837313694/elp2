@@ -58,7 +58,7 @@ public class FlawinfoController {
     public Integer updateFlawLv(@RequestParam("flawNo") String flawNo,
                                 @RequestParam("flawLv") String flawLv){
         int rel=-1;
-        if(!flawLv.equals("") || flawLv!=null){
+        if(!flawLv.equals("") && flawLv!=null){
             rel = flawinfoService.updateFlawLvByFlawNo(flawNo, flawLv);
         }
         System.out.println(rel);
