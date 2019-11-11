@@ -10,6 +10,14 @@
 <script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
 <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}"></script>
 <style>
+    html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        min-width: 500px;
+    }
+
     #van {
         padding: 20px;
     }
@@ -30,8 +38,55 @@
         margin: 20px;
     }
 
-    .view {
-        width: 50px;
+    .modal-body {
+        position: relative;
+    }
+
+    #myModal {
+        min-width: 490px;
+    }
+
+    #myModal .modal-body > div {
+        min-width: 330px;
+        position: marker;
+        margin: 0px auto;
+    }
+
+    #myModal #modelLeft {
+        width: 45%;
+        float: left;
+        position: relative;
+        padding: 0px 10px;
+        border: 1px black solid;
+        margin-right: 15px;
+    }
+
+    #myModal #modelRight {
+        width: 45%;
+        float: left;
+        position: relative;
+        padding: 0px 10px;
+        border: 1px black solid;
+        margin-left: 15px;
+    }
+
+    #myModal #modelMiddle {
+        position: absolute;
+        top: 50%;
+        left: 45%;
+    }
+
+    li {
+        list-style-type: none;
+    }
+
+    li:hover {
+        list-style-type: none;
+        background-color: #878787;
+    }
+
+    li.active {
+        background-color: #707070;
     }
 
 </style>
@@ -112,14 +167,14 @@
                 <div class="input-prepend input-group">
                     <span class="add-on input-group-addon">消缺员：</span>
                     <textarea name="comment" cols="110" rows="2" class="form-control"></textarea>
-                    <b class="add-on input-group-addon view" data-toggle="modal" data-target="#myModal">
+                    <b class="add-on input-group-addon" data-toggle="modal" data-target="#myModal" style="width: 50px;">
                         <span class=" glyphicon  glyphicon-eye-open "
                               aria-hidden="true"></span>
                     </b>
                 </div>
             </div>
 
-            <div class=" col-lg-4 col-sm-4 col-xs-4  col-lg-push-8 col-sm-push-8 col-xs-push-8 ">
+            <div class=" col-lg-4 col-sm-5 col-xs-7  col-lg-push-8 col-sm-push-7 col-xs-push-5 ">
                 <button type="submit" class="btn btn-primary">保存</button>
                 <button type="button" class="btn btn-primary">返回</button>
             </div>
@@ -133,45 +188,64 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h6 class="modal-title" id="myModalLabel">消缺员选择
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                </h6>
+                <h4 class="modal-title" id="myModalLabel">消缺员选择
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </h4>
             </div>
             <div class="modal-body">
-                <div id="modelLeft">
-                    <li>
-                        消缺员测试用户01
-                    </li>
-                    <li>
-                        消缺员测试用户01
-                    </li>
-                    <li>
-                        消缺员测试用户01
-                    </li>
-                </div>
-                <div id="modelMiddle">
-                     <span class=" glyphicon  glyphicon-forward "
-                           aria-hidden="true"></span>
-                    <span class=" glyphicon  glyphicon-backward "
-                          aria-hidden="true"></span>
-                </div>
-                <div id="modelRight">
-                    <li>
-                        消缺员测试用户01
-                    </li>
-                    <li>
-                        消缺员测试用户01
-                    </li>
-                    <li>
-                        消缺员测试用户01
-                    </li>
+                <div class="row">
+                    <!--左边-->
+                    <div id="modelLeft">
+                        <div id="worker">
+                            <li onclick="isCheack(this)">消缺员测试用户01</li>
+                            <li onclick="isCheack(this)">消缺员测试用户02</li>
+                            <li onclick="isCheack(this)"> 消缺员测试用户03</li>
+                            <li>消缺员测试用户01</li>
+                            <li>消缺员测试用户01</li>
+                            <li onclick="isCheack(this)">消缺员测试用户01</li>
+                            <li onclick="isCheack(this)">消缺员测试用户02</li>
+                            <li onclick="isCheack(this)"> 消缺员测试用户03</li>
+                            <li>消缺员测试用户01</li>
+                            <li>消缺员测试用户01</li>
+                        </div>
+                    </div>
+
+                    <!--中间-->
+                    <div id="modelMiddle" style="padding-left: 10px;padding-right: 5px;margin-top: -50px;">
+                        <p><span class=" glyphicon  glyphicon-forward " aria-hidden="true"></span></p>
+                        <p><span class=" glyphicon  glyphicon-backward " aria-hidden="true"></span></p>
+                    </div>
+
+                    <!--右边-->
+                    <div id="modelRight">
+                        <li>消缺员测试用户01</li>
+                        <li>消缺员测试用户02</li>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    function isCheack(obj) {
+        $(obj).toggleClass("active")
+    }
+
+    $('b').click(function () {
+        $('#myModal').show(function () {
+            $.post({
+                url: getData(),
+                dataType: 'html',
+                success: function (data) {
+                    alert(data)
+                }
+            })
+        })
+    });
 
 
+</script>
 </body>
 </html>
