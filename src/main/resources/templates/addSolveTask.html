@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>制定消缺任务</title>
+</head>
+<link type="text/css" href="webjars/bootstrap" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}"
+      rel="stylesheet">
+<script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
+<script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}"></script>
+<style>
+    #van {
+        padding: 20px;
+    }
+
+    .input-group {
+        margin: 5px;
+    }
+
+    .input-group-addon {
+        width: 90px;
+    }
+
+    textarea {
+        resize: none;
+    }
+
+    button {
+        margin: 20px;
+    }
+
+    .view {
+        width: 50px;
+    }
+
+</style>
+
+<body>
+
+<p id="van">
+    <span>消缺任务管理</span>
+    <span>&gt;&gt;&nbsp;</span>
+    <span>消缺任务制定与分配</span>
+    <span>&gt;&gt;&nbsp;</span>
+    <span>制定消缺任务</span>
+</p>
+
+<!--添加任务输入区-->
+<form method="post" action="">
+    <div class="row">
+        <div class="col-lg-9 col-sm-9 col-xs-9 ">
+            <div class="col-lg-4 col-sm-6 col-xs-12">
+                <div class="input-prepend input-group">
+                    <span class="add-on input-group-addon">任我编号：</span>
+                    <input type="text" name="sovleTask.sovleTaskNo" id="sovleTaskNo" class="form-control">
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 col-xs-12 ">
+                <div class="input-prepend input-group">
+                    <span class="add-on input-group-addon">任务名称：</span>
+                    <input type="text" name="sovleTask.sovleTaskName" id="sovleTaskName" class="form-control">
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 col-xs-12 ">
+                <div class="input-prepend input-group">
+                    <span class="add-on input-group-addon">工作单据：</span>
+                    <select name="sovleTask.documents" class="form-control">
+                        <option value="">-请选择-</option>
+                        <option value=""></option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-sm-6 col-xs-12 ">
+                <div class="input-prepend input-group">
+                    <span class="add-on input-group-addon">负责人：</span>
+                    <select name="sovleTask.manager" class="form-control">
+                        <option value="">-请选择-</option>
+                        <option value=""></option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 col-xs-12 ">
+                <div class="input-prepend input-group">
+                    <span class="add-on input-group-addon">下发人：</span>
+                    <input name="sovleTask.creatBy" class="form-control" disabled
+                           th:value="${session.worker.getUserNo()}">
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 col-xs-12 ">
+                <div class="input-prepend input-group">
+                    <span class="add-on input-group-addon">下发日期：</span>
+                    <input type="text" name="sovleTask.creatDate" class="form-control" disabled
+                           th:value="${#dates.format(#dates.createNow(),'yyyy-MM-dd')}">
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-sm-6 col-xs-12 ">
+                <div class="input-prepend input-group">
+                    <span class="add-on input-group-addon">任务描述：</span>
+                    <textarea name="comment" cols="40" rows="5" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-6 col-xs-12 ">
+                <div class="input-prepend input-group">
+                    <span class="add-on input-group-addon">备注：</span>
+                    <textarea name="comment" cols="40" rows="5" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="col-lg-12 col-sm-12 col-xs-12 ">
+                <div class="input-prepend input-group">
+                    <span class="add-on input-group-addon">消缺员：</span>
+                    <textarea name="comment" cols="110" rows="2" class="form-control"></textarea>
+                    <b class="add-on input-group-addon view" data-toggle="modal" data-target="#myModal">
+                        <span class=" glyphicon  glyphicon-eye-open "
+                              aria-hidden="true"></span>
+                    </b>
+                </div>
+            </div>
+
+            <div class=" col-lg-4 col-sm-4 col-xs-4  col-lg-push-8 col-sm-push-8 col-xs-push-8 ">
+                <button type="submit" class="btn btn-primary">保存</button>
+                <button type="button" class="btn btn-primary">返回</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<!--模态框-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="myModalLabel">消缺员选择
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </h6>
+            </div>
+            <div class="modal-body">
+                <div id="modelLeft">
+                    <li>
+                        消缺员测试用户01
+                    </li>
+                    <li>
+                        消缺员测试用户01
+                    </li>
+                    <li>
+                        消缺员测试用户01
+                    </li>
+                </div>
+                <div id="modelMiddle">
+                     <span class=" glyphicon  glyphicon-forward "
+                           aria-hidden="true"></span>
+                    <span class=" glyphicon  glyphicon-backward "
+                          aria-hidden="true"></span>
+                </div>
+                <div id="modelRight">
+                    <li>
+                        消缺员测试用户01
+                    </li>
+                    <li>
+                        消缺员测试用户01
+                    </li>
+                    <li>
+                        消缺员测试用户01
+                    </li>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
