@@ -1,12 +1,13 @@
 package com.cn.elp.dao;
 
 import com.cn.elp.POJO.Workerinfo;
+import com.cn.elp.util.PageSurpport;
 
 import java.util.List;
 
 public interface WorkerinfoDao {
     /**
-     * 
+     * 根据用户编号登录
      * @param userNo
      * @return
      */
@@ -18,6 +19,13 @@ public interface WorkerinfoDao {
      * @return
      */
     List<Workerinfo> findWorkerByRoleId(int roleId);
+
+    /**
+     * 查找全部员工
+     * @return
+     */
+    List<Workerinfo> findAllWorkers();
+
 
 
 }

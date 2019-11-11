@@ -12,5 +12,9 @@
         select * from workerinfo where roleId=#{roleId};
     </select>
 
+    <select id="findAllWorkers" resultType="Workerinfo">
+        select * from workerinfo
+    </select>
+
 
 </mapper>

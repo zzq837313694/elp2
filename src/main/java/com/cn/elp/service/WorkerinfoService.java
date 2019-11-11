@@ -14,4 +14,10 @@ public interface WorkerinfoService {
      */
     List<Workerinfo> findWorkerByRoleId(int roleId);
 
+    /**
+     * 查找全部员工
+     * @return
+     */
+    List<Workerinfo> findAllWorkers();
+
 }
