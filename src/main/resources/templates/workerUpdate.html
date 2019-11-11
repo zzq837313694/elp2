@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>个人资料修改</title>
+    <link type="text/css" href="webjars/bootstrap" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}" rel="stylesheet">
+
+    <script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
+    <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}"></script>
+    <link rel="stylesheet" type="text/css" href="css/datepicker.css"/>
+    <style>
+
+        .row input[type='text']{
+            width: 200px;
+        }
+        .input-group{
+            margin-bottom: 35px;
+        }
+        .input-group-addon{
+            width:90px;
+        }
+    </style>
+</head>
+
+<body>
+<div style="padding: 30px 50px 80px 20px">电力巡检系统 -->线路 --> 新增线路</div>
+<div style="padding: 0px 50px 50px 50px">
+<form method="post" action="addCircuit.html" id="mycircuitAdd">
+    <div class="row">
+        <div  class="col-lg-9 col-sm-9 col-xs-9 col-lg-push-2" >
+            <div class="col-lg-6 col-sm-12 col-xs-12">
+                <div class="input-prepend input-group">
+                    <span class="add-on input-group-addon" style="width: 123px">用户名：</span>
+                    <input type="text" name="userNo" id="userNo" class="form-control" value="">
+                    <span style="color: red" id="UpdateuserNo">*</span>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12 col-xs-12 ">
+                <div class="input-prepend input-group">
+                    <span class="add-on input-group-addon" style="width: 123px">用户名称：</span>
+                    <input type="text" name="userName" id="userName" class="form-control" value="">
+                    <span style="color: red" id="UpdateuserName">*</span>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12 col-xs-12 ">
+                <div class="input-prepend input-group">
+                    <span class="add-on input-group-addon">请输入旧密码：</span>
+                    <input type="text" name="Oldpassword" id="Oldpassword" class="form-control" value="">
+                    <span style="color: red" id="UpdateOldpassword">*</span>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12 col-xs-12 ">
+                <div class="input-prepend input-group">
+                    <span class="add-on input-group-addon">请输入新密码：</span>
+                    <input type="text" name="password" id="password" class="form-control" value="">
+                    <span style="color: red" id="Updatepassword">*</span>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12 col-xs-12 ">
+                <div class="input-prepend input-group">
+                    <span class="add-on input-group-addon">请确认新密码：</span>
+                    <input type="text" name="Newpassword" id="Newpassword" class="form-control" value="">
+                    <span style="color: red" id="UpdateNewpassword">*</span>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12 col-xs-12 ">
+                <div class="input-prepend input-group">
+                    <span class="add-on input-group-addon" style="width: 123px">性别：</span>
+                    <span  class="form-control" style="width: 200px">
+                    <input type="radio"  name="sex" value="男" checked="checked">男    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+                    <input type="radio"  name="sex" value="女" >女</span>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12 col-xs-12 ">
+                <div class="input-prepend input-group">
+                    <span class="add-on input-group-addon" style="width: 123px">年龄：</span>
+                    <input type="text" name="age" id="age" class="form-control" value="">
+                    <span style="color: red" id="Updateage">*</span>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12 col-xs-12 ">
+                <div class="input-prepend input-group">
+                    <span class="add-on input-group-addon" style="width: 123px">入职日期：</span>
+                    <input type="text" name="hiredate" id="hiredate" class="form-control" value="">
+                    <span style="color: red" id="Updatehiredate">*</span>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12 col-xs-12 ">
+                <div class="input-prepend input-group">
+                    <span class="add-on input-group-addon" style="width: 123px">离职日期：</span>
+                    <input type="text" name="dimissionData" id="dimissionData" class="form-control" value="">
+                    <span style="color: red" id="UpdatedimissionData">*</span>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12 col-xs-12 ">
+                <div class="input-prepend input-group">
+                    <span class="add-on input-group-addon" style="width: 123px">联系电话：</span>
+                    <input type="text" name="TEL" id="TEL" class="form-control" value="">
+                    <span style="color: red" id="UpdateTEL">*</span>
+                </div>
+            </div>
+            <div class="col-lg-12 col-sm-12 col-xs-12 ">
+                <div class="input-prepend input-group">
+                    <span class="add-on input-group-addon" style="width: 123px">电子邮箱：</span>
+                    <input type="text" name="email" id="email" class="form-control" value="">
+                    <span style="color: red" id="Updateemail">*</span>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12 col-xs-12 ">
+                <button type="submit" class="btn btn-primary">保存</button> &nbsp; &nbsp; &nbsp; &nbsp;
+                <button type="button" class="btn btn-primary">返回</button>
+            </div>
+        </div>
+    </div>
+</form>
+</div>
+</body>
+</html>

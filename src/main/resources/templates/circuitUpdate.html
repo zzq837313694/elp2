@@ -27,31 +27,35 @@
 <body>
 <div style="padding: 30px 50px 80px 20px">电力巡检系统 -->线路 --> 修改线路</div>
 <div style="padding: 0px 50px 50px 50px">
-    <form method="post" action="doUpdateCirciut.html">
+    <form method="post" action="doUpdateCirciut.html" id="mycircuitAdd">
         <div class="row">
             <div  class="col-lg-9 col-sm-9 col-xs-9 col-lg-push-2" >
                 <div class="col-lg-6 col-sm-12 col-xs-12">
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">线路编号：</span>
-                        <input type="text" name="circuitNo" id="circuitNo" class="form-control" th:value="${updateCircuit.circuitNo}">
+                        <input type="text" name="circuitNo" id="circuitNo" class="form-control" th:value="${updateCircuit.circuitNo}" readonly="readonly">
+                        <span style="color: red" id="addCircuitNoSpan"></span>
                     </div>
                 </div>
                 <div class="col-lg-6 col-sm-12 col-xs-12 ">
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">线路名称：</span>
                         <input type="text" name="circuitName" id="circuitName" class="form-control" th:value="${updateCircuit.circuitName}">
+                        <span style="color: red" id="addCircuitNameSpan"></span>
                     </div>
                 </div>
                 <div class="col-lg-6 col-sm-12 col-xs-12 ">
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">线路长度：</span>
-                        <input type="text" name="lineLength" class="form-control" th:value="${updateCircuit.lineLength}">
+                        <input type="text" name="lineLength" id="lineLength"  class="form-control" th:value="${updateCircuit.lineLength}">
+                        <span style="color: red" id="addLineLengthSpan"></span>
                     </div>
                 </div>
                 <div class="col-lg-6 col-sm-12 col-xs-12 ">
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">回路长度：</span>
-                        <input type="text" name="circuitLength"  class="form-control" th:value="${updateCircuit.circuitLength}">
+                        <input type="text" name="circuitLength" id="circuitLength"  class="form-control" th:value="${updateCircuit.circuitLength}">
+                        <span style="color: red" id="addCircuitLengthSpan"></span>
                     </div>
                 </div>
                 <div class="col-lg-6 col-sm-12 col-xs-12 ">
@@ -59,34 +63,39 @@
                         <span class="add-on input-group-addon">投运日期：</span>
                         <div class="c-datepicker-date-editor c-datepicker-single-editor J-datepicker-day mt10">
                             <i class="c-datepicker-range__icon kxiconfont icon-clock"></i>
-                            <input type="text" autocomplete="off" name="onlineDate" placeholder="选择日期"
+                            <input type="text" autocomplete="off" name="onlineDate" id="onlineDate" placeholder="选择日期"
                                    th:value="${#dates.format(updateCircuit.onlineDate,'yyyy-MM-dd')}"
                                    class=" c-datepicker-data-input only-date"style="width: 148px">
+                            <span style="color: red" id="addOnlineDateSpan"></span>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6 col-sm-12 col-xs-12 ">
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">电压等级：</span>
-                        <input type="text" name="voltLv"  class="form-control" th:value="${updateCircuit.voltLv}">
+                        <input type="text" name="voltLv" id="voltLv"   class="form-control" th:value="${updateCircuit.voltLv}">
+                        <span style="color: red" id="addVoltLvSpan"></span>
                     </div>
                 </div>
                 <div class="col-lg-6 col-sm-12 col-xs-12 ">
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">起始杆号：</span>
-                        <input type="text" name="startNo"  class="form-control" th:value="${updateCircuit.startNo}">
+                        <input type="text" name="startNo" id="startNo"  class="form-control" th:value="${updateCircuit.startNo}">
+                        <span style="color: red" id="addStartNoSpan"></span>
                     </div>
                 </div>
                 <div class="col-lg-6 col-sm-12 col-xs-12 ">
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">终止杆号：</span>
-                        <input type="text" name="stopNo"  class="form-control" th:value="${updateCircuit.stopNo}">
+                        <input type="text" name="stopNo" id="stopNo"  class="form-control" th:value="${updateCircuit.stopNo}">
+                        <span style="color: red" id="addStopNoSpan"></span>
                     </div>
                 </div>
                 <div class="col-lg-6 col-sm-12 col-xs-12 ">
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">塔基数：</span>
-                        <input type="text" name="towerCount"  class="form-control" th:value="${updateCircuit.towerCount}">
+                        <input type="text" name="towerCount" id="towerCount"  class="form-control" th:value="${updateCircuit.towerCount}">
+                        <span style="color: red" id="addTowerCountSpan"></span>
                     </div>
                 </div>
                 <div class="col-lg-6 col-sm-12 col-xs-12 ">
@@ -115,5 +124,5 @@
 
 </div>
 </body>
-
+<script type="text/javascript" src="js/circuitAdd.js"></script>
 </html>

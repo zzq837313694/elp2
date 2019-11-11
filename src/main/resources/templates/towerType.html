@@ -74,24 +74,27 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title" id="myModalLabel">
+                    <h6 class="modal-title" id="myModalLabel">添加杆塔
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </h6>
                 </div>
                 <div class="modal-body">
-                    <form action="addOneTower.html" method="post">
+                    <form action="addOneTower.html" method="post" id="myaddfrom">
                         <table style="margin: auto">
                             <tr>
                                 <td>杆塔编号：</td>
-                                <td><input type="text" name="towerNo"></td>
+                                <td><input type="text" name="towerNo" id="addtowerNo">
+                                <span style="color: red" id="addtowerNo1"></span>
+                                </td>
                             </tr>
                             <tr>
                                 <td>所属线路</td>
                                 <td>
-                                    <select name="circuitNo">
-                                        <option>-请选择-</option>
+                                    <select name="circuitNo" id="addcircuitNo">
+                                        <option value="">-请选择-</option>
                                         <option th:each="c:${circuitList}" th:value="${c.circuitNo}" th:text="${c.circuitName}">西渭线</option>
                                     </select>
+                                    <span style="color: red" id="addcircuitNo1"></span>
                                 </td>
                             </tr>
                             <tr>
@@ -167,19 +170,22 @@
                 </h6>
             </div>
             <div class="modal-body">
-                <form action="/updateTower.html" method="post">
+                <form action="/updateTower.html" method="post" id="updateTowerForm">
                     <table style="margin: auto">
                         <tr>
                             <td>杆塔编号：</td>
-                            <td><input type="text" name="towerNo" id="towerNo1" readonly="readonly"></td>
+                            <td><input type="text" name="towerNo" id="towerNo1" readonly="readonly">
+                                <span style="color: red" id="updateTowerSpan"></span>
+                            </td>
                         </tr>
                         <tr>
                             <td>所属线路</td>
                             <td>
                                 <select name="circuitNo" id="mycircuitNo">
-                                    <option>-请选择-</option>
+                                    <option value="">-请选择-</option>
                                     <option th:each="c,var:${circuitList}" th:value="${c.circuitNo}" th:text="${c.circuitName}" >西渭线</option>
                                 </select>
+                                <span style="color: red" id="updateCircuitSpan"></span>
                             </td>
                         </tr>
                         <tr>
