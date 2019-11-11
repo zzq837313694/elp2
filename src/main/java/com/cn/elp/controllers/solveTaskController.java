@@ -19,10 +19,10 @@ public class solveTaskController {
     @Resource
     SolvetaskServices solvetaskServices;
 
-    @RequestMapping("/makesSolveTask.html")
+    @RequestMapping("/AdminSolveTask.html")
     public String makesSolveTask(Model model){
 
-        return  "makesSolveTask";
+        return "AdminSolveTask";
     }
 
     @RequestMapping("/getDate")
@@ -37,6 +37,14 @@ public class solveTaskController {
         ps.setDataList(solveTasks);
         model.addAttribute("ps",ps);
         return ps;
+    }
+
+
+    @RequestMapping("/addSolveTask.html")
+    public String toAddSovleTaskPage(){
+
+
+        return "addSolveTask";
     }
 
 }
