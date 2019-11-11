@@ -62,3 +62,69 @@ $(document).on("click","span.zxfokbtn",function(){
     $("#pageIndex").val(cur);
     $("#test").submit();
 });
+
+//验证不为空
+function checkNo(){
+    var addtowerNo= $("#addtowerNo").val();
+    if (addtowerNo==null || addtowerNo==""){
+        $("#addtowerNo1").text("*不能为空");
+        return false;
+    }else {
+        $("#addtowerNo1").text("*");
+        return true;
+    }
+}
+
+function checkaddcircuitNo(){
+    var  addcircuitNo=$("#addcircuitNo").val();
+    if (addcircuitNo==null || addcircuitNo==""){
+        $("#addcircuitNo1").text("*请选择线路");
+        return false;
+    } else {
+        $("#addcircuitNo1").text("*");
+        return true;
+    }
+}
+
+function checkUpdateTower(){
+    var towerNo1= $("#towerNo1").val();
+    if (towerNo1==null || towerNo1==""){
+        $("#updateTowerSpan").text("*不能为空");
+        return false;
+    }else {
+        $("#updateTowerSpan").text("*");
+        return true;
+    }
+}
+
+function checkUpdateCircuit(){
+    var  mycircuitNo=$("#mycircuitNo").val();
+    if (mycircuitNo==null || mycircuitNo==""){
+        $("#updateCircuitSpan").text("*请选择线路");
+        return false;
+    } else {
+        $("#updateCircuitSpan").text("*");
+        return true;
+    }
+}
+
+$(function () {
+    $("#addtowerNo").blur(checkNo);
+    $("#addcircuitNo").blur(checkaddcircuitNo);
+    $("#towerNo1").blur(checkUpdateTower);
+    $("#mycircuitNo").blur(checkUpdateCircuit);
+});
+
+
+$("#myaddfrom").submit(function () {
+    var flag=true;
+    if(!checkNo())flag=false;
+    if (!checkaddcircuitNo())flag=false;
+    return flag;
+});
+$("#updateTowerForm").submit(function () {
+    var flag=true;
+    if(!checkUpdateTower())flag=false;
+    if (!checkUpdateCircuit())flag=false;
+    return flag;
+});

@@ -17,7 +17,7 @@
                 }
                 if (pageinit.current >4 && pageinit.pageNum > 4) {
                     obj.append('<a href="javascript:;" class="zxfPagenum">'+1+'</a>');
-                    obj.append('<a href="javascript:;" class="zxfPagenum">'+2+'</a>');
+                   /* obj.append('<a href="javascript:;" class="zxfPagenum">'+2+'</a>');*/
                     obj.append('<span>...</span>');
                 }
                 if (pageinit.current >4 && pageinit.current <= pageinit.pageNum-5) {
