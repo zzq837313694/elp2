@@ -42,5 +42,4 @@ public interface WorkerinfoService {
     int findAllWorkersCount(@Param("userName") String userName, @Param("status") String status);
 
 
-
 }

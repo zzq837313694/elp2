@@ -24,43 +24,45 @@
 </head>
 
 <body>
-<div style="padding: 30px 50px 80px 20px">电力巡检系统 -->线路 --> 新增线路</div>
+<div style="padding: 30px 50px 80px 20px">我的工作平台 --> 个人资料修改</div>
 <div style="padding: 0px 50px 50px 50px">
-<form method="post" action="addCircuit.html" id="mycircuitAdd">
+<form method="post" action="UpdateWorker.html" id="myUpdateWorker">
     <div class="row">
         <div  class="col-lg-9 col-sm-9 col-xs-9 col-lg-push-2" >
             <div class="col-lg-6 col-sm-12 col-xs-12">
                 <div class="input-prepend input-group">
                     <span class="add-on input-group-addon" style="width: 123px">用户名：</span>
-                    <input type="text" name="userNo" id="userNo" class="form-control" value="">
+                    <input type="text" name="userNo" id="userNo" class="form-control" value="" th:value="${session.worker.userNo}">
                     <span style="color: red" id="UpdateuserNo">*</span>
                 </div>
             </div>
             <div class="col-lg-6 col-sm-12 col-xs-12 ">
                 <div class="input-prepend input-group">
                     <span class="add-on input-group-addon" style="width: 123px">用户名称：</span>
-                    <input type="text" name="userName" id="userName" class="form-control" value="">
+                    <input type="text" name="userName" id="userName" class="form-control" value=""
+                           readonly="readonly" th:value="${session.worker.userName}">
                     <span style="color: red" id="UpdateuserName">*</span>
                 </div>
             </div>
             <div class="col-lg-6 col-sm-12 col-xs-12 ">
                 <div class="input-prepend input-group">
-                    <span class="add-on input-group-addon">请输入旧密码：</span>
-                    <input type="text" name="Oldpassword" id="Oldpassword" class="form-control" value="">
+                    <span class="add-on input-group-addon" >请输入旧密码：</span>
+                    <input type="password" name="Oldpassword" id="Oldpassword" class="form-control" value="" style="width: 200px">
+                    <input type="hidden" name="Oldpassword1" id="Oldpassword1" th:value="${session.worker.password}">
                     <span style="color: red" id="UpdateOldpassword">*</span>
                 </div>
             </div>
             <div class="col-lg-6 col-sm-12 col-xs-12 ">
                 <div class="input-prepend input-group">
                     <span class="add-on input-group-addon">请输入新密码：</span>
-                    <input type="text" name="password" id="password" class="form-control" value="">
+                    <input type="password" name="password" id="password" class="form-control" value="" style="width: 200px">
                     <span style="color: red" id="Updatepassword">*</span>
                 </div>
             </div>
             <div class="col-lg-6 col-sm-12 col-xs-12 ">
                 <div class="input-prepend input-group">
                     <span class="add-on input-group-addon">请确认新密码：</span>
-                    <input type="text" name="Newpassword" id="Newpassword" class="form-control" value="">
+                    <input type="password" name="Newpassword" id="Newpassword" class="form-control" value="" style="width: 200px">
                     <span style="color: red" id="UpdateNewpassword">*</span>
                 </div>
             </div>
@@ -68,42 +70,44 @@
                 <div class="input-prepend input-group">
                     <span class="add-on input-group-addon" style="width: 123px">性别：</span>
                     <span  class="form-control" style="width: 200px">
-                    <input type="radio"  name="sex" value="男" checked="checked">男    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
-                    <input type="radio"  name="sex" value="女" >女</span>
+                    <input type="radio"  name="sex" value="男" th:checked="${session.worker.sex=='男'}">男    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+                    <input type="radio"  name="sex" value="女" th:checked="${session.worker.sex=='女'}">女</span>
                 </div>
             </div>
             <div class="col-lg-6 col-sm-12 col-xs-12 ">
                 <div class="input-prepend input-group">
                     <span class="add-on input-group-addon" style="width: 123px">年龄：</span>
-                    <input type="text" name="age" id="age" class="form-control" value="">
+                    <input type="text" name="age" id="age" class="form-control" value="" th:value="${session.worker.age}">
                     <span style="color: red" id="Updateage">*</span>
                 </div>
             </div>
             <div class="col-lg-6 col-sm-12 col-xs-12 ">
                 <div class="input-prepend input-group">
                     <span class="add-on input-group-addon" style="width: 123px">入职日期：</span>
-                    <input type="text" name="hiredate" id="hiredate" class="form-control" value="">
+                    <input type="text" name="hiredate" id="hiredate" class="form-control" value=""
+                      readonly="readonly"     th:value="${#dates.format(session.worker.hiredate,'yyyy-MM-dd')}">
                     <span style="color: red" id="Updatehiredate">*</span>
                 </div>
             </div>
             <div class="col-lg-6 col-sm-12 col-xs-12 ">
                 <div class="input-prepend input-group">
                     <span class="add-on input-group-addon" style="width: 123px">离职日期：</span>
-                    <input type="text" name="dimissionData" id="dimissionData" class="form-control" value="">
+                    <input type="text" name="dimissionData" id="dimissionData" class="form-control" value=""
+                       readonly="readonly"    th:value="${#dates.format(session.worker.dimissionData,'yyyy-MM-dd')}">
                     <span style="color: red" id="UpdatedimissionData">*</span>
                 </div>
             </div>
             <div class="col-lg-6 col-sm-12 col-xs-12 ">
                 <div class="input-prepend input-group">
                     <span class="add-on input-group-addon" style="width: 123px">联系电话：</span>
-                    <input type="text" name="TEL" id="TEL" class="form-control" value="">
+                    <input type="text" name="tel" id="tel" class="form-control" value="" th:value="${session.worker.tel}">
                     <span style="color: red" id="UpdateTEL">*</span>
                 </div>
             </div>
             <div class="col-lg-12 col-sm-12 col-xs-12 ">
                 <div class="input-prepend input-group">
                     <span class="add-on input-group-addon" style="width: 123px">电子邮箱：</span>
-                    <input type="text" name="email" id="email" class="form-control" value="">
+                    <input type="text" name="email" id="email" class="form-control" value="" th:value="${session.worker.email}">
                     <span style="color: red" id="Updateemail">*</span>
                 </div>
             </div>
@@ -116,4 +120,5 @@
 </form>
 </div>
 </body>
+<script type="text/javascript" src="js/workerUpdate.js"></script>
 </html>

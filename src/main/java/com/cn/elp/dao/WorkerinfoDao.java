@@ -25,7 +25,6 @@ public interface WorkerinfoDao {
      * @return
      */
     List<Workerinfo> findAllWorkers();
-
     /**
      * 根据用户名和状态分页查询所有用户信息
      * @param userName

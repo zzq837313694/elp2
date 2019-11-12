@@ -26,6 +26,7 @@
         select * from workerinfo
     </select>
 
+
     <select id="findAllWorkersPaging" resultType="Workerinfo">
         select * from workerinfo
         <where>
@@ -40,6 +41,7 @@
             <include refid="workerQuery"></include>
         </where>
     </select>
+
 
 
 </mapper>
