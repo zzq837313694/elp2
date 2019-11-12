@@ -4,6 +4,16 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cn.elp.dao.WorkerinfoDao">
 
+    <!-- sql片段，可重复使用 -->
+    <sql id="workerQuery">
+        <if test="userName!=null and userName!=''">
+            and userName like concat('%',#{userName},'%')
+        </if>
+        <if test="status!=null and status!=''">
+            and status like concat('%',#{status},'%')
+        </if>
+    </sql>
+
     <select id="findAllWorker" resultType="Workerinfo">
         select  * from  workerinfo where userNo=#{userNo}
     </select>
@@ -14,6 +24,21 @@
 
     <select id="findAllWorkers" resultType="Workerinfo">
         select * from workerinfo
+    </select>
+
+    <select id="findAllWorkersPaging" resultType="Workerinfo">
+        select * from workerinfo
+        <where>
+            <include refid="workerQuery"></include>
+        </where>
+        order by userNo limit #{from},#{pageSize}
+    </select>
+
+    <select id="findAllWorkersCount" resultType="int">
+        select count(1) from workerinfo
+        <where>
+            <include refid="workerQuery"></include>
+        </where>
     </select>
 
 

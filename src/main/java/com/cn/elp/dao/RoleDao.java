@@ -1,6 +1,7 @@
 package com.cn.elp.dao;
 
 import com.cn.elp.POJO.Role;
+import com.sun.org.apache.bcel.internal.generic.LineNumberGen;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -38,6 +39,17 @@ public interface RoleDao {
      * @return
      */
     List<Role> findAllRole();
+
+    /**
+     * 根据角色id修改角色信息
+     * @param role
+     * @return
+     */
+    int updateRole(Role role);
+
+
+
+
 
 
 }

@@ -37,4 +37,8 @@
         select * from role
     </select>
 
+    <update id="updateRole" parameterType="Role">
+        update role set roleName=#{roleName},status=#{status},modifyDate=#{modifyDate} where roleId=#{roleId}
+    </update>
+
 </mapper>

@@ -27,11 +27,13 @@ public class RoleServiceImpl implements RoleService {
         int rel=-1;//添加失败
         List<Role> roleList = roleDao.findAllRole();
         for(Role roles:roleList){
-            if(role.getRoleName()==roles.getRoleName()){
+            if(role.getRoleName().equals(roles.getRoleName())){
                 rel=0;//角色名称重复
-            }else {
-                rel=roleDao.addRole(role);//添加成功
+                break;
             }
+        }
+        if(rel!=0){
+            rel=roleDao.addRole(role);
         }
         return rel;
     }
@@ -39,5 +41,16 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<Role> findAllRole() {
         return roleDao.findAllRole();
+    }
+
+    @Override
+    public int updateRole(Role role) {
+        //boolean match = roleList.stream().filter(role1 -> role1.getRoleName().equals(role.getRoleName())).anyMatch(role1 -> role1.getRoleName().equals(role.getRoleName()));
+        /*if(match){
+            rel=0;
+        }else {
+            rel=roleDao.updateRole(role);
+        }*/
+        return roleDao.updateRole(role);
     }
 }

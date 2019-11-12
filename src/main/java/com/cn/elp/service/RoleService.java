@@ -39,5 +39,12 @@ public interface RoleService {
      */
     List<Role> findAllRole();
 
+    /**
+     * 根据角色id修改角色信息
+     * @param role
+     * @return
+     */
+    int updateRole(Role role);
+
 
 }
