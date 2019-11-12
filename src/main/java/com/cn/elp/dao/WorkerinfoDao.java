@@ -25,7 +25,10 @@ public interface WorkerinfoDao {
      * @return
      */
     List<Workerinfo> findAllWorkers();
-
+    /**
+     *根据用户No修改一条用户信息
+     */
+    int updateWorkerByUserNo(Workerinfo workerinfo);
 
 
 }

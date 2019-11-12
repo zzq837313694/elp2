@@ -22,7 +22,7 @@ public class MyConverter {
                 try{
                     date=simpleDateFormat.parse(source);
                 }catch (Exception e){
-                    System.out.println("有异常");
+                    System.out.println("有异常"+e);
                 }
                 return date;
             }

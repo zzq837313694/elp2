@@ -28,4 +28,9 @@ public class WorkerinfoServiceImpl implements WorkerinfoService {
         return workerinfoDao.findAllWorkers();
     }
 
+    @Override
+    public int updateWorkerByUserNo(Workerinfo workerinfo) {
+        return workerinfoDao.updateWorkerByUserNo(workerinfo);
+    }
+
 }

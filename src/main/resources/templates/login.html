@@ -27,7 +27,7 @@
 			<form action="/login.html" method="post">
 			<div class="lgD">
 				<img class="img1" src="img/logName.png" />
-				<input type="text" placeholder="输入用户名" name="userNo"/>
+				<input type="text" placeholder="输入用户名" name="userNo" th:value="${userNo}"/>
 				<span th:text="${error}" style="color: red"></span>
 			</div>
 			<div class="lgD">
