@@ -1,4 +1,3 @@
-/*
 
 package com.cn.elp.configer;
 
@@ -33,4 +32,3 @@ public class MyConverter {
     }
 }
 
-*/
