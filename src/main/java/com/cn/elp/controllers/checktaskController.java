@@ -30,5 +30,9 @@ public class checktaskController {
     public String checktaskPlan(){
         return "checktaskPlan";
     }
+    @RequestMapping("showChecktask.html")
+    public String showChecktask(){
+        return "showChecktask";
+    }
 
 }
