@@ -3,6 +3,8 @@ package com.cn.elp.dao;
 import com.cn.elp.POJO.Role;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface RoleDao {
 
     /**
@@ -11,12 +13,8 @@ public interface RoleDao {
      * @return
      */
       Role findRoleByRoleName(@Param("roleName") String roleName);
-import com.sun.org.apache.bcel.internal.generic.LineNumberGen;
-import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
 
-public interface RoleDao {
     /**
      * 动态分页查询全部角色
      * @param roleName  角色名称
