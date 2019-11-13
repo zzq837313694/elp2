@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 @Configuration
 public class MyConverter {
-    private static final String DATE_TIME_FORMATE = "yyyy-MM-dd";
+    private static final String DATE_TIME_FORMATE = "yyyy-MM-dd HH:mm:ss";
 
 
     @Bean
@@ -19,13 +19,20 @@ public class MyConverter {
             @Override
             public Date convert(String source) {
                 Date date=null;
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_TIME_FORMATE);
                 try {
                     date = simpleDateFormat.parse(source);
                 } catch (ParseException e) {
-                    e.printStackTrace();
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    try {
+                        date=sdf.parse(source);
+                    } catch (ParseException ex) {
+                        ex.printStackTrace();
+                    }
                 }
+                System.out.println(date);
                 return date;
+
             }
         } ;
 

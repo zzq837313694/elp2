@@ -6,6 +6,7 @@ import com.cn.elp.service.WorkerinfoService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -41,6 +42,11 @@ public class WorkerinfoServiceImpl implements WorkerinfoService {
     @Override
     public int updateWorkerByUserNo(Workerinfo workerinfo) {
         return workerinfoDao.updateWorkerByUserNo(workerinfo);
+    }
+
+    @Override
+    public int updateWorkerLastTime(Date lastOnLine,String userNo) {
+        return workerinfoDao.updateWorkerLastTime(lastOnLine,userNo);
     }
 
 
