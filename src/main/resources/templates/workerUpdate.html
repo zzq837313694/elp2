@@ -49,21 +49,21 @@
                     <span class="add-on input-group-addon" >请输入旧密码：</span>
                     <input type="password" name="Oldpassword" id="Oldpassword" class="form-control" value="" style="width: 200px">
                     <input type="hidden" name="Oldpassword1" id="Oldpassword1" th:value="${session.worker.password}">
-                    <span style="color: red" id="UpdateOldpassword">*</span>
+                    <span style="color: red" id="UpdateOldpassword">*  您本次登录时的密码</span>
                 </div>
             </div>
             <div class="col-lg-6 col-sm-12 col-xs-12 ">
                 <div class="input-prepend input-group">
                     <span class="add-on input-group-addon">请输入新密码：</span>
                     <input type="password" name="password" id="password" class="form-control" value="" style="width: 200px">
-                    <span style="color: red" id="Updatepassword">*</span>
+                    <span style="color: red" id="Updatepassword">*  新密码不少于6个字符</span>
                 </div>
             </div>
             <div class="col-lg-6 col-sm-12 col-xs-12 ">
                 <div class="input-prepend input-group">
                     <span class="add-on input-group-addon">请确认新密码：</span>
                     <input type="password" name="Newpassword" id="Newpassword" class="form-control" value="" style="width: 200px">
-                    <span style="color: red" id="UpdateNewpassword">*</span>
+                    <span style="color: red" id="UpdateNewpassword">*  新密码不少于6个字符</span>
                 </div>
             </div>
             <div class="col-lg-6 col-sm-12 col-xs-12 ">

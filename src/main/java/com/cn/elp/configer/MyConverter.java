@@ -30,7 +30,6 @@ public class MyConverter {
                         ex.printStackTrace();
                     }
                 }
-                System.out.println(date);
                 return date;
 
             }

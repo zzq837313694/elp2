@@ -24,6 +24,7 @@ function del(obj) {
             if(relData>"0"){
                 alert("该路线及其以下的杆塔删除成功!");
                 $(obj).parent().parent().remove();
+                window.location.reload();
             }else{
                 alert("删除失败!");
             }

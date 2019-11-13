@@ -26,6 +26,7 @@ function del(obj) {
             //1.重新从服务器端加载新闻列表数据
             //2.从客户端删除该条数据
             $(obj).parent().parent().remove();
+            window.location.reload();
         }else{
             alert("删除失败!");
         }
@@ -128,3 +129,10 @@ $("#updateTowerForm").submit(function () {
     if (!checkUpdateCircuit())flag=false;
     return flag;
 });
+$('#myModal2').on('hidden.bs.modal', function () {
+    document.getElementById("updateTowerForm").reset();
+});
+$('#myModal').on('hidden.bs.modal', function () {
+    document.getElementById("myaddfrom").reset();
+});
+

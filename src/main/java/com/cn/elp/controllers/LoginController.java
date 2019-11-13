@@ -38,8 +38,6 @@ public class LoginController {
         else if(workerinfo.getPassword().equals(password)){
             session.setAttribute(MyContents.WORKER_SESSION,workerinfo);
             Date lastOnline=new Date();
-            System.out.println(lastOnline);
-            System.out.println(lastOnline.toString());
             int rel=workerinfoService.updateWorkerLastTime(lastOnline,userNo);
             if (rel>0){
                 return "redirect:index.html";
