@@ -29,10 +29,15 @@ public class LoginController {
         if(workerinfo==null){
             model.addAttribute("error","用户名不存在！");
             return "login";
-        }else if(workerinfo.getPassword().equals(password)){
+        }else if(workerinfo.getStatus().equals(MyContents.CIRCUITSTOPUSE)){
+            model.addAttribute("error","此用户号已停用，无法登陆！");
+            return "login";
+        }
+        else if(workerinfo.getPassword().equals(password)){
             session.setAttribute(MyContents.WORKER_SESSION,workerinfo);
             return "redirect:index.html";
         }else{
+            model.addAttribute("userNo",userNo);
             model.addAttribute("errorpwd","密码错误！");
             return "login";
         }

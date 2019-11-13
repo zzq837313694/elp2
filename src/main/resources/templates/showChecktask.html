@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>查看巡检任务</title>
+</head>
+<link type="text/css" href="webjars/bootstrap" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}"
+      rel="stylesheet">
+<script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
+<script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}"></script>
+<style type="text/css">
+    #wrap{
+        height: 400px;
+    }
+    .leftpart{
+        width:200px;/* 左侧宽度任意 */
+        height: 400px;
+        margin-right: 20px;
+        float:left;
+    }
+    .rightpart{
+        border: black 1px solid;
+        line-height: 40px;
+        padding-left: 20px;
+        padding-top: 10px;
+        overflow: hidden;
+        height: 400px;
+        position: relative;
+
+    }
+</style>
+<body>
+<p id="van">
+    <span>消缺任务管理</span>
+    <span>&gt;&gt;&nbsp;</span>
+    <span>消缺任务制定与分配</span>
+    <span>&gt;&gt;&nbsp;</span>
+    <span>查看巡检任务</span>
+</p>
+<div style="padding: 0px 50px 0px 50px; border: #3e3e3e 1px solid; margin: 30px">
+    <div class="row">
+        <div class="col-lg-3 col-sm-6 col-sm-6 "><span style="font-weight: bolder">任务编号:</span><span>rw0234</span></div>
+        <div class="col-lg-3 col-sm-6 col-sm-6 "><span style="font-weight: bolder">任务名称:</span><span>西林一号线续建</span>
+        </div>
+        <div class="col-lg-3 col-sm-6 col-sm-6 "><span style="font-weight: bolder">巡检线路:</span><span>心灵1好像</span></div>
+        <div class="col-lg-3 col-sm-6 col-sm-6 "><span style="font-weight: bolder">起始杆号:</span><span>xw0001</span> <span
+                style="font-weight: bolder">终止杆号:</span><span>xw00245</span></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-sm-6 col-sm-12 "><span style="font-weight: bolder">下发人:</span><span>线路管理源测试账号01</span>
+        </div>
+        <div class="col-lg-3 col-sm-6 col-sm-12 "><span
+                style="font-weight: bolder">下发时间:</span><span>1thasuihadskahs</span></div>
+        <div class="col-lg-3 col-sm-6 col-sm-12 "><span style="font-weight: bolder">任务状态:</span><span>一万车</span></div>
+        <div class="col-lg-3 col-sm-6 col-sm-12 "><span style="font-weight: bolder">任务完成时间:</span><span>xw0abkjsabdksjda001</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-sm-6 col-sm-12 "><span style="font-weight: bolder">备注信息:</span><span>五</span></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-sm-6 col-sm-12 "><span style="font-weight: bolder">巡检员:</span><span>五</span></div>
+    </div>
+</div>
+<div class="row" style="height: 20px">
+</div>
+
+
+<div style="padding: 0px 30px 0px 30px;" id="wrap">
+    <div class="leftpart">
+        <div style="padding: 20px 10px 0px 20px; border: #3e3e3e 1px solid;width: 200px;display:inline-block">
+            <div class="input-prepend input-group">
+                <span class="add-on input-group-addon">线路编号:aflksalf</span>
+            </div>
+            <div>&nbsp;</div>
+            <div class="fc-button-group">
+                <select name="flawTypeId" id="se1" class="form-control" style="display:inline-block;width: 80px ">
+                    <option value="全部" style="color:black">全部</option>
+                    <option value="一般" style="color: green">一般</option>
+                    <option value="紧急" style="color: orange">紧急</option>
+                    <option value="严重" style="color: red">严重</option>
+                </select>
+                <button type="button" class="fc-prev-button fc-button fc-state-default fc-corner-left"><span
+                        class="fc-icon fc-icon-left-single-arrow"><</span></button>
+                <button type="button" class="fc-next-button fc-button fc-state-default fc-corner-right"><span
+                        class="fc-icon fc-icon-right-single-arrow"> > </span></button>
+            </div>
+            <ol style="list-style: none;font-size: large;text-indent: 2em">
+                <li>xw0001</li>
+                <li>xw0001</li>
+                <li>xw0001</li>
+                <li>xw0001</li>
+                <li>xw0001</li>
+                <li>xw0001</li>
+                <li>xw0001</li>
+                <li>xw0001</li>
+                <li>xw0001</li>
+                <li>xw0001</li>
+                <li>xw0001</li>
+            </ol>
+        </div>
+        <button  class="btn btn-primary">返回</button>
+    </div>
+    <div class="rightpart">
+        <div class="row">
+            <div class="col-lg-4 col-sm-5 col-sm-12"><span style="font-weight: bolder">线路编码:</span><span>rw0234</span></div>
+            <div class="col-lg-4 col-sm-5 col-sm-12"><span style="font-weight: bolder">塔杆编码:</span><span>rw0234</span></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-sm-5 col-sm-12"><span style="font-weight: bolder">有无故障:</span><span>rw0234</span></div>
+            <div class="col-lg-4 col-sm-5 col-sm-12"><span style="font-weight: bolder">完好率:</span><span>rw0234</span></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-sm-5 col-sm-12"><span style="font-weight: bolder">缺陷类型:</span><span>rw0234</span></div>
+            <div class="col-lg-4 col-sm-5 col-sm-12"><span style="font-weight: bolder">缺陷级别:</span><span>rw0234</span></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 col-sm-12"><span style="font-weight: bolder">缺陷描述:</span><span>rw0234</span></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 col-sm-12"><span style="font-weight: bolder">巡检时间:</span><span>rw0234</span></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 col-sm-12"><span style="font-weight: bolder">巡检员:</span><span>rw0234</span></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-sm-5 col-sm-12"><span style="font-weight: bolder">缺陷发现人:</span><span>rw0234</span></div>
+            <div class="col-lg-4 col-sm-5 col-sm-12"><span style="font-weight: bolder">发现时间:</span><span>rw0234</span></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-sm-5 col-sm-12"><span style="font-weight: bolder">下发人员:</span><span>rw0234</span></div>
+            <div class="col-lg-4 col-sm-5 col-sm-12"><span style="font-weight: bolder">下发时间:</span><span>rw0234</span></div>
+        </div>
+
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+$("#se1").change(function() {
+    var selectedColor = $(this).children("option:selected").css("color");  // 取出所选中的option的颜色
+    $(this).css("color", selectedColor);  // 将上述颜色赋给select
+});
+</script>
+</html>

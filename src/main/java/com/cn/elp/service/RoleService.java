@@ -1,33 +1,22 @@
-package com.cn.elp.dao;
+package com.cn.elp.service;
 
 import com.cn.elp.POJO.Role;
 import org.apache.ibatis.annotations.Param;
 
-public interface RoleDao {
-
-    /**
-     * 根据角色名查找角色信息
-     * @param roleName
-     * @return
-     */
-      Role findRoleByRoleName(@Param("roleName") String roleName);
-import com.sun.org.apache.bcel.internal.generic.LineNumberGen;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
 
-public interface RoleDao {
+public interface RoleService {
     /**
      * 动态分页查询全部角色
      * @param roleName  角色名称
      * @param status    启用状态
-     * @param from      起始页
+     * @param pageIndex 当前页
      * @param pageSize  页大小
      * @return
      */
     List<Role> findAllRolePaging(
             @Param("roleName") String roleName, @Param("status") String status,
-            @Param("from") int from, @Param("pageSize") int pageSize);
+            @Param("from") int pageIndex, @Param("pageSize") int pageSize);
 
     /**
      * 动态分页查询全部角色数量
@@ -56,10 +45,6 @@ public interface RoleDao {
      * @return
      */
     int updateRole(Role role);
-
-
-
-
 
 
 }

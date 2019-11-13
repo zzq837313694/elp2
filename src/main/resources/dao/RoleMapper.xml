@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cn.elp.dao.RoleDao">
+
+    <!-- sql片段，可重复使用 -->
+    <sql id="roleQuery">
+        <if test="roleName!=null and roleName!=''">
+            and roleName like concat('%',#{roleName},'%')
+        </if>
+        <if test="status!=null and status!=''">
+            and status like concat('%',#{status},'%')
+        </if>
+    </sql>
+
+    <select id="findAllRolePaging" resultType="Role">
+        select * from role
+        <where>
+            <include refid="roleQuery"></include>
+        </where>
+        order by roleId limit #{from},#{pageSize}
+    </select>
+
+    <select id="findRoleCount" resultType="int">
+        select count(1) from role
+        <where>
+            <include refid="roleQuery"></include>
+        </where>
+    </select>
+
+    <insert id="addRole" parameterType="Role">
+        insert into role(roleName, createBy, modifyDate, status) values (#{roleName},#{createBy},#{modifyDate},#{status})
+    </insert>
+
+    <select id="findAllRole" resultType="Role">
+        select * from role
+    </select>
+
+    <update id="updateRole" parameterType="Role">
+        update role set roleName=#{roleName},status=#{status},modifyDate=#{modifyDate} where roleId=#{roleId}
+    </update>
+
+</mapper>

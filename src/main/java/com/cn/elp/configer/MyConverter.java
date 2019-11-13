@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 @Configuration
@@ -14,19 +15,20 @@ public class MyConverter {
 
     @Bean
     public Converter<String, Date> convertDateTime(){
-        return new Converter<String, Date>(){
+        return new Converter<String, Date>() {
             @Override
             public Date convert(String source) {
-                Date date = null;
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_TIME_FORMATE);
-                try{
-                    date=simpleDateFormat.parse(source);
-                }catch (Exception e){
-                    System.out.println("有异常");
+                Date date=null;
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
+                try {
+                    date = simpleDateFormat.parse(source);
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
                 return date;
             }
-        };
+        } ;
+
     }
 }
 

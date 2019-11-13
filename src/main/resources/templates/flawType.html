@@ -35,12 +35,14 @@
                     </h6>
                 </div>
                 <div class="modal-body">
-                    <form action="addFlawType.html" method="post">
+                    <form action="addFlawType.html" method="post" id="addFlawForm">
 
                         <table style="margin: auto">
                             <tr>
                                 <td>缺陷类型名称：</td>
-                                <td><input type="text" name="flawName"></td>
+                                <td><input type="text" name="flawName" id="addFlaw">
+                                <span id="addFlawSpan" style="color: red">*</span>
+                                </td>
                             </tr>
                             <tr>
                                 <td>启用状态：</td>
@@ -114,13 +116,15 @@
                     </h6>
                 </div>
                 <div class="modal-body">
-                    <form action="updateFlawType.html" method="post">
+                    <form action="updateFlawType.html" method="post" id="updateFlawForm">
 
                         <table style="margin: auto">
                             <input type="hidden" id="flawTypeId" name="flawTypeId">
                             <tr>
                                 <td>缺陷类型名称：</td>
-                                <td><input type="text" name="flawName" id="updatename"></td>
+                                <td><input type="text" name="flawName" id="updatename">
+                                    <span id="updateFlawSpan" style="color: red">*</span>
+                                </td>
                             </tr>
                             <tr>
                                 <td>启用状态：</td>
@@ -205,6 +209,51 @@
         $("#pageIndex").val(cur);
         $("#test").submit();
     });
+
+
+
+    $(function () {
+        $("#addFlaw").blur(addFlawCheck);
+        $("#updatename").blur(updateFlawCheck);
+    });
+
+    $("#addFlawForm").submit(function () {
+        var flag=true;
+        if(!addFlawCheck()){flag=false;}
+        return flag;
+    });
+
+    $("#updateFlawForm").submit(function () {
+        var flag=true;
+        if(!updateFlawCheck()){flag=false;}
+        return flag;
+    });
+
+
+
+    //添加缺陷类型表单验证
+    function updateFlawCheck(){
+        if($("#updatename").val()==null || $("#updatename").val()==""){
+            $("#updateFlawSpan").text("*缺陷类型名称不能为空");
+            return false;
+        }else {
+            $("#updateFlawSpan").text("*");
+            return true;
+        }
+    }
+
+    //修改缺陷类型表单验证
+    function addFlawCheck(){
+        if($("#addFlaw").val()==null || $("#addFlaw").val()==""){
+            $("#addFlawSpan").text("*缺陷类型名称不能为空");
+            return false;
+        }else {
+            $("#addFlawSpan").text("*");
+            return true;
+        }
+    }
+
+
 </script>
 
 </html>

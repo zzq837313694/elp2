@@ -23,4 +23,21 @@ public class WorkerinfoServiceImpl implements WorkerinfoService {
         return workerinfoDao.findWorkerByRoleId(roleId);
     }
 
+    @Override
+    public List<Workerinfo> findAllWorkers() {
+        return workerinfoDao.findAllWorkers();
+    }
+
+    @Override
+    public List<Workerinfo> findAllWorkersPaging(String userName, String status, int pageIndex, int pageSize) {
+        return workerinfoDao.findAllWorkersPaging(userName,status,(pageIndex-1)*pageSize,pageSize);
+    }
+
+    @Override
+    public int findAllWorkersCount(String userName, String status) {
+        return workerinfoDao.findAllWorkersCount(userName,status);
+    }
+
+
+
 }
