@@ -85,6 +85,12 @@ public class SystemController {
         int rel = roleService.updateRole(role);
         return rel;
     }
+    @RequestMapping("delRole.html")
+    @ResponseBody
+    public int delRole(int roleId){
+        int rel=roleService.delRoleByRoleId(roleId);
+        return rel;
+    }
 
 
     /**
@@ -114,8 +120,12 @@ public class SystemController {
     }
 
     @RequestMapping("/addWorker.html")
-    public String addWorker(){
-        return "worker";
+    @ResponseBody
+    public int addWorker(Workerinfo workerinfo,Model model){
+        List<Role> roleList = roleService.findAllRole();
+        int rel = workerinfoService.addWorker(workerinfo);
+        model.addAttribute("roleList",roleList);
+        return rel;
     }
 
 }

@@ -41,4 +41,8 @@
         update role set roleName=#{roleName},status=#{status},modifyDate=#{modifyDate} where roleId=#{roleId}
     </update>
 
+    <delete id="delRoleByRoleId" parameterType="int">
+        delete from role where roleId=#{roleId}
+    </delete>
+
 </mapper>

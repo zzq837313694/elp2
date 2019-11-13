@@ -175,7 +175,8 @@
         $.get("delFlawType.html",data,function(relData){
             if(relData>"0"){
                 alert("删除成功!");
-                $(obj).parent().parent().remove();
+                //$(obj).parent().parent().remove();
+                window.location.reload();
             }else{
                 alert("删除失败!");
             }
@@ -253,6 +254,12 @@
         }
     }
 
+    $("#myModal").on("hidden.bs.modal", function () {
+        document.getElementById("addFlawForm").reset();
+    });
+    $("#myModal2").on("hidden.bs.modal", function () {
+        document.getElementById("updateFlawForm").reset();
+    });
 
 </script>
 

@@ -41,12 +41,20 @@
             <include refid="workerQuery"></include>
         </where>
     </select>
-<update id="updateWorkerByUserNo" parameterType="Workerinfo">
-    update workerinfo set userNo=#{userNo},userName=#{userName},
-     password=#{password}, sex=#{sex}, age=#{age}, tel=#{tel}, email=#{email} where userNo=#{userNo}
-</update>
-<update id="updateWorkerLastTime">
-    update workerinfo set lastOnLine=#{lastOnLine} where userNo=#{userNo}
-</update>
+
+    <update id="updateWorkerByUserNo" parameterType="Workerinfo">
+        update workerinfo set userNo=#{userNo},userName=#{userName},
+         password=#{password}, sex=#{sex}, age=#{age}, tel=#{tel}, email=#{email} where userNo=#{userNo}
+    </update>
+
+    <update id="updateWorkerLastTime">
+        update workerinfo set lastOnLine=#{lastOnLine} where userNo=#{userNo}
+    </update>
+
+    <insert id="addWorker" parameterType="Workerinfo">
+        insert into workerinfo(userNo, roleId, userName, age, hiredate,dimissionData,
+        TEL, email, lastOnLine, status) values (#{userNo},#{roleId},#{userName},#{age},
+        #{hiredate},#{dimissionData},#{TEL},#{email},#{lastOnLine},#{status})
+    </insert>
 
 </mapper>

@@ -60,4 +60,16 @@ public interface WorkerinfoDao {
      */
     int updateWorkerLastTime(@Param("lastOnLine") Date lastOnLine,@Param("userNo") String userNo);
 
+    /**
+     * 添加员工信息
+     * @param workerinfo
+     * @return
+     */
+    int addWorker(Workerinfo workerinfo);
+
+
+
+
+
+
 }

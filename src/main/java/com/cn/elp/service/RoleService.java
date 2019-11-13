@@ -16,7 +16,7 @@ public interface RoleService {
      */
     List<Role> findAllRolePaging(
             @Param("roleName") String roleName, @Param("status") String status,
-            @Param("from") int pageIndex, @Param("pageSize") int pageSize);
+            @Param("pageIndex") int pageIndex, @Param("pageSize") int pageSize);
 
     /**
      * 动态分页查询全部角色数量
@@ -45,6 +45,13 @@ public interface RoleService {
      * @return
      */
     int updateRole(Role role);
+
+    /**
+     * 根据角色id删除一条角色信息
+     * @param roleId
+     * @return
+     */
+    int delRoleByRoleId(int roleId);
 
 
 }

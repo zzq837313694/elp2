@@ -16,7 +16,7 @@ public interface FlawinfoService {
      */
     List<Flawinfo> findAllFlawInfo(
             @Param("condition") FlawInfoCondition flawInfoCondition,
-            @Param("from") int pageIndex,
+            @Param("pageIndex") int pageIndex,
             @Param("pageSize") int pageSize);
 
     /**

@@ -32,7 +32,7 @@ public interface WorkerinfoService {
      */
     List<Workerinfo> findAllWorkersPaging(
             @Param("userName") String userName, @Param("status") String status,
-            @Param("from") int pageIndex, @Param("pageSize") int pageSize);
+            @Param("pageIndex") int pageIndex, @Param("pageSize") int pageSize);
 
     /**
      * 根据用户名和状态查询符合条件的用户数量
@@ -41,16 +41,29 @@ public interface WorkerinfoService {
      * @return
      */
     int findAllWorkersCount(@Param("userName") String userName, @Param("status") String status);
+
     /**
      * 修改一条
      * @param workerinfo
      * @return
      */
     int updateWorkerByUserNo(Workerinfo workerinfo);
+
     /**
      * 修改最后的登录时间
      * @param lastOnLine
      * @return
      */
     int updateWorkerLastTime(Date lastOnLine ,String userNo);
+
+    /**
+     * 添加员工信息
+     * @param workerinfo
+     * @return
+     */
+    int addWorker(Workerinfo workerinfo);
+
+
+
+
 }

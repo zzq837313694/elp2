@@ -54,6 +54,13 @@ public interface RoleDao {
      */
     int updateRole(Role role);
 
+    /**
+     * 根据角色id删除一条角色信息
+     * @param roleId
+     * @return
+     */
+    int delRoleByRoleId(int roleId);
+
 
 
 
