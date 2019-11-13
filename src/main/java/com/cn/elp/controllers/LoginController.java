@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Controller
 public class LoginController {
@@ -35,7 +37,16 @@ public class LoginController {
         }
         else if(workerinfo.getPassword().equals(password)){
             session.setAttribute(MyContents.WORKER_SESSION,workerinfo);
-            return "redirect:index.html";
+            Date lastOnline=new Date();
+            System.out.println(lastOnline);
+            System.out.println(lastOnline.toString());
+            int rel=workerinfoService.updateWorkerLastTime(lastOnline,userNo);
+            if (rel>0){
+                return "redirect:index.html";
+            }
+            else {
+                return "login";
+            }
         }else{
             model.addAttribute("userNo",userNo);
             model.addAttribute("errorpwd","密码错误！");

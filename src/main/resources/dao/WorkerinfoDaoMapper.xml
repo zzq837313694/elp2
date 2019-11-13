@@ -45,6 +45,8 @@
     update workerinfo set userNo=#{userNo},userName=#{userName},
      password=#{password}, sex=#{sex}, age=#{age}, tel=#{tel}, email=#{email} where userNo=#{userNo}
 </update>
-
+<update id="updateWorkerLastTime">
+    update workerinfo set lastOnLine=#{lastOnLine} where userNo=#{userNo}
+</update>
 
 </mapper>
