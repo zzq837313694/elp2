@@ -113,4 +113,9 @@ public class SystemController {
         return "worker";
     }
 
+    @RequestMapping("/addWorker.html")
+    public String addWorker(){
+        return "worker";
+    }
+
 }
