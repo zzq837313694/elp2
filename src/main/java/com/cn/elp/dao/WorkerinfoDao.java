@@ -45,6 +45,11 @@ public interface WorkerinfoDao {
      */
     int findAllWorkersCount(@Param("userName") String userName, @Param("status") String status);
 
-
+    /**
+     * 修改一条
+     * @param workerinfo
+     * @return
+     */
+    int updateWorkerByUserNo(Workerinfo workerinfo);
 
 }

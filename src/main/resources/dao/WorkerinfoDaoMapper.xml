@@ -41,7 +41,10 @@
             <include refid="workerQuery"></include>
         </where>
     </select>
-
+<update id="updateWorkerByUserNo" parameterType="Workerinfo">
+    update workerinfo set userNo=#{userNo},userName=#{userName},
+     password=#{password}, sex=#{sex}, age=#{age}, tel=#{tel}, email=#{email} where userNo=#{userNo}
+</update>
 
 
 </mapper>

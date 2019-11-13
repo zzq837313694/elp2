@@ -38,6 +38,10 @@ public class WorkerinfoServiceImpl implements WorkerinfoService {
         return workerinfoDao.findAllWorkersCount(userName,status);
     }
 
+    @Override
+    public int updateWorkerByUserNo(Workerinfo workerinfo) {
+        return workerinfoDao.updateWorkerByUserNo(workerinfo);
+    }
 
 
 }
