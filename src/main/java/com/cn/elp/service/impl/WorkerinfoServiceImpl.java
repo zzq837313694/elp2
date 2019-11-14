@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class WorkerinfoServiceImpl implements WorkerinfoService {
+public class WorkerinfoServiceImpl implements WorkerinfoService{
     @Resource
     WorkerinfoDao workerinfoDao;
 
@@ -51,19 +51,23 @@ public class WorkerinfoServiceImpl implements WorkerinfoService {
 
     @Override
     public int addWorker(Workerinfo workerinfo) {
+        return workerinfoDao.addWorker(workerinfo);
+    }
+
+    @Override
+    public int checkWorkerInfo(String userNo, String userName) {
         int rel=-1;//添加失败
         List<Workerinfo> workerinfoList = workerinfoDao.findAllWorkers();
         for(Workerinfo workers:workerinfoList){
-            if(workerinfo.getUserNo().equals(workers.getUserNo())){
-                rel=0;//用户编号已存在
+            if(userNo!=null && userNo.equals(workers.getUserNo())){
+                rel=-1;//用户编号已存在
                 break;
-            }else if (workerinfo.getUserName().equals(workers.getUserName())){
+            }else if (userName!=null && userName.equals(workers.getUserName())){
                 rel=-2;//用户名称已存在
                 break;
+            }else{
+                rel=0;
             }
-        }
-        if(rel!=0 && rel!=-2){
-            rel=workerinfoDao.addWorker(workerinfo);
         }
         return rel;
     }

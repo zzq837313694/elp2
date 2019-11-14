@@ -120,12 +120,16 @@ public class SystemController {
     }
 
     @RequestMapping("/addWorker.html")
-    @ResponseBody
-    public int addWorker(Workerinfo workerinfo,Model model){
+    public String addWorker(Workerinfo workerinfo,Model model){
         System.out.println(workerinfo.getUserNo());
-        List<Role> roleList = roleService.findAllRole();
         int rel = workerinfoService.addWorker(workerinfo);
-        model.addAttribute("roleList",roleList);
+        return "worker";
+    }
+
+    @RequestMapping("/checkWorkerInfo.html")
+    @ResponseBody
+    public int checkWorkerInfo(String userNo,String userName){
+        int rel=workerinfoService.checkWorkerInfo(userNo,userName);
         return rel;
     }
 

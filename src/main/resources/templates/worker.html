@@ -83,27 +83,27 @@
                     </h6>
                 </div>
                 <div class="modal-body">
-                    <form id="addRoleForm">
+                    <form id="addRoleForm"action="/addWorker.html" method="post">
 
                         <table style="margin: auto">
                             <tr>
                                 <td>登录账号：</td>
                                 <td style="padding: 10px">
-                                    <input type="text" name="userNo" id="addUserNo" onblur="isEmpty(this)" value="">
+                                    <input type="text" name="userNo" id="addUserNo"  value="">
                                     <span id="addUserNoSpan" class="isEmpty" style="color: red">*</span>
                                 </td>
                             </tr>
                             <tr>
                                 <td>用户名称：</td>
                                 <td style="padding: 10px">
-                                    <input type="text" name="userName" id="addUserName" onblur="isEmpty(this)" value="">
+                                    <input type="text" name="userName" id="addUserName"  value="">
                                     <span id="addUserNameSpan" class="isEmpty" style="color: red">*</span>
                                 </td>
                             </tr>
                             <tr>
                                 <td>密码：</td>
                                 <td style="padding: 10px">
-                                    <input type="text" name="password" id="addPassword" onblur="isEmpty(this)" value="">
+                                    <input type="text" name="password" id="addPassword"  value="">
                                     <span id="addPasswordSpan" class="isEmpty" style="color: red">*</span>
                                 </td>
                             </tr>
@@ -153,10 +153,6 @@
             </div>
         </div>
     </div>
-
-
-
-
 
 
 
@@ -233,12 +229,120 @@
         var status=$("#addstatus input:radio:checked").val();
         
         alert(userNo+"==="+userName+"==="+password+"==="+roleId+"==="+hiredate+"==="+dimissionData+"==="+status);
-
-
     }
+    function checkuserNo(){
+        var userNo=$("#addUserNo").val();
+        var flag;
+        if (userNo==null || userNo==""){
+            $("#addUserNoSpan").text("不能为空");
+            flag= false;
+        } else {
+            data="userNo="+userNo;
+            $.ajax({
+                url:"checkWorkerInfo.html",
+                type:"post",
+                async:false,
+                data:data,
+                success:function(rel) {
+                    if (rel==-1){
+                        $("#addUserNoSpan").text("用户编号已存在");
+                        flag=false;
+                    }  else {
+                        $("#addUserNoSpan").text("*");
+                        flag=true;
+                    }
+            }
+            })
+        }
+        return flag;
+    }
+    function checkuserName(){
+        var userName=$("#addUserName").val();
+        var flag;
+        if (userName==null || userName==""){
+            $("#addUserNameSpan").text("不能为空");
+            flag= false;
+        } else {
+            data="userName="+userName;
+            $.ajax({
+                url: "checkWorkerInfo.html",
+                type: "post",
+                async: false,
+                data: data,
+                success:function(rel){
+                    if (rel==-2){
+                        $("#addUserNameSpan").text("用户名称已存在");
+                        flag=false;
+                    }  else {
+                        $("#addUserNameSpan").text("*");
+                        flag=true;
+                    }
+                }
+            })
+        }
+        return flag;
+    }
+    function checkuserpassword(){
+        var password=$("#addPassword").val();
+        if (password==null || password==""){
+            $("#addPasswordSpan").text("不能为空");
+            return false;
+        } else {
+            $("#addPasswordSpan").text("*");
+            return true;
+        }
+    }
+    function checkuserroleId(){
+        var roleId=$("#roleId").val();
+        if (roleId==null || roleId==""){
+            $("#addRole").text("不能为空");
+            return false;
+        } else {
+            $("#addRole").text("*");
+            return true;
+        }
+    }
+    $(function () {
+        $("#addUserNo").blur(checkuserNo);
+        $("#addUserName").blur(checkuserName);
+        $("#addPassword").blur(checkuserpassword);
+        $("#roleId").blur(checkuserroleId);
+    });
+
+
+    $("#addRoleForm").submit(function () {
+        var a=checkuserNo();
+        var b=checkuserName();
+        var c=checkuserpassword();
+        var d=checkuserroleId();
+        alert(a);
+        alert(b);
+        alert(c);
+        alert(d);
+        if(a&b&c&d){
+            return true;
+        }
+        return false;
+    });
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //分页格式
     $(".zxf_pagediv").createPage({
         pageNum: $("#pageCount").val(),
         current: $("#returnpageIndex").val(),

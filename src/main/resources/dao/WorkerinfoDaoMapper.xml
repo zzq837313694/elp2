@@ -54,7 +54,7 @@
     <insert id="addWorker" parameterType="Workerinfo">
         insert into workerinfo(userNo, roleId, userName, age, hiredate,dimissionData,
         TEL, email, lastOnLine, status) values (#{userNo},#{roleId},#{userName},#{age},
-        #{hiredate},#{dimissionData},#{TEL},#{email},#{lastOnLine},#{status})
+        #{hiredate},#{dimissionData},#{tel},#{email},#{lastOnLine},#{status})
     </insert>
 
 </mapper>

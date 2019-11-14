@@ -63,6 +63,13 @@ public interface WorkerinfoService {
      */
     int addWorker(Workerinfo workerinfo);
 
+    /**
+     * 验证唯一性
+     * @param userNo
+     * @param userName
+     * @return
+     */
+    int checkWorkerInfo(String userNo,String userName);
 
 
 
