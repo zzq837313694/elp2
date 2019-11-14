@@ -4,9 +4,63 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>欢迎页</title>
 
+    <style>
+        .background img{
+            width: 100%;
+            position: relative;
+            opacity:0.4;
+            z-index: 3;
+        }
+        .transbox p{
+            width: 80%;
+            height: 80px;
+            /*border: 1px solid red;*/
+            position: absolute;
+            top: 20%;
+            left: 10%;
+            font-size: 40px;
+            color: black;
+            z-index: 3000;
+            text-shadow: 5px 5px 5px #ffe3c6;
+        }
+
+        /*.transbox
+        {
+            width: 338px;
+            height: 204px;
+            margin:30px;
+            background-color: #ffffff;
+            border: 1px solid black;
+            !* for IE *!
+            filter:alpha(opacity=60);
+            !* CSS3 standard *!
+            opacity:0.6;
+        }
+
+        .transbox p
+        {
+            margin: 30px 40px;
+        }*/
+    </style>
+
 </head>
 
 <body>
-    欢迎进入电力巡检系统！
+    <div class="background">
+        <img src="img/hou.png">
+        <div class="transbox">
+            <p>
+                欢迎进入电力巡检系统！
+            </p>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
 </body>
 </html>
