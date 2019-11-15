@@ -20,14 +20,18 @@ public class MyConverter {
             public Date convert(String source) {
                 Date date=null;
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_TIME_FORMATE);
-                try {
-                    date = simpleDateFormat.parse(source);
-                } catch (ParseException e) {
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                if (source==null||source.equals("")){
+                    date=null;
+                }else {
                     try {
-                        date=sdf.parse(source);
-                    } catch (ParseException ex) {
-                        ex.printStackTrace();
+                        date = simpleDateFormat.parse(source);
+                    } catch (ParseException e) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                        try {
+                            date=sdf.parse(source);
+                        } catch (ParseException ex) {
+                            ex.printStackTrace();
+                        }
                     }
                 }
                 return date;
