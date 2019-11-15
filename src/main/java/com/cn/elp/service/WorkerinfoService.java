@@ -70,7 +70,24 @@ public interface WorkerinfoService {
      * @return
      */
     int checkWorkerInfo(String userNo,String userName);
+    /**
+     * 系统管理的修改一条用户信息
+     * @param workerinfo
+     * @return
+     */
+    int modifyWorkerinfoByuserNo(Workerinfo workerinfo);
+    /**
+     * 通过用户名删除一条
+     * @param userNo
+     * @return
+     */
+    int delWorkerinfoByuserNo(String userNo);
 
-
+    /**
+     * 修改一条用户的状态
+     * @param status
+     * @return
+     */
+    int updateWorkerinfoStatus(String status,String userNo);
 
 }

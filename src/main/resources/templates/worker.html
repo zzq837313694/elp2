@@ -110,7 +110,7 @@
                             <tr>
                                 <td>角色：</td>
                                 <td style="padding: 10px">
-                                    <select id="roleId">
+                                    <select id="roleId" name="roleId">
                                         <option value="">--请选择--</option>
                                         <option th:each="role:${roleList}" th:value="${role.roleId}" th:text="${role.roleName}"></option>
                                     </select>
@@ -137,6 +137,7 @@
                                     </div>
                                 </td>
                             </tr>
+
                             <tr>
                                 <td>使用状态：</td>
                                 <td id="addstatus" style="padding: 10px">
@@ -154,6 +155,89 @@
         </div>
     </div>
 
+
+    <!-- 修改用户 -->
+    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="myModalLabe2">修改用户
+                        <span id="updateRoleSpan" style="color: red"></span>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </h6>
+                </div>
+                <div class="modal-body">
+                    <form id="updateRoleForm"action="/modifyWorkerinfoByuserNoaswswa.html" method="post">
+
+                        <table style="margin: auto">
+                            <tr>
+                                <td>登录账号：</td>
+                                <td style="padding: 10px">
+                                    <input type="text" name="userNo" id="updateUserNo"  value="">
+                                    <span id="updateUserNoSpan" class="isEmpty" style="color: red">*</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>用户名称：</td>
+                                <td style="padding: 10px">
+                                    <input type="text" name="userName" id="updateUserName"  value="">
+                                    <span id="updateUserNameSpan" class="isEmpty" style="color: red">*</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>密码：</td>
+                                <td style="padding: 10px">
+                                    <input type="text" name="password" id="updatePassword"  value="">
+                                    <span id="updatePasswordSpan" class="isEmpty" style="color: red">*</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>角色：</td>
+                                <td style="padding: 10px">
+                                    <select id="updateroleId" name="roleId">
+                                        <option value="">--请选择--</option>
+                                        <option th:each="role:${roleList}" th:value="${role.roleId}" th:text="${role.roleName}"></option>
+                                    </select>
+                                    <span id="updateRole" class="isEmpty" style="color: red">*</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>入职时间：</td>
+                                <td style="padding: 10px">
+                                    <div class="c-datepicker-date-editor c-datepicker-single-editor J-datepicker-day mt10">
+                                        <i class="c-datepicker-range__icon kxiconfont icon-clock"></i>
+                                        <input type="text" autocomplete="off" name="hiredate" id="updateHiredate" placeholder="选择日期"
+                                               class=" c-datepicker-data-input only-date" style="width: 122px" value="">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>离职时间：</td>
+                                <td style="padding: 10px">
+                                    <div class="c-datepicker-date-editor c-datepicker-single-editor J-datepicker-day mt10">
+                                        <i class="c-datepicker-range__icon kxiconfont icon-clock"></i>
+                                        <input type="text" autocomplete="off" name="dimissionData" id="updateDimissionData" placeholder="选择日期"
+                                               class=" c-datepicker-data-input only-date"style="width: 122px" value="">
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>使用状态：</td>
+                                <td id="updatestatus" style="padding: 10px">
+                                    <input type="radio" value="正常" id="statusON" name="status" checked="checked">正常
+                                    <input type="radio" value="冻结" id="statusOFF"name="status">冻结</td>
+                            </tr>
+                        </table>
+                        <div class="row">
+                            <button type="submit" id="updatebutton" class="btn btn-primary col-md-1 col-md-offset-8">保存</button>
+                            <button type="button" class="btn btn-primary col-md-1" style="margin-left: 10px" data-dismiss="modal">返回</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -198,9 +282,19 @@
                     <td th:text="${worker.status}"></td>
 
                     <td>
-                        <a>冻结</a>丨
-                        <a href="javascript:(void);" data-toggle="modal" data-target="#myModal2">修改</a>丨
-                        <a href="javascript:(void);" id="deltype">删除</a>丨<a>LOG日志</a>
+                        <a href="JavaScript:(void);" th:if="${worker.status=='冻结'}" th:userNo="${worker.userNo}" th:status="正常" onclick="updateStatus(this)">正常</a>
+                         <a href="JavaScript:(void);" th:if="${worker.status=='正常'}" th:userNo="${worker.userNo}" th:status="冻结" onclick="updateStatus(this)" >冻结</a>
+                        丨<a href="javascript:(void);" data-toggle="modal" data-target="#myModal2"
+                        th:userNo="${worker.userNo}" th:userName="${worker.userName}"
+                           th:each="role:${roleList}" th:roleName="${role.roleId==worker.roleId}?${role.roleId}"th:if="${role.roleId==worker.roleId}"
+                           th:email="${worker.email}"
+                           th:hiredate="${#dates.format(worker.hiredate,'yyyy-MM-dd')}"
+                           th:dimissionData="${#dates.format(worker.dimissionData,'yyyy-MM-dd')}"
+                           th:status="${worker.status}"
+                           th:password="${worker.password}"
+                           onclick="update(this)"
+                            >修改</a>丨
+                        <a href="javascript:(void);" th:userNo="${worker.userNo}"  onclick="del(this)">删除</a>丨<a>LOG日志</a>
                     </td>
                     <input type="hidden" id="returnpageIndex" th:value="${pageSurpport.pageIndex}">
                     <input id="pageCount" type="hidden" th:value="${pageSurpport.pageCount}">
@@ -218,18 +312,67 @@
 </body>
 <script src="js/ShowPage.js" type="text/javascript"></script>
 <script type="text/javascript">
-    //添加用户信息
-    function addWorker(){
-        var userNo=$("#addUserNo").val();
-        var userName=$("#addUserName").val();
-        var password=$("#addPassword").val();
-        var roleId=$("#roleId option:selected").val();
-        var hiredate=$("#addHiredate").val();
-        var dimissionData=$("#addDimissionData").val();
-        var status=$("#addstatus input:radio:checked").val();
-        
-        alert(userNo+"==="+userName+"==="+password+"==="+roleId+"==="+hiredate+"==="+dimissionData+"==="+status);
+function update(obj) {
+    var userNo=$(obj).attr("userNo");
+    var userName=$(obj).attr("userName");
+    var roleName=$(obj).attr("roleName");
+    var password=$(obj).attr("password");
+    var email=$(obj).attr("email");
+    var hiredate=$(obj).attr("hiredate");
+    var dimissionData=$(obj).attr("dimissionData");
+    var status=$(obj).attr("status");
+    $("#updateUserNo").val(userNo);
+    $("#updateUserName").val(userName);
+    $("#updatePassword").val(password);
+    $("#updateroleId>option[value="+roleName+"]").attr("selected",true);
+    $("#Updateemail").val(email);
+    $("#updateHiredate").val(hiredate);
+    $("#updateDimissionData").val(dimissionData);
+    if($("#statusON").val()==status){
+        $("#statusOFF").removeAttr("checked");
+        $("#statusON").attr("checked",true);
     }
+    if($("#statusOFF").val()==status){
+        $("#statusON").removeAttr("checked");
+        $("#statusOFF").attr("checked",true);
+    }
+}
+
+function del(obj) {
+    var userNo=$(obj).attr("userNo");
+    if (confirm("确定删除此用户？")){
+        data="userNo="+userNo;
+        $.post("delWorkerinfoByuserNo.html",data,function (delrel) {
+            if (delrel>0){
+                alert("删除成功");
+                window.location.reload();
+            } else {
+                alert("删除失败");
+            }
+        });
+        return true;
+    } else {
+        return  false;
+    }
+}
+
+
+function updateStatus(obj) {
+    var userNo=$(obj).attr("userNo");
+    var status=$(obj).attr("status");
+    data="userNo="+userNo+"&status="+status;
+    alert(data)
+    $.post("updateWorkerinfoStatus.html",data,function (rel) {
+        if (rel>0){
+            window.location.reload();
+        }else {
+        }
+    });
+}
+
+
+
+
     function checkuserNo(){
         var userNo=$("#addUserNo").val();
         var flag;
@@ -315,10 +458,6 @@
         var b=checkuserName();
         var c=checkuserpassword();
         var d=checkuserroleId();
-        alert(a);
-        alert(b);
-        alert(c);
-        alert(d);
         if(a&b&c&d){
             return true;
         }

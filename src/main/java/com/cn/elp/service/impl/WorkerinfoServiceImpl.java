@@ -72,5 +72,20 @@ public class WorkerinfoServiceImpl implements WorkerinfoService{
         return rel;
     }
 
+    @Override
+    public int modifyWorkerinfoByuserNo(Workerinfo workerinfo) {
+        return workerinfoDao.modifyWorkerinfoByuserNo(workerinfo);
+    }
+
+    @Override
+    public int delWorkerinfoByuserNo(String userNo) {
+        return workerinfoDao.delWorkerinfoByuserNo(userNo);
+    }
+
+    @Override
+    public int updateWorkerinfoStatus(String status,String userNo) {
+        return workerinfoDao.updateWorkerinfoStatus(status,userNo);
+    }
+
 
 }

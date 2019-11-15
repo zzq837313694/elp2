@@ -34,6 +34,9 @@ public class LoginController {
         }else if(workerinfo.getStatus().equals(MyContents.CIRCUITSTOPUSE)){
             model.addAttribute("error","此用户号已停用，无法登陆！");
             return "login";
+        }else if(workerinfo.getStatus().equals("冻结")){
+            model.addAttribute("error","此用户号已冻结，无法登陆！");
+            return "login";
         }
         else if(workerinfo.getPassword().equals(password)){
             session.setAttribute(MyContents.WORKER_SESSION,workerinfo);

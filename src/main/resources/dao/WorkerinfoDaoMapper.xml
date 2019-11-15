@@ -57,4 +57,16 @@
         #{hiredate},#{dimissionData},#{tel},#{email},#{lastOnLine},#{status})
     </insert>
 
+    <update id="modifyWorkerinfoByuserNo" parameterType="Workerinfo">
+        update workerinfo set userNo=#{userNo},userName=#{userName},roleId=#{roleId},hiredate=#{hiredate},
+         password=#{password}, dimissionData=#{dimissionData}, status=#{status}where userNo=#{userNo}
+    </update>
+
+    <delete id="delWorkerinfoByuserNo" parameterType="String">
+        delete from workerinfo where userNo=#{userNo}
+    </delete>
+
+    <update id="updateWorkerinfoStatus">
+        update workerinfo set status=#{status}  where userNo=#{userNo}
+    </update>
 </mapper>

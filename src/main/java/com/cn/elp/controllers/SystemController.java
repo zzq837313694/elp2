@@ -122,8 +122,10 @@ public class SystemController {
     @RequestMapping("/addWorker.html")
     public String addWorker(Workerinfo workerinfo,Model model){
         System.out.println(workerinfo.getUserNo());
+        System.out.println(workerinfo.getUserNo()+workerinfo.getUserName()+workerinfo.getPassword()+workerinfo.getStatus()
+        +workerinfo.getRoleId()+workerinfo.getLastOnLine());
         int rel = workerinfoService.addWorker(workerinfo);
-        return "worker";
+        return "redirect:worker.html";
     }
 
     @RequestMapping("/checkWorkerInfo.html")
@@ -131,6 +133,24 @@ public class SystemController {
     public int checkWorkerInfo(String userNo,String userName){
         int rel=workerinfoService.checkWorkerInfo(userNo,userName);
         return rel;
+    }
+
+    @RequestMapping("modifyWorkerinfoByuserNo.html")
+    public String modifyWorkerinfoByuserNo(Workerinfo workerinfo){
+        int rel=workerinfoService.modifyWorkerinfoByuserNo(workerinfo);
+        return "redirect:worker.html";
+    }
+
+    @RequestMapping("delWorkerinfoByuserNo.html")
+    @ResponseBody
+    public int delWorkerinfoByuserNo(String userNo){
+        return  workerinfoService.delWorkerinfoByuserNo(userNo);
+    }
+
+    @RequestMapping("updateWorkerinfoStatus.html")
+    @ResponseBody
+    public int updateWorkerinfoStatus(String status,String userNo){
+        return  workerinfoService.updateWorkerinfoStatus(status,userNo);
     }
 
 }
