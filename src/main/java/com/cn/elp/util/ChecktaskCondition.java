@@ -7,11 +7,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 
 public class ChecktaskCondition extends Checktaskinfo {
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
+
     private Date CreateDateMin;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
+
     private Date CreateDateMax;
     private PageSurpport<Checktaskinfo> pageSurpport;
     private String checkByName;
@@ -19,6 +17,15 @@ public class ChecktaskCondition extends Checktaskinfo {
     private String createByName;
     private int pageIndex;
     private int pageSize;
+    private int from;
+
+    public int getFrom() {
+        return (pageIndex-1)*pageSize;
+    }
+
+    public void setFrom(int from) {
+        this.from = from;
+    }
 
     public int getPageSize() {
         return pageSize;

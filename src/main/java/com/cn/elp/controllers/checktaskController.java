@@ -20,8 +20,6 @@ public class checktaskController {
     @RequestMapping("/getchecktaskList.html")
     @ResponseBody
     public PageSurpport<ChecktaskCondition> getchecktaskList(ChecktaskCondition checktaskCondition, Model model){
-        System.out.println("9999"+checktaskCondition.getCreateDateMax());
-        System.out.println(checktaskCondition.getPageIndex()+"---"+checktaskCondition.getPageSize());
         PageSurpport<ChecktaskCondition> pageSurpport= checktaskService.SelectChecktaskByParam(checktaskCondition);
       //model.addAttribute("pageSurpport",pageSurpport);
         return pageSurpport;
@@ -31,8 +29,15 @@ public class checktaskController {
         return "checktaskPlan";
     }
     @RequestMapping("showChecktask.html")
-    public String showChecktask(){
+    public String showChecktask(ChecktaskCondition checktaskCondition,Model model){
+
         return "showChecktask";
     }
+    @RequestMapping("/addChecktask.html")
+    public String toAddSovleTaskPage() {
+
+        return "addChecktask";
+    }
+
 
 }
