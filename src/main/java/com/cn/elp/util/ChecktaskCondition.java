@@ -1,10 +1,12 @@
 package com.cn.elp.util;
 
 import com.cn.elp.POJO.Checktaskinfo;
+import com.cn.elp.POJO.Flawinfo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 
 public class ChecktaskCondition extends Checktaskinfo {
 
@@ -18,9 +20,17 @@ public class ChecktaskCondition extends Checktaskinfo {
     private int pageIndex;
     private int pageSize;
     private int from;
-
+    private List<Flawinfo> flawinfoList;
     public int getFrom() {
         return (pageIndex-1)*pageSize;
+    }
+
+    public List<Flawinfo> getFlawinfoList() {
+        return flawinfoList;
+    }
+
+    public void setFlawinfoList(List<Flawinfo> flawinfoList) {
+        this.flawinfoList = flawinfoList;
     }
 
     public void setFrom(int from) {

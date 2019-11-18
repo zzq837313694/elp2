@@ -189,7 +189,7 @@
                 $("#pageCount").val(data.pageCount);
                 var options=""
                 $.each(data.dataList, function (i, obj) {
-                    var statusStr;
+                    var statusStr="";
                     var jobId = obj.jobId == null ? "" : obj.jobId;
                     var jobName = obj.jobName == null ? "" : obj.jobName;
                     var circuitName = obj.circuitName == null ? "" : obj.circuitName;
@@ -232,7 +232,7 @@
                         "                    <span>|</span>" +
                         "                    <a href=\"\">分配任务</a>" +
                         "                    <span>|</span>" +
-                        "                    <a href=\"\">修改</a>" +
+                        "<a href=\"updateChecktask.html?jobId="+jobId+"\">修改</a>" +
                         "                    <span>|</span>" +
                         "                    <a href=\"\">取消</a>" ;
                         options+=

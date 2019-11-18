@@ -35,7 +35,7 @@ public class FlawinfoController {
                             @RequestParam(required=false,defaultValue="1") Integer pageIndex,
                             Model model){
         List<Flawtype> flawtypeList = flawTypeService.findAllFlawType();//所有缺陷类型
-        List<Workerinfo> workerList = workerinfoService.findWorkerByRoleId(3);//查找所有的巡检员
+        List<Workerinfo> workerList = workerinfoService.findAllWorkers();//查找所有员工
         List<Flawinfo> flawinfoList = flawinfoService.findAllFlawInfo(condition, pageIndex, MyContents.PAGESIZE);
         PageSurpport<Flawinfo> pageSurpport=new PageSurpport<Flawinfo>();
         pageSurpport.setTotalCount(flawinfoService.findAllFlawInfoCount(condition));

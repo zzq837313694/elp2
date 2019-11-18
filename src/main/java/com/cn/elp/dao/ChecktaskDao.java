@@ -9,5 +9,6 @@ import java.util.List;
 
 public interface ChecktaskDao {
     List<Checktaskinfo> SelectChecktaskByParam(@Param("ChecktaskCondition")ChecktaskCondition checktaskCondition);
+    Checktaskinfo SelectChecktaskById(@Param("jobId")String jobId);
     int SelectChecktaskByParamCount(@Param("ChecktaskCondition")ChecktaskCondition checktaskCondition);
 }

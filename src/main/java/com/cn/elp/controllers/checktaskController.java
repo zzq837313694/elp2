@@ -1,7 +1,9 @@
 package com.cn.elp.controllers;
 
 import com.cn.elp.POJO.Checktaskinfo;
+import com.cn.elp.POJO.Circuit;
 import com.cn.elp.service.ChecktaskService;
+import com.cn.elp.service.CircuitService;
 import com.cn.elp.util.ChecktaskCondition;
 import com.cn.elp.util.PageSurpport;
 import org.springframework.stereotype.Controller;
@@ -11,11 +13,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Controller
 public class checktaskController {
     @Resource
     ChecktaskService checktaskService;
+    @Resource
+    CircuitService circuitService;
 
     @RequestMapping("/getchecktaskList.html")
     @ResponseBody
@@ -38,6 +43,22 @@ public class checktaskController {
 
         return "addChecktask";
     }
-
-
+    @RequestMapping("/getCircuitList.html")
+    @ResponseBody
+    public List<Circuit> getCircuitList(){
+        return circuitService.findAllCircuit();
+    }
+    @RequestMapping("/getCircuitByNo.html")
+    @ResponseBody
+    public Circuit getCircuitByNo(String cirNo){
+        System.out.println(cirNo);
+        return circuitService.findOneCircuit(cirNo);
+    }
+    @RequestMapping("/updateChecktask.html")
+    public String updateChecktask(String jobId,Model model) {
+        System.out.println(jobId);
+        model.addAttribute("Checktask",checktaskService.SelectChecktaskById(jobId));
+        System.out.println(123);
+        return "updateChecktask";
+    }
 }

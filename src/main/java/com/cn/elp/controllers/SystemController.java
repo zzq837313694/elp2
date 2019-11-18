@@ -120,12 +120,37 @@ public class SystemController {
     }
 
     @RequestMapping("/addWorker.html")
-    @ResponseBody
-    public int addWorker(Workerinfo workerinfo,Model model){
-        List<Role> roleList = roleService.findAllRole();
+    public String addWorker(Workerinfo workerinfo,Model model){
+        System.out.println(workerinfo.getUserNo());
+        System.out.println(workerinfo.getUserNo()+workerinfo.getUserName()+workerinfo.getPassword()+workerinfo.getStatus()
+        +workerinfo.getRoleId()+workerinfo.getLastOnLine());
         int rel = workerinfoService.addWorker(workerinfo);
-        model.addAttribute("roleList",roleList);
+        return "redirect:worker.html";
+    }
+
+    @RequestMapping("/checkWorkerInfo.html")
+    @ResponseBody
+    public int checkWorkerInfo(String userNo,String userName){
+        int rel=workerinfoService.checkWorkerInfo(userNo,userName);
         return rel;
+    }
+
+    @RequestMapping("modifyWorkerinfoByuserNo.html")
+    public String modifyWorkerinfoByuserNo(Workerinfo workerinfo){
+        int rel=workerinfoService.modifyWorkerinfoByuserNo(workerinfo);
+        return "redirect:worker.html";
+    }
+
+    @RequestMapping("delWorkerinfoByuserNo.html")
+    @ResponseBody
+    public int delWorkerinfoByuserNo(String userNo){
+        return  workerinfoService.delWorkerinfoByuserNo(userNo);
+    }
+
+    @RequestMapping("updateWorkerinfoStatus.html")
+    @ResponseBody
+    public int updateWorkerinfoStatus(String status,String userNo){
+        return  workerinfoService.updateWorkerinfoStatus(status,userNo);
     }
 
 }

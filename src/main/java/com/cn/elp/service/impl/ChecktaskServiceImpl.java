@@ -9,6 +9,7 @@ import com.cn.elp.dao.WorkerinfoDao;
 import com.cn.elp.service.ChecktaskService;
 import com.cn.elp.util.ChecktaskCondition;
 import com.cn.elp.util.PageSurpport;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -53,5 +54,8 @@ public class ChecktaskServiceImpl implements ChecktaskService
             pageSurpport.getDataList().add(checktaskCondition1);
         }
         return pageSurpport;
+    }
+    public Checktaskinfo SelectChecktaskById(String jobId){
+       return checktaskDao.SelectChecktaskById(jobId);
     }
 }

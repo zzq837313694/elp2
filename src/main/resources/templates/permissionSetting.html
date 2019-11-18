@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>角色权限配置</title>
+    <link type="text/css" href="webjars/bootstrap" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}" rel="stylesheet">
+    <script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
+    <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}"></script>
+
+    <style>
+
+        .row input[type='text']{
+            width: 200px;
+        }
+        .input-group{
+            margin-bottom: 8px;
+        }
+        .input-group-addon{
+            width:90px;
+        }
+
+    </style>
+
+</head>
+<body>
+    <p style="text-indent: 2em;padding-top: 20px">系统管理-->角色权限配置</p><br>
+
+    <div style="padding: 0px 50px 0px 50px">
+        <form action="/worker.html" method="post" id="test">
+            <div class="row">
+                <div class="col-lg-9 col-sm-9 col-xs-9">
+                    <div class="col-lg-4 col-sm-6 col-xs-12">
+                        <div class="input-prepend input-group">
+                            <span class="add-on input-group-addon">请选择角色</span>
+                            <select style="height: 40px">
+                                <option value="">--请选择--</option>
+                                <option value="">系统管理员</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="pageIndex" name="pageIndex" value="1">
+                    <div class="col-lg-4 col-sm-6 col-xs-12">
+                        <button type="submit" class="btn btn-primary">查询</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+
+
+    <div>
+
+        <!-- Nav tabs -->
+        <ul class="nav nav-pills" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
+            <li role="presentation">
+                <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
+            <li role="presentation">
+                <a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
+            <li role="presentation">
+                <a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="home">1</div>
+            <div role="tabpanel" class="tab-pane" id="profile">2</div>
+            <div role="tabpanel" class="tab-pane" id="messages">3</div>
+            <div role="tabpanel" class="tab-pane" id="settings">4</div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

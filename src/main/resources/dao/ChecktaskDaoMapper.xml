@@ -12,7 +12,9 @@ ChecktaskCondition.pageSize!=null and ChecktaskCondition.pageSize!=''">
                 limit #{ChecktaskCondition.from},
                 #{ChecktaskCondition.pageSize}
             </if>
-
+    </select>
+    <select id="SelectChecktaskById" resultType="Checktaskinfo">
+        select *  from checktaskinfo a where a.jobId=#{jobId};
     </select>
     <select id="SelectChecktaskByParamCount" resultType="int" >
         select count(0) from checktaskinfo a
