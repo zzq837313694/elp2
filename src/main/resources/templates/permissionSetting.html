@@ -19,6 +19,11 @@
         .input-group-addon{
             width:90px;
         }
+        /*#cRule{
+            border: 1px solid blue;
+            height: 200px;
+            width: 200px;
+        }*/
 
     </style>
 
@@ -52,37 +57,50 @@
 
 
 
-    <div>
+    <div class="container-fluid">
 
         <!-- Nav tabs -->
-        <ul class="nav nav-pills" role="tablist">
-            <li role="presentation" class="active">
-                <a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
-            <li role="presentation">
-                <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
-            <li role="presentation">
-                <a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
-            <li role="presentation">
-                <a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+        <ul class="nav nav-pills" role="tablist" >
+            <li role="presentation" th:each="perRule:${perRuleList}">
+
+               <a href="#home" th:href="@{'#'+${perRule.ruleName}}" onclick="rule(this)"
+                   th:ruleId="${perRule.ruleId}"
+                   aria-controls="home" th:aria-controls="${perRule.ruleName}"
+                   role="tab" data-toggle="tab"><input class="checkAll" type="checkbox">[[${perRule.ruleName}]]</a></li>
         </ul>
 
         <!-- Tab panes -->
-        <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="home">1</div>
-            <div role="tabpanel" class="tab-pane" id="profile">2</div>
-            <div role="tabpanel" class="tab-pane" id="messages">3</div>
-            <div role="tabpanel" class="tab-pane" id="settings">4</div>
+        <div class="tab-content" id="cRule">
         </div>
 
     </div>
 
-
-
-
-
-
-
-
-
 </body>
+
+<script type="text/javascript">
+    $('.checkAll').click(function () {
+        return false;
+    });
+   function rule(obj) {
+       var ruleId=$(obj).attr("ruleId");
+       var data="ruleId="+ruleId;
+       $.post("cRule.html",data,function (data) {
+           var str="";
+           $.each(data, function (i, obj) {
+               str+="<div id='"+obj.ruleName+"'" +
+                   "><input type='checkbox'>"+obj.ruleName+"</div>";
+           });
+           $("#cRule").html(str);
+
+       },"json");
+   }
+
+
+
+
+
+
+
+</script>
+
 </html>

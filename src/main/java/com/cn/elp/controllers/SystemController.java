@@ -1,8 +1,10 @@
 package com.cn.elp.controllers;
 
 import com.cn.elp.POJO.Role;
+import com.cn.elp.POJO.Rule;
 import com.cn.elp.POJO.Workerinfo;
 import com.cn.elp.service.RoleService;
+import com.cn.elp.service.RuleService;
 import com.cn.elp.service.WorkerinfoService;
 import com.cn.elp.util.MyContents;
 import com.cn.elp.util.PageSurpport;
@@ -25,6 +27,8 @@ public class SystemController {
     RoleService roleService;
     @Resource
     WorkerinfoService workerinfoService;
+    @Resource
+    RuleService ruleService;
 
     /**
      * 角色管理
@@ -151,6 +155,24 @@ public class SystemController {
     @ResponseBody
     public int updateWorkerinfoStatus(String status,String userNo){
         return  workerinfoService.updateWorkerinfoStatus(status,userNo);
+    }
+
+
+    /**
+     * 角色权限配置
+     */
+    @RequestMapping("/permissionSetting.html")
+    public String permissionSetting(Model model){
+        List<Rule> perRuleList = ruleService.findAllRuleByPerRuleId(0);//查找父类权限
+        model.addAttribute("perRuleList",perRuleList);
+        return "permissionSetting";
+    }
+
+    @RequestMapping("/cRule.html")
+    @ResponseBody
+    public List<Rule> cRule(int ruleId){
+        List<Rule> cRuleList = ruleService.findAllRuleByPerRuleId(ruleId);
+        return cRuleList;
     }
 
 }
