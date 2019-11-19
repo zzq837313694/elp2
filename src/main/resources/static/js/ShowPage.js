@@ -81,8 +81,8 @@
                 });
                 obj.on("click","span.zxfokbtn",function(){
                     var cur = parseInt($("input.zxfinput").val());
-
-                    var current = $.extend(pageinit, {"current":cur}).val();
+                    if(cur>pageinit.pageNum){return;}
+                    var current = $.extend(pageinit, {"current":cur});
                     zp.addhtml(obj,{"current":cur,"pageNum":pageinit.pageNum});
                     if (typeof(pageinit.backfun)=="function") {
                         pageinit.backfun(current);

@@ -1,17 +1,17 @@
 package com.cn.elp.util;
 
 import com.cn.elp.POJO.Checktaskinfo;
+import com.cn.elp.POJO.Flawinfo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 
 public class ChecktaskCondition extends Checktaskinfo {
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
+
     private Date CreateDateMin;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
+
     private Date CreateDateMax;
     private PageSurpport<Checktaskinfo> pageSurpport;
     private String checkByName;
@@ -19,6 +19,23 @@ public class ChecktaskCondition extends Checktaskinfo {
     private String createByName;
     private int pageIndex;
     private int pageSize;
+    private int from;
+    private List<Flawinfo> flawinfoList;
+    public int getFrom() {
+        return (pageIndex-1)*pageSize;
+    }
+
+    public List<Flawinfo> getFlawinfoList() {
+        return flawinfoList;
+    }
+
+    public void setFlawinfoList(List<Flawinfo> flawinfoList) {
+        this.flawinfoList = flawinfoList;
+    }
+
+    public void setFrom(int from) {
+        this.from = from;
+    }
 
     public int getPageSize() {
         return pageSize;

@@ -16,7 +16,15 @@ public class Checktaskinfo {
   private Date  finishDate;
   private String comment;
   private String status;
+  private String abolish;
 
+  public String getAbolish() {
+    return abolish;
+  }
+
+  public void setAbolish(String abolish) {
+    this.abolish = abolish;
+  }
 
   public String getJobId() {
     return jobId;

@@ -9,6 +9,7 @@ import com.cn.elp.dao.WorkerinfoDao;
 import com.cn.elp.service.ChecktaskService;
 import com.cn.elp.util.ChecktaskCondition;
 import com.cn.elp.util.PageSurpport;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -26,7 +27,9 @@ public class ChecktaskServiceImpl implements ChecktaskService
     WorkerinfoDao workerinfoDao;
     @Override
     public PageSurpport<ChecktaskCondition> SelectChecktaskByParam(ChecktaskCondition checktaskCondition) {
+
         PageSurpport<ChecktaskCondition> pageSurpport=new PageSurpport<>();
+        pageSurpport.setPageSize(checktaskCondition.getPageSize());
         List<ChecktaskCondition> checktaskConditionList=new ArrayList<>();
         pageSurpport.setDataList(checktaskConditionList);
         List<Checktaskinfo> ls= checktaskDao.SelectChecktaskByParam(checktaskCondition);
@@ -47,16 +50,12 @@ public class ChecktaskServiceImpl implements ChecktaskService
 
             checktaskCondition1.setCircuitName(circuitDao.findOneCircuit(cc.getCircuitNo()).getCircuitName());
             checktaskCondition1.setCheckByName(workerinfoDao.findWorkerByRoleId(cc.getCheckBy()).get(0).getUserName());
-
             checktaskCondition1.setCreateByName(workerinfoDao.findWorkerByRoleId(cc.getCreateBy()).get(0).getUserName());
             pageSurpport.getDataList().add(checktaskCondition1);
         }
-        if(checktaskCondition.getPageSurpport()==null){
-            pageSurpport.setPageIndex(1);
-        }else{
-            pageSurpport.setPageIndex(checktaskCondition.getPageSurpport().getPageIndex());
-        }
-
         return pageSurpport;
+    }
+    public Checktaskinfo SelectChecktaskById(String jobId){
+       return checktaskDao.SelectChecktaskById(jobId);
     }
 }

@@ -32,4 +32,10 @@ public class MyWorkController {
     }
 
 
+    @RequestMapping("todolists.html")
+    public  String todolists(){
+        return "todolists.html";
+    }
+
+
 }

@@ -19,16 +19,14 @@ public class MyConverter {
             @Override
             public Date convert(String source) {
                 Date date=null;
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_TIME_FORMATE);
-                if (source==null||source.equals("")){
-                    date=null;
-                }else {
+                if(source!=null&&!source.equals("")) {
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_TIME_FORMATE);
                     try {
                         date = simpleDateFormat.parse(source);
                     } catch (ParseException e) {
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                         try {
-                            date=sdf.parse(source);
+                            date = sdf.parse(source);
                         } catch (ParseException ex) {
                             ex.printStackTrace();
                         }

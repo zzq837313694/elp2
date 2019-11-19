@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>制定巡检任务</title>
+</head>
+<link type="text/css" href="webjars/bootstrap" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}"
+      rel="stylesheet">
+<script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
+<script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}"></script>
+<style>
+    html, body {
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        min-width: 500px;
+    }
+    #van {
+        padding: 20px;
+    }
+    .input-group {
+        margin: 5px;
+    }
+
+    .input-group-addon {
+        width: 90px;
+    }
+
+    textarea {
+        resize: none;
+    }
+
+    button {
+        margin: 20px;
+    }
+
+    .modal-body {
+        position: relative;
+    }
+
+    #myModal {
+        min-width: 490px;
+    }
+
+    #myModal .modal-body > div {
+        min-width: 330px;
+        position: marker;
+        margin: 0px auto;
+    }
+    #myModal #modelLeft {
+        width: 45%;
+        float: left;
+        position: relative;
+        padding: 0px 10px;
+        border: 1px black solid;
+        margin-right: 15px;
+    }
+    #myModal #modelRight {
+        width: 45%;
+        float: left;
+        position: relative;
+        padding: 0px 10px;
+        border: 1px black solid;
+        margin-left: 15px;
+    }
+
+    #myModal #modelMiddle {
+        position: absolute;
+        top: 50%;
+        left: 45%;
+    }
+    #myModal #modelMiddle p{
+        font-size: 20px;
+        margin: 0px;
+    }
+    li {
+        list-style-type: none;
+    }
+    li:hover {
+        list-style-type: none;
+        background-color: #878787;
+    }
+    li.active {
+        background-color: #707070;
+    }
+
+</style>
+
+<body>
+
+<p id="van">
+    <span>巡检任务管理</span>
+    <span>&gt;&gt;&nbsp;</span>
+    <span>巡检任务制定与分配</span>
+    <span>&gt;&gt;&nbsp;</span>
+    <span>制定巡检任务</span>
+</p>
+
+<!--添加任务输入区-->
+<form method="post" action="" style="margin-left: 30px">
+    <div class="row">
+                <div class="input-prepend input-group">
+                    <span class="add-on input-group-addon">任务名称：</span>
+                    <input type="text" name="sovleTask.sovleTaskName" id="jobName" class="form-control" value="">
+                </div>
+                <div class="input-prepend input-group">
+                    <span class="add-on input-group-addon">巡检线路：</span>
+                    <select name="sovleTask.documents" class="form-control" id="getCir">
+                        <option>-请选择-</option>
+                        <option value=""></option>
+                    </select>
+            </div>
+        <div class="input-prepend input-group">
+            <span class="add-on input-group-addon">起始杆号：</span>
+            <input type="text" name="sovleTask.sovleTaskName" id="startNo" class="form-control" value="">
+        </div>
+        <div class="input-prepend input-group">
+            <span class="add-on input-group-addon">终止杆号：</span>
+            <input type="text" name="sovleTask.sovleTaskName" id="stopNo" class="form-control" value="">
+        </div>
+                <div class="input-prepend input-group">
+                    <span class="add-on input-group-addon">下发人：</span>
+                    <input name="sovleTask.creatBy" class="form-control" disabled
+                           th:value="${session.worker.getUserNo()}">
+                </div>
+                <div class="input-prepend input-group">
+                    <span class="add-on input-group-addon">下发日期：</span>
+                    <input type="text" name="sovleTask.creatDate" class="form-control" disabled
+                           th:value="${#dates.format(#dates.createNow(),'yyyy-MM-dd')}">
+                </div>
+                <div class="input-prepend input-group">
+                    <span class="add-on input-group-addon">备注：</span>
+                    <textarea name="comment" cols="40" rows="5" class="form-control"></textarea>
+                </div>
+                <div class="input-prepend input-group">
+                    <span class="add-on input-group-addon">巡检员：</span>
+                    <textarea name="solveWorker" id="solveWorker" cols="110" rows="2" class="form-control"></textarea>
+                    <b class="add-on input-group-addon" data-toggle="modal" data-target="#myModal" style="width: 50px;">
+                        <span class=" glyphicon  glyphicon-eye-open "
+                              aria-hidden="true"></span>
+                    </b>
+                </div>
+
+            <div class="">
+                <button type="submit" class="btn btn-primary">保存</button>
+                <button type="button" class="btn btn-primary">返回</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<!--模态框-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">巡检员选择
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <!--左边-->
+                    <div id="modelLeft">
+
+                    </div>
+                    <!--中间-->
+                    <div id="modelMiddle" style="padding-left: 10px;padding-right: 5px;margin-top: -20px;">
+                        <p onclick="addpeople()"><span class=" glyphicon  glyphicon-forward " aria-hidden="true"></span></p>
+                        <p onclick="removepeople()"><span class=" glyphicon  glyphicon-backward " aria-hidden="true"></span></p>
+                    </div>
+
+                    <!--右边-->
+                    <div id="modelRight"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function  getCir() {
+        $.get("getCircuitList.html",function (data) {
+            var str="<option>-请选择-</option>";
+            $.each(data,function (i,obj) {
+                str+="<option value='"+obj.circuitNo+"'>"+obj.circuitName+"</option>"
+            })
+            $("#getCir").html(str);
+        },"json");
+    });
+    $("#getCir").change(function () {
+        var cirNo=$("#getCir").val();
+        $.get("getCircuitByNo.html?cirNo="+cirNo,cirNo,function (data) {
+            $("#startNo").val(data.startNo);
+            $("#stopNo").val(data.stopNo);
+            $("#jobName").val(data.circuitName+"巡检任务");
+        },"json");
+    })
+
+/*
+
+    function isCheack(obj) {
+        $(obj).toggleClass("active")
+    }
+
+    /!*添加消缺员*!/
+    function addpeople(){
+        var  leftLi=$('#modelLeft li[class="active"]');
+        leftLi.removeClass("active");
+        $('#modelRight').append(leftLi)
+
+    }
+    /!*移除消缺员*!/
+    function removepeople(){
+        var  leftLi=$('#modelRight li[class="active"]');
+        leftLi.removeClass("active");
+        $('#modelLeft').append(leftLi)
+    }
+
+    /!*点击查看消缺员*!/
+ /!*   $('b').click(function () {
+        /!*模态框显示*!/
+        $('#myModal').show(function () {
+            /!*拉取数据*!/
+            var nowSolveWorkers = $("#solveWorker").val();
+
+            if( nowSolveWorkers==""){
+                var str = "<li >--请添加人员--</li>"
+                $('#modelRight').append(str)
+            }else{
+                var nowSolveWorkersArray=nowSolveWorkers.split(',');
+                $.each(nowSolveWorkersArray,function (k, v) {
+                    var addLiStr=
+
+
+                })
+
+
+            }
+
+            /!*异步获取消缺员*!/
+            $.post({
+                url: "/getSolveWorkers",
+                data:'roleName=消缺员&nowSolveWorkers='+nowSolveWorkers,
+                dataType: 'json',
+                success: function (data) {
+                    $('#modelLeft li').remove();
+                    if(data==null){
+                        var workerLi= "<li >--没有可用人员--</li>"
+                        $('#modelLeft').append(workerLi);
+                    }else {
+                        $('#modelLeft').html(" ")
+                        $.each(data,function (k, v) {
+                            var workerLi= "<li onclick=\"isCheack(this)\">消缺员--"+v.userNo+"--"+v.userName+"</li>"
+                            $('#modelLeft').append(workerLi);
+                        })
+                    }
+                }
+            })
+        })
+    });
+
+    /!*模态框隐藏时回传数据*!/!*!/
+    $('#myModal').hide(function (){
+        var nowStr="";
+        $('#modelRight li').each(function (i,elem) {
+            nowLi+=elem.innerText.split("-")[elem.innerText.split("-").length-1]+"，"
+        });
+        $.each(nowLi,function (k, v) {
+            nowStr+=v.innerText+","
+        })
+
+        $("#solveWorker").val(nowStr);
+    });
+*/
+
+
+</script>
+</body>
+</html>

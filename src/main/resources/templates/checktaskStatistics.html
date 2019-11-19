@@ -47,45 +47,38 @@
 
 <!-------筛选------->
 <div class="row " style="padding: 0px 50px 50px 50px">
-    <form action="...." method="post">
+    <form id="su">
         <div class="col-lg-9 col-sm-9 col-xs-9 ">
             <div class="col-lg-4 col-sm-6 col-xs-12">
                 <div class="input-prepend input-group">
-                    <span class="add-on input-group-addon">任务编号:</span>
-                    <input type="text" name="solveTaskNo" id="reservation1" class="form-control" value="">
+                    <span class="add-on input-group-addon" style="">任务编号:</span>
+                    <input type="text" name="jobId" id="jobId" class="form-control" value="">
                 </div>
             </div>
             <div class="col-lg-4 col-sm-6 col-xs-12 ">
                 <div class="input-prepend input-group">
                     <span class="add-on input-group-addon">线路编号:</span>
-                    <input type="text" name="circuitNo" id="reservation2" class="form-control" value="">
+                    <input type="text" name="circuitNo" id="circuitNo" class="form-control" value="">
                 </div>
             </div>
             <div class="col-lg-4 col-sm-6 col-xs-12 ">
                 <div class="input-prepend input-group">
-                    <span class="add-on input-group-addon">有无故障:</span>
-                    <select name="abolish"  class="form-control">
-                        <option value="">-请选择-</option>
-                        <option >有</option>
-                        <option >无</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-6 col-xs-12 ">
-                <div class="input-prepend input-group">
-                    <span class="add-on input-group-addon ">下发时间:</span>
+                    <span class="add-on input-group-addon">发现时间:</span>
+
                     <div class="  J-datepicker-range-day  form-control date" style="width: 200px">
-                        <input placeholder="开始日期" name="createDate_from" class="c-datepicker-data-input only-date"
+                        <input placeholder="开始日期" name="CreateDateMin" class="c-datepicker-data-input only-date"
                                style="width: 77px">
                         <span class="c-datepicker-range-separator">-</span>
-                        <input placeholder="结束日期" name="createDate_to" class="c-datepicker-data-input only-date"
+                        <input placeholder="结束日期" name="CreateDateMax" class="c-datepicker-data-input only-date"
                                style="width: 77px">
                     </div>
                 </div>
             </div>
-            <input type="hidden" id="pageIndex" name="pageIndex" value="1">
             <div class="col-lg-4 col-sm-6 col-xs-12 ">
-                <button type="submit" class="btn btn-primary">查询</button>
+                <input hidden="hidden" name="pageIndex" id="pageIndex" value="1">
+                <input hidden="hidden" name="pageSize" id="pageSize" value="4">
+                <button type="submit"  class="btn btn-primary btn-regist">查询</button>
+                <input hidden="hidden" id="pageCount" value="10">
             </div>
         </div>
     </form>
@@ -131,19 +124,7 @@
                 </tr>
                 </thead>
 
-                <tbody>
-                <tr role="row" class="odd" id="table">
-                    <td class="sorting_1" >Airi Satou</td>
-                    <td >Accountant</td>
-                    <td >Tokyo</td>
-                    <td >Tokyo</td>
-                    <td >Tokyo</td>
-                    <td >Tokyo</td>
-                    <td  class="useStatus">Tokyo</td>
-                    <input type="hidden" id="pageCount">
-                    <input type="hidden" id="returnpageIndex" >
-                    <td ></td>
-                </tr>
+                <tbody id="app">
 
                 </tbody>
             </table>
@@ -157,3 +138,117 @@
 </html>
 <script src="js/ShowPage.js" type="text/javascript"></script>
 <script src="js/StatisticsPage.js" type="text/javascript"></script>
+
+<script src="js/ShowPage.js" type="text/javascript"></script>
+<script type="text/javascript">
+    function submint() {
+        $("#su").ajaxSubmit({
+            type: "post",  //提交方式
+            dataType: "json", //数据类型
+            async:false,
+            url: "getchecktaskList.html", //请求url
+            success: function (data) {//提交成功的回调函数
+                $("#pageCount").val(data.pageCount);
+                var options=""
+                $.each(data.dataList, function (i, obj) {
+                    var statusStr="";
+                    var jobId = obj.jobId == null ? "" : obj.jobId;
+                    var jobName = obj.jobName == null ? "" : obj.jobName;
+                    var circuitName = obj.circuitName == null ? "" : obj.circuitName;
+                    var createByName = obj.createByName == null ? "" : obj.createByName;
+                    var startNo = obj.startNo == null ? "" : obj.startNo;
+                    var stopNo = obj.stopNo == null ? "" : obj.stopNo;
+                    var abolish = obj.abolish == null ? "" : obj.abolish;
+                    switch (obj.status) {
+                        case "待分配":
+                            statusStr= "<td  style='color:orange'>" + obj.status + "</td>";
+                            break;
+                        case "已分配":
+                            statusStr= "<td  style='color:blue'>" + obj.status + "</td>";
+                            break;
+                        case "执行中":
+                            statusStr= "<td  style='color:purple'>" + obj.status + "</td>";
+                            break;
+                        case "已完成":
+                            statusStr= "<td  style='color:green'>" + obj.status + "</td>";
+                            break;
+                        default:
+                            statusStr="<td >" +obj.status + "</td>";
+                            break;
+                    }
+                    var createDate;
+                    if (obj.createDate == null) {
+                        createDate = " ";
+                    } else {
+                        var date = new Date(obj.createDate == null ? "" : obj.createDate);
+                        createDate = date.getFullYear() + "/" + eval(date.getMonth() + "+1") + "/" + date.getDate()
+                    }
+                    var fDate;
+                    if (obj.finishDate == null) {
+                        fDate = " ";
+                    } else {
+                        var date2 = new Date(obj.finishDate == null ? "" : obj.finishDate);
+                        fDate = date2.getFullYear() + "/" + eval(date2.getMonth() + "+1") + "/" + date2.getDate()
+                    }
+                    var trsTR = "<a href=\"showChecktask.html?jobid="+jobId+"\">查看</a>" +
+                        "                    <span>|</span>" +
+                        "                    <a href=\"\">分配任务</a>" +
+                        "                    <span>|</span>" +
+                        "<a href=\"updateChecktask.html?jobId="+jobId+"\">修改</a>" +
+                        "                    <span>|</span>" +
+                        "                    <a href=\"\">取消</a>" ;
+                    options+=
+                        "<tr style='vertical-align: middle'><td>"+jobId+"</td>"+
+                        "<td>"+jobName+"</td>"+
+                        "<td>"+circuitName+"</td>"+
+                        "<td>"+startNo+"</td>"+
+                        "<td>"+stopNo+"</td>"+
+                        "<td>"+createByName+"</td>"+
+                        "<td>"+createDate+"</td>"+statusStr+
+                        "<td>"+fDate+"</td>"+
+                        "<td>"+abolish+"</td>"+
+                        "<td>"+trsTR+"</td></tr>";
+                });
+                $("#app").html(options);
+            }
+        });
+        return false; //不刷新页面
+    }
+
+
+    $(function () {
+        submint();
+        $("#su").submit(function () {
+            submint();
+            return false;
+        });
+        $(document).on("click", "a.zxfPagenum", function () {
+            var cur = parseInt($(this).text());
+            $("#pageIndex").val(cur);
+            submint();
+        });
+        $(document).on("click", "a.prebtn", function () {
+            var cur = parseInt($("span.current").text());
+            $("#pageIndex").val(cur);
+            submint();
+        });
+        $(document).on("click", "a.nextbtn", function () {
+            var cur = parseInt($("span.current").text());
+            $("#pageIndex").val(cur);
+            submint();
+        });
+
+        $(document).on("click","span.zxfokbtn",function(){
+            var cur = parseInt($("input.zxfinput").val());
+            $("#pageIndex").val(cur);
+            if(cur>$("#pageCount").val()){return;}
+            submint();
+        });
+        $(".zxf_pagediv").createPage({
+            pageNum:$("#pageCount").val(),
+            current:1,
+            backfun: function(e) {
+            }
+        });
+    })
+</script>
