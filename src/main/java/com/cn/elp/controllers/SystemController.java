@@ -161,11 +161,11 @@ public class SystemController {
     /**
      * 角色权限配置
      */
-    @RequestMapping("/permissionSetting.html")
+    /*@RequestMapping("/permissionSetting.html")
     public String permissionSetting(Model model){
         List<Rule> perRuleList = ruleService.findAllRuleByPerRuleId(0);//查找父类权限
         model.addAttribute("perRuleList",perRuleList);
-        return "permissionSetting";
+        return "permissionSetting1111";
     }
 
     @RequestMapping("/cRule.html")
@@ -173,6 +173,13 @@ public class SystemController {
     public List<Rule> cRule(int ruleId){
         List<Rule> cRuleList = ruleService.findAllRuleByPerRuleId(ruleId);
         return cRuleList;
+    }*/
+
+    @RequestMapping("/permissionSetting.html")
+    public String permissionSetting(Model model){
+        List<Rule> ruleList = ruleService.findAllRule();
+        model.addAttribute("ruleList",ruleList);
+        return "permissionSetting1111";
     }
 
 }

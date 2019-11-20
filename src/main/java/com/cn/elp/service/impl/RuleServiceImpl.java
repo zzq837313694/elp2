@@ -17,4 +17,9 @@ public class RuleServiceImpl implements RuleService {
     public List<Rule> findAllRuleByPerRuleId(int perRuleId) {
         return ruleDao.findAllRuleByPerRuleId(perRuleId);
     }
+
+    @Override
+    public List<Rule> findAllRule() {
+        return ruleDao.findAllRule();
+    }
 }
