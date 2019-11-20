@@ -8,4 +8,8 @@
         SELECT * FROM rule WHERE perRuleId=#{perRuleId}
     </select>
 
+    <select id="findAllRule" resultType="Rule">
+        select * from rule
+    </select>
+
 </mapper>

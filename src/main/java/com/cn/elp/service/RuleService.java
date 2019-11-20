@@ -11,4 +11,10 @@ public interface RuleService {
      * @return
      */
     List<Rule> findAllRuleByPerRuleId(int perRuleId);
+
+    /**
+     * 查找所有权限
+     * @return
+     */
+    List<Rule> findAllRule();
 }
