@@ -10,7 +10,15 @@ public class Role {
   private String createBy;
   private Date modifyDate;
   private String status;
+  private String ruleList;
 
+  public String getRuleList() {
+    return ruleList;
+  }
+
+  public void setRuleList(String ruleList) {
+    this.ruleList = ruleList;
+  }
 
   public int getRoleId() {
     return roleId;

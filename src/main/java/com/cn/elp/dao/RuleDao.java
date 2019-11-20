@@ -17,4 +17,6 @@ public interface RuleDao {
      * @return
      */
     List<Rule> findAllRule();
+
+
 }
