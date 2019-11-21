@@ -1,4 +1,4 @@
-package com.sample;
+package com.cn.elp.POJO;
 
 
 public class Report {

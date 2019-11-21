@@ -2,9 +2,11 @@ package com.cn.elp.controllers;
 
 
 import java.util.List;
+
 import com.cn.elp.POJO.Solvetaskinfo;
 import com.cn.elp.POJO.Workerinfo;
 import com.cn.elp.POJO.Review;
+import com.cn.elp.service.ReviewService;
 import com.cn.elp.service.RoleServices;
 import com.cn.elp.service.SolvetaskServices;
 import com.cn.elp.service.WorkerinfoService;
@@ -14,7 +16,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Controller;
 
 
@@ -27,6 +31,9 @@ public class solveTaskController {
     WorkerinfoService workerinfoService;
     @Resource
     RoleServices roleServices;
+    @Resource
+    ReviewService reviewService;
+
 
     @RequestMapping("/AdminSolveTask.html")
     public String makesSolveTask(Model model, Solvetaskinfo solveTask,
@@ -64,20 +71,21 @@ public class solveTaskController {
     public String sovleTaskInfo(String taskNo, Model model) {
 
         //返回任务详情
-        Solvetaskinfo solveTask=solvetaskServices.findSolveTaskByTaskNo(taskNo);
+        Solvetaskinfo solveTask = solvetaskServices.findSolveTaskByTaskNo(taskNo);
         solveTask.setCreaterName(workerinfoService.findAllWorker(solveTask.getCreatBy()).getUserName());
-       model.addAttribute("taskInfo",solveTask) ;
+        model.addAttribute("taskInfo", solveTask);
         //返回审查信息
-
-
+        Review review = reviewService.findReviewByTaskNo(taskNo);
+        if(review==null){
+            review=new Review();
+        }
+        model.addAttribute("review",review);
         //返回报告信息
 
 
-
-
-
-    return "sovleTaskInfo";
+        return "sovleTaskInfo";
     }
+
     @RequestMapping("/getDate")
     @ResponseBody
     public PageSurpport<Solvetaskinfo> getSolveTaskData(String nowPage, Model model) {

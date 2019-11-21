@@ -81,13 +81,13 @@
             <td>任务完成时间</td>
             <td><span th:text="${#dates.format(taskInfo.finishDate,'yyyy-MM-dd')}"></span></td>
         </tr>
-        <tr>
+        <tr height="100px">
             <td>负责人审核意见</td>
-            <td><span th:if="${taskInfo.status=='已完成'}" th:text="">   </span></td>
+            <td><span th:if="${taskInfo.status=='已完成'}" th:text="${review.managerOpinion}"></span></td>
             <td>完成情况描述</td>
             <td></td>
         </tr>
-        <tr>
+        <tr height="100px">
             <td>下发人审核意见</td>
             <td></td>
             <td></td>
