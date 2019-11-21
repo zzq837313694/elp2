@@ -25,4 +25,8 @@ public interface TowerinfoDao {
     //根据线路编号删除一条
     int delAllTower(@Param("circuitNo") String circuitNo);
 
+    //
+    List<Towerinfo> findTowerListByCircuitNoPaging(@Param("circuitNo") String circuitNo,@Param("from") int from,@Param("pageSize") int pageSize);
+    int findTowerListByCircuitNoPagingCount(@Param("circuitNo") String circuitNo);
+
 }

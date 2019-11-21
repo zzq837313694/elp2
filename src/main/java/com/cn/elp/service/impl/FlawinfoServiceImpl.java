@@ -4,6 +4,7 @@ import com.cn.elp.POJO.Flawinfo;
 import com.cn.elp.dao.FlawinfoDao;
 import com.cn.elp.service.FlawinfoService;
 import com.cn.elp.util.FlawInfoCondition;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -31,6 +32,18 @@ public class FlawinfoServiceImpl implements FlawinfoService {
     @Override
     public Flawinfo findFlawInfoByFlawNo(String flawNo) {
         return flawinfoDao.findFlawInfoByFlawNo(flawNo);
+    }
+
+    @Override
+    public List<Flawinfo> findFlawInfoBycheckJobNoPaging(String checkJobNo, String circuitNo, int pageIndex, int pageSize,String flawLV) {
+        int from=(pageIndex-1)*pageSize;
+
+        return flawinfoDao.findFlawInfoBycheckJobNoPaging(checkJobNo,circuitNo,from,pageSize,flawLV);
+    }
+
+    @Override
+    public int findFlawInfoBycheckJobNoPagingCount(String checkJobNo, String circuitNo,String flawLV) {
+        return flawinfoDao.findFlawInfoBycheckJobNoPagingCount(checkJobNo,circuitNo,flawLV);
     }
 
 }

@@ -54,6 +54,22 @@
     <select id="findFlawInfoByFlawNo" resultType="Flawinfo" parameterType="java.lang.String">
         select * from flawinfo where flawNo=#{flawNo}
     </select>
+    <select id="findFlawInfoBycheckJobNo" resultType="Flawinfo" parameterType="java.lang.String">
+        select * from flawinfo where checkJobNo=#{checkJobNo}
+    </select>
 
 
+    <select id="findFlawInfoBycheckJobNoPaging" resultType="Flawinfo">
+        select * from flawinfo where checkJobNo=#{checkJobNo} and circuitNo=#{circuitNo}
+         <if test="flawLV!=null and flawLV!=''">
+             and flawLV=#{flawLV}
+         </if>
+         limit #{from},#{pageSize}
+    </select>
+    <select id="findFlawInfoBycheckJobNoPagingCount" resultType="int">
+        select count(1) from flawinfo where checkJobNo=#{checkJobNo} and circuitNo=#{circuitNo}
+        <if test="flawLV!=null and flawLV!=''">
+            and flawLV=#{flawLV}
+        </if>
+    </select>
 </mapper>

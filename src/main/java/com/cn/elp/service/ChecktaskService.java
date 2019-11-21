@@ -10,5 +10,6 @@ import java.util.List;
 
 public interface ChecktaskService {
     PageSurpport<ChecktaskCondition>SelectChecktaskByParam(ChecktaskCondition checktaskCondition);
-    Checktaskinfo SelectChecktaskById(String jobId);
+    ChecktaskCondition SelectChecktaskById(String jobId);
+    List<Checktaskinfo> getCheckList(ChecktaskCondition checktaskCondition);
 }

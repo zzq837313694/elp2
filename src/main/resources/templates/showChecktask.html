@@ -1,5 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html >
 <html xmlns="http://www.w3.org/1999/xhtml">
 <html lang="en">
 <html xmlns:th="http://www.thymeleaf.org">
@@ -28,7 +27,7 @@
         padding-left: 20px;
         padding-top: 10px;
         overflow: hidden;
-        height: 400px;
+        height: 250px;
         position: relative;
 
     }
@@ -43,27 +42,27 @@
 </p>
 <div style="padding: 0px 50px 0px 50px; border: #3e3e3e 1px solid; margin: 30px">
     <div class="row">
-        <div class="col-lg-3 col-sm-6 col-sm-6 "><span style="font-weight: bolder">任务编号:</span><span>rw0234</span></div>
-        <div class="col-lg-3 col-sm-6 col-sm-6 "><span style="font-weight: bolder">任务名称:</span><span>西林一号线续建</span>
+        <div class="col-lg-3 col-sm-6 col-sm-6 "><span style="font-weight: bolder">任务编号:</span><span th:text="${Checktask.getJobId()}"></span></div>
+        <div class="col-lg-3 col-sm-6 col-sm-6 "><span style="font-weight: bolder">任务名称:</span><span th:text="${Checktask.jobName}"></span>
         </div>
-        <div class="col-lg-3 col-sm-6 col-sm-6 "><span style="font-weight: bolder">巡检线路:</span><span>心灵1好像</span></div>
-        <div class="col-lg-3 col-sm-6 col-sm-6 "><span style="font-weight: bolder">起始杆号:</span><span>xw0001</span> <span
-                style="font-weight: bolder">终止杆号:</span><span>xw00245</span></div>
+        <div class="col-lg-3 col-sm-6 col-sm-6 "><span style="font-weight: bolder">巡检线路:</span><span th:text="${Checktask.circuitName}"></span></div>
+        <div class="col-lg-3 col-sm-6 col-sm-6 "><span style="font-weight: bolder">起始杆号:</span><span th:text="${Checktask.startNo}"></span> <span
+                style="font-weight: bolder">终止杆号:</span><span th:text="${Checktask.stopNo}">xw00245</span></div>
     </div>
     <div class="row">
-        <div class="col-lg-3 col-sm-6 col-sm-12 "><span style="font-weight: bolder">下发人:</span><span>线路管理源测试账号01</span>
+        <div class="col-lg-3 col-sm-6 col-sm-12 "><span style="font-weight: bolder">下发人:</span><span th:text="${Checktask.checkByName}"></span>
         </div>
         <div class="col-lg-3 col-sm-6 col-sm-12 "><span
-                style="font-weight: bolder">下发时间:</span><span>1thasuihadskahs</span></div>
-        <div class="col-lg-3 col-sm-6 col-sm-12 "><span style="font-weight: bolder">任务状态:</span><span>一万车</span></div>
-        <div class="col-lg-3 col-sm-6 col-sm-12 "><span style="font-weight: bolder">任务完成时间:</span><span>xw0abkjsabdksjda001</span>
+                style="font-weight: bolder">下发时间:</span><span th:text="${#dates.format(Checktask.createDate,'yyyy-MM-dd')}"></span></div>
+        <div class="col-lg-3 col-sm-6 col-sm-12 "><span style="font-weight: bolder">任务状态:</span><span th:text="${Checktask.checkByName}"></span></div>
+        <div class="col-lg-3 col-sm-6 col-sm-12 "><span style="font-weight: bolder">任务完成时间:</span><span th:text="${#dates.format(Checktask.finishDate,'yyyy-MM-dd')}"></span>
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-3 col-sm-6 col-sm-12 "><span style="font-weight: bolder">备注信息:</span><span>五</span></div>
+        <div class="col-lg-3 col-sm-6 col-sm-12 "><span style="font-weight: bolder">备注信息:</span><span th:text="${Checktask.comment}==null?'无':${Checktask.comment}"></span></div>
     </div>
     <div class="row">
-        <div class="col-lg-3 col-sm-6 col-sm-12 "><span style="font-weight: bolder">巡检员:</span><span>五</span></div>
+        <div class="col-lg-3 col-sm-6 col-sm-12 "><span style="font-weight: bolder">巡检员:</span><span th:text="${Checktask.createBy}"></span></div>
     </div>
 </div>
 <div class="row" style="height: 20px">
@@ -72,77 +71,156 @@
 
 <div style="padding: 0px 30px 0px 30px;" id="wrap">
     <div class="leftpart">
-        <div style="padding: 20px 10px 0px 20px; border: #3e3e3e 1px solid;width: 200px;display:inline-block">
+        <div style="padding: 20px 10px 0px 20px; border: #3e3e3e 1px solid;width: 200px;display:inline-block;height: 350px">
             <div class="input-prepend input-group">
-                <span class="add-on input-group-addon">线路编号:aflksalf</span>
+                <span class="add-on input-group-addon" th:text="'线路编号:'+${Checktask.circuitNo}"></span>
+                <input type="hidden" th:value="${Checktask.circuitNo}" id="circuitNo" >
+                <input type="hidden" th:value="${Checktask.jobId}" id="jobId" >
             </div>
             <div>&nbsp;</div>
             <div class="fc-button-group">
                 <select name="flawTypeId" id="se1" class="form-control" style="display:inline-block;width: 80px ">
-                    <option value="全部" style="color:black">全部</option>
+                    <option value="" style="color:black">全部</option>
                     <option value="一般" style="color: green">一般</option>
                     <option value="紧急" style="color: orange">紧急</option>
                     <option value="严重" style="color: red">严重</option>
                 </select>
-                <button type="button" class="fc-prev-button fc-button fc-state-default fc-corner-left"><span
+                <button type="button" class="fc-prev-button fc-button fc-state-default fc-corner-left" id="last"><span
                         class="fc-icon fc-icon-left-single-arrow"><</span></button>
-                <button type="button" class="fc-next-button fc-button fc-state-default fc-corner-right"><span
+                <button type="button" class="fc-next-button fc-button fc-state-default fc-corner-right" id="next"><span
                         class="fc-icon fc-icon-right-single-arrow"> > </span></button>
             </div>
-            <ol style="list-style: none;font-size: large;text-indent: 2em">
-                <li>xw0001</li>
-                <li>xw0001</li>
-                <li>xw0001</li>
-                <li>xw0001</li>
-                <li>xw0001</li>
-                <li>xw0001</li>
-                <li>xw0001</li>
-                <li>xw0001</li>
-                <li>xw0001</li>
-                <li>xw0001</li>
-                <li>xw0001</li>
+            <input type="hidden" id="pageIndex" value="1">
+            <ol style="list-style: none;font-size: large;text-indent: 2em" id="towerls">
+
             </ol>
         </div>
         <button  class="btn btn-primary" onclick="javascript:history.back(-1);">返回</button>
     </div>
     <div class="rightpart">
         <div class="row">
-            <div class="col-lg-4 col-sm-5 col-sm-12"><span style="font-weight: bolder">线路编码:</span><span>rw0234</span></div>
-            <div class="col-lg-4 col-sm-5 col-sm-12"><span style="font-weight: bolder">塔杆编码:</span><span>rw0234</span></div>
+            <div class="col-lg-4 col-sm-5 col-sm-12"><span style="font-weight: bolder">线路编码:</span><span id="cirNo" value=""></span></div>
+            <div class="col-lg-4 col-sm-5 col-sm-12"><span style="font-weight: bolder">塔杆编码:</span><span id="towerNo" value=""></span></div>
         </div>
         <div class="row">
-            <div class="col-lg-4 col-sm-5 col-sm-12"><span style="font-weight: bolder">有无故障:</span><span>rw0234</span></div>
-            <div class="col-lg-4 col-sm-5 col-sm-12"><span style="font-weight: bolder">完好率:</span><span>rw0234</span></div>
+            <div class="col-lg-4 col-sm-5 col-sm-12"><span style="font-weight: bolder">完好率:</span><span id="intcatRate"value=""></span></div>
         </div>
         <div class="row">
-            <div class="col-lg-4 col-sm-5 col-sm-12"><span style="font-weight: bolder">缺陷类型:</span><span>rw0234</span></div>
-            <div class="col-lg-4 col-sm-5 col-sm-12"><span style="font-weight: bolder">缺陷级别:</span><span>rw0234</span></div>
+            <div class="col-lg-4 col-sm-5 col-sm-12"><span style="font-weight: bolder">缺陷类型:</span><span id="flawName"value=""></span></div>
+            <div class="col-lg-4 col-sm-5 col-sm-12"><span style="font-weight: bolder">缺陷级别:</span><span id="flawLv" value=""></span></div>
         </div>
         <div class="row">
-            <div class="col-lg-12 col-sm-12 col-sm-12"><span style="font-weight: bolder">缺陷描述:</span><span>rw0234</span></div>
+            <div class="col-lg-12 col-sm-12 col-sm-12"><span style="font-weight: bolder">缺陷描述:</span><span id="comment"value=""></span></div>
         </div>
         <div class="row">
-            <div class="col-lg-12 col-sm-12 col-sm-12"><span style="font-weight: bolder">巡检时间:</span><span>rw0234</span></div>
+            <div class="col-lg-4 col-sm-5 col-sm-12"><span style="font-weight: bolder">缺陷发现人:</span><span id="checkBy"value=""></span></div>
+            <div class="col-lg-4 col-sm-5 col-sm-12"><span style="font-weight: bolder">发现时间:</span><span id="checkDate"value=""></span></div>
         </div>
-        <div class="row">
-            <div class="col-lg-12 col-sm-12 col-sm-12"><span style="font-weight: bolder">巡检员:</span><span>rw0234</span></div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4 col-sm-5 col-sm-12"><span style="font-weight: bolder">缺陷发现人:</span><span>rw0234</span></div>
-            <div class="col-lg-4 col-sm-5 col-sm-12"><span style="font-weight: bolder">发现时间:</span><span>rw0234</span></div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4 col-sm-5 col-sm-12"><span style="font-weight: bolder">下发人员:</span><span>rw0234</span></div>
-            <div class="col-lg-4 col-sm-5 col-sm-12"><span style="font-weight: bolder">下发时间:</span><span>rw0234</span></div>
-        </div>
-
     </div>
 </div>
 </body>
 <script type="text/javascript">
+
+$(function () {
+    f();
+
+
+})
+function f() {
+    var index=$("#pageIndex").val();
+    var circuitNo=$("#circuitNo").val();
+    var jobId=$("#jobId").val();
+    var flawLV=$("#se1").val();
+    var dat="pageIndex="+index+"&circuitNo="+circuitNo+"&jobId="+jobId+"&flawLV="+flawLV;
+    $.get("getFlawinfoList.html",dat,function (data) {
+        var str="";
+        $.each(data.dataList,function (i,obj) {
+            var color="";
+            switch (obj.flawLv) {
+                case "严重":
+                    color="red";
+                    break;
+                case "紧急":
+                    color="orange";
+                    break;
+                case "一般":
+                    color="green";
+                    break;
+                default:
+                    color="black";
+                    break;
+            }
+            str+="<li  style='color:"+color+";background-color:#fffaf0' class='towerNoList' id='"+obj.flawNo+"'>"+obj.towerNo+"</li>"
+        })
+        $("#towerls").html(str);
+
+        if(data.pageIndex<=1){
+            $("#last").attr("disabled","disabled");
+        }else {
+            $("#last").removeAttr("disabled")
+        }
+        if(data.pageIndex==data.pageCount){
+            $("#next").attr("disabled","disabled");
+        }else{
+            $("#next").removeAttr("disabled")
+        }
+    },"json");
+}
+/*function f() {
+    var index=$("#pageIndex").val();
+    var circuitNo=$("#circuitNo").val();
+    var dat="pageIndex="+index+"&circuitNo="+circuitNo+"&"
+    $.get("getTowerinfoList.html",dat,function (data) {
+        var str="";
+        $.each(data,function (i,obj) {
+            str+="<li ></li>"
+        })
+        $("#getCir").html(str);
+    },"html");
+}*/
 $("#se1").change(function() {
     var selectedColor = $(this).children("option:selected").css("color");  // 取出所选中的option的颜色
     $(this).css("color", selectedColor);  // 将上述颜色赋给select
+    f();
 });
+$("#next").click(function () {
+    var index=$("#pageIndex").val();
+    $("#pageIndex").val(eval(index+"+"+"1"));
+    f();
+})
+$("#last").click(function () {
+    var index=$("#pageIndex").val();
+
+    $("#pageIndex").val(eval(index+"-"+"1"));
+    f();
+})
+$(document).on("click",".towerNoList",(function () {
+    $(".towerNoList").css("background-color","#fffaf0");
+    $(this).css("background-color","#1A5380");
+    var flawNo=$(this).attr("id");
+    $.get("getFlawinfo.html","flawNo="+flawNo,function (data) {
+    var flawName=""
+        var checkBy=""
+        $.each(data.workList,function (i,obj) {
+            if(obj.userNo==data.flawInfo.checkBy){
+                checkBy=obj.userName;
+            }
+        })
+        $.each(data.flawTypeList,function (i,obj) {
+            if(obj.flawTypeId==data.flawInfo.flawTypeId){
+                flawName=obj.flawName;
+            }
+        })
+        $("#cirNo").text(data.flawInfo.circuitNo);
+        $("#towerNo").text(data.flawInfo.towerNo);
+        $("#intcatRate").text(data.flawInfo.intcatRate*100+"%");
+        $("#flawName").text(flawName);
+        $("#flawLv").text(data.flawInfo.flawLv);
+        $("#comment").text(data.flawInfo.comment);
+        $("#checkBy").text(checkBy);
+        $("#checkDate").text(data.flawInfo.checkDate);
+    },"json");
+
+}))
 </script>
 </html>
