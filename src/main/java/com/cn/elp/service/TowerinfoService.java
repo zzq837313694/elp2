@@ -24,4 +24,8 @@ public interface TowerinfoService {
     int updateOneStatus(@Param("circuitNo") String circuitNo, @Param("useStatus") String useStatus);
     //根据线路编号删除一条
     int delAllTower(String circuitNo);
+
+    List<Towerinfo> findTowerListByCircuitNoPaging( String circuitNo, int pageIndex, int pageSize);
+
+    int findTowerListByCircuitNoPagingCount(String circuitNo);
 }

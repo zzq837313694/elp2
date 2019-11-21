@@ -3,8 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cn.elp.dao.ChecktaskDao">
+
     <select id="SelectChecktaskByParam" resultType="Checktaskinfo">
-        select *  from checktaskinfo a
+        select *  from checktaskinfo a where abolish='否'
         <include refid="Param"></include>
         order  by a.createDate desc
             <if test="ChecktaskCondition.pageIndex!=null and ChecktaskCondition.pageIndex!='' and
@@ -17,10 +18,10 @@ ChecktaskCondition.pageSize!=null and ChecktaskCondition.pageSize!=''">
         select *  from checktaskinfo a where a.jobId=#{jobId};
     </select>
     <select id="SelectChecktaskByParamCount" resultType="int" >
-        select count(0) from checktaskinfo a
+        select count(0) from checktaskinfo a where  abolish='否'
+        <include refid="Param"></include>
     </select>
     <sql id="Param">
-        <where>
             <if test="ChecktaskCondition.jobId!=null and ChecktaskCondition.jobId!=''">
                 and a.jobId like concat('%',#{ChecktaskCondition.jobId},'%')
             </if>
@@ -42,6 +43,5 @@ ChecktaskCondition.pageSize!=null and ChecktaskCondition.pageSize!=''">
             <if test="ChecktaskCondition.CreateDateMax!=null">
                 and a.createDate &lt;#{ChecktaskCondition.CreateDateMax}
             </if>
-        </where>
     </sql>
 </mapper>
