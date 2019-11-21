@@ -26,6 +26,22 @@ public class SolvetaskServicesImpl implements SolvetaskServices {
         return solveTasks;
     }
 
+    /**
+     * @param taskNo
+     * @param taskName
+     * @param creatBy
+     * @param status
+     * @param creatDate_from
+     * @param creatDate_to
+     * @return
+     */
+    @Override
+    public List<Solvetaskinfo> searchSolveTask(String taskNo, String taskName, String creatBy, String status, String creatDate_from, String creatDate_to ,int nowPage) {
+        int pageIndex=(nowPage-1)*8;
+        List<Solvetaskinfo> searchTasks=solveTaskInfoDao.searchSolveTask(taskNo,taskName,creatBy,status,creatDate_from,creatDate_to, pageIndex);
+        return searchTasks;
+    }
+
     @Override
     public int countSolveTask() {
         return solveTaskInfoDao.countSolveTask();

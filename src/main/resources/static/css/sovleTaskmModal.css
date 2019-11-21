@@ -1,0 +1,47 @@
+ #modelLeft {
+    width: 45%;
+    float: left;
+    position: relative;
+    padding: 0px 10px;
+    border: 1px black solid;
+    margin-right: 15px;
+}
+
+ #modelRight {
+    width: 45%;
+    float: left;
+    position: relative;
+    padding: 0px 10px;
+    border: 1px black solid;
+    margin-left: 15px;
+}
+
+ #modelMiddle {
+    position: absolute;
+    top: 50%;
+    left: 45%;
+}
+
+ #modelMiddle p{
+    font-size: 20px;
+    margin: 0px;
+}
+
+ #modelRight#modelLeft li {
+    list-style-type: none;
+}
+
+li:hover {
+    list-style-type: none;
+    background-color: #878787;
+}
+
+li.active {
+    background-color: #707070;
+}
+
+ .modal-body > div {
+     min-width: 330px;
+     position: marker;
+     margin: 0px auto;
+ }

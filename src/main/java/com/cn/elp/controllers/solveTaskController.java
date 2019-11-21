@@ -10,6 +10,7 @@ import com.cn.elp.util.PageSurpport;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -26,11 +27,44 @@ public class solveTaskController {
     RoleServices roleServices;
 
     @RequestMapping("/AdminSolveTask.html")
-    public String makesSolveTask(Model model) {
+    public String makesSolveTask(Model model, Solvetaskinfo solveTask,
+                                 @RequestParam(required = false, defaultValue = "") String createDate_from,
+                                 @RequestParam(required = false, defaultValue = "") String createDate_to,
+                                 @RequestParam(required = false, defaultValue = "1") int pageIndex) {
+        //数据回显
+        model.addAttribute("solveTask", solveTask);
+        if ("".equals(createDate_from))
+            model.addAttribute("data_from", createDate_from);
+        if ("".equals(createDate_to))
+            model.addAttribute("data_to", createDate_to);
 
+
+        PageSurpport<Solvetaskinfo> ps = new PageSurpport<Solvetaskinfo>();
+        ps.setPageIndex(pageIndex);
+        ps.setTotalCount(solvetaskServices.countSolveTask());
+        ps.setPageSize(8);
+        try {
+            List<Solvetaskinfo> solveTasks = solvetaskServices.searchSolveTask(solveTask.getSolveTaskNo(), solveTask.getSolveTaskName()
+                    , solveTask.getCreatBy(), solveTask.getStatus(), createDate_from, createDate_to, ps.getPageIndex());
+            for (Solvetaskinfo solvetask : solveTasks) {
+                solvetask.setCreaterName(workerinfoService.findAllWorker(solvetask.getCreatBy()).getUserName());
+            }
+            ps.setDataList(solveTasks);
+
+        } catch (Exception e) {
+
+        }
+        model.addAttribute("data", ps);
         return "AdminSolveTask";
     }
 
+    @RequestMapping("/sovleTaskInfo.html")
+    public String sovleTaskInfo(String nowPage, Model model) {
+
+
+
+    return "sovleTaskInfo";
+    }
     @RequestMapping("/getDate")
     @ResponseBody
     public PageSurpport<Solvetaskinfo> getSolveTaskData(String nowPage, Model model) {
@@ -41,8 +75,19 @@ public class solveTaskController {
         ps.setPageSize(8);
         List<Solvetaskinfo> solveTasks = solvetaskServices.findAllSolveTask();
         ps.setDataList(solveTasks);
-        model.addAttribute("ps", ps);
         return ps;
+    }
+
+    @RequestMapping("/search")
+    public String Search(Solvetaskinfo solveTask, String createDate_from, String createDate_to, Model model) {
+        PageSurpport<Solvetaskinfo> ps = new PageSurpport<Solvetaskinfo>();
+        ps.setPageIndex(1);
+        ps.setTotalCount(solvetaskServices.countSolveTask());
+        ps.setPageSize(8);
+        List<Solvetaskinfo> solveTasks = solvetaskServices.searchSolveTask(solveTask.getSolveTaskNo(), solveTask.getSolveTaskName()
+                , solveTask.getCreatBy(), solveTask.getStatus(), createDate_from, createDate_to, 1);
+        model.addAttribute("search", solveTasks);
+        return "AdminSolveTask";
     }
 
 
@@ -54,7 +99,7 @@ public class solveTaskController {
 
     @RequestMapping("/getSolveWorkers")
     @ResponseBody
-    public  List<Workerinfo>  getSovleWorkers(String roleName, String nowSolveWorkers,Model model) {
+    public List<Workerinfo> getSovleWorkers(String roleName, String nowSolveWorkers, Model model) {
 
         List<Workerinfo> SovleWorkers = workerinfoService.findWorkerByRoleId(roleServices.findRoleByRoleName(roleName).getRoleId());
 
