@@ -1,21 +1,21 @@
 package com.cn.elp.controllers;
 
 import com.cn.elp.POJO.Role;
+import com.cn.elp.POJO.Rule;
 import com.cn.elp.POJO.Workerinfo;
 import com.cn.elp.service.RoleService;
+import com.cn.elp.service.RuleService;
 import com.cn.elp.service.WorkerinfoService;
 import com.cn.elp.util.MyContents;
 import com.cn.elp.util.PageSurpport;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -25,6 +25,8 @@ public class SystemController {
     RoleService roleService;
     @Resource
     WorkerinfoService workerinfoService;
+    @Resource
+    RuleService ruleService;
 
     /**
      * 角色管理
@@ -151,6 +153,49 @@ public class SystemController {
     @ResponseBody
     public int updateWorkerinfoStatus(String status,String userNo){
         return  workerinfoService.updateWorkerinfoStatus(status,userNo);
+    }
+
+
+
+
+
+
+    /**
+     * 角色权限配置
+     */
+    @RequestMapping("/permissionSetting.html")
+    public String permissionSetting(Model model){
+        List<Rule> ruleList = ruleService.findAllRule();
+        model.addAttribute("ruleList",ruleList);
+        List<Role> roleList=roleService.findAllRole();
+        model.addAttribute("roleList",roleList);
+        return "permissionSetting";
+    }
+
+    @RequestMapping("rule.html")
+    public String permissionSetting111(String[] ruleId,int roleId){
+        System.out.println(ruleId.length);
+        System.out.println(roleId);
+        String re="";
+        for (int r=0;r<ruleId.length;r++){
+            if (r==(ruleId.length-1)){
+                re+=ruleId[r];
+            }else {
+                re+=ruleId[r]+"-";
+            }
+        }
+        System.out.println(re);
+        int rel=roleService.updateRuleByRoleId(roleId,re);
+        return "redirect:permissionSetting.html";
+    }
+
+    @RequestMapping("findRuleList.html")
+    @ResponseBody
+    public String[] findRuleList(int roleId){
+        Role role=roleService.findRuleListByRokeId(roleId);
+        System.out.println(role.getRuleList());
+        String[] roleList=role.getRuleList().split("-");
+        return  roleList;
     }
 
 }

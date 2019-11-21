@@ -52,6 +52,17 @@ public interface RoleService {
      * @return
      */
     int delRoleByRoleId(int roleId);
-
-
+    /**
+     * 根据角色id修改一条角色的权限集合
+     * @param roleId
+     * @param ruleList
+     * @return
+     */
+    int updateRuleByRoleId(int roleId,String ruleList);
+    /**
+     * 根据角色id查询权限
+     * @param roleId
+     * @return
+     */
+    Role findRuleListByRokeId(int roleId);
 }

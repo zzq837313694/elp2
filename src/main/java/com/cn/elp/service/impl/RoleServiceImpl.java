@@ -58,4 +58,14 @@ public class RoleServiceImpl implements RoleService {
     public int delRoleByRoleId(int roleId) {
         return roleDao.delRoleByRoleId(roleId);
     }
+
+    @Override
+    public int updateRuleByRoleId(int roleId, String ruleList) {
+        return roleDao.updateRuleByRoleId(roleId,ruleList);
+    }
+
+    @Override
+    public Role findRuleListByRokeId(int roleId) {
+        return roleDao.findRuleListByRokeId(roleId);
+    }
 }

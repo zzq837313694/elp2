@@ -1,6 +1,10 @@
 package com.cn.elp.controllers;
 
+import com.cn.elp.POJO.Role;
+import com.cn.elp.POJO.Rule;
 import com.cn.elp.POJO.Workerinfo;
+import com.cn.elp.service.RoleService;
+import com.cn.elp.service.RuleService;
 import com.cn.elp.service.WorkerinfoService;
 import com.cn.elp.util.MyContents;
 import org.springframework.stereotype.Controller;
@@ -11,12 +15,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class LoginController {
     @Resource
     WorkerinfoService workerinfoService;
+    @Resource
+    RoleService roleService;
+    @Resource
+    RuleService ruleService;
 
 
    //显示登录页面
@@ -72,7 +82,17 @@ public class LoginController {
         return "head";
     }
     @RequestMapping("left.html")
-    public  String left(){
+    public  String left(HttpSession session,Model model){
+        List<Rule> ruleLeft=new ArrayList<Rule>();
+        Workerinfo worker=(Workerinfo)(session.getAttribute(MyContents.WORKER_SESSION));
+        Role role = roleService.findRuleListByRokeId(worker.getRoleId());
+        String[] ruleList = role.getRuleList().split("-");
+        for(String rule:ruleList){
+            int ruleId = Integer.parseInt(rule);
+            Rule rules = ruleService.findRuleByRuleId(ruleId);
+            ruleLeft.add(rules);
+        }
+        model.addAttribute("ruleLeft",ruleLeft);
         return "left";
     }
     @RequestMapping("main.html")

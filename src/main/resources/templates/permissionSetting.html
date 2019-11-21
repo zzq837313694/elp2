@@ -26,63 +26,68 @@
 <body>
     <p style="text-indent: 2em;padding-top: 20px">系统管理-->角色权限配置</p><br>
 
+
+<form method="post" action="rule.html">
     <div style="padding: 0px 50px 0px 50px">
-        <form action="/worker.html" method="post" id="test">
             <div class="row">
                 <div class="col-lg-9 col-sm-9 col-xs-9">
                     <div class="col-lg-4 col-sm-6 col-xs-12">
                         <div class="input-prepend input-group">
                             <span class="add-on input-group-addon">请选择角色</span>
-                            <select style="height: 40px">
+                            <select style="height: 40px" id="roleIDEA" name="roleId">
                                 <option value="">--请选择--</option>
-                                <option value="">系统管理员</option>
+                                <option th:each="role:${roleList}" th:value="${role.roleId}" th:text="${role.roleName}">系统管理员</option>
                             </select>
                         </div>
                     </div>
-
-                    <input type="hidden" id="pageIndex" name="pageIndex" value="1">
                     <div class="col-lg-4 col-sm-6 col-xs-12">
-                        <button type="submit" class="btn btn-primary">查询</button>
+                        <button type="button" class="btn btn-primary" onclick="checkRuleList()">查询</button>
                     </div>
                 </div>
             </div>
-        </form>
     </div>
 
+   <dl th:each="rule:${ruleList}" >
+       <!--<input type="text" th:value="selectAll+${rule.ruleId}">
+       <input type="text" th:value="selectBox+${rule.perRuleId}">-->
+       <dt th:if="${rule.perRuleId==0}"  style="margin: 10px 0px 0px 140px">
+           <input th:id="selectAll+${rule.ruleId}" th:ruleId="${rule.ruleId}" th:value="${rule.ruleId}" name="ruleId" class="selectBox"
+                  type="checkbox" onclick="rule(this)">
+           [[${rule.ruleName}]]
+       </dt>
+       <dd th:if="${rule.perRuleId!=0}" style="margin: 10px 0px 0px 160px">
+           <input th:id="selectAll+${rule.ruleId}" th:perRuleId="selectBox+${rule.perRuleId}" class="selectBox" th:value="${rule.ruleId}" name="ruleId"
+                  type="checkbox" >
+           [[${rule.ruleName}]]
+       </dd>
 
-
-
-    <div>
-
-        <!-- Nav tabs -->
-        <ul class="nav nav-pills" role="tablist">
-            <li role="presentation" class="active">
-                <a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
-            <li role="presentation">
-                <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
-            <li role="presentation">
-                <a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
-            <li role="presentation">
-                <a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
-        </ul>
-
-        <!-- Tab panes -->
-        <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="home">1</div>
-            <div role="tabpanel" class="tab-pane" id="profile">2</div>
-            <div role="tabpanel" class="tab-pane" id="messages">3</div>
-            <div role="tabpanel" class="tab-pane" id="settings">4</div>
-        </div>
-
-    </div>
-
-
-
-
-
-
-
-
+   </dl>
+        <input type="submit" class="btn btn-primary" value="授权">
+</form>
 
 </body>
+
+
+<script type="text/javascript">
+    function checkRuleList() {
+        var roleId=$("#roleIDEA").val();
+
+        if (roleId!=null||roleId!="") {
+            $(".selectBox").attr("checked",false);
+            alert(roleId)
+            data="roleId="+roleId;
+            $.post("findRuleList.html",data,function (ruleList) {
+                alert(ruleList)
+                for (var i=0;i<ruleList.length;i++){
+                    $("#selectAll"+ruleList[i]+"").attr("checked",true);
+                }
+            });
+        }else {
+            alert("请先选择");
+        }
+
+    }
+
+</script>
+
 </html>
