@@ -18,5 +18,12 @@ public interface RuleDao {
      */
     List<Rule> findAllRule();
 
+    /**
+     * 根据权限Id查找一条权限
+     * @param ruleId
+     * @return
+     */
+    Rule findRuleByRuleId(int ruleId);
+
 
 }

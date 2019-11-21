@@ -4,6 +4,8 @@ public class Rule {
     private int ruleId;
     private  String ruleName;
     private int perRuleId;
+    private String url;
+    private String picPath;
 
     public int getRuleId() {
         return ruleId;
@@ -27,5 +29,21 @@ public class Rule {
 
     public void setPerRuleId(int perRuleId) {
         this.perRuleId = perRuleId;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getPicPath() {
+        return picPath;
+    }
+
+    public void setPicPath(String picPath) {
+        this.picPath = picPath;
     }
 }

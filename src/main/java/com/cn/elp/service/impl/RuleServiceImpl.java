@@ -22,4 +22,9 @@ public class RuleServiceImpl implements RuleService {
     public List<Rule> findAllRule() {
         return ruleDao.findAllRule();
     }
+
+    @Override
+    public Rule findRuleByRuleId(int ruleId) {
+        return ruleDao.findRuleByRuleId(ruleId);
+    }
 }
