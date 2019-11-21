@@ -138,7 +138,7 @@
                 </td>
                 <td th:text="${task.finishiworkerId}"></td>
                 <td>
-                    <a href="" onclick="">查看</a>
+                    <a th:href="'sovleTaskInfo.html?taskNo='+${task.solveTaskNo}" onclick="">查看</a>
                     <span>|</span>
                     <span th:if="${task.status}=='待分配'">
                         <a data-toggle="modal" data-target="#SolveTaskModel"> 分配任务</a>

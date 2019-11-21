@@ -15,6 +15,12 @@ public interface SolveTaskInfoDao {
 
         /**
          *
+         * @return
+         */
+        Solvetaskinfo findSolveTaskInfoByTaskNo(String taskNo);
+
+        /**
+         *
          * @param taskNo
          * @param taskName
          * @param creatBy

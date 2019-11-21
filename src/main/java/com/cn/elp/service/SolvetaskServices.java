@@ -14,6 +14,11 @@ public interface SolvetaskServices {
 
     /**
      *
+     * @return
+     */
+    Solvetaskinfo findSolveTaskByTaskNo(String taskNo);
+    /**
+     *
      * @param taskNo
      * @param taskName
      * @param creatBy
@@ -23,5 +28,11 @@ public interface SolvetaskServices {
      * @return
      */
     List<Solvetaskinfo> searchSolveTask(String taskNo, String taskName, String creatBy, String status, String creatDate_from,String creatDate_to,int nowPage );
+
+    /**
+     *
+     * @return
+     */
+
     int countSolveTask();
 }

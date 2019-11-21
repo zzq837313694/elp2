@@ -1,20 +1,22 @@
 package com.cn.elp.controllers;
 
 
+import java.util.List;
 import com.cn.elp.POJO.Solvetaskinfo;
 import com.cn.elp.POJO.Workerinfo;
+import com.cn.elp.POJO.Review;
 import com.cn.elp.service.RoleServices;
 import com.cn.elp.service.SolvetaskServices;
 import com.cn.elp.service.WorkerinfoService;
 import com.cn.elp.util.PageSurpport;
-import org.springframework.stereotype.Controller;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.annotation.Resource;
-import java.util.List;
+import org.springframework.stereotype.Controller;
+
 
 @Controller
 public class solveTaskController {
@@ -59,7 +61,18 @@ public class solveTaskController {
     }
 
     @RequestMapping("/sovleTaskInfo.html")
-    public String sovleTaskInfo(String nowPage, Model model) {
+    public String sovleTaskInfo(String taskNo, Model model) {
+
+        //返回任务详情
+        Solvetaskinfo solveTask=solvetaskServices.findSolveTaskByTaskNo(taskNo);
+        solveTask.setCreaterName(workerinfoService.findAllWorker(solveTask.getCreatBy()).getUserName());
+       model.addAttribute("taskInfo",solveTask) ;
+        //返回审查信息
+
+
+        //返回报告信息
+
+
 
 
 

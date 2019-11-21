@@ -26,6 +26,12 @@ public class SolvetaskServicesImpl implements SolvetaskServices {
         return solveTasks;
     }
 
+    @Override
+    public Solvetaskinfo findSolveTaskByTaskNo(String taskNo) {
+        Solvetaskinfo taskInfo =solveTaskInfoDao.findSolveTaskInfoByTaskNo(taskNo);
+        return taskInfo;
+    }
+
     /**
      * @param taskNo
      * @param taskName

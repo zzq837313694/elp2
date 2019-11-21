@@ -11,8 +11,8 @@
 </select>
     <!--动态查询-->
     <select id="searchSolveTask" resultType="SolveTaskInfo">
-        select `solveTaskNo`,solveTaskName,floawList,manager,finishiworkerId,creatBy
-        ,createDate,documents,`describe`,`status` from solvetaskInfo
+        select `solveTaskNo`,solveTaskName,floawList,manager,finishiworkerId,finishDate,creatBy
+        ,createDate,documents,`describe`,`status`,`comment` from solvetaskInfo
         <where>
             <if test="taskNo!=null and taskNo!=''">
                 and solveTaskNo like concat('%',#{taskNo},'%')
@@ -36,6 +36,9 @@
 
     <select id="countSolveTask" resultType="int">
         SELECT COUNT(`solveTaskNo`) from  solvetaskInfo;
+    </select>
+    <select id="findSolveTaskInfoByTaskNo" parameterType="String" resultType="SolveTaskInfo">
+          select * from solvetaskInfo where solveTaskNo = #{taskNo};
     </select>
 
 </mapper>
