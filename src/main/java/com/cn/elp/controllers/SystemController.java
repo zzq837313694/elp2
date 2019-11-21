@@ -11,13 +11,11 @@ import com.cn.elp.util.PageSurpport;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -165,28 +163,15 @@ public class SystemController {
     /**
      * 角色权限配置
      */
-    /*@RequestMapping("/permissionSetting.html")
-    public String permissionSetting(Model model){
-        List<Rule> perRuleList = ruleService.findAllRuleByPerRuleId(0);//查找父类权限
-        model.addAttribute("perRuleList",perRuleList);
-        return "permissionSetting1111";
-    }
-
-    @RequestMapping("/cRule.html")
-    @ResponseBody
-    public List<Rule> cRule(int ruleId){
-        List<Rule> cRuleList = ruleService.findAllRuleByPerRuleId(ruleId);
-        return cRuleList;
-    }*/
-
     @RequestMapping("/permissionSetting.html")
     public String permissionSetting(Model model){
         List<Rule> ruleList = ruleService.findAllRule();
         model.addAttribute("ruleList",ruleList);
         List<Role> roleList=roleService.findAllRole();
         model.addAttribute("roleList",roleList);
-        return "permissionSetting1111";
+        return "permissionSetting";
     }
+
     @RequestMapping("rule.html")
     public String permissionSetting111(String[] ruleId,int roleId){
         System.out.println(ruleId.length);
