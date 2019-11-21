@@ -45,4 +45,11 @@
         delete from role where roleId=#{roleId}
     </delete>
 
+    <update id="updateRuleByRoleId" >
+        update role set ruleList=#{ruleList}  where roleId=#{roleId}
+    </update>
+
+    <select id="findRuleListByRokeId" resultType="Role">
+        select * from role where roleId=#{roleId}
+    </select>
 </mapper>

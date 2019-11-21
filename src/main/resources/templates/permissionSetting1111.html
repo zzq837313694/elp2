@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>角色权限配置</title>
+    <link type="text/css" href="webjars/bootstrap" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}" rel="stylesheet">
+    <script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
+    <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}"></script>
+
+    <style>
+
+        .row input[type='text']{
+            width: 200px;
+        }
+        .input-group{
+            margin-bottom: 8px;
+        }
+        .input-group-addon{
+            width:90px;
+        }
+
+    </style>
+
+</head>
+<body>
+    <p style="text-indent: 2em;padding-top: 20px">系统管理-->角色权限配置</p><br>
+
+
+<form method="post" action="rule.html">
+    <div style="padding: 0px 50px 0px 50px">
+            <div class="row">
+                <div class="col-lg-9 col-sm-9 col-xs-9">
+                    <div class="col-lg-4 col-sm-6 col-xs-12">
+                        <div class="input-prepend input-group">
+                            <span class="add-on input-group-addon">请选择角色</span>
+                            <select style="height: 40px" id="roleIDEA" name="roleId">
+                                <option value="">--请选择--</option>
+                                <option th:each="role:${roleList}" th:value="${role.roleId}" th:text="${role.roleName}">系统管理员</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 col-xs-12">
+                        <button type="button" class="btn btn-primary" onclick="checkRuleList()">查询</button>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+   <dl th:each="rule:${ruleList}" >
+       <!--<input type="text" th:value="selectAll+${rule.ruleId}">
+       <input type="text" th:value="selectBox+${rule.perRuleId}">-->
+       <dt th:if="${rule.perRuleId==0}"  style="margin: 10px 0px 0px 140px">
+           <input th:id="selectAll+${rule.ruleId}" th:ruleId="${rule.ruleId}" th:value="${rule.ruleId}" name="ruleId" class="selectBox"
+                  type="checkbox" onclick="rule(this)">
+           [[${rule.ruleName}]]
+       </dt>
+       <dd th:if="${rule.perRuleId!=0}" style="margin: 10px 0px 0px 160px">
+           <input th:id="selectAll+${rule.ruleId}" th:perRuleId="selectBox+${rule.perRuleId}" class="selectBox" th:value="${rule.ruleId}" name="ruleId"
+                  type="checkbox" >
+           [[${rule.ruleName}]]
+       </dd>
+
+   </dl>
+        <input type="submit" class="btn btn-primary" value="授权">
+</form>
+
+</body>
+
+
+<script type="text/javascript">
+    function checkRuleList() {
+        var roleId=$("#roleIDEA").val();
+
+        if (roleId!=null||roleId!="") {
+            $(".selectBox").attr("checked",false);
+            alert(roleId)
+            data="roleId="+roleId;
+            $.post("findRuleList.html",data,function (ruleList) {
+                alert(ruleList)
+                for (var i=0;i<ruleList.length;i++){
+                    $("#selectAll"+ruleList[i]+"").attr("checked",true);
+                }
+            });
+        }else {
+            alert("请先选择");
+        }
+
+    }
+
+</script>
+
+</html>

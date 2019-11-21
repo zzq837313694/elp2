@@ -158,6 +158,10 @@ public class SystemController {
     }
 
 
+
+
+
+
     /**
      * 角色权限配置
      */
@@ -179,7 +183,34 @@ public class SystemController {
     public String permissionSetting(Model model){
         List<Rule> ruleList = ruleService.findAllRule();
         model.addAttribute("ruleList",ruleList);
+        List<Role> roleList=roleService.findAllRole();
+        model.addAttribute("roleList",roleList);
         return "permissionSetting1111";
+    }
+    @RequestMapping("rule.html")
+    public String permissionSetting111(String[] ruleId,int roleId){
+        System.out.println(ruleId.length);
+        System.out.println(roleId);
+        String re="";
+        for (int r=0;r<ruleId.length;r++){
+            if (r==(ruleId.length-1)){
+                re+=ruleId[r];
+            }else {
+                re+=ruleId[r]+"-";
+            }
+        }
+        System.out.println(re);
+        int rel=roleService.updateRuleByRoleId(roleId,re);
+        return "redirect:permissionSetting.html";
+    }
+
+    @RequestMapping("findRuleList.html")
+    @ResponseBody
+    public String[] findRuleList(int roleId){
+        Role role=roleService.findRuleListByRokeId(roleId);
+        System.out.println(role.getRuleList());
+        String[] roleList=role.getRuleList().split("-");
+        return  roleList;
     }
 
 }

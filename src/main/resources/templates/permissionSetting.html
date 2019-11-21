@@ -19,11 +19,7 @@
         .input-group-addon{
             width:90px;
         }
-        /*#cRule{
-            border: 1px solid blue;
-            height: 200px;
-            width: 200px;
-        }*/
+
 
     </style>
 
@@ -45,13 +41,9 @@
                         </div>
                     </div>
 
-                    <input type="hidden" id="pageIndex" name="pageIndex" value="1">
-                    <div class="col-lg-4 col-sm-6 col-xs-12">
-                        <button type="submit" class="btn btn-primary">查询</button>
-                    </div>
+
                 </div>
             </div>
-        </form>
     </div>
 
 
@@ -66,16 +58,36 @@
                <a href="#home" th:href="@{'#'+${perRule.ruleName}}" onclick="rule(this)"
                    th:ruleId="${perRule.ruleId}"
                    aria-controls="home" th:aria-controls="${perRule.ruleName}"
-                   role="tab" data-toggle="tab"><input class="checkAll" type="checkbox">[[${perRule.ruleName}]]</a></li>
-        </ul>
+                   role="tab" data-toggle="tab"><input class="checkAll" type="checkbox">[[${perRule.ruleName}]]
+               </a>
 
+            </li>
+        </ul>
         <!-- Tab panes -->
-        <div class="tab-content" id="cRule">
+        <div class="tab-content" id="cRule" style="background-color: red">
+
         </div>
 
     </div>
 
+
+    <div class="col-lg-4 col-sm-6 col-xs-12">
+        <button type="submit" class="btn btn-primary">查询</button>
+    </div>
+
+
+    </form>
+
+
+
+
 </body>
+
+
+
+
+
+
 
 <script type="text/javascript">
     $('.checkAll').click(function () {
@@ -94,11 +106,6 @@
 
        },"json");
    }
-
-
-
-
-
 
 
 </script>
