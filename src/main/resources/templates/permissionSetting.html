@@ -47,20 +47,24 @@
             </div>
     </div>
 
-   <dl th:each="rule:${ruleList}" >
-       <!--<input type="text" th:value="selectAll+${rule.ruleId}">
-       <input type="text" th:value="selectBox+${rule.perRuleId}">-->
-       <dt th:if="${rule.perRuleId==0}"  style="margin: 10px 0px 0px 140px">
-           <input th:id="selectAll+${rule.ruleId}" th:ruleId="${rule.ruleId}" th:value="${rule.ruleId}" name="ruleId" class="selectBox"
-                  type="checkbox" onclick="rule(this)">
-           [[${rule.ruleName}]]
-       </dt>
-       <dd th:if="${rule.perRuleId!=0}" style="margin: 10px 0px 0px 160px">
-           <input th:id="selectAll+${rule.ruleId}" th:perRuleId="selectBox+${rule.perRuleId}" class="selectBox" th:value="${rule.ruleId}" name="ruleId"
+
+   <dl th:each="rule:${ruleList}"  >
+       <dt th:if="${rule.perRuleId==0}"  style="margin: 10px 0px 0px 140px" class="perRule">
+           <input th:id="selectAll+${rule.ruleId}"
+                  th:ruleId="${rule.ruleId}"
+                  th:value="${rule.ruleId}"
+                  name="ruleId" class="selectBox"
                   type="checkbox" >
            [[${rule.ruleName}]]
+       </dt>
+       <dd th:each="subrule:${ruleList}" th:if="${subrule.perRuleId== rule.ruleId}" style="margin: 10px 0px 0px 160px" class="cRule">
+           <input th:id="selectAll+${subrule.ruleId}"
+                  th:perRuleId="selectBox+${subrule.perRuleId}"
+                  class="selectBox"  name="ruleId"
+                  th:value="${subrule.ruleId}"
+                  type="checkbox" />
+           [[${subrule.ruleName}]]
        </dd>
-
    </dl>
         <input type="submit" class="btn btn-primary" value="授权">
 </form>
@@ -71,13 +75,10 @@
 <script type="text/javascript">
     function checkRuleList() {
         var roleId=$("#roleIDEA").val();
-
         if (roleId!=null||roleId!="") {
             $(".selectBox").attr("checked",false);
-            alert(roleId)
             data="roleId="+roleId;
             $.post("findRuleList.html",data,function (ruleList) {
-                alert(ruleList)
                 for (var i=0;i<ruleList.length;i++){
                     $("#selectAll"+ruleList[i]+"").attr("checked",true);
                 }
@@ -85,9 +86,7 @@
         }else {
             alert("请先选择");
         }
-
     }
-
 </script>
 
 </html>
