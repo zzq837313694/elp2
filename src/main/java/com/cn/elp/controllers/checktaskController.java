@@ -34,13 +34,13 @@ public class checktaskController {
     @Resource
     WorkerinfoService workerinfoService;
 
-   /* @RequestMapping("/getchecktaskListA.html")
+    @RequestMapping("/getchecktaskListNot.html")
     @ResponseBody
-    public PageSurpport<ChecktaskCondition> getchecktaskListA(ChecktaskCondition checktaskCondition, Model model){
-        PageSurpport<ChecktaskCondition> pageSurpport= checktaskService.SelectChecktaskByParam(checktaskCondition);
+    public PageSurpport<ChecktaskCondition> getchecktaskListNot(ChecktaskCondition checktaskCondition) {
+        PageSurpport<ChecktaskCondition> pageSurpport = checktaskService.SelectChecktaskByParamNot(checktaskCondition);
         //model.addAttribute("pageSurpport",pageSurpport);
-        return pageSurpport;*/
-
+        return pageSurpport;
+    }
     @RequestMapping("/getchecktaskList.html")
     @ResponseBody
     public PageSurpport<ChecktaskCondition> getchecktaskList(ChecktaskCondition checktaskCondition, Model model){
@@ -51,6 +51,10 @@ public class checktaskController {
     @RequestMapping("/checktaskPlan.html")
     public String checktaskPlan(){
         return "checktaskPlan";
+    }
+    @RequestMapping("/checktaskBack.html")
+    public String checktaskBack(){
+        return "checktaskBack";
     }
 
     @RequestMapping("/addChecktask.html")
@@ -103,5 +107,10 @@ public class checktaskController {
         map.put("flawTypeList",flawTypeService.findAllFlawType());
         map.put("workList",workerinfoService.findAllWorkers());
         return map;
+    }
+    @RequestMapping("/flawinfoCheck.html")
+    public String flawinfoCheck(){
+        System.out.println(123);
+        return "flawinfoCheck";
     }
 }

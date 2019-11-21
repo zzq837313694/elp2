@@ -3,6 +3,23 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cn.elp.dao.ChecktaskDao">
+    <select id="SelectChecktaskByParamNot" resultType="Checktaskinfo">
+        select *  from checktaskinfo a where abolish='否' and status!='待分配'
+        <include refid="Param"></include>
+        order  by a.createDate desc
+        <if test="ChecktaskCondition.pageIndex!=null and ChecktaskCondition.pageIndex!='' and
+ChecktaskCondition.pageSize!=null and ChecktaskCondition.pageSize!=''">
+            limit #{ChecktaskCondition.from},
+            #{ChecktaskCondition.pageSize}
+        </if>
+    </select>
+
+    <select id="SelectChecktaskByParamCountNot" resultType="int" >
+        select count(0) from checktaskinfo a where  abolish='否' and status!='待分配'
+        <include refid="Param"></include>
+    </select>
+
+
 
     <select id="SelectChecktaskByParam" resultType="Checktaskinfo">
         select *  from checktaskinfo a where abolish='否'
@@ -44,4 +61,54 @@ ChecktaskCondition.pageSize!=null and ChecktaskCondition.pageSize!=''">
                 and a.createDate &lt;#{ChecktaskCondition.CreateDateMax}
             </if>
     </sql>
+
+    <select id="SelectChecktaskCount" resultType="int">
+    select count(0) from flawinfo f  join (
+select c.*,w.userName from checktaskinfo c left JOIN workerinfo w
+	on c.createBy=w.userNo) s on f.checkJobNo=s.jobId
+        <include refid="flawParam"></include>
+    </select>
+
+    <select id="SelectChecktask" resultType="com.cn.elp.util.FlawCheck">
+        select f.*,s.userName,s.createDate from flawinfo f  join (
+        select c.*,w.userName from checktaskinfo c left JOIN workerinfo w
+        on c.createBy=w.userNo) s on f.checkJobNo=s.jobId
+        <include refid="flawParam"></include>
+        order  by f.checkDate desc
+        <if test="flawParam.pageIndex!=null and flawParam.pageIndex!='' and
+flawParam.pageSize!=null and flawParam.pageSize!=''">
+            limit #{flawParam.from},
+            #{flawParam.pageSize}
+        </if>
+    </select>
+
+<sql id="flawParam">
+        <if test="FlawCheck.checkJobNo!=null and FlawCheck.checkJobNo!=''">
+            and f.checkJobNo like concat('%',#{FlawCheck.checkJobNo},'%')
+        </if>
+    <if test="FlawCheck.circuitNo!=null and FlawCheck.circuitNo!=''">
+        and f.checkJobNo like concat('%',#{FlawCheck.circuitNo},'%')
+    </if>
+    <if test="FlawCheck.flawTypeId!=null and FlawCheck.flawTypeId!=''">
+        and f.flawTypeId=#{FlawCheck.flawTypeId}
+    </if>
+    <if test="FlawCheck.flawLv!=null and FlawCheck.flawLv!=''">
+        and f.flawLv=#{FlawCheck.flawLv}
+    </if>
+        <if test="FlawCheck.checkDateMin!=null">
+            and f.checkDate>#{FlawCheck.checkDateMin}
+        </if>
+        <if test="FlawCheck.CreateDateMax!=null">
+            and f.checkDate&lt;#{FlawCheck.checkDateMax}
+        </if>
+    <if test="FlawCheck.createDateMin!=null">
+        and s.createDate>#{FlawCheck.checkDateMin}
+    </if>
+    <if test="FlawCheck.createDateMax!=null">
+        and s.createDate &lt;#{FlawCheck.checkDateMax}
+    </if>
+
+</sql>
+
+
 </mapper>
