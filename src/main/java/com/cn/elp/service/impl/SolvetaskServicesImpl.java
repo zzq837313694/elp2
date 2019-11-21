@@ -1,7 +1,12 @@
 package com.cn.elp.service.impl;
 
+import com.cn.elp.POJO.Postpone;
+import com.cn.elp.POJO.Report;
+import com.cn.elp.POJO.Review;
 import com.cn.elp.POJO.Solvetaskinfo;
-import com.cn.elp.POJO.Workerinfo;
+import com.cn.elp.dao.PostponeDao;
+import com.cn.elp.dao.ReportDao;
+import com.cn.elp.dao.ReviewDao;
 import com.cn.elp.dao.SolveTaskInfoDao;
 import com.cn.elp.service.SolvetaskServices;
 import com.cn.elp.service.WorkerinfoService;
@@ -16,6 +21,12 @@ public class SolvetaskServicesImpl implements SolvetaskServices {
     SolveTaskInfoDao solveTaskInfoDao;
     @Resource
     WorkerinfoService workerinfoService;
+    @Resource
+    PostponeDao postponeDao;
+    @Resource
+    ReviewDao reviewDao;
+    @Resource
+    ReportDao reportDao;
 
     @Override
     public List<Solvetaskinfo> findAllSolveTask() {
@@ -51,6 +62,29 @@ public class SolvetaskServicesImpl implements SolvetaskServices {
     @Override
     public int countSolveTask() {
         return solveTaskInfoDao.countSolveTask();
+    }
+
+
+    @Override
+    public List<Postpone> findPostphoneByTaskNo(String taskNo) {
+        return postponeDao.findpostponeByTaskNo(taskNo);
+    }
+
+
+    @Override
+    public Review findReviewByTaskNo(String taskNo) {
+        return reviewDao.findReviewBytaskNo(taskNo);
+    }
+
+    /**
+     * 根据任务编号查找工作报告
+     *
+     * @param taskNo
+     * @return
+     */
+    @Override
+    public Report fingRoportByTaskNo(String taskNo) {
+        return reportDao.findReportByTaskNo(taskNo);
     }
 
 

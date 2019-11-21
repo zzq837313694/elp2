@@ -1,15 +1,12 @@
 package com.cn.elp.controllers;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
-import com.cn.elp.POJO.Solvetaskinfo;
-import com.cn.elp.POJO.Workerinfo;
-import com.cn.elp.POJO.Review;
-import com.cn.elp.service.ReviewService;
-import com.cn.elp.service.RoleServices;
-import com.cn.elp.service.SolvetaskServices;
-import com.cn.elp.service.WorkerinfoService;
+import com.cn.elp.POJO.*;
+import com.cn.elp.dao.FlawinfoDao;
+import com.cn.elp.service.*;
 import com.cn.elp.util.PageSurpport;
 
 import org.springframework.ui.Model;
@@ -32,7 +29,8 @@ public class solveTaskController {
     @Resource
     RoleServices roleServices;
     @Resource
-    ReviewService reviewService;
+    FlawinfoDao flawinfoDao;
+
 
 
     @RequestMapping("/AdminSolveTask.html")
@@ -75,13 +73,26 @@ public class solveTaskController {
         solveTask.setCreaterName(workerinfoService.findAllWorker(solveTask.getCreatBy()).getUserName());
         model.addAttribute("taskInfo", solveTask);
         //返回审查信息
-        Review review = reviewService.findReviewByTaskNo(taskNo);
+        Review review = solvetaskServices.findReviewByTaskNo(taskNo);
         if(review==null){
             review=new Review();
         }
         model.addAttribute("review",review);
+        //返回延期信息
+        List<Postpone> postponeList = solvetaskServices.findPostphoneByTaskNo(taskNo);
+        model.addAttribute("postPhones",postponeList);
         //返回报告信息
-
+        Report report=solvetaskServices.fingRoportByTaskNo(taskNo);
+        model.addAttribute("report",report);
+        //返回缺陷信息
+        String flawInfoArray[]=solveTask.getFloawList().split(",");
+        List<Flawinfo> flawinfoList = new ArrayList<>();
+        for (int i = 0;i<flawInfoArray.length;i++){
+            Flawinfo flawinfo = flawinfoDao.findFlawInfoByFlawNo(flawInfoArray[i]);
+          if(flawinfo!=null)
+            flawinfoList.add(flawinfo);
+        }
+        model.addAttribute("flawinfoList",flawinfoList);
 
         return "sovleTaskInfo";
     }
