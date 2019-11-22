@@ -2,18 +2,22 @@ package com.cn.elp.controllers;
 
 import com.cn.elp.POJO.Checktaskinfo;
 import com.cn.elp.POJO.Circuit;
-import com.cn.elp.service.ChecktaskService;
-import com.cn.elp.service.CircuitService;
+import com.cn.elp.POJO.Flawinfo;
+import com.cn.elp.POJO.Towerinfo;
+import com.cn.elp.service.*;
 import com.cn.elp.util.ChecktaskCondition;
 import com.cn.elp.util.PageSurpport;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class checktaskController {
@@ -21,6 +25,21 @@ public class checktaskController {
     ChecktaskService checktaskService;
     @Resource
     CircuitService circuitService;
+    @Resource
+    TowerinfoService towerinfoService;
+    @Resource
+    FlawinfoService flawinfoService;
+    @Resource
+    FlawTypeService flawTypeService;
+    @Resource
+    WorkerinfoService workerinfoService;
+
+   /* @RequestMapping("/getchecktaskListA.html")
+    @ResponseBody
+    public PageSurpport<ChecktaskCondition> getchecktaskListA(ChecktaskCondition checktaskCondition, Model model){
+        PageSurpport<ChecktaskCondition> pageSurpport= checktaskService.SelectChecktaskByParam(checktaskCondition);
+        //model.addAttribute("pageSurpport",pageSurpport);
+        return pageSurpport;*/
 
     @RequestMapping("/getchecktaskList.html")
     @ResponseBody
@@ -33,11 +52,7 @@ public class checktaskController {
     public String checktaskPlan(){
         return "checktaskPlan";
     }
-    @RequestMapping("showChecktask.html")
-    public String showChecktask(ChecktaskCondition checktaskCondition,Model model){
 
-        return "showChecktask";
-    }
     @RequestMapping("/addChecktask.html")
     public String toAddSovleTaskPage() {
 
@@ -51,14 +66,42 @@ public class checktaskController {
     @RequestMapping("/getCircuitByNo.html")
     @ResponseBody
     public Circuit getCircuitByNo(String cirNo){
-        System.out.println(cirNo);
         return circuitService.findOneCircuit(cirNo);
     }
-    @RequestMapping("/updateChecktask.html")
+
+    @RequestMapping("/showChecktask.html")
     public String updateChecktask(String jobId,Model model) {
-        System.out.println(jobId);
         model.addAttribute("Checktask",checktaskService.SelectChecktaskById(jobId));
-        System.out.println(123);
-        return "updateChecktask";
+        return "showChecktask";
+    }
+
+    /*@RequestMapping("/getTowerinfoList.html")
+    @ResponseBody
+    public PageSurpport<Towerinfo> getTowerinfoList(String circuitNo ,@RequestParam(defaultValue = "1") int pageIndex){
+        PageSurpport<Towerinfo> pageSurpport=new PageSurpport<>();
+        pageSurpport.setPageSize(1);
+        pageSurpport.setPageIndex(pageIndex);
+        pageSurpport.setDataList(towerinfoService.findTowerListByCircuitNoPaging(circuitNo,pageIndex,1));
+        pageSurpport.setTotalCount(towerinfoService.findTowerListByCircuitNoPagingCount(circuitNo));
+        return pageSurpport;
+    }*/
+    @RequestMapping("/getFlawinfoList.html")
+    @ResponseBody
+    public PageSurpport<Flawinfo> getFlawinfoList(String circuitNo ,String jobId ,@RequestParam(defaultValue = "1") int pageIndex,String flawLV){
+        PageSurpport<Flawinfo> pageSurpport=new PageSurpport<>();
+        pageSurpport.setPageSize(8);
+        pageSurpport.setPageIndex(pageIndex);
+        pageSurpport.setDataList(flawinfoService.findFlawInfoBycheckJobNoPaging(jobId,circuitNo,pageIndex,8,flawLV));
+        pageSurpport.setTotalCount(flawinfoService.findFlawInfoBycheckJobNoPagingCount(jobId,circuitNo,flawLV));
+        return pageSurpport;
+    }
+    @RequestMapping("/getFlawinfo.html")
+    @ResponseBody
+    public Object getFlawinfo(String flawNo,Model model){
+        Map map=new HashMap<>();
+        map.put("flawInfo",flawinfoService.findFlawInfoByFlawNo(flawNo));
+        map.put("flawTypeList",flawTypeService.findAllFlawType());
+        map.put("workList",workerinfoService.findAllWorkers());
+        return map;
     }
 }

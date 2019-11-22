@@ -1,6 +1,9 @@
 package com.cn.elp.POJO;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class Flawinfo {
@@ -12,6 +15,8 @@ public class Flawinfo {
   private int flawTypeId;
   private String flawLv;
   private String checkBy;
+  @JsonFormat(pattern = "yyyy-MM-dd ",timezone = "GMT+8")
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
   private Date checkDate;
   private double intcatRate;
   private String comment;

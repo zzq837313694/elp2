@@ -46,23 +46,25 @@
                 </div>
             </div>
     </div>
-
-
-   <dl th:each="rule:${ruleList}"  >
-       <dt th:if="${rule.perRuleId==0}"  style="margin: 10px 0px 0px 140px" class="perRule">
+   <dl th:each="rule:${ruleList}" >
+       <dt th:if="${rule.perRuleId==0}"  style="margin: 10px 0px 0px 140px">
            <input th:id="selectAll+${rule.ruleId}"
                   th:ruleId="${rule.ruleId}"
                   th:value="${rule.ruleId}"
-                  name="ruleId" class="selectBox"
-                  type="checkbox" >
+                  name="ruleId"
+                  class="selectBox"
+                  type="checkbox"
+                  onclick="rule(this)">
            [[${rule.ruleName}]]
        </dt>
-       <dd th:each="subrule:${ruleList}" th:if="${subrule.perRuleId== rule.ruleId}" style="margin: 10px 0px 0px 160px" class="cRule">
+       <dd th:each="subrule:${ruleList}" th:if="${subrule.perRuleId==rule.ruleId}" style="margin: 10px 0px 0px 160px">
            <input th:id="selectAll+${subrule.ruleId}"
-                  th:perRuleId="selectBox+${subrule.perRuleId}"
-                  class="selectBox"  name="ruleId"
+                  th:class="selectBox+${subrule.perRuleId}"
+                  th:perRuleId="${subrule.perRuleId}"
                   th:value="${subrule.ruleId}"
-                  type="checkbox" />
+                  name="ruleId"
+                  type="checkbox"
+                  onclick="cRule(this);">
            [[${subrule.ruleName}]]
        </dd>
    </dl>
@@ -73,10 +75,44 @@
 
 
 <script type="text/javascript">
+    function rule(obj) {
+        var ruleId=$(obj).attr("ruleId");
+        var perId="selectAll"+ruleId;
+        var c="selectBox"+ruleId;
+        var per=document.getElementById(perId);
+        var cElement=document.getElementsByClassName(c);
+        if(per.checked == true){
+            for (var i=0;i<cElement.length;i++){
+                cElement[i].checked=true;
+            }
+        }else {
+            for (var i=0;i<cElement.length;i++){
+                cElement[i].checked=false;
+            }
+        }
+    }
+
+    function cRule(obj) {
+        var perRuleId=$(obj).attr("perRuleId");
+        var perId="selectAll"+perRuleId;
+        var c="selectBox"+perRuleId;
+        var per=document.getElementById(perId);
+        var cElement=document.getElementsByClassName(c);
+        for(var i=0;i<cElement.length;i++){
+            if(cElement[i].checked==true){
+                per.checked = true;
+                return;
+            }
+            else if(cElement[i].checked==false){
+                per.checked = false;
+            }
+        }
+    }
+
     function checkRuleList() {
         var roleId=$("#roleIDEA").val();
         if (roleId!=null||roleId!="") {
-            $(".selectBox").attr("checked",false);
+            $("input[name='ruleId']").attr("checked",false);
             data="roleId="+roleId;
             $.post("findRuleList.html",data,function (ruleList) {
                 for (var i=0;i<ruleList.length;i++){
@@ -88,5 +124,4 @@
         }
     }
 </script>
-
 </html>

@@ -41,5 +41,8 @@ public interface FlawinfoService {
      */
     Flawinfo findFlawInfoByFlawNo(String flawNo);
 
+    List<Flawinfo> findFlawInfoBycheckJobNoPaging(String checkJobNo,String circuitNo,  int pageIndex,
+                                                   int pageSize,String flawLV);
 
+    int findFlawInfoBycheckJobNoPagingCount(String checkJobNo,String circuitNo,String flawLV);
 }

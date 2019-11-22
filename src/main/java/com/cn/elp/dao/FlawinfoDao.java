@@ -41,4 +41,11 @@ public interface FlawinfoDao {
      */
     Flawinfo findFlawInfoByFlawNo(String flawNo);
 
+
+    List<Flawinfo> findFlawInfoBycheckJobNoPaging(@Param("checkJobNo")String checkJobNo,@Param("circuitNo")String circuitNo, @Param("from") int from,
+                                            @Param("pageSize") int pageSize,@Param("flawLV")String flawLV);
+
+
+    int findFlawInfoBycheckJobNoPagingCount(@Param("checkJobNo")String checkJobNo,@Param("circuitNo")String circuitNo,@Param("flawLV")String flawLV);
+
 }

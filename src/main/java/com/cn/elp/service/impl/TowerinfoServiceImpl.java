@@ -3,6 +3,7 @@ package com.cn.elp.service.impl;
 import com.cn.elp.POJO.Towerinfo;
 import com.cn.elp.dao.TowerinfoDao;
 import com.cn.elp.service.TowerinfoService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -67,4 +68,11 @@ public class TowerinfoServiceImpl implements TowerinfoService
     }
 
 
+    public List<Towerinfo> findTowerListByCircuitNoPaging( String circuitNo, int pageIndex, int pageSize){
+        int from=(pageIndex-1)*pageSize;
+        return towerinfoDao.findTowerListByCircuitNoPaging(circuitNo,from,pageSize);
+    };
+    public int findTowerListByCircuitNoPagingCount(String circuitNo){
+        return towerinfoDao.findTowerListByCircuitNoPagingCount(circuitNo);
+    };
 }
