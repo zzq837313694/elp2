@@ -15,6 +15,6 @@ public interface ChecktaskDao {
     int SelectChecktaskByParamCount(@Param("ChecktaskCondition")ChecktaskCondition checktaskCondition);
     int SelectChecktaskByParamCountNot(@Param("ChecktaskCondition")ChecktaskCondition checktaskCondition);
 
-    List<FlawCheck> SelectChecktask(@Param("flawParam")FlawCheck flawCheck);
-   int SelectChecktaskCount(@Param("flawParam")FlawCheck flawCheck);
+    List<FlawCheck> SelectChecktask(@Param("FlawCheck")FlawCheck flawCheck);
+   int SelectChecktaskCount(@Param("FlawCheck")FlawCheck flawCheck);
 }

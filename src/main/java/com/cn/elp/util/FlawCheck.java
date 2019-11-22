@@ -7,6 +7,7 @@ import java.util.Date;
 public class FlawCheck extends Flawinfo {
     private String flawName;
     private String createByName;
+    private String checkByName;
     private Date createDate;
     private Date checkDateMin;
     private Date checkDateMax;
@@ -15,6 +16,14 @@ public class FlawCheck extends Flawinfo {
     private int pageIndex;
     private int pageSize;
     private int from;
+
+    public String getCheckByName() {
+        return checkByName;
+    }
+
+    public void setCheckByName(String checkByName) {
+        this.checkByName = checkByName;
+    }
 
     public int getPageIndex() {
         return pageIndex;

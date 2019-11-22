@@ -6,6 +6,7 @@ import com.cn.elp.POJO.Flawinfo;
 import com.cn.elp.POJO.Towerinfo;
 import com.cn.elp.service.*;
 import com.cn.elp.util.ChecktaskCondition;
+import com.cn.elp.util.FlawCheck;
 import com.cn.elp.util.PageSurpport;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,11 +43,11 @@ public class checktaskController {
         return pageSurpport;
     }
     @RequestMapping("/getchecktaskList.html")
-    @ResponseBody
-    public PageSurpport<ChecktaskCondition> getchecktaskList(ChecktaskCondition checktaskCondition, Model model){
-        PageSurpport<ChecktaskCondition> pageSurpport= checktaskService.SelectChecktaskByParam(checktaskCondition);
-      //model.addAttribute("pageSurpport",pageSurpport);
-        return pageSurpport;
+        @ResponseBody
+        public PageSurpport<ChecktaskCondition> getchecktaskList(ChecktaskCondition checktaskCondition, Model model){
+            PageSurpport<ChecktaskCondition> pageSurpport= checktaskService.SelectChecktaskByParam(checktaskCondition);
+            //model.addAttribute("pageSurpport",pageSurpport);
+            return pageSurpport;
     }
     @RequestMapping("/checktaskPlan.html")
     public String checktaskPlan(){
@@ -110,7 +111,12 @@ public class checktaskController {
     }
     @RequestMapping("/flawinfoCheck.html")
     public String flawinfoCheck(){
-        System.out.println(123);
         return "flawinfoCheck";
     }
+    @RequestMapping("/getflawinfoCheckList.html")
+    @ResponseBody
+    public Object getflawinfoCheckList(FlawCheck flawCheck){
+        System.out.println(flawCheck.getFlawTypeId());
+        PageSurpport<ChecktaskCondition> pageSurpport= checktaskService.SelectChecktask(flawCheck);
+        return pageSurpport;}
 }
