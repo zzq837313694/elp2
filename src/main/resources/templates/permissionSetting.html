@@ -19,6 +19,10 @@
         .input-group-addon{
             width:90px;
         }
+        .aa{
+            display: none;
+        }
+
 
     </style>
 
@@ -58,7 +62,12 @@
                   onclick="rule(this)">
            [[${rule.ruleName}]]
        </dt>
-       <dd th:each="subrule:${ruleList}" th:if="${subrule.perRuleId==rule.ruleId}" style="margin: 10px 0px 0px 160px">
+       <dd th:each="subrule:${ruleList}" th:if="${subrule.perRuleId==rule.ruleId}" style="margin: 10px 0px 0px 160px"
+           class="btn btn-default" data-toggle="tooltip" data-placement="right"
+           th:ruleId="${subrule.ruleId}"
+           th:title="'功能名称：'+${subrule.ruleName}+
+           '；&#10;URL：/'+${subrule.url}+
+           '；&#10;父级节点：'+${rule.ruleName}">
            <input th:id="selectAll+${subrule.ruleId}"
                   th:class="selectBox+${subrule.perRuleId}"
                   th:perRuleId="${subrule.perRuleId}"
@@ -67,8 +76,16 @@
                   type="checkbox"
                   onclick="cRule(this);">
            [[${subrule.ruleName}]]
+           <span th:id="aa+${subrule.ruleId}" class="aa">
+               <a href="/circuitType.html">新增子节点</a><br>
+               <a>修改节点</a><br>
+               <a>删除节点</a><br>
+               <a href="javascript:location.reload()">返回</a>
+           </span>
        </dd>
+
    </dl>
+
         <input type="submit" class="btn btn-primary" value="授权">
 </form>
 
@@ -76,6 +93,20 @@
 
 
 <script type="text/javascript">
+    var id=0;
+    $('dd').mousedown (function(e){
+        var ruleId=$(this).attr("ruleId");
+        id=ruleId;
+        if(3 == e.which){
+            $("#aa"+ruleId).show();
+            //alert('这是右键单击事件');
+        }
+    });
+    $(document).ready(function(){
+        $(document).unbind("contextmenu").bind("contextmenu",function(e){
+            return false;
+        });
+    });
     function rule(obj) {
         var ruleId=$(obj).attr("ruleId");
         var perId="selectAll"+ruleId;
