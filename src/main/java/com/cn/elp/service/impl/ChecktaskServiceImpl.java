@@ -53,9 +53,10 @@ public class ChecktaskServiceImpl implements ChecktaskService
             checktaskCondition1.setFinishDate(cc.getFinishDate());
             checktaskCondition1.setComment(cc.getComment());
             checktaskCondition1.setStatus(cc.getStatus());
+            checktaskCondition1.setAbolish(cc.getAbolish());
+            checktaskCondition1.setCheckByName(workerinfoDao.findAllWorker(cc.getCheckBy())==null?null:workerinfoDao.findAllWorker(cc.getCheckBy()).getUserName());
             checktaskCondition1.setCircuitName(circuitDao.findOneCircuit(cc.getCircuitNo()).getCircuitName());
-            checktaskCondition1.setCheckByName(workerinfoDao.findWorkerByRoleId(cc.getCheckBy()).get(0).getUserName());
-            checktaskCondition1.setCreateByName(workerinfoDao.findWorkerByRoleId(cc.getCreateBy()).get(0).getUserName());
+            checktaskCondition1.setCreateByName(workerinfoDao.findAllWorker(cc.getCreateBy()).getUserName());
             pageSurpport.getDataList().add(checktaskCondition1);
         }
         return pageSurpport;
@@ -83,9 +84,10 @@ public class ChecktaskServiceImpl implements ChecktaskService
             checktaskCondition1.setFinishDate(cc.getFinishDate());
             checktaskCondition1.setComment(cc.getComment());
             checktaskCondition1.setStatus(cc.getStatus());
+            checktaskCondition1.setAbolish(cc.getAbolish());
+            checktaskCondition1.setCheckByName(workerinfoDao.findAllWorker(cc.getCheckBy())==null?null:workerinfoDao.findAllWorker(cc.getCheckBy()).getUserName());
             checktaskCondition1.setCircuitName(circuitDao.findOneCircuit(cc.getCircuitNo()).getCircuitName());
-            checktaskCondition1.setCheckByName(workerinfoDao.findWorkerByRoleId(cc.getCheckBy()).get(0).getUserName());
-            checktaskCondition1.setCreateByName(workerinfoDao.findWorkerByRoleId(cc.getCreateBy()).get(0).getUserName());
+            checktaskCondition1.setCreateByName(workerinfoDao.findAllWorker(cc.getCreateBy()).getUserName());
             pageSurpport.getDataList().add(checktaskCondition1);
         }
         return pageSurpport;
@@ -105,9 +107,10 @@ public class ChecktaskServiceImpl implements ChecktaskService
         checktaskCondition1.setFinishDate(cc.getFinishDate());
         checktaskCondition1.setComment(cc.getComment());
         checktaskCondition1.setStatus(cc.getStatus());
+        checktaskCondition1.setAbolish(cc.getAbolish());
         checktaskCondition1.setCircuitName(circuitDao.findOneCircuit(cc.getCircuitNo()).getCircuitName());
-        checktaskCondition1.setCheckByName(workerinfoDao.findWorkerByRoleId(cc.getCheckBy()).get(0).getUserName());
-        checktaskCondition1.setCreateByName(workerinfoDao.findWorkerByRoleId(cc.getCreateBy()).get(0).getUserName());
+        checktaskCondition1.setCheckByName(workerinfoDao.findAllWorker(cc.getCheckBy())==null?null:workerinfoDao.findAllWorker(cc.getCheckBy()).getUserName());
+        checktaskCondition1.setCreateByName(workerinfoDao.findAllWorker(cc.getCreateBy()).getUserName());
         return checktaskCondition1;
     }
 
@@ -125,5 +128,21 @@ public class ChecktaskServiceImpl implements ChecktaskService
         pageSurpport.setTotalCount(checktaskDao.SelectChecktaskCount(flawCheck));
         return pageSurpport;
     }
+
+    @Override
+    public int addChecktaskinfo(Checktaskinfo checktaskinfo) {
+        return checktaskDao.addChecktaskinfo(checktaskinfo);
+    }
+
+    @Override
+    public int updateCheck(Checktaskinfo checktaskinfo) {
+        return checktaskDao.updateCheck(checktaskinfo);
+    }
+
+    @Override
+    public List<Flawinfo> findFlawInfoBycheckJobNo(String checkJobNo) {
+        return flawinfoDao.findFlawInfoBycheckJobNo(checkJobNo);
+    }
+
 
 }

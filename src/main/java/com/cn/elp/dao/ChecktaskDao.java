@@ -17,4 +17,6 @@ public interface ChecktaskDao {
 
     List<FlawCheck> SelectChecktask(@Param("FlawCheck")FlawCheck flawCheck);
    int SelectChecktaskCount(@Param("FlawCheck")FlawCheck flawCheck);
+   int addChecktaskinfo(Checktaskinfo checktaskinfo);
+   int updateCheck(Checktaskinfo checktaskinfo);
 }

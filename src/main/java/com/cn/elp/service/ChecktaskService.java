@@ -2,6 +2,7 @@ package com.cn.elp.service;
 
 import com.cn.elp.POJO.Checktaskinfo;
 import com.cn.elp.POJO.Circuit;
+import com.cn.elp.POJO.Flawinfo;
 import com.cn.elp.util.ChecktaskCondition;
 import com.cn.elp.util.FlawCheck;
 import com.cn.elp.util.PageSurpport;
@@ -16,4 +17,9 @@ public interface ChecktaskService {
     List<Checktaskinfo> getCheckList(ChecktaskCondition checktaskCondition);
 
     PageSurpport SelectChecktask(FlawCheck flawCheck);
+
+    int addChecktaskinfo(Checktaskinfo checktaskinfo);
+    int updateCheck(Checktaskinfo checktaskinfo);
+
+    List<Flawinfo> findFlawInfoBycheckJobNo(String checkJobNo);
 }

@@ -59,6 +59,7 @@
     </select>
 
 
+
     <select id="findFlawInfoBycheckJobNoPaging" resultType="Flawinfo">
         select * from flawinfo where checkJobNo=#{checkJobNo} and circuitNo=#{circuitNo}
          <if test="flawLV!=null and flawLV!=''">

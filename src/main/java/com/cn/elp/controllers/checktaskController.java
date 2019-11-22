@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,41 +42,45 @@ public class checktaskController {
         //model.addAttribute("pageSurpport",pageSurpport);
         return pageSurpport;
     }
+
     @RequestMapping("/getchecktaskList.html")
-        @ResponseBody
-        public PageSurpport<ChecktaskCondition> getchecktaskList(ChecktaskCondition checktaskCondition, Model model){
-            PageSurpport<ChecktaskCondition> pageSurpport= checktaskService.SelectChecktaskByParam(checktaskCondition);
-            //model.addAttribute("pageSurpport",pageSurpport);
-            return pageSurpport;
+    @ResponseBody
+    public PageSurpport<ChecktaskCondition> getchecktaskList(ChecktaskCondition checktaskCondition, Model model) {
+        PageSurpport<ChecktaskCondition> pageSurpport = checktaskService.SelectChecktaskByParam(checktaskCondition);
+        //model.addAttribute("pageSurpport",pageSurpport);
+        return pageSurpport;
     }
+
     @RequestMapping("/checktaskPlan.html")
-    public String checktaskPlan(){
+    public String checktaskPlan() {
         return "checktaskPlan";
     }
+
     @RequestMapping("/checktaskBack.html")
-    public String checktaskBack(){
+    public String checktaskBack() {
         return "checktaskBack";
     }
 
     @RequestMapping("/addChecktask.html")
     public String toAddSovleTaskPage() {
-
         return "addChecktask";
     }
+
     @RequestMapping("/getCircuitList.html")
     @ResponseBody
-    public List<Circuit> getCircuitList(){
+    public List<Circuit> getCircuitList() {
         return circuitService.findAllCircuit();
     }
+
     @RequestMapping("/getCircuitByNo.html")
     @ResponseBody
-    public Circuit getCircuitByNo(String cirNo){
+    public Circuit getCircuitByNo(String cirNo) {
         return circuitService.findOneCircuit(cirNo);
     }
 
     @RequestMapping("/showChecktask.html")
-    public String updateChecktask(String jobId,Model model) {
-        model.addAttribute("Checktask",checktaskService.SelectChecktaskById(jobId));
+    public String showChecktask(String jobId, Model model) {
+        model.addAttribute("Checktask", checktaskService.SelectChecktaskById(jobId));
         return "showChecktask";
     }
 
@@ -92,31 +96,77 @@ public class checktaskController {
     }*/
     @RequestMapping("/getFlawinfoList.html")
     @ResponseBody
-    public PageSurpport<Flawinfo> getFlawinfoList(String circuitNo ,String jobId ,@RequestParam(defaultValue = "1") int pageIndex,String flawLV){
-        PageSurpport<Flawinfo> pageSurpport=new PageSurpport<>();
+    public PageSurpport<Flawinfo> getFlawinfoList(String circuitNo, String jobId, @RequestParam(defaultValue = "1") int pageIndex, String flawLV) {
+        PageSurpport<Flawinfo> pageSurpport = new PageSurpport<>();
         pageSurpport.setPageSize(8);
         pageSurpport.setPageIndex(pageIndex);
-        pageSurpport.setDataList(flawinfoService.findFlawInfoBycheckJobNoPaging(jobId,circuitNo,pageIndex,8,flawLV));
-        pageSurpport.setTotalCount(flawinfoService.findFlawInfoBycheckJobNoPagingCount(jobId,circuitNo,flawLV));
+        pageSurpport.setDataList(flawinfoService.findFlawInfoBycheckJobNoPaging(jobId, circuitNo, pageIndex, 8, flawLV));
+        pageSurpport.setTotalCount(flawinfoService.findFlawInfoBycheckJobNoPagingCount(jobId, circuitNo, flawLV));
         return pageSurpport;
     }
+
     @RequestMapping("/getFlawinfo.html")
     @ResponseBody
-    public Object getFlawinfo(String flawNo,Model model){
-        Map map=new HashMap<>();
-        map.put("flawInfo",flawinfoService.findFlawInfoByFlawNo(flawNo));
-        map.put("flawTypeList",flawTypeService.findAllFlawType());
-        map.put("workList",workerinfoService.findAllWorkers());
+    public Object getFlawinfo(String flawNo, Model model) {
+        Map map = new HashMap<>();
+        map.put("flawInfo", flawinfoService.findFlawInfoByFlawNo(flawNo));
+        map.put("flawTypeList", flawTypeService.findAllFlawType());
+        map.put("workList", workerinfoService.findAllWorkers());
         return map;
     }
+
     @RequestMapping("/flawinfoCheck.html")
-    public String flawinfoCheck(){
+    public String flawinfoCheck() {
         return "flawinfoCheck";
     }
+
     @RequestMapping("/getflawinfoCheckList.html")
     @ResponseBody
-    public Object getflawinfoCheckList(FlawCheck flawCheck){
-        System.out.println(flawCheck.getFlawTypeId());
-        PageSurpport<ChecktaskCondition> pageSurpport= checktaskService.SelectChecktask(flawCheck);
-        return pageSurpport;}
+    public Object getflawinfoCheckList(FlawCheck flawCheck) {
+        PageSurpport<ChecktaskCondition> pageSurpport = checktaskService.SelectChecktask(flawCheck);
+        return pageSurpport;
+    }
+
+    @RequestMapping("/getflawTypeList.html")
+    @ResponseBody
+    public Object getflawTypeList() {
+        return flawTypeService.findAllFlawType();
+    }
+
+    @RequestMapping("/doaddChecktask.html")
+    public  String addChecktask(Checktaskinfo checktaskinfo){
+        checktaskinfo.setCreateDate(new Date());
+        int rel=checktaskService.addChecktaskinfo(checktaskinfo);
+        System.out.println(rel);
+        return "checktaskPlan";
+    }
+    @RequestMapping("/updateChecktask.html")
+    public  String updateChecktask(String jobId,Model model){
+        model.addAttribute("check",checktaskService.SelectChecktaskById(jobId));
+        return "updateChecktask";
+    }
+    @RequestMapping("/doupdateChecktask.html")
+    public  String doupdateChecktask(Checktaskinfo checktaskinfo){
+        int rel=checktaskService.updateCheck(checktaskinfo);
+        System.out.println(rel);
+        return "checktaskPlan";
+    }
+    @RequestMapping("/backFlaw.html")
+    public String backFlaw(String jobId, Model model) {
+        model.addAttribute("Checktask", checktaskService.SelectChecktaskById(jobId));
+        return "backFlaw";
+    }
+    @RequestMapping("/getTowerList.html")
+    @ResponseBody
+    public Object getTowerList(String circuitNo, String jobId, @RequestParam(defaultValue = "1") int pageIndex) {
+        Map map=new HashMap();
+        PageSurpport<Towerinfo> pageSurpport = new PageSurpport<>();
+        pageSurpport.setPageSize(8);
+        pageSurpport.setPageIndex(pageIndex);
+        pageSurpport.setDataList(towerinfoService.findTowerListByCircuitNoPaging(circuitNo,pageIndex,8));
+        pageSurpport.setTotalCount(towerinfoService.findTowerListByCircuitNoPagingCount(circuitNo));
+        map.put("ps",pageSurpport);
+        map.put("fs",checktaskService.findFlawInfoBycheckJobNo(jobId));
+        return map;
+    }
 }

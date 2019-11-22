@@ -25,13 +25,14 @@ function submint() {
                     var date = new Date(obj.createDate == null ? "" : obj.createDate);
                     createDate = date.getFullYear() + "/" + eval(date.getMonth() + "+1") + "/" + date.getDate()
                 }
-                var checkDate;
-                if (obj.finishDate == null) {
+                var checkDate=obj.checkDate == null ? "" : obj.checkDate;
+                /*var checkDate;
+                if (obj.checkDate == null) {
                     checkDate = " ";
                 } else {
                     var date2 = new Date(obj.checkDate == null ? "" : obj.checkDate);
                     checkDate = date2.getFullYear() + "/" + eval(date2.getMonth() + "+1") + "/" + date2.getDate()
-                }
+                }*/
                 options+=
                     "<tr style='vertical-align: middle'>" +
                     "<td>"+checkJobNo+"</td>"+
@@ -47,13 +48,20 @@ function submint() {
                     "<td>"+comment+"</td>" +
                     "</tr>";
             });
-            alert(options)
             $("#app").html(options);
         }
     });
     return false; //不刷新页面
 }
-
+$(function () {
+    $.post("getflawTypeList.html",function (data) {
+        var str="<option value='0'>"+"-请选择-"+"</option>";
+        $.each(data,function (i,obj) {
+            str+="<option value='"+obj.flawTypeId+"'>"+obj.flawName+"</option>"
+        })
+        $("#flawTypeId").html(str);
+    },"json")
+})
 
 $(function () {
     submint();

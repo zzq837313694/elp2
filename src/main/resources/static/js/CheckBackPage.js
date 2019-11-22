@@ -49,11 +49,10 @@ function submint() {
                 }
                 var trsTR = "<a href=\"showChecktask.html?jobId="+jobId+"\">查看</a>" +
                     "                    <span>|</span>" +
-                    "                    <a href=\"\">回执录入</a>" +
+                    "                    <a href=\"backFlaw.html?jobId="+jobId+"\">回执录入</a>" +
                     "                    <span>|</span>" +
                     "<a href=\"updateChecktask.html?jobId="+jobId+"\">执行</a>" +
-                    "                    <span>|</span>" +
-                    "                    <a href=\"\">修改</a>" ;
+                    "                    <span>|</span>" ;
                 options+=
                     "<tr style='vertical-align: middle'><td>"+jobId+"</td>"+
                     "<td>"+jobName+"</td>"+

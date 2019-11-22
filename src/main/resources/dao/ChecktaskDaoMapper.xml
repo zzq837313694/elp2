@@ -45,7 +45,7 @@ select c.*,w.userName from checktaskinfo c left JOIN workerinfo w
     </select>
 
     <select id="SelectChecktask" resultType="com.cn.elp.util.FlawCheck">
-        select f.*,s.userName,ft.flawName,ww.userName checkByName from flawinfo f  join (
+        select f.*,s.userName createByName,s.createDate  createDate, ft.flawName,ww.userName checkByName from flawinfo f  join (
         select c.*,w.userName from checktaskinfo c left JOIN workerinfo w
         on c.createBy=w.userNo) s on f.checkJobNo=s.jobId
         join flawtype ft on ft.flawTypeId=f.flawtypeId
@@ -75,7 +75,7 @@ FlawCheck.pageSize!=null and FlawCheck.pageSize!=''">
         <if test="FlawCheck.checkDateMin!=null">
             and f.checkDate>#{FlawCheck.checkDateMin}
         </if>
-        <if test="FlawCheck.CreateDateMax!=null">
+        <if test="FlawCheck.checkDateMax!=null">
             and f.checkDate&lt;#{FlawCheck.checkDateMax}
         </if>
     <if test="FlawCheck.createDateMin!=null">
@@ -109,5 +109,12 @@ FlawCheck.pageSize!=null and FlawCheck.pageSize!=''">
             and a.createDate &lt;#{ChecktaskCondition.CreateDateMax}
         </if>
     </sql>
-
+<insert id="addChecktaskinfo" parameterType="Checktaskinfo">
+    insert into checktaskinfo values ('a',#{jobName},#{circuitNo},#{startNo},#{stopNo},
+    null,#{createBy},#{createDate},#{finishDate},#{comment},'待分配','否');
+</insert>
+    <update id="updateCheck" parameterType="Checktaskinfo">
+        update checktaskinfo set jobName=#{jobName},circuitNo=#{circuitNo},startNo=#{startNo}
+        ,stopNo=#{stopNo},comment=#{comment} where jobId=#{jobId}
+    </update>
 </mapper>

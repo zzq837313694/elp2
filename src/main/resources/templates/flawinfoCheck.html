@@ -53,7 +53,7 @@
                 <div class="col-lg-4 col-sm-6 col-xs-12">
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">缺陷类型:</span>
-                        <select name="flawTypeId" class="form-control">
+                        <select name="flawTypeId" class="form-control" id="flawTypeId">
                             <option value="0">-请选择-</option>
                         </select>
                     </div>
@@ -61,7 +61,11 @@
                 <div class="col-lg-4 col-sm-6 col-xs-12">
                     <div class="input-prepend input-group">
                         <span class="add-on input-group-addon">缺陷级别:</span>
-                        <select name="flawLv"  class="form-control">
+                        <select name="flawLv"  class="form-control" id="flawLv">
+                            <option value="">-请选择-</option>
+                            <option value="一般">一般</option>
+                            <option value="严重">严重</option>
+                            <option value="紧急">紧急</option>
                         </select>
                     </div>
                 </div>

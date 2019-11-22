@@ -48,4 +48,6 @@ public interface FlawinfoDao {
 
     int findFlawInfoBycheckJobNoPagingCount(@Param("checkJobNo")String checkJobNo,@Param("circuitNo")String circuitNo,@Param("flawLV")String flawLV);
 
+
+    List<Flawinfo> findFlawInfoBycheckJobNo(String checkJobNo);
 }

@@ -50,11 +50,11 @@
                 style="font-weight: bolder">终止杆号:</span><span th:text="${Checktask.stopNo}">xw00245</span></div>
     </div>
     <div class="row">
-        <div class="col-lg-3 col-sm-6 col-sm-12 "><span style="font-weight: bolder">下发人:</span><span th:text="${Checktask.checkByName}"></span>
+        <div class="col-lg-3 col-sm-6 col-sm-12 "><span style="font-weight: bolder">下发人:</span><span th:text="${Checktask.createByName}"></span>
         </div>
         <div class="col-lg-3 col-sm-6 col-sm-12 "><span
                 style="font-weight: bolder">下发时间:</span><span th:text="${#dates.format(Checktask.createDate,'yyyy-MM-dd')}"></span></div>
-        <div class="col-lg-3 col-sm-6 col-sm-12 "><span style="font-weight: bolder">任务状态:</span><span th:text="${Checktask.checkByName}"></span></div>
+        <div class="col-lg-3 col-sm-6 col-sm-12 "><span style="font-weight: bolder">任务状态:</span><span th:text="${Checktask.status}"></span></div>
         <div class="col-lg-3 col-sm-6 col-sm-12 "><span style="font-weight: bolder">任务完成时间:</span><span th:text="${#dates.format(Checktask.finishDate,'yyyy-MM-dd')}"></span>
         </div>
     </div>
