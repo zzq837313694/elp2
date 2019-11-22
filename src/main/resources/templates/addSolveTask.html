@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <title>制定消缺任务</title>
 </head>
-<link type="text/css" href="webjars/bootstrap" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}"
-      rel="stylesheet">
 <script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
 <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}"></script>
+<script src="js/sovleTaskmModal.js"></script>
+<link type="text/css" href="css/sovleTaskmModal.css"  rel="stylesheet">
 <style>
     html, body {
         width: 100%;
@@ -44,56 +44,6 @@
 
     #myModal {
         min-width: 490px;
-    }
-
-    #myModal .modal-body > div {
-        min-width: 330px;
-        position: marker;
-        margin: 0px auto;
-    }
-
-    #myModal #modelLeft {
-        width: 45%;
-        float: left;
-        position: relative;
-        padding: 0px 10px;
-        border: 1px black solid;
-        margin-right: 15px;
-    }
-
-    #myModal #modelRight {
-        width: 45%;
-        float: left;
-        position: relative;
-        padding: 0px 10px;
-        border: 1px black solid;
-        margin-left: 15px;
-    }
-
-    #myModal #modelMiddle {
-        position: absolute;
-        top: 50%;
-        left: 45%;
-    }
-
-    #myModal #modelMiddle p{
-       font-size: 20px;
-        margin: 0px;
-    }
-
-
-
-    li {
-        list-style-type: none;
-    }
-
-    li:hover {
-        list-style-type: none;
-        background-color: #878787;
-    }
-
-    li.active {
-        background-color: #707070;
     }
 
 </style>
@@ -179,8 +129,8 @@
                               aria-hidden="true"></span>
                     </b>
                 </div>
+                <span data-toggle="modal" data-target="#myModal"> 分配任务</span>
             </div>
-
             <div class=" col-lg-4 col-sm-5 col-xs-7  col-lg-push-8 col-sm-push-7 col-xs-push-5 ">
                 <button type="submit" class="btn btn-primary">保存</button>
                 <button type="button" class="btn btn-primary">返回</button>
@@ -222,23 +172,6 @@
 </div>
 <script>
 
-    function isCheack(obj) {
-        $(obj).toggleClass("active")
-    }
-
-    /*添加消缺员*/
-    function addpeople(){
-     var  leftLi=$('#modelLeft li[class="active"]');
-     leftLi.removeClass("active");
-     $('#modelRight').append(leftLi)
-
-    }
-    /*移除消缺员*/
-   function removepeople(){
-       var  leftLi=$('#modelRight li[class="active"]');
-       leftLi.removeClass("active");
-       $('#modelLeft').append(leftLi)
-    }
 
     /*点击查看消缺员*/
     $('b').click(function () {
@@ -253,7 +186,7 @@
             }else{
                 var nowSolveWorkersArray=nowSolveWorkers.split(',');
                 $.each(nowSolveWorkersArray,function (k, v) {
-                    var addLiStr=
+                    var addLiStr;
 
 
                 })
