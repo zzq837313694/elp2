@@ -73,4 +73,9 @@
             and flawLV=#{flawLV}
         </if>
     </select>
+
+    <insert id="addFlawinfo" parameterType="Flawinfo">
+        insert into flawinfo values ('q',#{checkJobNo},#{circuitNo},#{towerNo},#{flawTypeId},#{flawLv},#{checkBy},#{checkDate},
+        #{intcatRate},#{comment})
+    </insert>
 </mapper>

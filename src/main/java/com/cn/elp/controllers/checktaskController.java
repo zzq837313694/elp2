@@ -39,7 +39,6 @@ public class checktaskController {
     @ResponseBody
     public PageSurpport<ChecktaskCondition> getchecktaskListNot(ChecktaskCondition checktaskCondition) {
         PageSurpport<ChecktaskCondition> pageSurpport = checktaskService.SelectChecktaskByParamNot(checktaskCondition);
-        //model.addAttribute("pageSurpport",pageSurpport);
         return pageSurpport;
     }
 
@@ -47,7 +46,6 @@ public class checktaskController {
     @ResponseBody
     public PageSurpport<ChecktaskCondition> getchecktaskList(ChecktaskCondition checktaskCondition, Model model) {
         PageSurpport<ChecktaskCondition> pageSurpport = checktaskService.SelectChecktaskByParam(checktaskCondition);
-        //model.addAttribute("pageSurpport",pageSurpport);
         return pageSurpport;
     }
 
@@ -84,16 +82,6 @@ public class checktaskController {
         return "showChecktask";
     }
 
-    /*@RequestMapping("/getTowerinfoList.html")
-    @ResponseBody
-    public PageSurpport<Towerinfo> getTowerinfoList(String circuitNo ,@RequestParam(defaultValue = "1") int pageIndex){
-        PageSurpport<Towerinfo> pageSurpport=new PageSurpport<>();
-        pageSurpport.setPageSize(1);
-        pageSurpport.setPageIndex(pageIndex);
-        pageSurpport.setDataList(towerinfoService.findTowerListByCircuitNoPaging(circuitNo,pageIndex,1));
-        pageSurpport.setTotalCount(towerinfoService.findTowerListByCircuitNoPagingCount(circuitNo));
-        return pageSurpport;
-    }*/
     @RequestMapping("/getFlawinfoList.html")
     @ResponseBody
     public PageSurpport<Flawinfo> getFlawinfoList(String circuitNo, String jobId, @RequestParam(defaultValue = "1") int pageIndex, String flawLV) {
@@ -114,7 +102,6 @@ public class checktaskController {
         map.put("workList", workerinfoService.findAllWorkers());
         return map;
     }
-
     @RequestMapping("/flawinfoCheck.html")
     public String flawinfoCheck() {
         return "flawinfoCheck";
@@ -168,5 +155,14 @@ public class checktaskController {
         map.put("ps",pageSurpport);
         map.put("fs",checktaskService.findFlawInfoBycheckJobNo(jobId));
         return map;
+    }
+    @RequestMapping("/addFlawinfo.html")
+    @ResponseBody
+    public int addFlawinfo(Flawinfo flawinfo,int  intcatRates){
+        double d=intcatRates;
+        flawinfo.setIntcatRate(d);
+        flawinfo.setCheckDate(new Date());
+        int rel=flawinfoService.addFlawinfo(flawinfo);
+        return rel;
     }
 }

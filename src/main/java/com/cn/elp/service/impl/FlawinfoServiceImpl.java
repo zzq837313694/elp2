@@ -46,4 +46,9 @@ public class FlawinfoServiceImpl implements FlawinfoService {
         return flawinfoDao.findFlawInfoBycheckJobNoPagingCount(checkJobNo,circuitNo,flawLV);
     }
 
+    @Override
+    public int addFlawinfo(Flawinfo flawinfo) {
+        return flawinfoDao.addFlawinfo(flawinfo);
+    }
+
 }
