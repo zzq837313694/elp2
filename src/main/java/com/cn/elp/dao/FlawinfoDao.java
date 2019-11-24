@@ -52,4 +52,5 @@ public interface FlawinfoDao {
     List<Flawinfo> findFlawInfoBycheckJobNo(String checkJobNo);
 
     int addFlawinfo(Flawinfo flawinfo);
+    int updateFlawinfo(Flawinfo flawinfo);
 }

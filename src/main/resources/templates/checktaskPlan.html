@@ -14,6 +14,8 @@
     <script src="js/moment.js"></script>
     <script src="js/datepicker.js"></script>
     <script src="js/date.js"></script>
+    <script src="js/sovleTaskmModal.js"></script>
+    <link type="text/css" href="css/sovleTaskmModal.css"  rel="stylesheet">
 </head>
 <style>
     #van {
@@ -165,6 +167,37 @@
     </div>
 </div>
 
+<div class="modal fade" id="SolveTaskModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">巡检员选择
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <!--左边-->
+                    <div id="modelLeft">
+
+                    </div>
+                    <!--中间-->
+                    <div id="modelMiddle" style="padding-left: 10px;padding-right: 5px;margin-top: -20px;">
+                        <p onclick="addpeople()"><span class=" glyphicon  glyphicon-forward " aria-hidden="true"></span>
+                        </p>
+                        <p onclick="removepeople()"><span class=" glyphicon  glyphicon-backward "
+                                                          aria-hidden="true"></span></p>
+                    </div>
+
+                    <!--右边-->
+                    <div id="modelRight"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="zxf_pagediv"></div>
 </body>
 

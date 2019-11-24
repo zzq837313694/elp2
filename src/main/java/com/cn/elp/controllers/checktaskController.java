@@ -165,4 +165,17 @@ public class checktaskController {
         int rel=flawinfoService.addFlawinfo(flawinfo);
         return rel;
     }
+    @RequestMapping("/update.html")
+    @ResponseBody
+    public int upFlawinfo(Flawinfo flawinfo,int  intcatRates){
+        double d=intcatRates;
+        flawinfo.setIntcatRate(d);
+        int rel=flawinfoService.updateFlawinfo(flawinfo);
+        return rel;
+    }
+    @RequestMapping("/cancel.html")
+    public String cancel(String jobId){
+
+        return "checktaskPlan";
+    }
 }

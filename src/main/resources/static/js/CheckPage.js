@@ -48,12 +48,29 @@ function submint() {
                     fDate = date2.getFullYear() + "/" + eval(date2.getMonth() + "+1") + "/" + date2.getDate()
                 }
                 var trsTR = "<a href=\"showChecktask.html?jobId="+jobId+"\">查看</a>" +
-                    "                    <span>|</span>" +
-                    "                    <a href=\"\">分配任务</a>" +
-                    "                    <span>|</span>" +
-                    "<a href=\"updateChecktask.html?jobId="+jobId+"\">修改</a>" +
+                    "                    <span>|</span>" ;
+                if(obj.status=="待分配"){
+                    trsTR+= "                    <a href=\"\">分配任务</a>" +
+                        "                    <span>|</span>";
+                }else{
+                    trsTR+= "                    <span style=\"color: grey\">分配任务</span>" +
+                        "                    <span>|</span>";
+                }
+                if(obj.status=="已完成"||obj.status=="执行中"||obj.status=="已分配"){
+                    trsTR+= "<span style=\"color: grey\">修改</span>" +
+                    "                    <span>|</span>" ;
+                        if(obj.status=="已分配"){
+                            trsTR+= "                    <a href=''>取消</a>" ;
+                        }else{
+                           trsTR+=  "<a href=\"cancel.html?jobId="+jobId+"\">取消</a>" ;
+                        }
+
+                }else{
+                   trsTR+="<a href=\"updateChecktask.html?jobId="+jobId+"\" disabled='disabled'>修改</a>" +
                     "                    <span>|</span>" +
                     "                    <a href=\"\">取消</a>" ;
+                }
+
                 options+=
                     "<tr style='vertical-align: middle'><td>"+jobId+"</td>"+
                     "<td>"+jobName+"</td>"+
