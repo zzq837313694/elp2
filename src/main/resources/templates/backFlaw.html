@@ -67,7 +67,13 @@
             </ol>
         </div>
         <button  class="btn btn-primary" onclick="javascript:history.back(-1);">返回</button>
-        <button  class="btn btn-primary" id="up" href=\"changeStuts.html?jobId="++"&status=已完成\">上传回执</button>
+        <form action="/changeStuts.html">
+            <input hidden th:value="${Checktask.jobId}" name="jobId">
+            <input hidden value="已完成" name="status">
+
+            <button  type="submit" class="btn btn-primary" id="up">上传回执</button>
+        </form>
+
 
     </div>
 
@@ -308,9 +314,6 @@ function submitt(){
             }
         });
     }
-$("#up").click(function () {
-   /* window.location.href=url*/
-})
     Date.prototype.Format = function (fmt) {
         var o = {
             "M+": this.getMonth() + 1, //月份

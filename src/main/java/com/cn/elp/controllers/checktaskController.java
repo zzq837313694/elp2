@@ -1,9 +1,6 @@
 package com.cn.elp.controllers;
 
-import com.cn.elp.POJO.Checktaskinfo;
-import com.cn.elp.POJO.Circuit;
-import com.cn.elp.POJO.Flawinfo;
-import com.cn.elp.POJO.Towerinfo;
+import com.cn.elp.POJO.*;
 import com.cn.elp.service.*;
 import com.cn.elp.util.ChecktaskCondition;
 import com.cn.elp.util.FlawCheck;
@@ -15,10 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class checktaskController {
@@ -34,6 +28,8 @@ public class checktaskController {
     FlawTypeService flawTypeService;
     @Resource
     WorkerinfoService workerinfoService;
+    @Resource
+    RoleServices roleServices;
 
     @RequestMapping("/getchecktaskListNot.html")
     @ResponseBody
@@ -193,5 +189,47 @@ public class checktaskController {
             return "checktaskPlan";
         }
 
+    }
+
+
+    @RequestMapping("/chooseCheckWorker")
+    @ResponseBody
+    /*选择消缺员*/
+    public Map<String, Workerinfo> chooseSolveWorker(String taskNo, Model model) {
+        Map workers = new HashMap();
+        List<Workerinfo> leftWorker = workerinfoService.findAllWorkers();
+        int roleId = roleServices.findRoleByRoleName("巡检员").getRoleId();
+        int no = 0;
+        while (no < leftWorker.size()) {
+            if (leftWorker.get(no).getRoleId() != roleId || !"启用".equals(leftWorker.get(no).getStatus())) {
+                leftWorker.remove(no);
+                continue;
+            }
+            no++;
+        }
+        List<Workerinfo> rightWorker = new ArrayList<>();
+        if (taskNo == null || "".equals(taskNo)) {
+            workers.put("leftWorker", leftWorker);
+            workers.put("rightWorker", rightWorker);
+            return workers;
+        }
+        /*String nowWorker = solvetaskServices.findSolveTaskByTaskNo(taskNo).getFinishiworkerId();*/
+        String nowWorker = checktaskService.SelectChecktaskById(taskNo).getCheckBy();
+        if (nowWorker == null || nowWorker.length() == 0) {
+            workers.put("leftWorker", leftWorker);
+            workers.put("rightWorker", rightWorker);
+        } else {
+            String[] workerArray = nowWorker.split(",");
+            for (int i = 0; i < workerArray.length; i++) {
+                rightWorker.add(workerinfoService.findAllWorker(workerArray[i]));
+            }
+            for (Workerinfo worker : leftWorker) {
+                rightWorker.remove(worker);
+            }
+            workers.put("leftWorker", leftWorker);
+            workers.put("rightWorker", rightWorker);
+        }
+
+        return workers;
     }
 }
