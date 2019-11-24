@@ -1,6 +1,8 @@
 package com.cn.elp.POJO;
 
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class Checktaskinfo {
@@ -10,13 +12,29 @@ public class Checktaskinfo {
   private String circuitNo;
   private String startNo;
   private String stopNo;
-  private int checkBy;
-  private int createBy;
+  private String checkBy;
+  private String createBy;
   private Date createDate;
   private Date  finishDate;
   private String comment;
   private String status;
   private String abolish;
+
+  public String getCheckBy() {
+    return checkBy;
+  }
+
+  public String getCreateBy() {
+    return createBy;
+  }
+
+  public void setCheckBy(String checkBy) {
+    this.checkBy = checkBy;
+  }
+
+  public void setCreateBy(String createBy) {
+    this.createBy = createBy;
+  }
 
   public String getAbolish() {
     return abolish;
@@ -71,22 +89,6 @@ public class Checktaskinfo {
   }
 
 
-  public int getCheckBy() {
-    return checkBy;
-  }
-
-  public void setCheckBy(int checkBy) {
-    this.checkBy = checkBy;
-  }
-
-
-  public int getCreateBy() {
-    return createBy;
-  }
-
-  public void setCreateBy(int createBy) {
-    this.createBy = createBy;
-  }
 
 
   public Date  getCreateDate() {

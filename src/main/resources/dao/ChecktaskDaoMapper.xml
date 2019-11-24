@@ -3,7 +3,21 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cn.elp.dao.ChecktaskDao">
+    <select id="SelectChecktaskByParamNot" resultType="Checktaskinfo">
+        select *  from checktaskinfo a where abolish='否' and status!='待分配'
+        <include refid="Param"></include>
+        order  by a.createDate desc
+        <if test="ChecktaskCondition.pageIndex!=null and ChecktaskCondition.pageIndex!='' and
+ChecktaskCondition.pageSize!=null and ChecktaskCondition.pageSize!=''">
+            limit #{ChecktaskCondition.from},
+            #{ChecktaskCondition.pageSize}
+        </if>
+    </select>
 
+    <select id="SelectChecktaskByParamCountNot" resultType="int" >
+        select count(0) from checktaskinfo a where  abolish='否' and status!='待分配'
+        <include refid="Param"></include>
+    </select>
     <select id="SelectChecktaskByParam" resultType="Checktaskinfo">
         select *  from checktaskinfo a where abolish='否'
         <include refid="Param"></include>
@@ -21,27 +35,86 @@ ChecktaskCondition.pageSize!=null and ChecktaskCondition.pageSize!=''">
         select count(0) from checktaskinfo a where  abolish='否'
         <include refid="Param"></include>
     </select>
-    <sql id="Param">
-            <if test="ChecktaskCondition.jobId!=null and ChecktaskCondition.jobId!=''">
-                and a.jobId like concat('%',#{ChecktaskCondition.jobId},'%')
-            </if>
-            <if test="ChecktaskCondition.abolish!=null and ChecktaskCondition.abolish!=''">
-             and a.abolish=ChecktaskCondition.abolish
+
+
+    <select id="SelectChecktaskCount" resultType="int">
+    select count(0) from flawinfo f  join (
+select c.*,w.userName from checktaskinfo c left JOIN workerinfo w
+	on c.createBy=w.userNo) s on f.checkJobNo=s.jobId
+        <include refid="flawParam"></include>
+    </select>
+
+    <select id="SelectChecktask" resultType="com.cn.elp.util.FlawCheck">
+        select f.*,s.userName createByName,s.createDate  createDate, ft.flawName,ww.userName checkByName from flawinfo f  join (
+        select c.*,w.userName from checktaskinfo c left JOIN workerinfo w
+        on c.createBy=w.userNo) s on f.checkJobNo=s.jobId
+        join flawtype ft on ft.flawTypeId=f.flawtypeId
+        join workerinfo ww on ww.userNo=f.checkBy
+        <include refid="flawParam"></include>
+        order  by f.checkDate desc
+        <if test="FlawCheck.pageIndex!=null and FlawCheck.pageIndex!='' and
+FlawCheck.pageSize!=null and FlawCheck.pageSize!=''">
+            limit #{FlawCheck.from},
+            #{FlawCheck.pageSize}
         </if>
-            <if test="ChecktaskCondition.circuitNo!=null and ChecktaskCondition.circuitNo!=''">
-                and a.circuitNo like concat('%',#{ChecktaskCondition.circuitNo},'%')
-            </if>
-            <if test="ChecktaskCondition.status!=null and ChecktaskCondition.status!=''">
-                and a.status=#{ChecktaskCondition.status}
-            </if>
-            <if test="ChecktaskCondition.createBy!=null and ChecktaskCondition.createBy!=''">
-                and a.jobId like concat('%',#{ChecktaskCondition.createBy},'%')
-            </if>
-            <if test="ChecktaskCondition.CreateDateMin!=null">
-                and a.createDate>#{ChecktaskCondition.CreateDateMin}
-            </if>
-            <if test="ChecktaskCondition.CreateDateMax!=null">
-                and a.createDate &lt;#{ChecktaskCondition.CreateDateMax}
-            </if>
+    </select>
+
+<sql id="flawParam">
+        <if test="FlawCheck.checkJobNo!=null and FlawCheck.checkJobNo!=''">
+            and f.checkJobNo like concat('%',#{FlawCheck.checkJobNo},'%')
+        </if>
+    <if test="FlawCheck.circuitNo!=null and FlawCheck.circuitNo!=''">
+        and f.checkJobNo like concat('%',#{FlawCheck.circuitNo},'%')
+    </if>
+    <if test="FlawCheck.flawTypeId!=0">
+        and f.flawTypeId=#{FlawCheck.flawTypeId}
+    </if>
+    <if test="FlawCheck.flawLv!=null and FlawCheck.flawLv!=''">
+        and f.flawLv=#{FlawCheck.flawLv}
+    </if>
+        <if test="FlawCheck.checkDateMin!=null">
+            and f.checkDate>#{FlawCheck.checkDateMin}
+        </if>
+        <if test="FlawCheck.checkDateMax!=null">
+            and f.checkDate&lt;#{FlawCheck.checkDateMax}
+        </if>
+    <if test="FlawCheck.createDateMin!=null">
+        and s.createDate>#{FlawCheck.checkDateMin}
+    </if>
+    <if test="FlawCheck.createDateMax!=null">
+        and s.createDate &lt;#{FlawCheck.checkDateMax}
+    </if>
+
+</sql>
+    <sql id="Param">
+        <if test="ChecktaskCondition.jobId!=null and ChecktaskCondition.jobId!=''">
+            and a.jobId like concat('%',#{ChecktaskCondition.jobId},'%')
+        </if>
+        <if test="ChecktaskCondition.abolish!=null and ChecktaskCondition.abolish!=''">
+            and a.abolish=ChecktaskCondition.abolish
+        </if>
+        <if test="ChecktaskCondition.circuitNo!=null and ChecktaskCondition.circuitNo!=''">
+            and a.circuitNo like concat('%',#{ChecktaskCondition.circuitNo},'%')
+        </if>
+        <if test="ChecktaskCondition.status!=null and ChecktaskCondition.status!=''">
+            and a.status=#{ChecktaskCondition.status}
+        </if>
+        <if test="ChecktaskCondition.createBy!=null and ChecktaskCondition.createBy!=''">
+            and a.jobId like concat('%',#{ChecktaskCondition.createBy},'%')
+        </if>
+        <if test="ChecktaskCondition.CreateDateMin!=null">
+            and a.createDate>#{ChecktaskCondition.CreateDateMin}
+        </if>
+        <if test="ChecktaskCondition.CreateDateMax!=null">
+            and a.createDate &lt;#{ChecktaskCondition.CreateDateMax}
+        </if>
     </sql>
+<insert id="addChecktaskinfo" parameterType="Checktaskinfo">
+    insert into checktaskinfo values ('a',#{jobName},#{circuitNo},#{startNo},#{stopNo},
+    null,#{createBy},#{createDate},#{finishDate},#{comment},'待分配','否');
+</insert>
+    <update id="updateCheck" parameterType="Checktaskinfo">
+        update checktaskinfo set jobName=#{jobName},circuitNo=#{circuitNo},startNo=#{startNo}
+        ,stopNo=#{stopNo},comment=#{comment} ,abolish=#{abolish},status=#{status} where jobId=#{jobId}
+    </update>
 </mapper>

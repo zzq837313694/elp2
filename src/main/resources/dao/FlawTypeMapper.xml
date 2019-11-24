@@ -32,4 +32,6 @@
         delete from flawtype where flawTypeId=#{flawTypeId}
     </delete>
 
+
+    
 </mapper>

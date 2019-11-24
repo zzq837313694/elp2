@@ -54,4 +54,9 @@ public interface FlawinfoDao {
      */
     List<Flawinfo> findFlawForSovle(@Param("condition") FlawInfoCondition condition);
 
+
+    List<Flawinfo> findFlawInfoBycheckJobNo(String checkJobNo);
+
+    int addFlawinfo(Flawinfo flawinfo);
+    int updateFlawinfo(Flawinfo flawinfo);
 }
