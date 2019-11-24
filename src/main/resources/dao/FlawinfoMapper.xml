@@ -59,7 +59,6 @@
     </select>
 
 
-
     <select id="findFlawInfoBycheckJobNoPaging" resultType="Flawinfo">
         select * from flawinfo where checkJobNo=#{checkJobNo} and circuitNo=#{circuitNo}
          <if test="flawLV!=null and flawLV!=''">
@@ -72,6 +71,14 @@
         <if test="flawLV!=null and flawLV!=''">
             and flawLV=#{flawLV}
         </if>
+    </select>
+    <select id="findFlawForSovle" resultType="com.cn.elp.POJO.Flawinfo">
+        select * from flawinfo
+         <where>
+            <include refid="flawinfoQuery"></include>
+            and  intcatRate!=100.0;
+         </where>
+
     </select>
 
     <insert id="addFlawinfo" parameterType="Flawinfo">

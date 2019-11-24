@@ -2,11 +2,15 @@ package com.cn.elp.controllers;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.cn.elp.POJO.*;
+import com.cn.elp.dao.FlawTypeDao;
 import com.cn.elp.dao.FlawinfoDao;
 import com.cn.elp.service.*;
+import com.cn.elp.util.FlawInfoCondition;
 import com.cn.elp.util.PageSurpport;
 
 import org.springframework.ui.Model;
@@ -30,7 +34,8 @@ public class solveTaskController {
     RoleServices roleServices;
     @Resource
     FlawinfoDao flawinfoDao;
-
+    @Resource
+    FlawTypeDao flawTypeDao;
 
 
     @RequestMapping("/AdminSolveTask.html")
@@ -74,41 +79,118 @@ public class solveTaskController {
         model.addAttribute("taskInfo", solveTask);
         //返回审查信息
         Review review = solvetaskServices.findReviewByTaskNo(taskNo);
-        if(review==null){
-            review=new Review();
+        if (review == null) {
+            review = new Review();
         }
-        model.addAttribute("review",review);
+        model.addAttribute("review", review);
         //返回延期信息
         List<Postpone> postponeList = solvetaskServices.findPostphoneByTaskNo(taskNo);
-        model.addAttribute("postPhones",postponeList);
+        model.addAttribute("postPhones", postponeList);
+
         //返回报告信息
-        Report report=solvetaskServices.fingRoportByTaskNo(taskNo);
-        model.addAttribute("report",report);
+        Report report = solvetaskServices.fingRoportByTaskNo(taskNo);
+        model.addAttribute("report", report);
+
         //返回缺陷信息
-        String flawInfoArray[]=solveTask.getFloawList().split(",");
+        String flawInfoArray[] = solveTask.getFloawList().split(",");
         List<Flawinfo> flawinfoList = new ArrayList<>();
-        for (int i = 0;i<flawInfoArray.length;i++){
+        for (int i = 0; i < flawInfoArray.length; i++) {
             Flawinfo flawinfo = flawinfoDao.findFlawInfoByFlawNo(flawInfoArray[i]);
-          if(flawinfo!=null)
-            flawinfoList.add(flawinfo);
+            if (flawinfo != null)
+                flawinfoList.add(flawinfo);
         }
-        model.addAttribute("flawinfoList",flawinfoList);
+        model.addAttribute("flawinfoList", flawinfoList);
 
         return "sovleTaskInfo";
     }
 
-    @RequestMapping("/getDate")
+    @RequestMapping("/chooseSolveWorker")
     @ResponseBody
-    public PageSurpport<Solvetaskinfo> getSolveTaskData(String nowPage, Model model) {
+    /*选择消缺员*/
+    public Map<String, Workerinfo> chooseSolveWorker(String taskNo, Model model) {
+        Map workers = new HashMap();
+        List<Workerinfo> leftWorker = workerinfoService.findAllWorkers();
+        int roleId = roleServices.findRoleByRoleName("消缺员").getRoleId();
+        int no = 0;
+        while (no < leftWorker.size()) {
+            if (leftWorker.get(no).getRoleId() != roleId || !"启用".equals(leftWorker.get(no).getStatus())) {
+                leftWorker.remove(no);
+                continue;
+            }
+            no++;
+        }
+        List<Workerinfo> rightWorker = new ArrayList<>();
+        if (taskNo == null || "".equals(taskNo)) {
+            workers.put("leftWorker", leftWorker);
+            workers.put("rightWorker", rightWorker);
+            return workers;
+        }
+        String nowWorker = solvetaskServices.findSolveTaskByTaskNo(taskNo).getFinishiworkerId();
+        if (nowWorker == null || nowWorker.length() == 0) {
+            workers.put("leftWorker", leftWorker);
+            workers.put("rightWorker", rightWorker);
+        } else {
+            String[] workerArray = nowWorker.split(",");
+            for (int i = 0; i < workerArray.length; i++) {
+                rightWorker.add(workerinfoService.findAllWorker(workerArray[i]));
+            }
+            for (Workerinfo worker : leftWorker) {
+                rightWorker.remove(worker);
+            }
+            workers.put("leftWorker", leftWorker);
+            workers.put("rightWorker", rightWorker);
+        }
 
-        PageSurpport<Solvetaskinfo> ps = new PageSurpport<Solvetaskinfo>();
-        ps.setPageIndex(Integer.parseInt(nowPage));
-        ps.setTotalCount(solvetaskServices.countSolveTask());
-        ps.setPageSize(8);
-        List<Solvetaskinfo> solveTasks = solvetaskServices.findAllSolveTask();
-        ps.setDataList(solveTasks);
-        return ps;
+        return workers;
     }
+
+
+    @RequestMapping("/addSolveTask.html")
+    //添加消缺任务
+    public String toAddSovleTaskPage(Model model) {
+
+       model.addAttribute("flawtypeList",flawTypeDao.findAllFlawType());
+        solvetaskServices.FinfLastTask();
+        return "addSolveTask";
+    }
+
+    @RequestMapping("/findFlaws")
+    @ResponseBody
+    /*缺陷信息表*/
+    public List<Flawinfo> findFlaws(FlawInfoCondition condition, Model model) {
+       List<Flawinfo> allFlaws=new ArrayList<>();
+       allFlaws=flawinfoDao.findFlawForSovle(condition);
+       List<Solvetaskinfo> allSovleTask=solvetaskServices.findAllSolveTask();
+       if (allSovleTask==null||allSovleTask.size()==0){
+           return allFlaws;
+       }
+        StringBuffer sovleflaw=new StringBuffer();
+        for(Solvetaskinfo task:allSovleTask){
+            sovleflaw.append(task.getFloawList());
+            sovleflaw.append(",");
+        }
+        if (sovleflaw==null||sovleflaw.length()==0){
+            return allFlaws;
+        }
+        String[] sovleflawArray=sovleflaw.toString().split(",");
+        if (sovleflawArray.length==0){
+            return allFlaws;
+        }
+        int i=0;
+        while(i<allFlaws.size()){
+            for (String flawNo:sovleflawArray){
+                if (allFlaws.get(i).getFlawNo().equals(flawNo)){
+                    allFlaws.remove(i);
+                    --i;
+                    break;
+                }
+            }
+            i++;
+        }
+
+        return allFlaws;
+    }
+
 
     @RequestMapping("/search")
     public String Search(Solvetaskinfo solveTask, String createDate_from, String createDate_to, Model model) {
@@ -122,33 +204,5 @@ public class solveTaskController {
         return "AdminSolveTask";
     }
 
-
-    @RequestMapping("/addSolveTask.html")
-    public String toAddSovleTaskPage() {
-
-        return "addSolveTask";
-    }
-
-    @RequestMapping("/getSolveWorkers")
-    @ResponseBody
-    public List<Workerinfo> getSovleWorkers(String roleName, String nowSolveWorkers, Model model) {
-
-        List<Workerinfo> SovleWorkers = workerinfoService.findWorkerByRoleId(roleServices.findRoleByRoleName(roleName).getRoleId());
-
-        if (nowSolveWorkers != null) {
-            String[] nowSolveWorkerArray = nowSolveWorkers.split("，");
-            for (int i = 0; i < SovleWorkers.size(); ) {
-                for (int j = 0; j < nowSolveWorkerArray.length; j++) {
-                    if (nowSolveWorkerArray[j].equals(SovleWorkers.get(i).getUserName())) {
-                        SovleWorkers.remove(SovleWorkers.get(i));
-                        i--;
-                        break;
-                    }
-                }
-                i++;
-            }
-        }
-        return SovleWorkers;
-    }
 
 }

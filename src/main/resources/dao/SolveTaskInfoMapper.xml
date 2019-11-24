@@ -40,5 +40,8 @@
     <select id="findSolveTaskInfoByTaskNo" parameterType="String" resultType="SolveTaskInfo">
           select * from solvetaskInfo where solveTaskNo = #{taskNo};
     </select>
+    <select id="findLastTask" resultType="SolveTaskInfo">
+        select  * from solvetaskinfo order by solveTaskNo desc limit 0,1;
+    </select>
 
 </mapper>
