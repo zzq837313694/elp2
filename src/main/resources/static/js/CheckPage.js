@@ -50,7 +50,7 @@ function submint() {
                 var trsTR = "<a href=\"showChecktask.html?jobId="+jobId+"\">查看</a>" +
                     "                    <span>|</span>" ;
                 if(obj.status=="待分配"){
-                    trsTR+= "<a data-toggle=\"modal\" data-target=\"#SolveTaskModel\"> 分配任务</a>"+
+                    trsTR+= "<a id='"+jobId+"' data-toggle=\"modal\" data-target=\"#myModal\"onclick=\"showModal(this)\">分配任务</a>"+
                         "                    <span>|</span>";
                 }else{
                     trsTR+= "                    <span style=\"color: grey\">分配任务</span>" +

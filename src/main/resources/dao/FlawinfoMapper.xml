@@ -86,6 +86,6 @@
         #{intcatRate},#{comment})
     </insert>
     <update id="updateFlawinfo" parameterType="flawinfo">
-        update flawinfo set flawLV=#{flawLv}, flawTypeId=#{flawTypeId},intcatRate=#{intcatRate},comment#{comment}  where flawNo=#{flawNo}
+        update flawinfo set flawLV=#{flawLv}, flawTypeId=#{flawTypeId},intcatRate=#{intcatRate},comment=#{comment}  where flawNo=#{flawNo}
     </update>
 </mapper>

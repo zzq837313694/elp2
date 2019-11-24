@@ -67,7 +67,13 @@
             </ol>
         </div>
         <button  class="btn btn-primary" onclick="javascript:history.back(-1);">返回</button>
-        <button  class="btn btn-primary" id="up">上传回执</button>
+        <form action="/changeStuts.html">
+            <input hidden th:value="${Checktask.jobId}" name="jobId">
+            <input hidden value="已完成" name="status">
+
+            <button  type="submit" class="btn btn-primary" id="up">上传回执</button>
+        </form>
+
 
     </div>
 
@@ -86,6 +92,7 @@
                     </div>
                     <div class="col-lg-6 col-sm-12 col-xs-12 ">
                         <div class="input-prepend input-group">
+                            <input type="hidden" name="flawNo" id="flawNo" value="">
                             <span class="add-on input-group-addon">塔杆编号：</span>
                             <input type="text" name="towerNo" id="towerNo" disabled="disabled" class="form-control" value="">
                             <input type="hidden" name="towerNo"class="form-control" value="">
@@ -242,7 +249,7 @@
 
     $("#save").click(function () {
         submitt();
-        $("#save").hide();
+        $("#save").attr("type","hidden");
         $("#intcatRate").val(100);
         $("#flawLv option[value='']").prop("selected","selected");
         $("#flawTypeId option[value=0]").prop("selected","selected");
@@ -252,7 +259,7 @@
     });
     $("#update").click(function () {
         update();
-        $("#update").hide();
+        $("#update").attr("type","hidden");
         $("#intcatRate").val(100);
         $("#flawLv option[value='']").prop("selected","selected");
         $("#flawTypeId option[value=0]").prop("selected","selected");
@@ -274,6 +281,7 @@
                     flawName=obj.flawName;
                 }
             })
+            $("#flawNo").val(data.flawInfo.flawNo)
             $("#intcatRate").val(data.flawInfo.intcatRate);
             $("#flawLv option[value="+data.flawInfo.flawLv+"]").prop("selected","selected");
             $("#flawTypeId option[value="+data.flawInfo.flawTypeId+"]").prop("selected","selected");
@@ -295,7 +303,7 @@ function submitt(){
 }
 
     function update(){
-        $("#update").ajaxSubmit({
+        $("#addFlawinfo").ajaxSubmit({
             type: "post",  //提交方式
             dataType: "json", //数据类型
             url: "update.html", //请求url
@@ -306,7 +314,6 @@ function submitt(){
             }
         });
     }
-
     Date.prototype.Format = function (fmt) {
         var o = {
             "M+": this.getMonth() + 1, //月份
