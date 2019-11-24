@@ -50,7 +50,7 @@ function submint() {
                 var trsTR = "<a href=\"showChecktask.html?jobId="+jobId+"\">查看</a>" +
                     "                    <span>|</span>" ;
                 if(obj.status=="待分配"){
-                    trsTR+= "                    <a href=\"\">分配任务</a>" +
+                    trsTR+= "<a data-toggle=\"modal\" data-target=\"#SolveTaskModel\"> 分配任务</a>"+
                         "                    <span>|</span>";
                 }else{
                     trsTR+= "                    <span style=\"color: grey\">分配任务</span>" +
@@ -60,9 +60,9 @@ function submint() {
                     trsTR+= "<span style=\"color: grey\">修改</span>" +
                     "                    <span>|</span>" ;
                         if(obj.status=="已分配"){
-                            trsTR+= "                    <a href=''>取消</a>" ;
+                            trsTR+=  "<a href=\"cancel.html?jobId="+jobId+"\">取消</a>" ;
                         }else{
-                           trsTR+=  "<a href=\"cancel.html?jobId="+jobId+"\">取消</a>" ;
+                            trsTR+=  "<span style=\"color: grey\">取消</span>" ;
                         }
 
                 }else{

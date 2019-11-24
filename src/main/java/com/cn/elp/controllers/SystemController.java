@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import javax.swing.text.AbstractDocument;
 import java.util.Date;
 import java.util.List;
 
@@ -157,9 +158,6 @@ public class SystemController {
 
 
 
-
-
-
     /**
      * 角色权限配置
      */
@@ -174,8 +172,6 @@ public class SystemController {
 
     @RequestMapping("rule.html")
     public String permissionSetting111(String[] ruleId,int roleId){
-        System.out.println(ruleId.length);
-        System.out.println(roleId);
         String re="";
         for (int r=0;r<ruleId.length;r++){
             if (r==(ruleId.length-1)){
@@ -184,18 +180,51 @@ public class SystemController {
                 re+=ruleId[r]+"-";
             }
         }
-        System.out.println(re);
         int rel=roleService.updateRuleByRoleId(roleId,re);
-        return "redirect:permissionSetting.html";
+        if (roleId==1){
+            return "redirect:login.html";
+        }else {
+            return "redirect:permissionSetting.html";
+        }
     }
 
     @RequestMapping("findRuleList.html")
     @ResponseBody
     public String[] findRuleList(int roleId){
         Role role=roleService.findRuleListByRokeId(roleId);
-        System.out.println(role.getRuleList());
         String[] roleList=role.getRuleList().split("-");
         return  roleList;
     }
+
+
+    @RequestMapping("addRule.html")
+    public String addRule(Rule rule,Model model){
+        int rel=ruleService.addRule(rule);
+        if (rel>0){
+            return "redirect:permissionSetting.html";
+        }else {
+            model.addAttribute("error","添加失败");
+            return  "permissionSetting";
+        }
+    }
+
+    @RequestMapping("updateRule.html")
+    public String updateRule(Rule rule,Model model) {
+        int rel = ruleService.updateRule(rule);
+        if (rel > 0) {
+            return "redirect:permissionSetting.html";
+        } else {
+            model.addAttribute("error", "修改失败");
+            return "permissionSetting";
+        }
+    }
+
+    @RequestMapping("delRule.html")
+    @ResponseBody
+    public  int delRule(int ruleId){
+        int rel=ruleService.delRule(ruleId);
+        return rel;
+    }
+
 
 }

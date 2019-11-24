@@ -1,9 +1,13 @@
 
 package com.cn.elp.configer;
 
+import com.cn.elp.util.Interceptor1;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -40,5 +44,28 @@ public class MyConverter {
         } ;
 
     }
+
+
+
+
+    @Bean
+    public WebMvcConfigurer webMvcConfigurer(){
+        WebMvcConfigurer webMvcConfigurer = new WebMvcConfigurer(){
+            //拦截器
+            @Override
+            public void addInterceptors(InterceptorRegistry registry) {
+                registry.addInterceptor(new Interceptor1()).addPathPatterns("/**")
+                        .excludePathPatterns("/login.html");
+            }
+
+        };
+        return webMvcConfigurer;
+    }
+
+
+
+
+
+
 }
 

@@ -34,9 +34,9 @@
 </style>
 <body>
 <p id="van">
-    <span>消缺任务管理</span>
+    <span>巡检任务管理</span>
     <span>&gt;&gt;&nbsp;</span>
-    <span>消缺任务制定与分配</span>
+    <span>巡检任务制定与分配</span>
     <span>&gt;&gt;&nbsp;</span>
     <span>查看巡检任务</span>
 </p>
@@ -68,7 +68,7 @@
 <div class="row" style="height: 20px">
 </div>
 
-
+<div th:if="${Checktask.status}=='已完成'">
 <div style="padding: 0px 30px 0px 30px;" id="wrap">
     <div class="leftpart">
         <div style="padding: 20px 10px 0px 20px; border: #3e3e3e 1px solid;width: 200px;display:inline-block;height: 350px">
@@ -117,6 +117,7 @@
             <div class="col-lg-4 col-sm-5 col-sm-12"><span style="font-weight: bolder">发现时间:</span><span id="checkDate"value=""></span></div>
         </div>
     </div>
+</div>
 </div>
 </body>
 <script type="text/javascript">

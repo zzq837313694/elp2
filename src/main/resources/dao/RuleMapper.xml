@@ -16,4 +16,16 @@
         select * from rule where ruleId=#{ruleId}
     </select>
 
+    <insert id="addRule" parameterType="Rule">
+        insert into rule (ruleName, perRuleId, url, picPath) values (#{ruleName},#{perRuleId},#{url},#{picPath})
+    </insert>
+
+    <update id="updateRule" parameterType="Rule">
+        update rule set ruleName=#{ruleName},url=#{url} where ruleId=#{ruleId}
+    </update>
+
+    <delete id="delRule">
+        delete from rule where ruleId=#{ruleId}
+    </delete>
+
 </mapper>

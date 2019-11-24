@@ -56,7 +56,6 @@ public class ChecktaskServiceImpl implements ChecktaskService
             checktaskCondition1.setAbolish(cc.getAbolish());
             checktaskCondition1.setCheckByName(workerinfoDao.findAllWorker(cc.getCheckBy())==null?null:workerinfoDao.findAllWorker(cc.getCheckBy()).getUserName());
             checktaskCondition1.setCircuitName(circuitDao.findOneCircuit(cc.getCircuitNo()).getCircuitName());
-            checktaskCondition1.setCreateByName(workerinfoDao.findAllWorker(cc.getCreateBy()).getUserName());
             pageSurpport.getDataList().add(checktaskCondition1);
         }
         return pageSurpport;

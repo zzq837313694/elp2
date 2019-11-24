@@ -175,7 +175,23 @@ public class checktaskController {
     }
     @RequestMapping("/cancel.html")
     public String cancel(String jobId){
-
+        Checktaskinfo checktaskinfo=checktaskService.SelectChecktaskById(jobId);
+        checktaskinfo.setAbolish("是");
+        checktaskService.updateCheck(checktaskinfo);
         return "checktaskPlan";
+    }
+    @RequestMapping("/changeStuts.html")
+    public String changeStuts(String jobId,String status){
+
+        Checktaskinfo checktaskinfo=checktaskService.SelectChecktaskById(jobId);
+        checktaskinfo.setStatus(status);
+        int rel=checktaskService.updateCheck(checktaskinfo);
+        System.out.println(rel);
+        if("执行中".equals(status)||"已完成".equals(status)){
+            return "checktaskBack";
+        }else{
+            return "checktaskPlan";
+        }
+
     }
 }

@@ -47,12 +47,25 @@ function submint() {
                     var date2 = new Date(obj.finishDate == null ? "" : obj.finishDate);
                     fDate = date2.getFullYear() + "/" + eval(date2.getMonth() + "+1") + "/" + date2.getDate()
                 }
+
                 var trsTR = "<a href=\"showChecktask.html?jobId="+jobId+"\">查看</a>" +
-                    "                    <span>|</span>" +
-                    "                    <a href=\"backFlaw.html?jobId="+jobId+"\">回执录入</a>" +
-                    "                    <span>|</span>" +
-                    "<a href=\"updateChecktask.html?jobId="+jobId+"\">执行</a>" +
                     "                    <span>|</span>" ;
+                    if(obj.status=="执行中"){
+                      trsTR+=  "                    <a href=\"backFlaw.html?jobId="+jobId+"\">回执录入</a>" ;
+
+                    }else{
+                        trsTR+= "                    <span style=\"color: grey\">回执录入</span>" ;
+                    }
+                    if(obj.status=="已分配"){
+                        trsTR+=   "                    <span>|</span>" +
+                        "<a href=\"changeStuts.html?jobId="+jobId+"&status=执行中\">执行</a>" +
+                        "                    <span>|</span>" ;
+                    }else{
+                        trsTR+=   "                    <span>|</span>" +
+                        "<span style=\"color: grey\">执行</span>" +
+                        "                    <span>|</span>" ;
+                    }
+
                 options+=
                     "<tr style='vertical-align: middle'><td>"+jobId+"</td>"+
                     "<td>"+jobName+"</td>"+
