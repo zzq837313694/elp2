@@ -167,7 +167,7 @@ public class checktaskController {
     }
     @RequestMapping("/update.html")
     @ResponseBody
-    public int upFlawinfo(Flawinfo flawinfo,int  intcatRates){
+    public int upFlawinfo(Flawinfo flawinfo,Integer  intcatRates){
         double d=intcatRates;
         flawinfo.setIntcatRate(d);
         int rel=flawinfoService.updateFlawinfo(flawinfo);
