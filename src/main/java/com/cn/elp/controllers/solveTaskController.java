@@ -150,7 +150,14 @@ public class solveTaskController {
     public String toAddSovleTaskPage(Model model) {
 
        model.addAttribute("flawtypeList",flawTypeDao.findAllFlawType());
-        solvetaskServices.FinfLastTask();
+       String maxTaskNo=solvetaskServices.FinfLastTask().getSolveTaskNo();
+        String nextTaskNo;
+       if(maxTaskNo==null){
+           nextTaskNo="ST_00001";
+       }else {
+           nextTaskNo ="ST_"+String.format("%05d", (Integer.parseInt(maxTaskNo.substring(3))+1));
+       }
+        model.addAttribute("nextTaskNo", nextTaskNo);
         return "addSolveTask";
     }
 
@@ -192,15 +199,13 @@ public class solveTaskController {
     }
 
 
-    @RequestMapping("/search")
-    public String Search(Solvetaskinfo solveTask, String createDate_from, String createDate_to, Model model) {
-        PageSurpport<Solvetaskinfo> ps = new PageSurpport<Solvetaskinfo>();
-        ps.setPageIndex(1);
-        ps.setTotalCount(solvetaskServices.countSolveTask());
-        ps.setPageSize(8);
-        List<Solvetaskinfo> solveTasks = solvetaskServices.searchSolveTask(solveTask.getSolveTaskNo(), solveTask.getSolveTaskName()
-                , solveTask.getCreatBy(), solveTask.getStatus(), createDate_from, createDate_to, 1);
-        model.addAttribute("search", solveTasks);
+    @RequestMapping("/saveSovleTask")
+    @ResponseBody
+    public String Search(Solvetaskinfo solveTask, String solveWorker, Model model) {
+
+
+
+
         return "AdminSolveTask";
     }
 
