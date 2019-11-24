@@ -5,7 +5,6 @@ import com.cn.elp.POJO.Report;
 import com.cn.elp.POJO.Review;
 import com.cn.elp.POJO.Solvetaskinfo;
 
-import java.util.Date;
 import java.util.List;
 
 public interface SolvetaskServices {
@@ -59,4 +58,12 @@ public interface SolvetaskServices {
      * @return
      */
     Report fingRoportByTaskNo(String taskNo);
+
+    /**
+     *
+     * @return
+     */
+    Solvetaskinfo FinfLastTask();
+
+
 }

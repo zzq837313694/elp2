@@ -18,7 +18,7 @@
           rel="stylesheet">
     <link rel="stylesheet" href="css/datepicker.css">
     <link rel="stylesheet" type="text/css" href="css/ShowPage.css"/>
-    <link type="text/css" href="css/sovleTaskmModal.css"  rel="stylesheet">
+    <link type="text/css" href="css/sovleTaskmModal.css" rel="stylesheet">
     <style>
         #van {
             padding: 20px;
@@ -42,6 +42,8 @@
     </style>
 </head>
 <body>
+
+
 <p id="van">
     <span>消缺任务管理</span>
     <span>&gt;&gt;&nbsp;</span>
@@ -54,13 +56,15 @@
             <div class="col-lg-4 col-sm-6 col-xs-12">
                 <div class="input-prepend input-group">
                     <span class="add-on input-group-addon">任务编号:</span>
-                    <input type="text" name="solveTaskNo" id="reservation1" class="form-control"th:value="${solveTask.solveTaskNo}">
+                    <input type="text" name="solveTaskNo" id="reservation1" class="form-control"
+                           th:value="${solveTask.solveTaskNo}">
                 </div>
             </div>
             <div class="col-lg-4 col-sm-6 col-xs-12 ">
                 <div class="input-prepend input-group">
                     <span class="add-on input-group-addon">任务名称:</span>
-                    <input type="text" name="solveTaskName" id="reservation2" class="form-control" th:value="${solveTask.solveTaskName}">
+                    <input type="text" name="solveTaskName" id="reservation2" class="form-control"
+                           th:value="${solveTask.solveTaskName}">
                 </div>
             </div>
             <div class="col-lg-4 col-sm-6 col-xs-12 ">
@@ -68,10 +72,10 @@
                     <span class="add-on input-group-addon">任务状态:</span>
                     <select name="status" class="form-control">
                         <option value="">-请选择-</option>
-                        <option value="待分配" th:selected="${solveTask.status=='待分配'}?true:false" >待分配</option>
-                        <option value="执行中" th:selected="${solveTask.status=='执行中'}?true:false" >执行中</option>
-                        <option value="已分配" th:selected="${solveTask.status=='已分配'}?true:false" >已分配</option>
-                        <option value="已完成" th:selected="${solveTask.status=='已完成'}?true:false" >已完成</option>
+                        <option value="待分配" th:selected="${solveTask.status=='待分配'}?true:false">待分配</option>
+                        <option value="执行中" th:selected="${solveTask.status=='执行中'}?true:false">执行中</option>
+                        <option value="已分配" th:selected="${solveTask.status=='已分配'}?true:false">已分配</option>
+                        <option value="已完成" th:selected="${solveTask.status=='已完成'}?true:false">已完成</option>
                     </select>
                 </div>
             </div>
@@ -141,7 +145,8 @@
                     <a th:href="'sovleTaskInfo.html?taskNo='+${task.solveTaskNo}" onclick="">查看</a>
                     <span>|</span>
                     <span th:if="${task.status}=='待分配'">
-                        <a data-toggle="modal" data-target="#SolveTaskModel"> 分配任务</a>
+                        <a data-toggle="modal" data-target="#SolveTaskModel" th:id="${task.solveTaskNo}"
+                           onclick="showModal(this)"> 分配任务</a>
                     </span>
                     <span th:if="${task.status}!='待分配'">
                             <span style="color: grey">已分配</span>
@@ -169,6 +174,8 @@
     </div>
 </div>
 <!------分页-------->
+
+
 <!--模态框-->
 <div class="modal fade" id="SolveTaskModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
     <div class="modal-dialog" role="document">
@@ -201,89 +208,6 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-
-    /*  $(function () {
-          getData()
-      })
-      function getData() {
-          $.post({
-              url: "getDate",
-              data: "nowPage=" + 1,
-              dataType: "json",
-              success: function (data) {
-                  $('tbody').text("")
-                  $(".zxf_pagediv").createPage({
-                      pageNum: data.pageCount,
-                      current: data.pageIndex,
-                      backfun: function (e) {
-                      }
-                  });
-
-                  $.each(data, function (k, item) {
-                      if (k == "dataList") {
-                          $.each(item, function (key, sovleTask) {
-                              var finishiworkerId = sovleTask.finishiworkerId == null ? "" : sovleTask.finishiworkerId;
-                              var solveTaskNo = sovleTask.solveTaskNo == null ? "" : sovleTask.solveTaskNo;
-                              var solveTaskNo = sovleTask.solveTaskNo == null ? "" : sovleTask.solveTaskNo;
-                              var solveTaskName = sovleTask.solveTaskName == null ? "" : sovleTask.solveTaskName;
-                              var createDate;
-                              if (sovleTask.createDate == null) {
-                                  createDate = " ";
-                              } else {
-                                  var date = new Date(sovleTask.createDate == null ? "" : sovleTask.createDate);
-                                  createDate = date.getFullYear() + "/" + eval(date.getMonth() + "+1") + "/" + date.getDate()
-                              }
-                              var createrName = sovleTask.createrName == null ? "" : sovleTask.createrName;
-                              var status = sovleTask.status == null ? "" : sovleTask.status;
-                              var statusStr;
-                              switch (status) {
-                                  case "待分配":
-                                      statusStr= "<td  style='color:orange'>" + status + "</td>";
-                                      break;
-                                  case "已分配":
-                                      statusStr= "<td  style='color:blue'>" + status + "</td>";
-                                      break;
-                                  case "执行中":
-                                      statusStr= "<td  style='color:purple'>" + status + "</td>";
-                                      break;
-                                  case "已完成":
-                                      statusStr= "<td  style='color:green'>" + status + "</td>";
-                                      break;
-                                  default:
-                                      statusStr= "<td >" + status + "</td>";
-                              }
-
-
-                              var trsTR = "<tr><td >" + solveTaskNo + "</td>" +
-                                  "<td>" + solveTaskName + "</td>" +
-                                  "<td>" + createrName + "</td>" +
-                                  "<td >" + createDate + "</td>" +statusStr+
-                                  "<td>" + finishiworkerId + "</td>" +
-                                  "<td>" +
-                                  "<a href=\"\">查看</a>" +
-                                  "                    <span>|</span>" +
-                                  "                    <a href=\"\">分配任务</a>" +
-                                  "                    <span>|</span>" +
-                                  "                    <a href=\"\">修改</a>" +
-                                  "                    <span>|</span>" +
-                                  "                    <a href=\"\">取消</a>" +
-                                  "                </td></tr>";
-
-                              $('tbody').append($(trsTR))
-                          })
-
-
-                      }
-                  });
-              },
-              error: function (e) {
-                  console.log(e.toString())
-              }
-          })
-      }*/
-
-</script>
 <!--时间选取-->
 <div class="c-datepicker-picker c-datepicker-date-range-picker c-datepicker-popper  has-sidebar" x-placement="top-start"
      style="top: 237.6px; left: 28px; display: none;">

@@ -35,6 +35,17 @@
             resize: none;
         }
 
+        .footerButton {
+            margin-left: 90%;
+            margin-bottom: 200px;
+        }
+
+        button {
+            position: relative;
+            left: -50px;
+        }
+
+
     </style>
 
 </head>
@@ -65,7 +76,7 @@
         </tr>
         <tr>
             <td>任务下发人</td>
-            <td> <span th:text="${taskInfo.createrName}"></span></td>
+            <td><span th:text="${taskInfo.createrName}"></span></td>
             <td>任务下发时间</td>
             <td><span th:text="${#dates.format(taskInfo.createDate,'yyyy-MM-dd')}"></span></td>
         </tr>
@@ -99,28 +110,30 @@
         <tr id="flawInfo">
             <td colspan="4" style="text-align: left">
 
-                   <table class="table table-striped table-bordered  no-footer " >
-                       <tr>
-                           <th>线路编号</th>
-                           <th>杆塔编号</th>
-                           <th>缺陷等级</th>
-                           <th>缺陷类型</th>
-                           <th>缺陷描述</th>
-                           <th>发现人</th>
-                           <th>发现时间</th>
-                       </tr>
-                       <tr th:if="${flawinfoList.size()==0}"><td colspan="7" style="text-align: center;color: red">暂无数据</td></tr>
-                       <tr th:each="flawinfo:${flawinfoList}">
-                           <td th:text="${flawinfo.circuitNo}"></td>
-                           <td th:text="${flawinfo.towerNo}"></td>
-                           <td th:text="${flawinfo.flawLv}"></td>
-                           <td th:text="${flawinfo.flawTypeId}"></td>
-                           <td th:text="${flawinfo.comment}"></td>
-                           <td th:text="${flawinfo.checkBy}"></td>
-                           <td th:text="${flawinfo.checkDate}"></td>
+                <table class="table table-striped table-bordered  no-footer ">
+                    <tr>
+                        <th>线路编号</th>
+                        <th>杆塔编号</th>
+                        <th>缺陷等级</th>
+                        <th>缺陷类型</th>
+                        <th>缺陷描述</th>
+                        <th>发现人</th>
+                        <th>发现时间</th>
+                    </tr>
+                    <tr th:if="${flawinfoList.size()==0}">
+                        <td colspan="7" style="text-align: center;color: red">暂无数据</td>
+                    </tr>
+                    <tr th:each="flawinfo:${flawinfoList}">
+                        <td th:text="${flawinfo.circuitNo}"></td>
+                        <td th:text="${flawinfo.towerNo}"></td>
+                        <td th:text="${flawinfo.flawLv}"></td>
+                        <td th:text="${flawinfo.flawTypeId}"></td>
+                        <td th:text="${flawinfo.comment}"></td>
+                        <td th:text="${flawinfo.checkBy}"></td>
+                        <td th:text="${flawinfo.checkDate}"></td>
 
-                       </tr>
-                   </table>
+                    </tr>
+                </table>
 
             </td>
         </tr>
@@ -128,28 +141,30 @@
             <td colspan="4" style="text-align: left">工作间断延期记载</td>
         </tr>
         <tr id="postpone">
-            <td colspan="4" style="text-align: left;font-weight: normal">
-                    <p th:if="${postPhones.size()>0}" th:each="postPhone:${postPhones}" >
-                        <span th:text="'延期原因：'+${postPhone.content}"></span>
-                        <span th:text="'负责人：'+${postPhone.manager}" style="padding: 2em"></span>
-                        <span th:text="'延期许可：'+${postPhone.comment}"  style="padding: 2em"></span>
-                    </p>
+            <td th:if="${postPhones.size()==0}" colspan="4" style="text-align: center;color: red">暂无数据</td>
+            <td th:if="${postPhones.size()>0}" colspan="4" style="text-align: left;font-weight: normal">
+                <p th:each="postPhone:${postPhones}">
+                    <span th:text="'延期原因：'+${postPhone.content}"></span>
+                    <span th:text="'负责人：'+${postPhone.manager}" style="padding: 2em"></span>
+                    <span th:text="'延期许可：'+${postPhone.comment}" style="padding: 2em"></span>
+                </p>
             </td>
         </tr>
         <tr>
             <td colspan="4" style="text-align: left">工作终结报告</td>
         </tr>
         <tr id="report">
-            <td colspan="4" style="text-align: left;font-weight: normal">
-                        <span th:text="'报告方式：'+${report.reportWay}"></span>
-                        <span th:text="'接收人：'+${report.receiveBy}" style="padding: 2em"></span>
-                        <span th:text="'报告时间：'+${report.reportDate}"  style="padding: 2em"></span>
+            <td th:if="${report}==null" colspan="4" style="text-align: center;color: red">暂无数据</td>
+            <td colspan="4" style="text-align: left;font-weight: normal" th:if="${report}!=null">
+                <span th:text="'报告方式：'+${report.reportWay}"></span>
+                <span th:text="'接收人：'+${report.receiveBy}" style="padding: 2em"></span>
+                <span th:text="'报告时间：'+${report.reportDate}" style="padding: 2em"></span>
             </td>
         </tr>
         </tbody>
     </table>
 </div>
-<div>
+<div class="footerButton">
     <button type="button" class="btn btn-primary"><a href="AdminSolveTask.html" style="color: white">返回</a></button>
 </div>
 </body>
