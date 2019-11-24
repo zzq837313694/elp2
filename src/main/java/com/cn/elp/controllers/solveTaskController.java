@@ -7,8 +7,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.cn.elp.POJO.*;
+import com.cn.elp.dao.FlawTypeDao;
 import com.cn.elp.dao.FlawinfoDao;
 import com.cn.elp.service.*;
+import com.cn.elp.util.FlawInfoCondition;
 import com.cn.elp.util.PageSurpport;
 
 import org.springframework.ui.Model;
@@ -32,6 +34,8 @@ public class solveTaskController {
     RoleServices roleServices;
     @Resource
     FlawinfoDao flawinfoDao;
+    @Resource
+    FlawTypeDao flawTypeDao;
 
 
     @RequestMapping("/AdminSolveTask.html")
@@ -144,10 +148,49 @@ public class solveTaskController {
     @RequestMapping("/addSolveTask.html")
     //添加消缺任务
     public String toAddSovleTaskPage(Model model) {
-       // flawinfoDao.findAllFlawInfo();
 
+       model.addAttribute("flawtypeList",flawTypeDao.findAllFlawType());
+        solvetaskServices.FinfLastTask();
         return "addSolveTask";
     }
+
+    @RequestMapping("/findFlaws")
+    @ResponseBody
+    /*缺陷信息表*/
+    public List<Flawinfo> findFlaws(FlawInfoCondition condition, Model model) {
+       List<Flawinfo> allFlaws=new ArrayList<>();
+       allFlaws=flawinfoDao.findFlawForSovle(condition);
+       List<Solvetaskinfo> allSovleTask=solvetaskServices.findAllSolveTask();
+       if (allSovleTask==null||allSovleTask.size()==0){
+           return allFlaws;
+       }
+        StringBuffer sovleflaw=new StringBuffer();
+        for(Solvetaskinfo task:allSovleTask){
+            sovleflaw.append(task.getFloawList());
+            sovleflaw.append(",");
+        }
+        if (sovleflaw==null||sovleflaw.length()==0){
+            return allFlaws;
+        }
+        String[] sovleflawArray=sovleflaw.toString().split(",");
+        if (sovleflawArray.length==0){
+            return allFlaws;
+        }
+        int i=0;
+        while(i<allFlaws.size()){
+            for (String flawNo:sovleflawArray){
+                if (allFlaws.get(i).getFlawNo().equals(flawNo)){
+                    allFlaws.remove(i);
+                    --i;
+                    break;
+                }
+            }
+            i++;
+        }
+
+        return allFlaws;
+    }
+
 
     @RequestMapping("/search")
     public String Search(Solvetaskinfo solveTask, String createDate_from, String createDate_to, Model model) {

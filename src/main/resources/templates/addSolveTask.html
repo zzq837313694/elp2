@@ -26,6 +26,13 @@
             margin: 5px;
         }
 
+        .item {
+            margin: 0px;
+            width: 46%;
+            position: relative;
+            display: inline-block;
+            padding: 0px 10px;
+        }
 
         textarea {
             resize: none;
@@ -39,6 +46,10 @@
             min-width: 490px;
         }
 
+        #flawListModal {
+            min-width: 500px;
+        }
+
         #flawTable {
             margin: 2px 10px;
             width: 95%;
@@ -50,7 +61,44 @@
 <script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
 <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}"></script>
 <script src="js/sovleTaskmModal.js"></script>
+<script>
+    function checkAllFlaw(obj)
+    {
+       $("input[class='flaw']").attr("checked",obj.checked);
+    }
 
+    function findFlaws(i) {
+        var requestdata;
+        if(i==1){
+            requestdata="checkJobNo="+$('input[name="checkJobNo"]').val()
+                +"&circuitNo="+$('input[name="circuitNo"]').val()
+                +"&flawTypeId="+$('select[name="flawTypeId"]').val()
+                +"&flawLv="+$('select[name="flawLv"]').val()
+                +"&startTime="+$('input[name="startTime"]').val()
+                +"&endTime="+$('input[name="endTime"]').val();
+        }
+        $.post({
+            url: "findFlaws",
+            data: requestdata,
+            dataType: "",
+            success: function (flaws) {
+                $("#flawTable tbody").text("");
+                $.each(flaws, function (index, flaw) {
+                    var flawTr = " <tr><td><input type=\"checkbox\" id=\'" + flaw.flawNo + "\' name=\'" + flaw.flawNo + "\' class=\'flaw\'>" +
+                        "                        </td>\n<td>" + flaw.flawNo + "</td>\n" +
+                        "                        <td>" + flaw.towerNo + "</td>\n" +
+                        "                        <td>" + flaw.flawLv + "</td>\n" +
+                        "                        <td>" + flaw.flawTypeId + "</td>\n" +
+                        "                        <td>" + flaw.comment + "</td>\n" +
+                        "                        <td>" + flaw.checkBy + "</td>\n" +
+                        "                        <td>" + flaw.checkDate + "</td></tr>";
+                    $("#flawTable tbody").append(flawTr);
+                });
+            }
+        })
+    }
+
+</script>
 <body>
 
 <p id="van">
@@ -129,13 +177,15 @@
                 <div class="input-prepend input-group">
                     <span class="add-on input-group-addon">消缺员：</span>
                     <textarea name="solveWorker" id="solveWorker" cols="110" rows="2" class="form-control"></textarea>
-                    <a id="" class="add-on input-group-addon" data-toggle="modal" data-target="#myModal" onclick="showModal(this)">
+                    <a id="" class="add-on input-group-addon" data-toggle="modal" data-target="#myModal"
+                       onclick="showModal(this)">
                         <span class=" glyphicon  glyphicon-eye-open " aria-hidden="true"></span>
                     </a>
                 </div>
                 <p>
                     缺 陷 列 表：
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#flawListModal">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#flawListModal"
+                            onclick="findFlaws(0)">
                         <span class="glyphicon glyphicon-plus" ria-hidden="true"></span>添加缺陷列表
                     </button>
                 </p>
@@ -159,8 +209,6 @@
         </div>
     </div>
 </form>
-
-
 <!--消缺员模态框-->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -205,65 +253,57 @@
                 </h4>
             </div>
             <div class="modal-body">
-                <form action="/flawLevel.html" method="post" id="test">
+                <form action="" method="post" id="test">
                     <div class="row">
-                        <div class="col-lg-9 col-sm-9 col-xs-9">
-                            <div class="col-lg-4 col-sm-6 col-xs-12">
-                                <div class="input-prepend input-group">
-                                    <span class="add-on input-group-addon">任务编号:</span>
-                                    <input type="text" name="checkJobNo" id="checkJobNo" class="form-control">
-                                </div>
+                        <div class="item">
+                            <div class="input-prepend input-group">
+                                <span class="add-on input-group-addon">任务编号:</span>
+                                <input type="text" name="checkJobNo" id="checkJobNo" class="form-control">
                             </div>
-                            <div class="col-lg-4 col-sm-6 col-xs-12">
-                                <div class="input-prepend input-group">
-                                    <span class="add-on input-group-addon">线路编号:</span>
-                                    <input type="text" name="circuitNo" id="circuitNo" class="form-control" >
-                                </div>
+                        </div>
+                        <div class="item">
+                            <div class="input-prepend input-group">
+                                <span class="add-on input-group-addon">线路编号:</span>
+                                <input type="text" name="circuitNo" id="circuitNo" class="form-control">
                             </div>
+                        </div>
+                        <div class="item">
+                            <div class="input-prepend input-group">
+                                <span class="add-on input-group-addon">缺陷类型:</span>
+                                <select name="flawTypeId" class="form-control">
+                                    <option value="">-请选择-</option>
+                                    <option th:each="type:${flawtypeList}" th:value="${type.flawTypeId}"  th:text="${type.flawName}" ></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="input-prepend input-group">
+                                <span class="add-on input-group-addon">缺陷级别:</span>
+                                <select name="flawLv" class="form-control">
+                                    <option value="">--请选择--</option>
+                                    <!-- <option value="一般" th:selected="${condition.flawLv=='一般'}?true:false">一般</option>
+                                     <option value="紧急" th:selected="${condition.flawLv=='紧急'}?true:false">紧急</option>
+                                     <option value="严重" th:selected="${condition.flawLv=='严重'}?true:false">严重</option>-->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="input-prepend input-group">
+                                <span class="add-on input-group-addon">发现时间:</span>
 
-                            <div class="col-lg-4 col-sm-6 col-xs-12">
-                                <div class="input-prepend input-group">
-                                    <span class="add-on input-group-addon">发现人:&nbsp;&nbsp;</span>
-                                    <input type="text" name="checkBy" id="checkBy" class="form-control">
+                                <div class="  J-datepicker-range-day  form-control date" style="width: 200px">
+                                    <input type="text" placeholder="开始日期" name="startTime"
+                                           class="c-datepicker-data-input only-date"
+                                           style="width: 77px">
+                                    <span class="c-datepicker-range-separator">-</span>
+                                    <input type="text" placeholder="结束日期" name="endTime"
+                                           class="c-datepicker-data-input only-date"
+                                           style="width: 77px">
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-sm-6 col-xs-12">
-                                <div class="input-prepend input-group">
-                                    <span class="add-on input-group-addon">缺陷类型:</span>
-                                    <select name="flawTypeId" class="form-control">
-                                        <option value="">-请选择-</option>
-                                        <option th:each="type:${flawtypeList}" th:value="${type.flawTypeId}" th:selected="${type.flawTypeId==condition.flawTypeId}?true:false" th:text="${type.flawName}" ></option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-6 col-xs-12">
-                                <div class="input-prepend input-group">
-                                    <span class="add-on input-group-addon">缺陷级别:</span>
-                                    <select name="flawLv"  class="form-control">
-                                        <option value="">--请选择--</option>
-                                        <option value="一般" th:selected="${condition.flawLv=='一般'}?true:false">一般</option>
-                                        <option value="紧急" th:selected="${condition.flawLv=='紧急'}?true:false">紧急</option>
-                                        <option value="严重" th:selected="${condition.flawLv=='严重'}?true:false">严重</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-6 col-xs-12">
-                                <div class="input-prepend input-group">
-                                    <span class="add-on input-group-addon">发现时间:</span>
-
-                                    <div class="  J-datepicker-range-day  form-control date" style="width: 200px">
-                                        <input type="text" placeholder="开始日期" name="startTime" class="c-datepicker-data-input only-date"
-                                               style="width: 77px" th:value="${#dates.format(condition.startTime,'yyyy-MM-dd')}">
-                                        <span class="c-datepicker-range-separator">-</span>
-                                        <input type="text" placeholder="结束日期" name="endTime" class="c-datepicker-data-input only-date"
-                                               style="width: 77px" th:value="${#dates.format(condition.endTime,'yyyy-MM-dd')}">
-                                    </div>
-                                </div>
-                            </div>
-                            <input type="hidden" id="pageIndex" name="pageIndex" value="1">
-                            <div class="col-lg-4 col-sm-6 col-xs-12">
-                                <button type="submit" class="btn btn-primary">查询</button>
-                            </div>
+                        </div>
+                        <div class="item" style="float: right; padding-left: 70px">
+                            <button type="button" class="btn btn-primary" onclick="findFlaws(1)">查询</button>
                         </div>
                     </div>
                 </form>
@@ -272,7 +312,7 @@
                        style="text-align: center">
                     <thead>
                     <tr role="row">
-                        <th><input type="checkbox"></th>
+                        <th><input type="checkbox" onclick="checkAllFlaw(this)" ></th>
                         <th>线路编号</th>
                         <th>塔杆编号</th>
                         <th>缺陷等级</th>
@@ -290,7 +330,6 @@
             </div>
         </div>
     </div>
-</div>
 </div>
 </body>
 </html>

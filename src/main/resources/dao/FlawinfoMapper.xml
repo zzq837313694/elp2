@@ -72,4 +72,12 @@
             and flawLV=#{flawLV}
         </if>
     </select>
+    <select id="findFlawForSovle" resultType="com.cn.elp.POJO.Flawinfo">
+        select * from flawinfo
+         <where>
+            <include refid="flawinfoQuery"></include>
+            and  intcatRate!=100.0;
+         </where>
+
+    </select>
 </mapper>

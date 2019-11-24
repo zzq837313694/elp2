@@ -87,5 +87,10 @@ public class SolvetaskServicesImpl implements SolvetaskServices {
         return reportDao.findReportByTaskNo(taskNo);
     }
 
+    @Override
+    public Solvetaskinfo FinfLastTask() {
+        return solveTaskInfoDao.findLastTask();
+    }
+
 
 }
