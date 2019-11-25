@@ -119,6 +119,7 @@ public class checktaskController {
     @RequestMapping("/doaddChecktask.html")
     public  String addChecktask(Checktaskinfo checktaskinfo){
         checktaskinfo.setCreateDate(new Date());
+
         int rel=checktaskService.addChecktaskinfo(checktaskinfo);
         System.out.println(rel);
         return "checktaskPlan";

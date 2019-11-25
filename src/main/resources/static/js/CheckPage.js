@@ -84,7 +84,14 @@ function submint() {
                     "<td>"+trsTR+"</td></tr>";
             });
             $("#app").html(options);
+            $(".zxf_pagediv").createPage({
+                pageNum:$("#pageCount").val(),
+                current:1,
+                backfun: function(e) {
+                }
+            });
         }
+
     });
     return false; //不刷新页面
 }
@@ -125,12 +132,6 @@ $(function () {
         var cur = parseInt($("input.zxfinput").val());
         if(cur>$("#pageCount").val()){return;}
         submint();
-    });
-    $(".zxf_pagediv").createPage({
-        pageNum:$("#pageCount").val(),
-        current:1,
-        backfun: function(e) {
-        }
     });
 })
 (function($){
