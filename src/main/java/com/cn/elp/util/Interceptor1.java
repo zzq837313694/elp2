@@ -1,3 +1,4 @@
+/*
 package com.cn.elp.util;
 
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -32,3 +33,4 @@ public class Interceptor1 implements HandlerInterceptor {
 
     }
 }
+*/
