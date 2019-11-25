@@ -84,7 +84,14 @@ function submint() {
                     "<td>"+trsTR+"</td></tr>";
             });
             $("#app").html(options);
+            $(".zxf_pagediv").createPage({
+                pageNum:$("#pageCount").val(),
+                current:1,
+                backfun: function(e) {
+                }
+            });
         }
+
     });
     return false; //不刷新页面
 }
@@ -126,13 +133,27 @@ $(function () {
         if(cur>$("#pageCount").val()){return;}
         submint();
     });
-    $(".zxf_pagediv").createPage({
-        pageNum:$("#pageCount").val(),
-        current:1,
-        backfun: function(e) {
+})
+function sovleWorkerBackData(obj) {
+    var worker="";
+    var jobId=$("#modelLeft").val();
+    $("#modelRight li").each(function () {
+
+        worker+= $(this).attr("cl");
+        worker+=","
+    })
+    $.ajax({
+        type: "POST",
+        url: "/allocatingtask.html",
+        contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+        data: {'worker':worker,"jobId":jobId},
+        dataType: "json",
+        success: function(data){
+           submint();
         }
     });
-})
+}
+
 (function($){
     var zp = {
         init:function(obj,pageinit){
