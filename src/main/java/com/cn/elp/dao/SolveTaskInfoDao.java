@@ -43,5 +43,14 @@ public interface SolveTaskInfoDao {
          */
         Solvetaskinfo findLastTask();
 
+        /**
+         * 添加
+         * @param solvetaskinfo
+         * @return
+         */
         int addSolveTaskInfo(Solvetaskinfo solvetaskinfo);
+
+
+
+        int updateTaskInfoByWorker(@Param("taskNo") String taskNo,@Param("workerIds")String workerIds);
 }

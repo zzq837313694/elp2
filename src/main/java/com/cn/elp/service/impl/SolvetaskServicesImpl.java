@@ -97,5 +97,10 @@ public class SolvetaskServicesImpl implements SolvetaskServices {
         return solveTaskInfoDao.addSolveTaskInfo(solvetaskinfo);
     }
 
+    @Override
+    public int updateTaskinfoByWorker(String taskNo, String workerIds) {
+        return solveTaskInfoDao.updateTaskInfoByWorker(taskNo,workerIds);
+    }
+
 
 }
