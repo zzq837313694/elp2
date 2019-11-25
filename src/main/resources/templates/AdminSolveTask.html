@@ -13,9 +13,13 @@
     <script src="js/date.js"></script>
     <script src="js/ShowPage.js"></script>
     <script src="js/sovleTaskmModal.js"></script>
+    <script src="js/dailog/zepto.js"></script>
+    <script src="js/dailog/dialog.js"></script>
+
 
     <link type="text/css" href="webjars/bootstrap" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}"
           rel="stylesheet">
+    <link rel="stylesheet" href="css/dialog/dialog.css">
     <link rel="stylesheet" href="css/datepicker.css">
     <link rel="stylesheet" type="text/css" href="css/ShowPage.css"/>
     <link type="text/css" href="css/sovleTaskmModal.css" rel="stylesheet">
@@ -42,8 +46,6 @@
     </style>
 </head>
 <body>
-
-
 <p id="van">
     <span>消缺任务管理</span>
     <span>&gt;&gt;&nbsp;</span>
@@ -159,7 +161,7 @@
                         </span>
                     <span>|</span>
                     <span th:if="${task.status}=='待分配'">
-                            <a href="">取消</a>
+                            <a href="deleteSovleTask(this)">取消</a>
                         </span>
                     <span th:if="${task.status}!='待分配'">
                             <span style="color: grey">取消</span>
@@ -179,8 +181,6 @@
 
     </div>
 </div>
-</body>
-
 <!--模态框-->
 <div class="modal fade" id="SolveTaskModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
     <div class="modal-dialog" role="document">
@@ -209,7 +209,8 @@
                     <!--右边-->
                     <div id="modelRight"></div>
                     <div class="modalFooter">
-                        <button type="button" class="btn btn-primary " onclick=""  data-dismiss="modal"  aria-label="Close">确认
+                        <button type="button" class="btn btn-primary " onclick="assignTask(this)" data-dismiss="modal"
+                                aria-label="Close">确认
                         </button>
                     </div>
                 </div>
@@ -593,4 +594,33 @@
 </div>
 <!--时间选取end-->
 </body>
+<script>
+    function assignTask(obj) {
+        var TaskNo = $(obj).attr('name');
+        var requestData = "";
+        $("#modelRight li").each(function (index, item) {
+            requestData = requestData + "," + item.innerText.split("--")[0];
+        });
+
+        $.post({
+            url: "/upsetSovleTaskFinishWorker",
+            data: "taskNo="+TaskNo+"&worker="+requestData,
+            success: function (data) {
+                popup({
+                    type: 'success', msg: "操作成功", delay: 1000, callBack: function () {
+                    }
+                });
+                document.location.href = "/AdminSolveTask.html"
+            }
+        })
+
+    }
+
+    function deleteSovleTask(obj) {
+            $.post({
+
+            });
+
+    }
+</script>
 </html>

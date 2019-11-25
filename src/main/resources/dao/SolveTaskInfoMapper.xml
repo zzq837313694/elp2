@@ -51,4 +51,7 @@
         #{finishiworkerId},#{documents},#{describe},#{comment});
     </insert>
 
+    <update id="updateTaskInfoByWorker" parameterType="String">
+        update solvetaskinfo set finishiworkerId = #{workerIds},status='已分配' where solveTaskNo = #{taskNo};
+    </update>
 </mapper>
