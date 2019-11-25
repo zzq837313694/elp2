@@ -301,21 +301,6 @@
         document.getElementById("modifyRoleForm").reset();
     });
 
-
-    /*function save(obj) {
-        var flawNo = $(obj).attr("flawNo");
-        var modifyLv=$("#modifyLv"+flawNo).val();
-
-        var data="flawNo="+flawNo+"&flawLv="+modifyLv;
-        $.get("updateFlawLv.html",data,function(relData){
-            if(relData>0){
-                alert("修改成功！")
-                window.location.reload();
-            }else {
-                alert("缺陷级别未确认！")
-            }
-        });
-    }*/
     $(".zxf_pagediv").createPage({
         pageNum: $("#pageCount").val(),
         current: $("#returnpageIndex").val(),

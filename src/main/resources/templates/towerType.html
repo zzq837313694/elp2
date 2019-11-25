@@ -83,13 +83,13 @@
                         <table style="margin: auto">
                             <tr>
                                 <td>杆塔编号：</td>
-                                <td><input type="text" name="towerNo" id="addtowerNo">
+                                <td STYLE="padding: 10px"><input type="text" name="towerNo" id="addtowerNo">
                                 <span style="color: red" id="addtowerNo1"></span>
                                 </td>
                             </tr>
                             <tr>
                                 <td>所属线路</td>
-                                <td>
+                                <td STYLE="padding: 10px">
                                     <select name="circuitNo" id="addcircuitNo">
                                         <option value="">-请选择-</option>
                                         <option th:each="c:${circuitList}" th:value="${c.circuitNo}" th:text="${c.circuitName}">西渭线</option>
@@ -99,7 +99,7 @@
                             </tr>
                             <tr>
                                 <td>启用状态：</td>
-                                <td><input type="radio" value="启用" name="status" checked="checked">启用
+                                <td STYLE="padding: 10px"><input type="radio" value="启用" name="status" checked="checked">启用
                                     <input type="radio" value="不启用" name="status">不启用</td>
                             </tr>
                         </table>
