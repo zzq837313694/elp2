@@ -233,4 +233,14 @@ public class checktaskController {
 
         return workers;
     }
+
+    @RequestMapping("/allocatingtask.html")
+    @ResponseBody
+    public int allocatingtask(String worker,String jobId){
+    Checktaskinfo checktaskinfo=checktaskService.SelectChecktaskById(jobId);
+    checktaskinfo.setStatus("已分配");
+    checktaskinfo.setCheckBy(worker);
+    int rel=checktaskService.updateCheck(checktaskinfo);
+        return rel;
+    }
 }

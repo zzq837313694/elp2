@@ -134,6 +134,26 @@ $(function () {
         submint();
     });
 })
+function sovleWorkerBackData(obj) {
+    var worker="";
+    var jobId=$("#modelLeft").val();
+    $("#modelRight li").each(function () {
+
+        worker+= $(this).attr("cl");
+        worker+=","
+    })
+    $.ajax({
+        type: "POST",
+        url: "/allocatingtask.html",
+        contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+        data: {'worker':worker,"jobId":jobId},
+        dataType: "json",
+        success: function(data){
+           submint();
+        }
+    });
+}
+
 (function($){
     var zp = {
         init:function(obj,pageinit){
