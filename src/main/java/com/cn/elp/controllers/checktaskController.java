@@ -74,7 +74,22 @@ public class checktaskController {
 
     @RequestMapping("/showChecktask.html")
     public String showChecktask(String jobId, Model model) {
-        model.addAttribute("Checktask", checktaskService.SelectChecktaskById(jobId));
+        Checktaskinfo checktaskinfo= checktaskService.SelectChecktaskById(jobId);
+        String c=checktaskinfo.getCheckBy();
+        String worker="";
+        if(c.isEmpty()){
+
+        }else{
+            String []arr=c.split(",");
+            for (String arrr :arr){
+                worker+=workerinfoService.findAllWorker(arrr).getUserName()+",";
+            }
+        }
+
+
+        model.addAttribute("worker",worker);
+        model.addAttribute("Checktask",checktaskinfo );
+
         return "showChecktask";
     }
 
