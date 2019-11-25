@@ -1,9 +1,6 @@
 package com.cn.elp.controllers;
 
-import com.cn.elp.POJO.Checktaskinfo;
-import com.cn.elp.POJO.Circuit;
-import com.cn.elp.POJO.Flawinfo;
-import com.cn.elp.POJO.Towerinfo;
+import com.cn.elp.POJO.*;
 import com.cn.elp.service.*;
 import com.cn.elp.util.ChecktaskCondition;
 import com.cn.elp.util.FlawCheck;
@@ -15,10 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class checktaskController {
@@ -34,12 +28,13 @@ public class checktaskController {
     FlawTypeService flawTypeService;
     @Resource
     WorkerinfoService workerinfoService;
+    @Resource
+    RoleServices roleServices;
 
     @RequestMapping("/getchecktaskListNot.html")
     @ResponseBody
     public PageSurpport<ChecktaskCondition> getchecktaskListNot(ChecktaskCondition checktaskCondition) {
         PageSurpport<ChecktaskCondition> pageSurpport = checktaskService.SelectChecktaskByParamNot(checktaskCondition);
-        //model.addAttribute("pageSurpport",pageSurpport);
         return pageSurpport;
     }
 
@@ -47,7 +42,6 @@ public class checktaskController {
     @ResponseBody
     public PageSurpport<ChecktaskCondition> getchecktaskList(ChecktaskCondition checktaskCondition, Model model) {
         PageSurpport<ChecktaskCondition> pageSurpport = checktaskService.SelectChecktaskByParam(checktaskCondition);
-        //model.addAttribute("pageSurpport",pageSurpport);
         return pageSurpport;
     }
 
@@ -84,16 +78,6 @@ public class checktaskController {
         return "showChecktask";
     }
 
-    /*@RequestMapping("/getTowerinfoList.html")
-    @ResponseBody
-    public PageSurpport<Towerinfo> getTowerinfoList(String circuitNo ,@RequestParam(defaultValue = "1") int pageIndex){
-        PageSurpport<Towerinfo> pageSurpport=new PageSurpport<>();
-        pageSurpport.setPageSize(1);
-        pageSurpport.setPageIndex(pageIndex);
-        pageSurpport.setDataList(towerinfoService.findTowerListByCircuitNoPaging(circuitNo,pageIndex,1));
-        pageSurpport.setTotalCount(towerinfoService.findTowerListByCircuitNoPagingCount(circuitNo));
-        return pageSurpport;
-    }*/
     @RequestMapping("/getFlawinfoList.html")
     @ResponseBody
     public PageSurpport<Flawinfo> getFlawinfoList(String circuitNo, String jobId, @RequestParam(defaultValue = "1") int pageIndex, String flawLV) {
@@ -114,7 +98,6 @@ public class checktaskController {
         map.put("workList", workerinfoService.findAllWorkers());
         return map;
     }
-
     @RequestMapping("/flawinfoCheck.html")
     public String flawinfoCheck() {
         return "flawinfoCheck";
@@ -168,5 +151,85 @@ public class checktaskController {
         map.put("ps",pageSurpport);
         map.put("fs",checktaskService.findFlawInfoBycheckJobNo(jobId));
         return map;
+    }
+    @RequestMapping("/addFlawinfo.html")
+    @ResponseBody
+    public int addFlawinfo(Flawinfo flawinfo,int  intcatRates){
+        double d=intcatRates;
+        flawinfo.setIntcatRate(d);
+        flawinfo.setCheckDate(new Date());
+        int rel=flawinfoService.addFlawinfo(flawinfo);
+        return rel;
+    }
+    @RequestMapping("/update.html")
+    @ResponseBody
+    public int upFlawinfo(Flawinfo flawinfo,Integer  intcatRates){
+        double d=intcatRates;
+        flawinfo.setIntcatRate(d);
+        int rel=flawinfoService.updateFlawinfo(flawinfo);
+        return rel;
+    }
+    @RequestMapping("/cancel.html")
+    public String cancel(String jobId){
+        Checktaskinfo checktaskinfo=checktaskService.SelectChecktaskById(jobId);
+        checktaskinfo.setAbolish("是");
+        checktaskService.updateCheck(checktaskinfo);
+        return "checktaskPlan";
+    }
+    @RequestMapping("/changeStuts.html")
+    public String changeStuts(String jobId,String status){
+
+        Checktaskinfo checktaskinfo=checktaskService.SelectChecktaskById(jobId);
+        checktaskinfo.setStatus(status);
+        int rel=checktaskService.updateCheck(checktaskinfo);
+        System.out.println(rel);
+        if("执行中".equals(status)||"已完成".equals(status)){
+            return "checktaskBack";
+        }else{
+            return "checktaskPlan";
+        }
+
+    }
+
+
+    @RequestMapping("/chooseCheckWorker")
+    @ResponseBody
+    /*选择消缺员*/
+    public Map<String, Workerinfo> chooseSolveWorker(String taskNo, Model model) {
+        Map workers = new HashMap();
+        List<Workerinfo> leftWorker = workerinfoService.findAllWorkers();
+        int roleId = roleServices.findRoleByRoleName("巡检员").getRoleId();
+        int no = 0;
+        while (no < leftWorker.size()) {
+            if (leftWorker.get(no).getRoleId() != roleId || !"启用".equals(leftWorker.get(no).getStatus())) {
+                leftWorker.remove(no);
+                continue;
+            }
+            no++;
+        }
+        List<Workerinfo> rightWorker = new ArrayList<>();
+        if (taskNo == null || "".equals(taskNo)) {
+            workers.put("leftWorker", leftWorker);
+            workers.put("rightWorker", rightWorker);
+            return workers;
+        }
+        /*String nowWorker = solvetaskServices.findSolveTaskByTaskNo(taskNo).getFinishiworkerId();*/
+        String nowWorker = checktaskService.SelectChecktaskById(taskNo).getCheckBy();
+        if (nowWorker == null || nowWorker.length() == 0) {
+            workers.put("leftWorker", leftWorker);
+            workers.put("rightWorker", rightWorker);
+        } else {
+            String[] workerArray = nowWorker.split(",");
+            for (int i = 0; i < workerArray.length; i++) {
+                rightWorker.add(workerinfoService.findAllWorker(workerArray[i]));
+            }
+            for (Workerinfo worker : leftWorker) {
+                rightWorker.remove(worker);
+            }
+            workers.put("leftWorker", leftWorker);
+            workers.put("rightWorker", rightWorker);
+        }
+
+        return workers;
     }
 }

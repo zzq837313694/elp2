@@ -16,3 +16,22 @@ function removepeople(){
     $('#modelLeft').append(leftLi)
 }
 
+function showModal(obj) {
+    /*模态框显示*/
+        $.post({
+            url: "/chooseSolveWorker",
+            data: "taskNo=" + $(obj).attr("id"),
+            dataType: "json",
+            success: function (workMap) {
+                $('#modelLeft li,#modelRight li').remove();
+                $.each(workMap.leftWorker, function (index, worker) {
+                    var workerLi = "<li onclick=\"isCheack(this)\">"+worker.userNo+"--"+worker.userName+"</li>"
+                    $('#modelLeft').append(workerLi)
+                })
+                $.each(workMap.rightWorker, function (index, worker) {
+                    var workerLi = "<li onclick=\"isCheack(this)\">"+worker.userNo+"--"+worker.userName+"</li>"
+                    $('#modelLeft').append(workerLi)
+                })
+            }
+        });
+}

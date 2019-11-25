@@ -48,6 +48,15 @@ public interface FlawinfoDao {
 
     int findFlawInfoBycheckJobNoPagingCount(@Param("checkJobNo")String checkJobNo,@Param("circuitNo")String circuitNo,@Param("flawLV")String flawLV);
 
+    /**
+     * 消缺页面查找缺陷
+     * @return
+     */
+    List<Flawinfo> findFlawForSovle(@Param("condition") FlawInfoCondition condition);
+
 
     List<Flawinfo> findFlawInfoBycheckJobNo(String checkJobNo);
+
+    int addFlawinfo(Flawinfo flawinfo);
+    int updateFlawinfo(Flawinfo flawinfo);
 }

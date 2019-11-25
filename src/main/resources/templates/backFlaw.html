@@ -1,16 +1,21 @@
-<!DOCTYPE html >
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
 <html lang="en">
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>巡检任务回执录入</title>
-</head>
-<link type="text/css" href="webjars/bootstrap" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}"
-      rel="stylesheet">
-<script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
-<script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}"></script>
+    <title>巡检回执录入</title>
+    <link type="text/css" href="webjars/bootstrap" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}"
+          rel="stylesheet">
+
+    <!--//<script src="js/jquery.form.js" type="text/javascript"></script>-->
+    <link rel="stylesheet" type="text/css" href="css/ShowPage.css"/>
+    <script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
+    <script th:src="@{/webjars/bootstrap3.3.7/js/bootstrap.js}"></script>
+    <script src="js/jsform.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="css/datepicker.css">
+    <script src="js/moment.js"></script>
+    <script src="js/datepicker.js"></script>
+    <script src="js/date.js"></script>
 <style type="text/css">
     #wrap{
         height: 400px;
@@ -51,44 +56,47 @@
                 <input type="hidden" th:value="${Checktask.circuitNo}" id="circuitNo" >
                 <input type="hidden" th:value="${Checktask.jobId}" id="jobId" >
             </div>
-            <div class="fc-button-group">
-                <select name="flawTypeId" id="se1" class="form-control" style="display:inline-block;width: 80px ">
-                    <option value="" style="color:black">全部</option>
-                    <option value="一般" style="color: green">一般</option>
-                    <option value="紧急" style="color: orange">紧急</option>
-                    <option value="严重" style="color: red">严重</option>
-                </select>
                 <button type="button" class="fc-prev-button fc-button fc-state-default fc-corner-left" id="last"><span
                         class="fc-icon fc-icon-left-single-arrow"><</span></button>
                 <button type="button" class="fc-next-button fc-button fc-state-default fc-corner-right" id="next"><span
                         class="fc-icon fc-icon-right-single-arrow"> > </span></button>
-            </div>
+
             <input type="hidden" id="pageIndex" value="1">
             <ol style="list-style: none;font-size: large;text-indent: 2em" id="towerls">
 
             </ol>
         </div>
         <button  class="btn btn-primary" onclick="javascript:history.back(-1);">返回</button>
-        <button  class="btn btn-primary" id="up">上传回执</button>
-        <input type="hidden" class="btn btn-primary"  id="update" value="修改"></input>
-        <input type="hidden" class="btn btn-primary"  id="save" value="保存"></input>
+        <form action="/changeStuts.html">
+            <input hidden th:value="${Checktask.jobId}" name="jobId">
+            <input hidden value="已完成" name="status">
+
+            <button  type="submit" class="btn btn-primary" id="up">上传回执</button>
+        </form>
+
+
     </div>
+
     <div class="rightpart">
-        <form method="post" action="addCircuit.html" id="mycircuitAdd">
+        <form id="addFlawinfo">
             <div class="row" style="width: 500px;">
                 <div  class="col-lg-9 col-sm-9 col-xs-9 col-lg-push-2" >
                     <div class="col-lg-6 col-sm-12 col-xs-12">
                         <div class="input-prepend input-group">
+                            <input type="hidden" name="checkJobNo" th:value="${Checktask.jobId}">
                             <span class="add-on input-group-addon">线路编号：</span>
-                            <input type="text" disabled="disabled" name="circuitNo" id="circuitNo" class="form-control" th:value="${Checktask.circuitNo}">
+                            <input type="text" disabled="disabled"  class="form-control" th:value="${Checktask.circuitNo}">
+                            <input type="hidden" name="circuitNo"  class="form-control" th:value="${Checktask.circuitNo}">
                             <span style="color: red" id="addCircuitNoSpan"></span>
                         </div>
                     </div>
                     <div class="col-lg-6 col-sm-12 col-xs-12 ">
                         <div class="input-prepend input-group">
+                            <input type="hidden" name="flawNo" id="flawNo" value="">
                             <span class="add-on input-group-addon">塔杆编号：</span>
-                            <input type="text" name="circuitName" id="circuitName" class="form-control" value="">
-                            <span style="color: red" id="addCircuitNameSpan"></span>
+                            <input type="text" name="towerNo" id="towerNo" disabled="disabled" class="form-control" value="">
+                            <input type="hidden" name="towerNo"class="form-control" value="">
+                            <span style="color: red" id=""></span>
                         </div>
                     </div>
                     <div class="col-lg-6 col-sm-12 col-xs-12 ">
@@ -105,6 +113,7 @@
                             <span class="add-on input-group-addon">缺陷级别:</span>
                             <select name="flawLv"  class="form-control" id="flawLv">
                                 <option value="">-请选择-</option>
+                                <option value="无缺陷">无缺陷</option>
                                 <option value="一般">一般</option>
                                 <option value="严重">严重</option>
                                 <option value="紧急">紧急</option>
@@ -114,35 +123,38 @@
                     <div class="col-lg-6 col-sm-12 col-xs-12 " style="width: 250px">
                         <div class="input-prepend input-group">
                             <span class="add-on input-group-addon">完好率：</span>
-                            <input type="text" name="circuitName" id="circuitName" class="form-control" value="" style="width:100px; height:40px"><span>%</span>
+                            <input type="text" name="intcatRates" id="intcatRate" class="form-control" value="" style="width:100px; height:40px"><span>%</span>
                             <span style="color: red" id="addCircuitNameSpan"></span>
                         </div>
                     </div>
                     <div class="col-lg-6 col-sm-12 col-xs-12">
                         <div class="input-prepend input-group">
-                            <span class="add-on input-group-addon">下发人：</span>
-                            <input hidden="hidden"   name="createBy" th:value="${session.worker.getUserNo()}">
-                            <input  class="form-control" disabled="disabled"
+                            <span class="add-on input-group-addon">巡检员：</span>
+                            <input hidden="hidden" name="checkBy" th:value="${session.worker.getUserNo()}">
+                            <input  class="form-control" disabled="disabled" id="checkBy"
                                     th:value="${session.worker.getUserName()}">
                         </div>
                     </div>
                     <div class="col-lg-6 col-sm-12 col-xs-12">
                         <div class="input-prepend input-group">
-                            <span class="add-on input-group-addon">下发日期：</span>
-                            <input type="text" class="form-control" disabled="disabled"
+                            <span class="add-on input-group-addon">巡检日期：</span>
+                            <input type="text" class="form-control" disabled="disabled" id="checkDate"
                                    th:value="${#dates.format(#dates.createNow(),'yyyy-MM-dd')}">
                         </div>
                     </div>
                     <div class="col-lg-12 col-sm-12 col-xs-12 ">
                         <div class="input-prepend input-group">
                             <span class="add-on input-group-addon">备注：</span>
-                            <textarea name="comment" cols="66"rows="5" class="form-control"></textarea>
+                            <textarea name="comment" cols="66"rows="5" class="form-control" id="comment"></textarea>
                         </div>
                     </div>
                 </div>
+                <input type="hidden" class="btn btn-primary"  id="update" value="修改"></input>
+                <input type="hidden" class="btn btn-primary"  id="save" value="保存"></input>
             </div>
         </form>
     </div>
+</div>
 </div>
 </body>
 <script type="text/javascript">
@@ -160,18 +172,18 @@
             $.each(data.ps.dataList,function (i,obj) {
                 var color="";
                 var cla="0";
+                var flawNo="";
                 if(obj!=null){
                     $.each(data.fs,function (i,obj2) {
-                         color="";
                         if (obj2!=null){
                             if(obj2.towerNo==obj.towerNo){
-                                color="red";
-                                cla="1"
+                                color="#FF8888";
+                                cla="1";
+                                flawNo=obj2.flawNo;
                             }
                         }
-
                     })
-                    str+="<li a='"+cla+"' style='color:"+color+";background-color:#fffaf0' class='towerNoList' id='"+obj.towerNo+"'>"+obj.towerNo+"</li>"
+                    str+="<li flawNo='"+flawNo+"' a='"+cla+"' style='color:"+color+";background-color:#FFFFFF' class='towerNoList' id='"+obj.towerNo+"'>"+obj.towerNo+"</li>"
                 }
             })
             $("#towerls").html(str);
@@ -188,23 +200,7 @@
             }
         },"json");
     }
-    /*function f() {
-        var index=$("#pageIndex").val();
-        var circuitNo=$("#circuitNo").val();
-        var dat="pageIndex="+index+"&circuitNo="+circuitNo+"&"
-        $.get("getTowerinfoList.html",dat,function (data) {
-            var str="";
-            $.each(data,function (i,obj) {
-                str+="<li ></li>"
-            })
-            $("#getCir").html(str);
-        },"html");
-    }*/
-    $("#se1").change(function() {
-        var selectedColor = $(this).children("option:selected").css("color");  // 取出所选中的option的颜色
-        $(this).css("color", selectedColor);  // 将上述颜色赋给select
-        f();
-    });
+
     $("#next").click(function () {
         var index=$("#pageIndex").val();
         $("#pageIndex").val(eval(index+"+"+"1"));
@@ -216,20 +212,62 @@
         $("#pageIndex").val(eval(index+"-"+"1"));
         f();
     })
+
+
     $(document).on("click",".towerNoList",(function () {
-        $(".towerNoList").css("background-color","#fffaf0");
-        $(this).css("background-color","#1A5380");
+        $(".towerNoList").css("background-color","#FFFFFF");
+        $(this).css("background-color","#C4C4C4");
+        if($(this).attr("flawNo")!=""){
+            getFlawinfo($(this).attr("flawNo"));
+        }else {
+            $("#intcatRate").val(100);
+            $("#flawLv option[value='']").prop("selected","selected");
+            $("#flawTypeId option[value=0]").prop("selected","selected");
+            $("#comment").val('');
+            $("#checkDate").val((new Date()).Format("yyyy-MM-dd"));
+        }
         var c=$(this).attr("a");
         if(c=="1"){
-            $("#update").attr("type","butten");
+            $("#update").attr("type","submit");
             $("#save").attr("type","hidden");
-
         }else{
-            $("#save").attr("type","butten");
+            $("#save").attr("type","submit");
             $("#update").attr("type","hidden");
-            $("#")
         }
-        var flawNo=$(this).attr("id");
+        $("[name='towerNo']").val($(this).text());
+    }))
+
+    $(function () {
+        $.post("getflawTypeList.html",function (data) {
+            var str="<option value='0'>"+"-请选择-"+"</option>";
+            $.each(data,function (i,obj) {
+                str+="<option value='"+obj.flawTypeId+"'>"+obj.flawName+"</option>"
+            })
+            $("#flawTypeId").html(str);
+        },"json")
+    })
+
+    $("#save").click(function () {
+        submitt();
+        $("#save").attr("type","hidden");
+        $("#intcatRate").val(100);
+        $("#flawLv option[value='']").prop("selected","selected");
+        $("#flawTypeId option[value=0]").prop("selected","selected");
+        $("#comment").val('');
+        $("#checkDate").val((new Date()).Format("yyyy-MM-dd"));
+        return false;
+    });
+    $("#update").click(function () {
+        update();
+        $("#update").attr("type","hidden");
+        $("#intcatRate").val(100);
+        $("#flawLv option[value='']").prop("selected","selected");
+        $("#flawTypeId option[value=0]").prop("selected","selected");
+        $("#comment").val('');
+        $("#checkDate").val((new Date()).Format("yyyy-MM-dd"));
+        return false;
+    });
+    function getFlawinfo(flawNo) {
         $.get("getFlawinfo.html","flawNo="+flawNo,function (data) {
             var flawName=""
             var checkBy=""
@@ -243,25 +281,54 @@
                     flawName=obj.flawName;
                 }
             })
-            $("#cirNo").text(data.flawInfo.circuitNo);
-            $("#towerNo").text(data.flawInfo.towerNo);
-            $("#intcatRate").text(data.flawInfo.intcatRate*100+"%");
-            $("#flawName").text(flawName);
-            $("#flawLv").text(data.flawInfo.flawLv);
-            $("#comment").text(data.flawInfo.comment);
-            $("#checkBy").text(checkBy);
-            $("#checkDate").text(data.flawInfo.checkDate);
+            $("#flawNo").val(data.flawInfo.flawNo)
+            $("#intcatRate").val(data.flawInfo.intcatRate);
+            $("#flawLv option[value="+data.flawInfo.flawLv+"]").prop("selected","selected");
+            $("#flawTypeId option[value="+data.flawInfo.flawTypeId+"]").prop("selected","selected");
+            $("#comment").val(data.flawInfo.comment);
+            $("#checkDate").val(data.flawInfo.checkDate);
         },"json");
+    }
+function submitt(){
+    $("#addFlawinfo").ajaxSubmit({
+        type: "post",  //提交方式
+        dataType: "json", //数据类型
+        url: "addFlawinfo.html", //请求url
+        success: function (data) {//提交成功的回调函数
+        if (data==1){
+            f();
+            }
+        }
+    });
+}
 
-    }))
-    $(function () {
-        $.post("getflawTypeList.html",function (data) {
-            var str="<option value='0'>"+"-请选择-"+"</option>";
-            $.each(data,function (i,obj) {
-                str+="<option value='"+obj.flawTypeId+"'>"+obj.flawName+"</option>"
-            })
-            $("#flawTypeId").html(str);
-        },"json")
-    })
+    function update(){
+        $("#addFlawinfo").ajaxSubmit({
+            type: "post",  //提交方式
+            dataType: "json", //数据类型
+            url: "update.html", //请求url
+            success: function (data) {//提交成功的回调函数
+                if (data==1){
+                    f();
+                }
+            }
+        });
+    }
+    Date.prototype.Format = function (fmt) {
+        var o = {
+            "M+": this.getMonth() + 1, //月份
+            "d+": this.getDate(), //日
+            "H+": this.getHours(), //小时
+            "m+": this.getMinutes(), //分
+            "s+": this.getSeconds(), //秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+            "S": this.getMilliseconds() //毫秒
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
+
 </script>
 </html>

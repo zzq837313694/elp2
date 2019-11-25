@@ -36,4 +36,6 @@ public interface SolveTaskInfoDao {
          * @return
          */
         int countSolveTask();
+
+        Solvetaskinfo findLastTask();
 }
