@@ -115,6 +115,6 @@ FlawCheck.pageSize!=null and FlawCheck.pageSize!=''">
 </insert>
     <update id="updateCheck" parameterType="Checktaskinfo">
         update checktaskinfo set jobName=#{jobName},circuitNo=#{circuitNo},startNo=#{startNo}
-        ,stopNo=#{stopNo},comment=#{comment} ,abolish=#{abolish},status=#{status} where jobId=#{jobId}
+        ,stopNo=#{stopNo},comment=#{comment},checkBy=#{checkBy} ,abolish=#{abolish},status=#{status} where jobId=#{jobId}
     </update>
 </mapper>

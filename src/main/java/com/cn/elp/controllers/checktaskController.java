@@ -74,7 +74,22 @@ public class checktaskController {
 
     @RequestMapping("/showChecktask.html")
     public String showChecktask(String jobId, Model model) {
-        model.addAttribute("Checktask", checktaskService.SelectChecktaskById(jobId));
+        Checktaskinfo checktaskinfo= checktaskService.SelectChecktaskById(jobId);
+        String c=checktaskinfo.getCheckBy();
+        String worker="";
+        if(c.isEmpty()){
+
+        }else{
+            String []arr=c.split(",");
+            for (String arrr :arr){
+                worker+=workerinfoService.findAllWorker(arrr).getUserName()+",";
+            }
+        }
+
+
+        model.addAttribute("worker",worker);
+        model.addAttribute("Checktask",checktaskinfo );
+
         return "showChecktask";
     }
 
@@ -119,6 +134,7 @@ public class checktaskController {
     @RequestMapping("/doaddChecktask.html")
     public  String addChecktask(Checktaskinfo checktaskinfo){
         checktaskinfo.setCreateDate(new Date());
+
         int rel=checktaskService.addChecktaskinfo(checktaskinfo);
         System.out.println(rel);
         return "checktaskPlan";
@@ -231,5 +247,15 @@ public class checktaskController {
         }
 
         return workers;
+    }
+
+    @RequestMapping("/allocatingtask.html")
+    @ResponseBody
+    public int allocatingtask(String worker,String jobId){
+    Checktaskinfo checktaskinfo=checktaskService.SelectChecktaskById(jobId);
+    checktaskinfo.setStatus("已分配");
+    checktaskinfo.setCheckBy(worker);
+    int rel=checktaskService.updateCheck(checktaskinfo);
+        return rel;
     }
 }

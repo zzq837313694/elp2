@@ -15,13 +15,6 @@ function removepeople(){
     leftLi.removeClass("active");
     $('#modelLeft').append(leftLi)
 }
-/*分页*/
-$(".zxf_pagediv").createPage({
-    pageNum:3,
-    current:1,
-    backfun: function(e) {
-    }
-});
 
 function showModal(obj) {
     /*模态框显示*/
