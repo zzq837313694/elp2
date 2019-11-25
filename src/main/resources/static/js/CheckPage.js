@@ -49,27 +49,30 @@ function submint() {
                 }
                 var trsTR = "<a href=\"showChecktask.html?jobId="+jobId+"\">查看</a>" +
                     "                    <span>|</span>" ;
-                if(obj.status=="待分配"){
-                    trsTR+= "<a id='"+jobId+"' data-toggle=\"modal\" data-target=\"#myModal\"onclick=\"showModal(this)\">分配任务</a>"+
-                        "                    <span>|</span>";
-                }else{
-                    trsTR+= "                    <span style=\"color: grey\">分配任务</span>" +
-                        "                    <span>|</span>";
+                if(obj.status=="待分配") {
+                    trsTR += "<a id='" + jobId + "' data-toggle=\"modal\" data-target=\"#myModal\"onclick=\"showModal(this)\">分配任务</a>" +
+                        "                    <span>|</span>" +
+                        "<a href=\"updateChecktask.html?jobId=" + jobId + "\" disabled='disabled'>修改</a>" +
+                        "                    <span>|</span>" +
+                        "<a href=\"cancel.html?jobId=" + jobId + "\">取消</a>";
                 }
-                if(obj.status=="已完成"||obj.status=="执行中"||obj.status=="已分配"){
-                    trsTR+= "<span style=\"color: grey\">修改</span>" +
-                    "                    <span>|</span>" ;
-                        if(obj.status=="已分配"){
-                            trsTR+=  "<a href=\"cancel.html?jobId="+jobId+"\">取消</a>" ;
-                        }else{
-                            trsTR+=  "<span style=\"color: grey\">取消</span>" ;
-                        }
+                if(obj.status=="已分配"){
+                    trsTR += "<span style=\"color: grey\">分配任务</span>" +
+                        "                    <span>|</span>" +
+                        "<span style=\"color: grey\">修改</span>" +
+                        "                    <span>|</span>" +
+                        "<a href=\"cancel.html?jobId=" + jobId + "\">取消</a>";
+                }
+                if(obj.status=="执行中"||obj.status=="已完成"){
+                    trsTR += "<span style=\"color: grey\">分配任务</span>" +
+                        "                    <span>|</span>" +
+                        "<span style=\"color: grey\">修改</span>" +
+                        "                    <span>|</span>" +
+                        "<span style=\"color: grey\">取消</span>";
+                }
 
-                }else{
-                   trsTR+="<a href=\"updateChecktask.html?jobId="+jobId+"\" disabled='disabled'>修改</a>" +
-                    "                    <span>|</span>" +
-                    "                    <a href=\"\">取消</a>" ;
-                }
+
+
 
                 options+=
                     "<tr style='vertical-align: middle'><td>"+jobId+"</td>"+
@@ -84,12 +87,6 @@ function submint() {
                     "<td>"+trsTR+"</td></tr>";
             });
             $("#app").html(options);
-            $(".zxf_pagediv").createPage({
-                pageNum:$("#pageCount").val(),
-                current:1,
-                backfun: function(e) {
-                }
-            });
         }
 
     });
@@ -119,15 +116,15 @@ $(function () {
         submint();
     });
 
-    /* $(document).on("click","span.zxfokbtn",function(){
-         var cur = $("input.zxfinput").val();
+     $(document).on("click","span.zxfokbtn",function(){
+         var cur = $("#page").val();
          alert(cur)
          var  a=$("#pageIndex").val();
          if(cur>$("#pageCount").val()){}else{
              submint();
          }
 
-     });*/
+     });
     $(document).on("click","span.zxfokbtn",function(){
         var cur = parseInt($("input.zxfinput").val());
         if(cur>$("#pageCount").val()){return;}
