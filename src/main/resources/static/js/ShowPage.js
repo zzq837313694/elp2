@@ -84,6 +84,7 @@
                     /*if(cur>pageinit.pageNum){return;}*/
                     var current = $.extend(pageinit, {"current":cur});
                     zp.addhtml(obj,{"current":cur,"pageNum":pageinit.pageNum});
+                    $("input.zxfinput").val(cur);
                     if (typeof(pageinit.backfun)=="function") {
                         pageinit.backfun(current);
                     }
