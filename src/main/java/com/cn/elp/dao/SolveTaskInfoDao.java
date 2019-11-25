@@ -37,5 +37,11 @@ public interface SolveTaskInfoDao {
          */
         int countSolveTask();
 
+        /**
+         * 查找最后一个任务
+         * @return
+         */
         Solvetaskinfo findLastTask();
+
+        int addSolveTaskInfo(Solvetaskinfo solvetaskinfo);
 }

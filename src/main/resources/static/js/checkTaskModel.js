@@ -15,6 +15,13 @@ function removepeople(){
     leftLi.removeClass("active");
     $('#modelLeft').append(leftLi)
 }
+/*分页*/
+$(".zxf_pagediv").createPage({
+    pageNum:3,
+    current:1,
+    backfun: function(e) {
+    }
+});
 
 function showModal(obj) {
     /*模态框显示*/
@@ -30,7 +37,7 @@ function showModal(obj) {
             })
             $.each(workMap.rightWorker, function (index, worker) {
                 var workerLi = "<li onclick=\"isCheack(this)\">"+worker.userNo+"--"+worker.userName+"</li>"
-                $('#modelLeft').append(workerLi)
+                $('#modelRight').append(workerLi)
             })
         }
     });

@@ -65,5 +65,6 @@ public interface SolvetaskServices {
      */
     Solvetaskinfo FinfLastTask();
 
+    int addSovleTaskInfo(Solvetaskinfo solvetaskinfo);
 
 }

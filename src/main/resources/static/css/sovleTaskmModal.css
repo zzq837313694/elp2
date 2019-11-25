@@ -47,3 +47,9 @@ li.active {
      position: marker;
      margin: 0px auto;
  }
+
+ .modalFooter {
+     padding-left: 80%;
+     padding-top: 8px;
+
+ }

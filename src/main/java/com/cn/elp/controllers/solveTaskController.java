@@ -203,9 +203,19 @@ public class solveTaskController {
     @ResponseBody
     public String Search(Solvetaskinfo solveTask, String solveWorker, Model model) {
 
+        String[] worker=solveWorker.split(">");
+        String finishiworkerId="";
+        for(int i=0;i<worker.length;i++){
+            if (!"".equals(worker[i])){
+                finishiworkerId+=worker[i].split("--")[0]+",";
+            }
 
-
-
+        }
+        solveTask.setFinishiworkerId(finishiworkerId);
+        int r=solvetaskServices.addSovleTaskInfo(solveTask);
+        if(r==1){
+            System.out.println("添加成功");
+        }
         return "AdminSolveTask";
     }
 

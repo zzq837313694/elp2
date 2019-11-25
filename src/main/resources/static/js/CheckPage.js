@@ -126,6 +126,7 @@ $(function () {
         if(cur>$("#pageCount").val()){return;}
         submint();
     });
+
     $(".zxf_pagediv").createPage({
         pageNum:$("#pageCount").val(),
         current:1,

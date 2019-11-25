@@ -44,4 +44,11 @@
         select  * from solvetaskinfo order by solveTaskNo desc limit 0,1;
     </select>
 
+    <insert id="addSolveTaskInfo" parameterType="Solvetaskinfo" >
+        insert into solvetaskinfo(solveTaskNo,solveTaskName,floawList,manager,creatBy,
+        createDate,finishiworkerId,documents,`describe`,`comment`) value
+        (#{solveTaskNo},#{solveTaskName},#{floawList},#{manager},#{creatBy},#{createDate},
+        #{finishiworkerId},#{documents},#{describe},#{comment});
+    </insert>
+
 </mapper>

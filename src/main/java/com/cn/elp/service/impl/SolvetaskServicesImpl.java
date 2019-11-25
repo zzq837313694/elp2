@@ -92,5 +92,10 @@ public class SolvetaskServicesImpl implements SolvetaskServices {
         return solveTaskInfoDao.findLastTask();
     }
 
+    @Override
+    public int addSovleTaskInfo(Solvetaskinfo solvetaskinfo) {
+        return solveTaskInfoDao.addSolveTaskInfo(solvetaskinfo);
+    }
+
 
 }
