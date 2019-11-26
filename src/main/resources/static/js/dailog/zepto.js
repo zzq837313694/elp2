@@ -1,6 +1,4 @@
-//     Zepto.js
-//     (c) 2010, 2011 Thomas Fuchs
-//     Zepto.js may be freely distributed under the MIT license.
+
 (function (a) {
     String.prototype.trim === a && (String.prototype.trim = function () {
         return this.replace(/^\s+/, "").replace(/\s+$/, "")
@@ -744,4 +742,4 @@ window.Zepto = Zepto, "$" in window || (window.$ = Zepto), function (a) {
             return this.bind(b, a)
         }
     })
-}(Zepto)
+}(Zepto);

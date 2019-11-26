@@ -1,3 +1,4 @@
+
 (function ($) {
     var Dialog = function (cfg) {
         this.config = {
