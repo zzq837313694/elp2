@@ -6,6 +6,7 @@ function submint() {
         url: "getchecktaskList.html", //请求url
         success: function (data) {//提交成功的回调函数
             $("#pageCount").val(data.pageCount);
+            $("#pageCount").val(data.pageCount);
             var options=""
             $.each(data.dataList, function (i, obj) {
                 var statusStr="";
@@ -70,10 +71,6 @@ function submint() {
                         "                    <span>|</span>" +
                         "<span style=\"color: grey\">取消</span>";
                 }
-
-
-
-
                 options+=
                     "<tr style='vertical-align: middle'><td>"+jobId+"</td>"+
                     "<td>"+jobName+"</td>"+
@@ -88,11 +85,15 @@ function submint() {
             });
             $("#app").html(options);
         }
-
     });
     return false; //不刷新页面
 }
-
+$(".zxf_pagediv").createPage({
+    pageNum:$("#pageCount").val(),
+    current:1,
+    backfun: function(e) {
+    }
+});
 
 $(function () {
     submint();
@@ -153,42 +154,42 @@ function sovleWorkerBackData(obj) {
 
 (function($){
     var zp = {
-        init:function(obj,pageinit){
-            return (function(){
-                zp.addhtml(obj,pageinit);
-                zp.bindEvent(obj,pageinit);
+        init: function (obj, pageinit) {
+            return (function () {
+                zp.addhtml(obj, pageinit);
+                /*zp.bindEvent(obj,pageinit);*/
             }());
         },
-        addhtml:function(obj,pageinit){
-            return (function(){
+        addhtml: function (obj, pageinit) {
+            return (function () {
                 obj.empty();
                 if (pageinit.current > 1) {
                     obj.append('<a href="javascript:;" class="prebtn">上一页</a>');
-                } else{
+                } else {
                     obj.remove('.prevPage');
                     obj.append('<span class="disabled">上一页</span>');
                 }
-                if (pageinit.current >4 && pageinit.pageNum > 4) {
-                    obj.append('<a href="javascript:;" class="zxfPagenum">'+1+'</a>');
+                if (pageinit.current > 4 && pageinit.pageNum > 4) {
+                    obj.append('<a href="javascript:;" class="zxfPagenum">' + 1 + '</a>');
                     /* obj.append('<a href="javascript:;" class="zxfPagenum">'+2+'</a>');*/
                     obj.append('<span>...</span>');
                 }
-                if (pageinit.current >4 && pageinit.current <= pageinit.pageNum-5) {
-                    var start  = pageinit.current - 2,end = pageinit.current + 2;
-                }else if(pageinit.current >4 && pageinit.current > pageinit.pageNum-5){
-                    var start  = pageinit.pageNum - 4,end = pageinit.pageNum;
-                }else{
-                    var start = 1,end = 6;
+                if (pageinit.current > 4 && pageinit.current <= pageinit.pageNum - 5) {
+                    var start = pageinit.current - 2, end = pageinit.current + 2;
+                } else if (pageinit.current > 4 && pageinit.current > pageinit.pageNum - 5) {
+                    var start = pageinit.pageNum - 4, end = pageinit.pageNum;
+                } else {
+                    var start = 1, end = 6;
                 }
 
-                for (;start <= end;start++) {
-                    if (start <= pageinit.pageNum && start >=1) {
+                for (; start <= end; start++) {
+                    if (start <= pageinit.pageNum && start >= 1) {
                         if (start == pageinit.current) {
-                            obj.append('<span id="nowPage" class="current" onclick="getData(this)">'+ start +'</span>');
-                        }else if(start == pageinit.current+1){
-                            obj.append('<a href="javascript:;" class="zxfPagenum ">'+ start +'</a>');
-                        }else{
-                            obj.append('<a href="javascript:;" class="zxfPagenum">'+ start +'</a>');
+                            obj.append('<span id="nowPage" class="current" onclick="getData(this)">' + start + '</span>');
+                        } else if (start == pageinit.current + 1) {
+                            obj.append('<a href="javascript:;" class="zxfPagenum ">' + start + '</a>');
+                        } else {
+                            obj.append('<a href="javascript:;" class="zxfPagenum">' + start + '</a>');
                         }
                     }
                 }
@@ -198,15 +199,15 @@ function sovleWorkerBackData(obj) {
                 if (pageinit.current >= pageinit.pageNum) {
                     obj.remove('.nextbtn');
                     obj.append('<span class="disabled">下一页</span>');
-                } else{
+                } else {
                     obj.append('<a href="javascript:;" class="nextbtn">下一页</a>');
                 }
-                obj.append('<span>'+'共'+'<b>'+pageinit.pageNum+'</b>'+'页,'+'</span>');
-                obj.append('<span>'+'到第'+'<input type="text" class="zxfinput" />'+'页'+'</span>');
-                obj.append('<span class="zxfokbtn">'+'确定'+'</span>');
+                obj.append('<span>' + '共' + '<b>' + pageinit.pageNum + '</b>' + '页,' + '</span>');
+                obj.append('<span>' + '到第' + '<input type="text" class="zxfinput" />' + '页' + '</span>');
+                obj.append('<span class="zxfokbtn">' + '确定' + '</span>');
             }());
-        },
-        bindEvent:function(obj,pageinit){
+        }
+        /*bindEvent:function(obj,pageinit){
             return (function(){
                 obj.on("click","a.prebtn",function(){
                     var cur = parseInt(obj.children("span.current").text());
@@ -245,6 +246,7 @@ function sovleWorkerBackData(obj) {
                 });
             }());
         }
+    }*/
     }
     $.fn.createPage = function(options){
         var pageinit = $.extend({
