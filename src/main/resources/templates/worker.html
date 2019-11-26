@@ -361,7 +361,6 @@ function updateStatus(obj) {
     var userNo=$(obj).attr("userNo");
     var status=$(obj).attr("status");
     data="userNo="+userNo+"&status="+status;
-    alert(data)
     $.post("updateWorkerinfoStatus.html",data,function (rel) {
         if (rel>0){
             window.location.reload();
