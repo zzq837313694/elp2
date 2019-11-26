@@ -1,3 +1,4 @@
+/*
 package com.cn.elp.controllers;
 
 
@@ -106,7 +107,9 @@ public class solveTaskController {
 
     @RequestMapping("/chooseSolveWorker")
     @ResponseBody
-    /*选择消缺员*/
+    */
+/*选择消缺员*//*
+
     public Map<String, Workerinfo> chooseSolveWorker(String taskNo, Model model) {
         Map workers = new HashMap();
         List<Workerinfo> leftWorker = workerinfoService.findAllWorkers();
@@ -163,7 +166,9 @@ public class solveTaskController {
 
     @RequestMapping("/findFlaws")
     @ResponseBody
-    /*缺陷信息表*/
+    */
+/*缺陷信息表*//*
+
     public List<Flawinfo> findFlaws(FlawInfoCondition condition, Model model) {
         List<Flawinfo> allFlaws = new ArrayList<>();
         allFlaws = flawinfoDao.findFlawForSovle(condition);
@@ -228,3 +233,4 @@ public class solveTaskController {
     }
 
 }
+*/
