@@ -116,25 +116,19 @@ $(function () {
         submint();
     });
 
-     $(document).on("click","span.zxfokbtn",function(){
-         var cur = $("#page").val();
-         var  a=$("#pageIndex").val();
-         if(cur>$("#pageCount").val()){}else{
-             submint();
-         }
+    $(document).on("click","span.zxfokbtn",function(){
+        var cur = $("#page").val();
+        alert(cur)
+        var  a=$("#pageIndex").val();
+        if(cur>$("#pageCount").val()){}else{
+            submint();
+        }
 
-     });
+    });
     $(document).on("click","span.zxfokbtn",function(){
         var cur = parseInt($("input.zxfinput").val());
         if(cur>$("#pageCount").val()){return;}
         submint();
-    });
-
-    $(".zxf_pagediv").createPage({
-        pageNum:$("#pageCount").val(),
-        current:1,
-        backfun: function(e) {
-        }
     });
 })
 function sovleWorkerBackData(obj) {
@@ -152,7 +146,7 @@ function sovleWorkerBackData(obj) {
         data: {'worker':worker,"jobId":jobId},
         dataType: "json",
         success: function(data){
-           submint();
+            submint();
         }
     });
 }
