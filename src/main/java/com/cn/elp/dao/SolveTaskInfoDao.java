@@ -37,20 +37,5 @@ public interface SolveTaskInfoDao {
          */
         int countSolveTask();
 
-        /**
-         * 查找最后一个任务
-         * @return
-         */
         Solvetaskinfo findLastTask();
-
-        /**
-         * 添加
-         * @param solvetaskinfo
-         * @return
-         */
-        int addSolveTaskInfo(Solvetaskinfo solvetaskinfo);
-
-
-
-        int updateTaskInfoByWorker(@Param("taskNo") String taskNo,@Param("workerIds")String workerIds);
 }

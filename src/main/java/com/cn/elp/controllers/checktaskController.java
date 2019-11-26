@@ -34,7 +34,7 @@ public class checktaskController {
     @RequestMapping("/getchecktaskListNot.html")
     @ResponseBody
     public PageSurpport<ChecktaskCondition> getchecktaskListNot(ChecktaskCondition checktaskCondition,String work) {
-        PageSurpport<ChecktaskCondition> pageSurpport = checktaskService.SelectChecktaskByParamNot(checktaskCondition,work);
+        PageSurpport<ChecktaskCondition> pageSurpport = checktaskService.SelectChecktaskByParamNot(checktaskCondition ,work);
         return pageSurpport;
     }
 

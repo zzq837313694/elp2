@@ -18,7 +18,6 @@ function removepeople(){
 
 function showModal(obj) {
     /*模态框显示*/
-    $('.modalFooter>button').attr("name",$(obj).attr("id"));
         $.post({
             url: "/chooseSolveWorker",
             data: "taskNo=" + $(obj).attr("id"),

@@ -65,13 +65,5 @@ public interface SolvetaskServices {
      */
     Solvetaskinfo FinfLastTask();
 
-    /**
-     * 制定任务
-     * @param solvetaskinfo
-     * @return
-     */
-    int addSovleTaskInfo(Solvetaskinfo solvetaskinfo);
 
-
-    int updateTaskinfoByWorker(String taskNo,String workerIds);
 }
