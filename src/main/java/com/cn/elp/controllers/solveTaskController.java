@@ -92,7 +92,7 @@ public class solveTaskController {
         model.addAttribute("report", report);
 
         //返回缺陷信息
-        String flawInfoArray[] = solveTask.getFloawList().split(",");
+        String[] flawInfoArray = solveTask.getFloawList().split(",");
         List<Flawinfo> flawinfoList = new ArrayList<>();
         for (int i = 0; i < flawInfoArray.length; i++) {
             Flawinfo flawinfo = flawinfoDao.findFlawInfoByFlawNo(flawInfoArray[i]);
@@ -150,12 +150,12 @@ public class solveTaskController {
     public String toAddSovleTaskPage(Model model) {
 
         model.addAttribute("flawtypeList", flawTypeDao.findAllFlawType());
-        String maxTaskNo = solvetaskServices.FinfLastTask().getSolveTaskNo();
+        Solvetaskinfo maxTaskInfo = solvetaskServices.FinfLastTask();//.getSolveTaskNo();
         String nextTaskNo;
-        if (maxTaskNo == null) {
+        if (maxTaskInfo == null) {
             nextTaskNo = "ST_00001";
         } else {
-            nextTaskNo = "ST_" + String.format("%05d", (Integer.parseInt(maxTaskNo.substring(3)) + 1));
+            nextTaskNo = "ST_" + String.format("%05d", (Integer.parseInt(maxTaskInfo.getSolveTaskNo().substring(3)) + 1));
         }
         model.addAttribute("nextTaskNo", nextTaskNo);
         return "addSolveTask";
