@@ -7,7 +7,7 @@
     <link type="text/css" href="webjars/bootstrap" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}" rel="stylesheet">
     <script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
     <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}"></script>
-    <link rel="stylesheet" href="css/datepicker.css">
+    <link rel="stylesheet" type="text/css" href="css/datepicker.css">
     <link rel="stylesheet" type="text/css" href="css/ShowPage.css"/>
 
     <style>
@@ -297,21 +297,6 @@
         document.getElementById("modifyRoleForm").reset();
     });
 
-
-    /*function save(obj) {
-        var flawNo = $(obj).attr("flawNo");
-        var modifyLv=$("#modifyLv"+flawNo).val();
-
-        var data="flawNo="+flawNo+"&flawLv="+modifyLv;
-        $.get("updateFlawLv.html",data,function(relData){
-            if(relData>0){
-                alert("修改成功！")
-                window.location.reload();
-            }else {
-                alert("缺陷级别未确认！")
-            }
-        });
-    }*/
     $(".zxf_pagediv").createPage({
         pageNum: $("#pageCount").val(),
         current: $("#returnpageIndex").val(),

@@ -54,7 +54,7 @@ public class ChecktaskServiceImpl implements ChecktaskService
             checktaskCondition1.setComment(cc.getComment());
             checktaskCondition1.setStatus(cc.getStatus());
             checktaskCondition1.setAbolish(cc.getAbolish());
-            checktaskCondition1.setCheckByName(workerinfoDao.findAllWorker(cc.getCheckBy())==null?null:workerinfoDao.findAllWorker(cc.getCheckBy()).getUserName());
+            checktaskCondition1.setCreateByName(workerinfoDao.findAllWorker(cc.getCreateBy())==null?null:workerinfoDao.findAllWorker(cc.getCreateBy()).getUserName());
             checktaskCondition1.setCircuitName(circuitDao.findOneCircuit(cc.getCircuitNo()).getCircuitName());
             pageSurpport.getDataList().add(checktaskCondition1);
         }
@@ -62,14 +62,14 @@ public class ChecktaskServiceImpl implements ChecktaskService
     }
 
     @Override
-    public PageSurpport<ChecktaskCondition> SelectChecktaskByParamNot(ChecktaskCondition checktaskCondition) {
+    public PageSurpport<ChecktaskCondition> SelectChecktaskByParamNot(ChecktaskCondition checktaskCondition,String work) {
         PageSurpport<ChecktaskCondition> pageSurpport=new PageSurpport<>();
         pageSurpport.setPageIndex(checktaskCondition.getPageIndex());
         pageSurpport.setPageSize(checktaskCondition.getPageSize());
         List<ChecktaskCondition> checktaskConditionList=new ArrayList<>();
         pageSurpport.setDataList(checktaskConditionList);
-        List<Checktaskinfo> ls= checktaskDao.SelectChecktaskByParamNot(checktaskCondition);
-        pageSurpport.setTotalCount(checktaskDao.SelectChecktaskByParamCountNot(checktaskCondition));
+        List<Checktaskinfo> ls= checktaskDao.SelectChecktaskByParamNot(checktaskCondition ,work);
+        pageSurpport.setTotalCount(checktaskDao.SelectChecktaskByParamCountNot(checktaskCondition,work));
         for(Checktaskinfo cc:ls){
             ChecktaskCondition checktaskCondition1=new ChecktaskCondition();
             checktaskCondition1.setJobId(cc.getJobId());
