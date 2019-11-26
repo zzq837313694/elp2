@@ -10,10 +10,10 @@ import java.util.List;
 
 public interface ChecktaskDao {
     List<Checktaskinfo> SelectChecktaskByParam(@Param("ChecktaskCondition")ChecktaskCondition checktaskCondition);
-    List<Checktaskinfo> SelectChecktaskByParamNot(@Param("ChecktaskCondition")ChecktaskCondition checktaskCondition);
+    List<Checktaskinfo> SelectChecktaskByParamNot(@Param("ChecktaskCondition")ChecktaskCondition checktaskCondition,@Param("work")String work);
     Checktaskinfo SelectChecktaskById(@Param("jobId")String jobId);
     int SelectChecktaskByParamCount(@Param("ChecktaskCondition")ChecktaskCondition checktaskCondition);
-    int SelectChecktaskByParamCountNot(@Param("ChecktaskCondition")ChecktaskCondition checktaskCondition);
+    int SelectChecktaskByParamCountNot(@Param("ChecktaskCondition")ChecktaskCondition checktaskCondition,@Param("work")String work);
 
     List<FlawCheck> SelectChecktask(@Param("FlawCheck")FlawCheck flawCheck);
    int SelectChecktaskCount(@Param("FlawCheck")FlawCheck flawCheck);

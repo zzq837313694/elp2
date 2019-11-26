@@ -47,11 +47,9 @@
         delete from towerinfo where circuitNo=#{circuitNo}
     </delete>
 
-    <select id="findTowerListByCircuitNoPaging" parameterType="String" resultType="Towerinfo">
+    <select id="findTowerListByCircuitNoPaging"  resultType="Towerinfo">
         select * from towerinfo where circuitNo=#{circuitNo}
-        <if test="from!=null and from!=''and pageSize!=null and pageSize!=''">
             limit #{from},#{pageSize}
-        </if>;
     </select>
     <select id="findTowerListByCircuitNoPagingCount" resultType="int">
         select count(0) from towerinfo where circuitNo=#{circuitNo}

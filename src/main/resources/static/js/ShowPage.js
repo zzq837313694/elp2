@@ -49,7 +49,7 @@
                     obj.append('<a href="javascript:;" class="nextbtn">下一页</a>');
                 }
                 obj.append('<span>'+'共'+'<b>'+pageinit.pageNum+'</b>'+'页,'+'</span>');
-                obj.append('<span>'+'到第'+'<input type="text" class="zxfinput" />'+'页'+'</span>');
+                obj.append('<span>'+'到第'+'<input id="page" type="text" class="zxfinput" />'+'页'+'</span>');
                 obj.append('<span class="zxfokbtn">'+'确定'+'</span>');
             }());
         },
@@ -81,7 +81,7 @@
                 });
                 obj.on("click","span.zxfokbtn",function(){
                     var cur = parseInt($("input.zxfinput").val());
-                    if(cur>pageinit.pageNum){return;}
+                    /*if(cur>pageinit.pageNum){return;}*/
                     var current = $.extend(pageinit, {"current":cur});
                     zp.addhtml(obj,{"current":cur,"pageNum":pageinit.pageNum});
                     if (typeof(pageinit.backfun)=="function") {

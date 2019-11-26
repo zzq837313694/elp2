@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface ChecktaskService {
     PageSurpport<ChecktaskCondition>SelectChecktaskByParam(ChecktaskCondition checktaskCondition);
-    PageSurpport<ChecktaskCondition>SelectChecktaskByParamNot(ChecktaskCondition checktaskCondition);
+    PageSurpport<ChecktaskCondition>SelectChecktaskByParamNot(ChecktaskCondition checktaskCondition, String work);
     ChecktaskCondition SelectChecktaskById(String jobId);
     List<Checktaskinfo> getCheckList(ChecktaskCondition checktaskCondition);
 

@@ -6,6 +6,7 @@
     <select id="SelectChecktaskByParamNot" resultType="Checktaskinfo">
         select *  from checktaskinfo a where abolish='否' and status!='待分配'
         <include refid="Param"></include>
+        and checkBy like concat('%',#{work},'%')
         order  by a.createDate desc
         <if test="ChecktaskCondition.pageIndex!=null and ChecktaskCondition.pageIndex!='' and
 ChecktaskCondition.pageSize!=null and ChecktaskCondition.pageSize!=''">
@@ -17,6 +18,7 @@ ChecktaskCondition.pageSize!=null and ChecktaskCondition.pageSize!=''">
     <select id="SelectChecktaskByParamCountNot" resultType="int" >
         select count(0) from checktaskinfo a where  abolish='否' and status!='待分配'
         <include refid="Param"></include>
+        and checkBy like concat('%',#{work},'%')
     </select>
     <select id="SelectChecktaskByParam" resultType="Checktaskinfo">
         select *  from checktaskinfo a where abolish='否'
@@ -64,7 +66,7 @@ FlawCheck.pageSize!=null and FlawCheck.pageSize!=''">
             and f.checkJobNo like concat('%',#{FlawCheck.checkJobNo},'%')
         </if>
     <if test="FlawCheck.circuitNo!=null and FlawCheck.circuitNo!=''">
-        and f.checkJobNo like concat('%',#{FlawCheck.circuitNo},'%')
+        and f.circuitNo like concat('%',#{FlawCheck.circuitNo},'%')
     </if>
     <if test="FlawCheck.flawTypeId!=0">
         and f.flawTypeId=#{FlawCheck.flawTypeId}
@@ -115,6 +117,6 @@ FlawCheck.pageSize!=null and FlawCheck.pageSize!=''">
 </insert>
     <update id="updateCheck" parameterType="Checktaskinfo">
         update checktaskinfo set jobName=#{jobName},circuitNo=#{circuitNo},startNo=#{startNo}
-        ,stopNo=#{stopNo},comment=#{comment},checkBy=#{checkBy} ,abolish=#{abolish},status=#{status} where jobId=#{jobId}
+        ,stopNo=#{stopNo},comment=#{comment},checkBy=#{checkBy},finishDate=#{finishDate} ,abolish=#{abolish},status=#{status} where jobId=#{jobId}
     </update>
 </mapper>

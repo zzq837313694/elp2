@@ -24,14 +24,18 @@ function showModal(obj) {
         dataType: "json",
         success: function (workMap) {
             $('#modelLeft li,#modelRight li').remove();
+            $("#modelLeft").html("");
+            $("#modelRight").html("");
+
             $.each(workMap.leftWorker, function (index, worker) {
-                var workerLi = "<li onclick=\"isCheack(this)\">"+worker.userNo+"--"+worker.userName+"</li>"
+                var workerLi = "<li onclick=\"isCheack(this)\" cl='"+worker.userNo+"'>"+worker.userNo+"--"+worker.userName+"</li>"
                 $('#modelLeft').append(workerLi)
             })
-            $.each(workMap.rightWorker, function (index, worker) {
-                var workerLi = "<li onclick=\"isCheack(this)\">"+worker.userNo+"--"+worker.userName+"</li>"
+            $("#modelLeft").val($(obj).attr("id"));
+            /*$.each(workMap.rightWorker, function (index, worker) {
+                var workerLi = "<li onclick=\"isCheack(this)\" cl='"+worker.userNo+"'>"+worker.userNo+"--"+worker.userName+"</li>"
                 $('#modelRight').append(workerLi)
-            })
+            })*/
         }
     });
 }

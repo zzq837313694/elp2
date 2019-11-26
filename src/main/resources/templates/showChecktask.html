@@ -196,8 +196,8 @@ $("#last").click(function () {
     f();
 })
 $(document).on("click",".towerNoList",(function () {
-    $(".towerNoList").css("background-color","#fffaf0");
-    $(this).css("background-color","#1A5380");
+    $(".towerNoList").css("background-color","#FFFFFF");
+    $(this).css("background-color","#C4C4C4");
     var flawNo=$(this).attr("id");
     $.get("getFlawinfo.html","flawNo="+flawNo,function (data) {
     var flawName=""
