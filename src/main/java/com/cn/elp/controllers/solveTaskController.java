@@ -149,14 +149,14 @@ public class solveTaskController {
     //添加消缺任务
     public String toAddSovleTaskPage(Model model) {
 
-       model.addAttribute("flawtypeList",flawTypeDao.findAllFlawType());
-       String maxTaskNo=solvetaskServices.FinfLastTask().getSolveTaskNo();
+        model.addAttribute("flawtypeList", flawTypeDao.findAllFlawType());
+        String maxTaskNo = solvetaskServices.FinfLastTask().getSolveTaskNo();
         String nextTaskNo;
-       if(maxTaskNo==null){
-           nextTaskNo="ST_00001";
-       }else {
-           nextTaskNo ="ST_"+String.format("%05d", (Integer.parseInt(maxTaskNo.substring(3))+1));
-       }
+        if (maxTaskNo == null) {
+            nextTaskNo = "ST_00001";
+        } else {
+            nextTaskNo = "ST_" + String.format("%05d", (Integer.parseInt(maxTaskNo.substring(3)) + 1));
+        }
         model.addAttribute("nextTaskNo", nextTaskNo);
         return "addSolveTask";
     }
@@ -165,28 +165,28 @@ public class solveTaskController {
     @ResponseBody
     /*缺陷信息表*/
     public List<Flawinfo> findFlaws(FlawInfoCondition condition, Model model) {
-       List<Flawinfo> allFlaws=new ArrayList<>();
-       allFlaws=flawinfoDao.findFlawForSovle(condition);
-       List<Solvetaskinfo> allSovleTask=solvetaskServices.findAllSolveTask();
-       if (allSovleTask==null||allSovleTask.size()==0){
-           return allFlaws;
-       }
-        StringBuffer sovleflaw=new StringBuffer();
-        for(Solvetaskinfo task:allSovleTask){
+        List<Flawinfo> allFlaws = new ArrayList<>();
+        allFlaws = flawinfoDao.findFlawForSovle(condition);
+        List<Solvetaskinfo> allSovleTask = solvetaskServices.findAllSolveTask();
+        if (allSovleTask == null || allSovleTask.size() == 0) {
+            return allFlaws;
+        }
+        StringBuffer sovleflaw = new StringBuffer();
+        for (Solvetaskinfo task : allSovleTask) {
             sovleflaw.append(task.getFloawList());
             sovleflaw.append(",");
         }
-        if (sovleflaw==null||sovleflaw.length()==0){
+        if (sovleflaw == null || sovleflaw.length() == 0) {
             return allFlaws;
         }
-        String[] sovleflawArray=sovleflaw.toString().split(",");
-        if (sovleflawArray.length==0){
+        String[] sovleflawArray = sovleflaw.toString().split(",");
+        if (sovleflawArray.length == 0) {
             return allFlaws;
         }
-        int i=0;
-        while(i<allFlaws.size()){
-            for (String flawNo:sovleflawArray){
-                if (allFlaws.get(i).getFlawNo().equals(flawNo)){
+        int i = 0;
+        while (i < allFlaws.size()) {
+            for (String flawNo : sovleflawArray) {
+                if (allFlaws.get(i).getFlawNo().equals(flawNo)) {
                     allFlaws.remove(i);
                     --i;
                     break;
@@ -203,11 +203,28 @@ public class solveTaskController {
     @ResponseBody
     public String Search(Solvetaskinfo solveTask, String solveWorker, Model model) {
 
+        String[] worker = solveWorker.split(">");
+        String finishiworkerId = "";
+        for (int i = 0; i < worker.length; i++) {
+            if (!"".equals(worker[i])) {
+                finishiworkerId += worker[i].split("--")[0] + ",";
+            }
 
-
-
+        }
+        solveTask.setFinishiworkerId(finishiworkerId);
+        int r = solvetaskServices.addSovleTaskInfo(solveTask);
+        if (r == 1) {
+            System.out.println("添加成功");
+        }
         return "AdminSolveTask";
     }
 
+    @RequestMapping("upsetSovleTaskFinishWorker")
+    @ResponseBody
+    public String upsetSovleTaskFinishWorker(String taskNo,String worker,Model model) {
+       solvetaskServices.updateTaskinfoByWorker(taskNo,worker);
+
+       return makesSolveTask(model,new Solvetaskinfo(),null,null,1);
+    }
 
 }
