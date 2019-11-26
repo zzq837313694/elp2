@@ -150,12 +150,12 @@ public class solveTaskController {
     public String toAddSovleTaskPage(Model model) {
 
         model.addAttribute("flawtypeList", flawTypeDao.findAllFlawType());
-        String maxTaskNo = solvetaskServices.FinfLastTask().getSolveTaskNo();
+        Solvetaskinfo TaskInfo = solvetaskServices.FinfLastTask();
         String nextTaskNo;
-        if (maxTaskNo == null) {
+        if (TaskInfo == null) {
             nextTaskNo = "ST_00001";
         } else {
-            nextTaskNo = "ST_" + String.format("%05d", (Integer.parseInt(maxTaskNo.substring(3)) + 1));
+            nextTaskNo = "ST_" + String.format("%05d", (Integer.parseInt(TaskInfo.getSolveTaskNo().substring(3)) + 1));
         }
         model.addAttribute("nextTaskNo", nextTaskNo);
         return "addSolveTask";
