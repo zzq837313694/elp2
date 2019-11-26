@@ -72,4 +72,7 @@ public interface SolvetaskServices {
      */
     int addSovleTaskInfo(Solvetaskinfo solvetaskinfo);
 
+
+    int updateTaskinfoByWorker(String taskNo, String workerIds);
+
 }
