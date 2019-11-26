@@ -44,7 +44,7 @@ function submint() {
                     "<td>"+checkDate+"</td>"+
                     "<td>"+createByName+"</td>"+
                     "<td>"+createDate+"</td>"+
-                    "<td>"+intcatRate*100+"%"+"</td>" +
+                    "<td>"+intcatRate+"%"+"</td>" +
                     "<td>"+comment+"</td>" +
                     "</tr>";
             });
