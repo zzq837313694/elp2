@@ -33,8 +33,8 @@ public class checktaskController {
 
     @RequestMapping("/getchecktaskListNot.html")
     @ResponseBody
-    public PageSurpport<ChecktaskCondition> getchecktaskListNot(ChecktaskCondition checktaskCondition) {
-        PageSurpport<ChecktaskCondition> pageSurpport = checktaskService.SelectChecktaskByParamNot(checktaskCondition);
+    public PageSurpport<ChecktaskCondition> getchecktaskListNot(ChecktaskCondition checktaskCondition,String work) {
+        PageSurpport<ChecktaskCondition> pageSurpport = checktaskService.SelectChecktaskByParamNot(checktaskCondition,work);
         return pageSurpport;
     }
 
@@ -77,7 +77,7 @@ public class checktaskController {
         Checktaskinfo checktaskinfo= checktaskService.SelectChecktaskById(jobId);
         String c=checktaskinfo.getCheckBy();
         String worker="";
-        if(c.isEmpty()){
+        if(c==null||"".equals(c)){
 
         }else{
             String []arr=c.split(",");
@@ -146,6 +146,10 @@ public class checktaskController {
     }
     @RequestMapping("/doupdateChecktask.html")
     public  String doupdateChecktask(Checktaskinfo checktaskinfo){
+        Checktaskinfo checktaskinfo1=checktaskService.SelectChecktaskById(checktaskinfo.getJobId());
+        checktaskinfo.setStatus(checktaskinfo1.getStatus());
+        checktaskinfo.setAbolish(checktaskinfo1.getAbolish());
+        checktaskinfo.setCreateDate(checktaskinfo1.getCreateDate());
         int rel=checktaskService.updateCheck(checktaskinfo);
         System.out.println(rel);
         return "checktaskPlan";
@@ -194,9 +198,11 @@ public class checktaskController {
     }
     @RequestMapping("/changeStuts.html")
     public String changeStuts(String jobId,String status){
-
         Checktaskinfo checktaskinfo=checktaskService.SelectChecktaskById(jobId);
         checktaskinfo.setStatus(status);
+        if("已完成".equals(status)){
+            checktaskinfo.setFinishDate(new Date());
+        }
         int rel=checktaskService.updateCheck(checktaskinfo);
         System.out.println(rel);
         if("执行中".equals(status)||"已完成".equals(status)){
