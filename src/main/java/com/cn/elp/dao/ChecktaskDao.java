@@ -19,4 +19,5 @@ public interface ChecktaskDao {
    int SelectChecktaskCount(@Param("FlawCheck")FlawCheck flawCheck);
    int addChecktaskinfo(Checktaskinfo checktaskinfo);
    int updateCheck(Checktaskinfo checktaskinfo);
+   Checktaskinfo findLastCheck();
 }

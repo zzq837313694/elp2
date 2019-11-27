@@ -56,7 +56,15 @@ public class checktaskController {
     }
 
     @RequestMapping("/addChecktask.html")
-    public String toAddSovleTaskPage() {
+    public String toAddSovleTaskPage(Model model) {
+        Checktaskinfo maxTaskInfo = checktaskService.findLastCheck();//.getSolveTaskNo();
+        String nextTaskNo;
+        if (maxTaskInfo == null) {
+            nextTaskNo = "ST_00001";
+        } else {
+            nextTaskNo = "CH_" + String.format("%05d", (Integer.parseInt(maxTaskInfo.getJobId().substring(3)) + 1));
+        }
+        model.addAttribute("nextTaskNo", nextTaskNo);
         return "addChecktask";
     }
 

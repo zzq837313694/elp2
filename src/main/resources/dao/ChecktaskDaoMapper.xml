@@ -119,4 +119,7 @@ FlawCheck.pageSize!=null and FlawCheck.pageSize!=''">
         update checktaskinfo set jobName=#{jobName},circuitNo=#{circuitNo},startNo=#{startNo}
         ,stopNo=#{stopNo},comment=#{comment},checkBy=#{checkBy},finishDate=#{finishDate} ,abolish=#{abolish},status=#{status} where jobId=#{jobId}
     </update>
+    <select id="findLastCheck" resultType="Checktaskinfo">
+        select * from checktaskinfo order by jobId desc limit 0,1
+    </select>
 </mapper>

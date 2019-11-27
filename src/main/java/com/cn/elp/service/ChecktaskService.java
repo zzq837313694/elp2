@@ -22,4 +22,5 @@ public interface ChecktaskService {
     int updateCheck(Checktaskinfo checktaskinfo);
 
     List<Flawinfo> findFlawInfoBycheckJobNo(String checkJobNo);
+    Checktaskinfo findLastCheck();
 }

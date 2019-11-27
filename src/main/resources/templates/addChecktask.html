@@ -100,17 +100,24 @@
 <!--添加任务输入区-->
 <form method="post" action="/doaddChecktask.html" style="margin-left: 30px">
     <div class="row">
+        <div class="input-prepend input-group">
+            <span class="add-on input-group-addon">下发人：</span>
+            <input hidden="hidden"   name="jobId" th:value="${nextTaskNo}">
+            <input  class="form-control" disabled="disabled"
+                    th:value="${nextTaskNo}">
+        </div>
+        <div class="input-prepend input-group">
+            <span class="add-on input-group-addon">巡检线路：</span>
+            <select  name="circuitNo" class="form-control" id="getCir">
+                <option>-请选择-</option>
+                <option value=""></option>
+            </select>
+        </div>
                 <div class="input-prepend input-group">
                     <span class="add-on input-group-addon">任务名称：</span>
                     <input type="text" name="jobName" id="jobName" class="form-control" value="">
                 </div>
-                <div class="input-prepend input-group">
-                    <span class="add-on input-group-addon">巡检线路：</span>
-                    <select  name="circuitNo" class="form-control" id="getCir">
-                        <option>-请选择-</option>
-                        <option value=""></option>
-                    </select>
-            </div>
+
         <div class="input-prepend input-group">
             <span class="add-on input-group-addon">起始杆号：</span>
             <input type="text" name="startNo"  id="startNo" class="form-control" value="">
