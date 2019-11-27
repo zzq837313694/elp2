@@ -223,7 +223,7 @@ public class checktaskController {
         int roleId = roleServices.findRoleByRoleName("巡检员").getRoleId();
         int no = 0;
         while (no < leftWorker.size()) {
-            if (leftWorker.get(no).getRoleId() != roleId || !"启用".equals(leftWorker.get(no).getStatus())) {
+            if (leftWorker.get(no).getRoleId() != roleId || "冻结".equals(leftWorker.get(no).getStatus())) {
                 leftWorker.remove(no);
                 continue;
             }

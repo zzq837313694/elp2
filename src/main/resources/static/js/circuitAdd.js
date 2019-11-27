@@ -4,7 +4,7 @@ $(function () {
     $("#circuitName").blur(checkaddCircuitNameSpan);
     $("#lineLength").blur(checkaddLineLengthSpan);
     $("#circuitLength").blur(checkaddCircuitLengthSpan);
-    $("#onlineDate").blur(checkaddOnlineDateSpan);
+/*    $("#onlineDate").blur(checkaddOnlineDateSpan);*/
     $("#voltLv").blur(checkaddVoltLvSpan);
     $("#startNo").blur(checkaddStartNoSpan);
     $("#stopNo").blur(checkaddStopNoSpan);
@@ -13,11 +13,13 @@ $(function () {
 
 $("#mycircuitAdd").submit(function () {
     var  flag=true;
-    if (!checkaddCircuitNoSpan()){flag=false};
+    if (!checkaddCircuitNoSpan()) {
+        flag = false
+    }
     if (!checkaddCircuitNameSpan())flag=false;
     if (!checkaddLineLengthSpan())flag=false;
     if (!checkaddCircuitLengthSpan())flag=false;
-    if (!checkaddOnlineDateSpan())flag=false;
+/*    if (!checkaddOnlineDateSpan())flag=false;*/
     if (!checkaddVoltLvSpan())flag=false;
     if (!checkaddStartNoSpan())flag=false;
     if (!checkaddStopNoSpan())flag=false;
@@ -70,7 +72,7 @@ function checkaddCircuitLengthSpan() {
             return true;}
     }
 }
-function checkaddOnlineDateSpan() {
+/*function checkaddOnlineDateSpan() {
     if($("#onlineDate").val()==null ||$("#onlineDate").val()==""){
         $("#addOnlineDateSpan").text("不能为空");
         return false;
@@ -78,7 +80,7 @@ function checkaddOnlineDateSpan() {
         $("#addOnlineDateSpan").text("");
         return true;
     }
-}
+}*/
 function checkaddVoltLvSpan() {
     if($("#voltLv").val()==null ||$("#voltLv").val()=="") {
     $("#addVoltLvSpan").text("不能为空");

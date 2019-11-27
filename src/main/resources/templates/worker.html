@@ -167,7 +167,7 @@
                     </h6>
                 </div>
                 <div class="modal-body">
-                    <form id="updateRoleForm"action="/modifyWorkerinfoByuserNoaswswa.html" method="post">
+                    <form id="updateRoleForm"action="/modifyWorkerinfoByuserNo.html" method="post">
 
                         <table style="margin: auto">
                             <tr>
@@ -361,7 +361,7 @@ function updateStatus(obj) {
     var userNo=$(obj).attr("userNo");
     var status=$(obj).attr("status");
     data="userNo="+userNo+"&status="+status;
-    alert(data)
+    alert(data);
     $.post("updateWorkerinfoStatus.html",data,function (rel) {
         if (rel>0){
             window.location.reload();

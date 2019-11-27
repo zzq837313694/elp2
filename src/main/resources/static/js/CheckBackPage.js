@@ -3,7 +3,7 @@
         init:function(obj,pageinit){
             return (function(){
                 zp.addhtml(obj,pageinit);
-                zp.bindEvent(obj,pageinit);
+                /*zp.bindEvent(obj,pageinit);*/
             }());
         },
         addhtml:function(obj,pageinit){
@@ -52,46 +52,47 @@
                 obj.append('<span>'+'到第'+'<input type="text" class="zxfinput" />'+'页'+'</span>');
                 obj.append('<span class="zxfokbtn">'+'确定'+'</span>');
             }());
-        },
-        bindEvent:function(obj,pageinit){
-            return (function(){
-                obj.on("click","a.prebtn",function(){
-                    var cur = parseInt(obj.children("span.current").text());
-                    var current = $.extend(pageinit, {"current":cur-1});
-                    zp.addhtml(obj,current);
-                    if (typeof(pageinit.backfun)=="function") {
-                        pageinit.backfun(current);
-                    }
-                });
-                obj.on("click","a.zxfPagenum",function(){
-                    var cur = parseInt($(this).text());
-                    var current = $.extend(pageinit, {"current":cur});
-                    zp.addhtml(obj,current);
-                    if (typeof(pageinit.backfun)=="function") {
-                        pageinit.backfun(current);
-                    }
-                });
-                obj.on("click","a.nextbtn",function(){
-                    var cur = parseInt(obj.children("span.current").text());
-                    var current = $.extend(pageinit, {"current":cur+1});
-                    zp.addhtml(obj,current);
-                    if (typeof(pageinit.backfun)=="function") {
-                        pageinit.backfun(current);
-                    }
-                });
-                obj.on("click","span.zxfokbtn",function(){
-                    var cur = parseInt($("input.zxfinput").val());
-
-                    if(cur>pageinit.pageNum){return;}
-                    $("#pageIndex").val(cur);
-                    var current = $.extend(pageinit, {"current":cur});
-                    zp.addhtml(obj,{"current":cur,"pageNum":pageinit.pageNum});
-                    if (typeof(pageinit.backfun)=="function") {
-                        pageinit.backfun(current);
-                    }
-                });
-            }());
         }
+        /* ,
+         bindEvent:function(obj,pageinit){
+             return (function(){
+                 obj.on("click","a.prebtn",function(){
+                     var cur = parseInt(obj.children("span.current").text());
+                     var current = $.extend(pageinit, {"current":cur-1});
+                     zp.addhtml(obj,current);
+                     if (typeof(pageinit.backfun)=="function") {
+                         pageinit.backfun(current);
+                     }
+                 });
+                 obj.on("click","a.zxfPagenum",function(){
+                     var cur = parseInt($(this).text());
+                     var current = $.extend(pageinit, {"current":cur});
+                     zp.addhtml(obj,current);
+                     if (typeof(pageinit.backfun)=="function") {
+                         pageinit.backfun(current);
+                     }
+                 });
+                 obj.on("click","a.nextbtn",function(){
+                     var cur = parseInt(obj.children("span.current").text());
+                     var current = $.extend(pageinit, {"current":cur+1});
+                     zp.addhtml(obj,current);
+                     if (typeof(pageinit.backfun)=="function") {
+                         pageinit.backfun(current);
+                     }
+                 });
+                 obj.on("click","span.zxfokbtn",function(){
+                     var cur = parseInt($("input.zxfinput").val());
+
+                     if(cur>pageinit.pageNum){return;}
+                     $("#pageIndex").val(cur);
+                     var current = $.extend(pageinit, {"current":cur});
+                     zp.addhtml(obj,{"current":cur,"pageNum":pageinit.pageNum});
+                     if (typeof(pageinit.backfun)=="function") {
+                         pageinit.backfun(current);
+                     }
+                 });
+             }());
+         }*/
     }
     $.fn.createPage = function(options){
         var pageinit = $.extend({
@@ -100,8 +101,14 @@
         zp.init(this,pageinit);
     }
 }(jQuery));
-
-
+function fff() {
+    $(".zxf_pagediv").createPage({
+        pageNum:$("#pageCount").val(),
+        current:$("#pageIndex").val(),
+        backfun: function(e) {
+        }
+    });
+}
 
 
 
@@ -114,6 +121,7 @@ function submint() {
         url: "getchecktaskListNot.html", //请求url
         success: function (data) {//提交成功的回调函数
             $("#pageCount").val(data.pageCount);
+            $("#pageIndex").val(data.pageIndex);
             var options=""
             $.each(data.dataList, function (i, obj) {
                 var statusStr="";
@@ -187,6 +195,7 @@ function submint() {
                     "<td>"+trsTR+"</td></tr>";
             });
             $("#app").html(options);
+            fff();
         }
     });
     return false; //不刷新页面
@@ -205,34 +214,27 @@ $(function () {
         submint();
     });
     $(document).on("click", "a.prebtn", function () {
-        var cur = parseInt($("span.current").text());
-        $("#pageIndex").val(cur);
+        /*var cur = parseInt($("span.current").text());*/
+        var cur=$("#nowPage").text();
+        $("#pageIndex").val(eval(cur+"-"+1));
         submint();
     });
     $(document).on("click", "a.nextbtn", function () {
-        var cur = parseInt($("span.current").text());
-        $("#pageIndex").val(cur);
+        /*var cur = parseInt($("span.current").text());*/
+        var cur=$("#nowPage").text();
+        $("#pageIndex").val(eval(cur+"+"+1));
         submint();
     });
 
-    /* $(document).on("click","span.zxfokbtn",function(){
-         var cur = $("input.zxfinput").val();
-         alert(cur)
-         var  a=$("#pageIndex").val();
-         if(cur>$("#pageCount").val()){}else{
-             submint();
-         }
-
-     });*/
     $(document).on("click","span.zxfokbtn",function(){
-        var cur = parseInt($("input.zxfinput").val());
-        if(cur>$("#pageCount").val()){return;}
-        submint();
-    });
-    $(".zxf_pagediv").createPage({
-        pageNum:$("#pageCount").val(),
-        current:1,
-        backfun: function(e) {
+        var cur = $("span .zxfinput").val();
+        $("#pageIndex").val(cur);
+        if(cur>$("#pageCount").val()){
+            return;
+        }else{
+            submint();
         }
+
     });
+
 })
