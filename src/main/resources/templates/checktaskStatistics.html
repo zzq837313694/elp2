@@ -16,6 +16,7 @@
     <script src="js/moment.js"></script>
     <script src="js/datepicker.js"></script>
     <script src="js/date.js"></script>
+    <script src="js/StatisticsPage.js"></script>
     <!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous"></script>-->
     <style>
         #van {
@@ -139,91 +140,3 @@
 </body>
 </html>
 <!--<script src="js/StatisticsPage.js" type="text/javascript"></script>-->
-<script src="js/ShowPage.js" type="text/javascript"></script>
-<script type="text/javascript">
-    function submint() {
-        $("#su").ajaxSubmit({
-            type: "post",  //提交方式
-            dataType: "json", //数据类型
-            async:false,
-            url: "checkList.html", //请求url
-            success: function (data) {//提交成功的回调函数
-                $("#pageCount").val(data.pageSurpport.pageCount);
-                var options=""
-                $.each(data.pageSurpport.dataList, function (i, obj) {
-                    var statusStr="";
-                    var checkJobNo = obj.checkJobNo == null ? "" : obj.checkJobNo;
-                    var checkJobName="";
-                    var circuitNo = obj.circuitNo == null ? "" : obj.circuitNo;
-                    var towerNo = obj.towerNo == null ? "" : obj.towerNo;
-                    var flawLv = obj.flawLv == null ? "" : obj.flawLv;
-                    var flawName="";
-                    var comment = obj.comment == null ? "" : obj.comment;
-                    var checkDate = obj.checkDate == null ? "" : obj.checkDate;
-                    $.each(data.flawtypeList,function (i,obj2) {
-                        if(obj2.flawTypeId==obj.flawTypeId){
-                    flawName=obj2.flawName;
-                        }
-                    })
-                    $.each(data.checktaskinfoList,function (i,obj3) {
-                        if(obj3.jobId==obj.checkJobNo){
-                            checkJobName=obj3.jobName;
-                            circuitNo+="("+obj3.startNo+"-"+obj3.stopNo+")";
-                        }
-                    })
-                    options+=
-                        "<tr style='vertical-align: middle'><td>"+checkJobNo+"</td>"+
-                        "<td>"+checkJobName+"</td>"+
-                        "<td>"+circuitNo+"</td>"+
-                        "<td>"+towerNo+"</td>"+
-                        "<td>"+flawLv+"</td>"+
-                        "<td>"+flawName+"</td>"+
-                        "<td>"+checkDate+"</td>"+
-                        "<td>"+comment+"</td>"+
-                        "</tr>";
-                });
-                $("#app").html(options);
-                $(".zxf_pagediv").createPage({
-                    pageNum:$("#pageCount").val(),
-                    current:1,
-                    backfun: function(e) {
-                    }
-                });
-            }
-        });
-        return false; //不刷新页面
-    }
-
-
-    $(function () {
-        submint();
-        $("#su").submit(function () {
-            submint();
-            return false;
-        });
-        $(document).on("click", "a.zxfPagenum", function () {
-            var cur = parseInt($(this).text());
-            $("#pageIndex").val(cur);
-            submint();
-        });
-        $(document).on("click", "a.prebtn", function () {
-            var cur = parseInt($("span.current").text());
-            $("#pageIndex").val(cur);
-            submint();
-        });
-        $(document).on("click", "a.nextbtn", function () {
-            var cur = parseInt($("span.current").text());
-            $("#pageIndex").val(cur);
-            submint();
-        });
-
-        $(document).on("click","span.zxfokbtn",function(){
-            var cur = parseInt($("input.zxfinput").text());
-            alert(cur);
-            $("#pageIndex").val(cur);
-            if(cur>$("#pageCount").val()){return;}
-            submint();
-        });
-
-    })
-</script>
