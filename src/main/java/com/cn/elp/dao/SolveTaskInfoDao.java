@@ -53,4 +53,15 @@ public interface SolveTaskInfoDao {
 
 
         int updateTaskInfoByWorker(@Param("taskNo") String taskNo,@Param("workerIds")String workerIds);
+
+
+        /**
+         * 代办列表 消缺员要看见的干的活！
+         * @param userNo
+         * @return
+         */
+        List<Solvetaskinfo> findSolveTaskInfoByUserNo(@Param("checkBy") String userNo);
+
+
+
 }

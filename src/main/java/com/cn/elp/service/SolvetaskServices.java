@@ -75,4 +75,11 @@ public interface SolvetaskServices {
 
     int updateTaskinfoByWorker(String taskNo, String workerIds);
 
+    /**
+     * 代办列表 消缺员要看见的干的活！
+     * @param userNo
+     * @return
+     */
+    List<Solvetaskinfo> findSolveTaskInfoByUserNo(String userNo);
+
 }
