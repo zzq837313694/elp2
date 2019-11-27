@@ -59,4 +59,11 @@ public interface FlawinfoDao {
 
     int addFlawinfo(Flawinfo flawinfo);
     int updateFlawinfo(Flawinfo flawinfo);
+
+    /**
+     * 缺陷等级确认 待办列表
+     * @param
+     * @return
+     */
+    List<Flawinfo> findFlawinfoByStatus();
 }

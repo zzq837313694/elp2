@@ -1,11 +1,7 @@
 package com.cn.elp.controllers;
 
-import com.cn.elp.POJO.Checktaskinfo;
-import com.cn.elp.POJO.Solvetaskinfo;
-import com.cn.elp.POJO.Workerinfo;
-import com.cn.elp.service.ChecktaskService;
-import com.cn.elp.service.SolvetaskServices;
-import com.cn.elp.service.WorkerinfoService;
+import com.cn.elp.POJO.*;
+import com.cn.elp.service.*;
 import com.cn.elp.util.MyContents;
 import com.cn.elp.util.TodoListCondition;
 import javafx.concurrent.Worker;
@@ -26,6 +22,11 @@ public class MyWorkController {
     ChecktaskService checktaskService;
     @Resource
     SolvetaskServices solvetaskServices;
+    @Resource
+    FlawinfoService flawinfoService;
+    @Resource
+    CircuitService circuitService;
+
 
     @RequestMapping("workerUpdate.html")
     public String workerUpdate(){
@@ -71,6 +72,15 @@ public class MyWorkController {
                     condition.setArriveTime(solvetaskinfo.getCreateDate());
                     listConditions.add(condition);
                 }
+            }
+            List<Flawinfo> flawinfoByStatus = flawinfoService.findFlawinfoByStatus();
+            for (Flawinfo flawinfoByStatu:flawinfoByStatus){
+                TodoListCondition condition=new TodoListCondition();
+                    condition.setWorkType("缺陷管理");
+                Circuit oneCircuit = circuitService.findOneCircuit(flawinfoByStatu.getCircuitNo());
+                condition.setWorkName(oneCircuit.getCircuitName()+flawinfoByStatu.getTowerNo()+"缺陷等级确认");
+                    condition.setArriveTime(flawinfoByStatu.getCheckDate());
+                    listConditions.add(condition);
             }
 
         }else if (roleId==3){

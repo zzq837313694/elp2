@@ -51,7 +51,7 @@
     </select>
 
     <update id="updateFlawLvByFlawNo" parameterType="Flawinfo">
-        update flawinfo set flawLV=#{flawLv} where flawNo=#{flawNo}
+        update flawinfo set flawLV=#{flawLv},status=1 where flawNo=#{flawNo}
     </update>
 
     <select id="findFlawInfoByFlawNo" resultType="Flawinfo" parameterType="java.lang.String">
@@ -91,4 +91,9 @@
     <update id="updateFlawinfo" parameterType="flawinfo">
         update flawinfo set flawLV=#{flawLv}, flawTypeId=#{flawTypeId},intcatRate=#{intcatRate},comment=#{comment}  where flawNo=#{flawNo}
     </update>
+
+
+    <select id="findFlawinfoByStatus" resultType="Flawinfo">
+        select * from flawinfo where status=0;
+    </select>
 </mapper>

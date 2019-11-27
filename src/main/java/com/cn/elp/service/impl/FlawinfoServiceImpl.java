@@ -56,4 +56,9 @@ public class FlawinfoServiceImpl implements FlawinfoService {
         return flawinfoDao.updateFlawinfo(flawinfo);
     }
 
+    @Override
+    public List<Flawinfo> findFlawinfoByStatus() {
+        return flawinfoDao.findFlawinfoByStatus();
+    }
+
 }
