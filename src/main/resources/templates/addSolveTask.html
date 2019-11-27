@@ -111,7 +111,7 @@
                     <span class="add-on input-group-addon">负责人：</span>
                     <select name="manager" class="form-control">
                         <option value="">-请选择-</option>
-                        <option value=""></option>
+                        <option  th:each="admin:${lineAdmin}" th:value="${admin.getUserName()}"  th:text="${admin.getUserName()}"></option>
                     </select>
                 </div>
             </div>
@@ -177,7 +177,9 @@
             </div>
             <div class=" col-lg-4 col-sm-5 col-xs-7  col-lg-push-8 col-sm-push-7 col-xs-push-5 ">
                 <button type="button" class="btn btn-primary" onclick="saveSovleTask()">保存</button>
-                <button type="button" class="btn btn-primary">返回</button>
+                <button type="button" class="btn btn-primary">
+                    <a  href="AdminSolveTask.html" style="color: white">   返回  </a>
+                </button>
             </div>
         </div>
     </div>

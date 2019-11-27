@@ -1,0 +1,19 @@
+#van {
+    padding: 20px;
+}
+
+.form-control {
+    width: 200px;
+}
+
+.input-group {
+    margin: 5px;
+}
+
+.input-group-addon,.date {
+    width: 90px;
+}
+
+td, th {
+    text-align: center;
+}

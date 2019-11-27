@@ -24,31 +24,11 @@
 
     <link type="text/css" href="webjars/bootstrap" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}"
           rel="stylesheet">
-    <link rel="stylesheet" href="css/dialog/dialog.css">
-    <link rel="stylesheet" href="css/datepicker.css">
+    <link rel="stylesheet" href="css/dialog/dialog.css"/>
+    <link rel="stylesheet" href="css/datepicker.css"/>
     <link rel="stylesheet" type="text/css" href="css/ShowPage.css"/>
-    <link type="text/css" href="css/sovleTaskmModal.css" rel="stylesheet">
-    <style>
-        #van {
-            padding: 20px;
-        }
-
-        .form-control {
-            width: 200px;
-        }
-
-        .input-group {
-            margin: 5px;
-        }
-
-        .input-group-addon {
-            width: 90px;
-        }
-
-        td, th {
-            text-align: center;
-        }
-    </style>
+    <link type="text/css" href="css/sovleTaskmModal.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="css/AdminsovleTask.css"/>
 </head>
 <body>
 
@@ -91,7 +71,7 @@
             <div class="col-lg-4 col-sm-6 col-xs-12 ">
                 <div class="input-prepend input-group">
                     <span class="add-on input-group-addon">下发人:</span>
-                    <input type="text" name="creatBy" class="form-control" th:value="${solveTask.creatBy}">
+                    <input type="text" name="createrName" class="form-control" th:value="${solveTask.createrName}">
                 </div>
                 <div></div>
             </div>
@@ -100,7 +80,7 @@
                     <span class="add-on input-group-addon ">下发时间:</span>
                     <div class="  J-datepicker-range-day  form-control date" style="width: 200px">
                         <input placeholder="开始日期" name="createDate_from" class="c-datepicker-data-input only-date"
-                               style="width: 77px" th:value="${data_from}">
+                               style="width: 77px" th:value="${data_from}" >
                         <span class="c-datepicker-range-separator">-</span>
                         <input placeholder="结束日期" name="createDate_to" class="c-datepicker-data-input only-date"
                                style="width: 77px" th:value="${data_to}">
