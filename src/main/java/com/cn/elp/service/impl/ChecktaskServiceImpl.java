@@ -143,5 +143,20 @@ public class ChecktaskServiceImpl implements ChecktaskService
         return flawinfoDao.findFlawInfoBycheckJobNo(checkJobNo);
     }
 
+    @Override
+    public Checktaskinfo findLastCheck() {
+        return checktaskDao.findLastCheck();
+    }
+
+    @Override
+    public List<Checktaskinfo> findChecktaskInfoByUserNo(String userNo) {
+        return checktaskDao.findChecktaskInfoByUserNo(userNo);
+    }
+
+    @Override
+    public List<Checktaskinfo> findChecktaskInfo() {
+        return checktaskDao.findChecktaskInfo();
+    }
+
 
 }

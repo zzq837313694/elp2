@@ -113,10 +113,32 @@ FlawCheck.pageSize!=null and FlawCheck.pageSize!=''">
     </sql>
 <insert id="addChecktaskinfo" parameterType="Checktaskinfo">
     insert into checktaskinfo values ('a',#{jobName},#{circuitNo},#{startNo},#{stopNo},
-    null,#{createBy},#{createDate},#{finishDate},#{comment},'待分配','否');
+    null,#{createBy},#{createDate},#{finishDate},#{comment},'待分配','否',0);
 </insert>
     <update id="updateCheck" parameterType="Checktaskinfo">
         update checktaskinfo set jobName=#{jobName},circuitNo=#{circuitNo},startNo=#{startNo}
         ,stopNo=#{stopNo},comment=#{comment},checkBy=#{checkBy},finishDate=#{finishDate} ,abolish=#{abolish},status=#{status} where jobId=#{jobId}
     </update>
+    <select id="findLastCheck" resultType="Checktaskinfo">
+        select * from checktaskinfo order by jobId desc limit 0,1
+    </select>
+
+
+
+    <select id="findChecktaskInfoByUserNo" resultType="Checktaskinfo">
+        select * from checktaskinfo where  checkBy like concat('%',#{checkBy},'%')
+    </select>
+
+    <select id="findChecktaskInfo" resultType="Checktaskinfo">
+        select * from checktaskinfo;
+    </select>
+
+
+
+
+
+
+
+
+
 </mapper>

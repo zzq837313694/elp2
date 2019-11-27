@@ -50,27 +50,26 @@
                 </thead>
 
                 <tbody>
-                <tr role="row" class="odd"  id="table">
-                    <td class="sorting_1" >Airi Satou</td>
-                    <td >Accountant</td>
-                    <td >Tokyo</td>
+                <tr role="row" class="odd"  id="table" th:each="lists:${listConditions}">
+                    <td class="sorting_1" th:text="${lists.workType}" >Airi Satou</td>
+                    <td th:text="${lists.workName}">Accountant</td>
+                    <td th:text="${#dates.format(lists.arriveTime,'yyyy-MM-dd HH:mm:ss')}">Tokyo</td>
                     <input type="hidden" id="pageCount" >
                     <input type="hidden" id="returnpageIndex">
                     <td >
-                        <a href="#">查看</a>
-                        &nbsp;&nbsp;丨&nbsp;
+
                         <a  href="#">处理</a>
                     </td>
-                </tr>
+                </tr><!--<div class="zxf_pagediv">
+
+</div>-->
 
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-<div class="zxf_pagediv">
 
-</div>
 </body>
 </html>
 
@@ -78,4 +77,4 @@
 
 </script>
 
-<script type="text/javascript" src="js/circuitType.js"></script>
+<!--<script type="text/javascript" src="js/circuitType.js"></script>-->

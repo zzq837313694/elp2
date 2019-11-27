@@ -56,7 +56,15 @@ public class checktaskController {
     }
 
     @RequestMapping("/addChecktask.html")
-    public String toAddSovleTaskPage() {
+    public String toAddSovleTaskPage(Model model) {
+        Checktaskinfo maxTaskInfo = checktaskService.findLastCheck();//.getSolveTaskNo();
+        String nextTaskNo;
+        if (maxTaskInfo == null) {
+            nextTaskNo = "ST_00001";
+        } else {
+            nextTaskNo = "CH_" + String.format("%05d", (Integer.parseInt(maxTaskInfo.getJobId().substring(3)) + 1));
+        }
+        model.addAttribute("nextTaskNo", nextTaskNo);
         return "addChecktask";
     }
 
@@ -223,7 +231,7 @@ public class checktaskController {
         int roleId = roleServices.findRoleByRoleName("巡检员").getRoleId();
         int no = 0;
         while (no < leftWorker.size()) {
-            if (leftWorker.get(no).getRoleId() != roleId || "冻结".equals(leftWorker.get(no).getStatus())) {
+            if (leftWorker.get(no).getRoleId() != roleId || !"正常".equals(leftWorker.get(no).getStatus())) {
                 leftWorker.remove(no);
                 continue;
             }
