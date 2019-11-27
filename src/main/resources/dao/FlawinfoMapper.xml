@@ -30,6 +30,9 @@
         <if test="condition.endTime!=null">
             and checkDate&lt;=#{condition.endTime}
         </if>
+        <if test="1==1">
+            and status=0
+        </if>
     </sql>
 
     <select id="findAllFlawInfo" resultType="Flawinfo">

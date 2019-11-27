@@ -113,7 +113,7 @@ public class solveTaskController {
         int roleId = roleServices.findRoleByRoleName("消缺员").getRoleId();
         int no = 0;
         while (no < leftWorker.size()) {
-            if (leftWorker.get(no).getRoleId() != roleId || !"启用".equals(leftWorker.get(no).getStatus())) {
+            if (leftWorker.get(no).getRoleId() != roleId || !"正常".equals(leftWorker.get(no).getStatus())) {
                 leftWorker.remove(no);
                 continue;
             }

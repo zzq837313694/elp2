@@ -122,4 +122,23 @@ FlawCheck.pageSize!=null and FlawCheck.pageSize!=''">
     <select id="findLastCheck" resultType="Checktaskinfo">
         select * from checktaskinfo order by jobId desc limit 0,1
     </select>
+
+
+
+    <select id="findChecktaskInfoByUserNo" resultType="Checktaskinfo">
+        select * from checktaskinfo where  checkBy like concat('%',#{checkBy},'%')
+    </select>
+
+    <select id="findChecktaskInfo" resultType="Checktaskinfo">
+        select * from checktaskinfo;
+    </select>
+
+
+
+
+
+
+
+
+
 </mapper>

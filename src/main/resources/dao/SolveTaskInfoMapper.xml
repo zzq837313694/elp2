@@ -54,4 +54,9 @@
     <update id="updateTaskInfoByWorker" parameterType="String">
         update solvetaskinfo set finishiworkerId = #{workerIds},status='已分配' where solveTaskNo = #{taskNo};
     </update>
+
+    <select id="findSolveTaskInfoByUserNo" resultType="Solvetaskinfo" parameterType="String">
+        select * from solvetaskinfo where  finishiworkerId like concat('%',#{checkBy},'%')
+    </select>
+
 </mapper>

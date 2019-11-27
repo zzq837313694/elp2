@@ -15,12 +15,20 @@ public class Flawinfo {
   private int flawTypeId;
   private String flawLv;
   private String checkBy;
+  private int status;
   @JsonFormat(pattern = "yyyy-MM-dd ",timezone = "GMT+8")
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   private Date checkDate;
   private double intcatRate;
   private String comment;
 
+  public int getStatus() {
+    return status;
+  }
+
+  public void setStatus(int status) {
+    this.status = status;
+  }
 
   public String getFlawNo() {
     return flawNo;
