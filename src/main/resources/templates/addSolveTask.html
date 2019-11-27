@@ -105,15 +105,16 @@
         var floawList="";
         $("#sovleFlawTable tbody tr").each(function (index, item) {
             floawList=floawList+$(item).children()[0].innerText+",";
-        })
-        var requestData="sovleTaskNo="+sovleTaskNo+"&sovleTaskName="+sovleTaskName+"&documents="+documents
-            +"&manager="+manager+"&creatBy="+creatBy+"&creatDate="+creatDate+"&describe="+describe+"&comment="+comment
+        });
+        var requestData="solveTaskNo="+sovleTaskNo+"&solveTaskName="+sovleTaskName+"&documents="+documents
+            +"&manager="+manager+"&creatBy="+creatBy+"&createDate="+creatDate+"&describe="+describe+"&comment="+comment
             +"&solveWorker="+solveWorker+"&floawList="+floawList;
         $.post({
             url:"/saveSovleTask",
             data:requestData,
             dataType: 'text',
             success:function (data) {
+
                 document.url="/AdminSolveTask.html";
             },
             error:function (erroMsg) {

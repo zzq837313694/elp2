@@ -82,15 +82,18 @@
                 obj.on("click","span.zxfokbtn",function(){
                     var cur = parseInt($("input.zxfinput").val());
                     /*if(cur>pageinit.pageNum){return;}*/
+
                     var current = $.extend(pageinit, {"current":cur});
+
                     zp.addhtml(obj,{"current":cur,"pageNum":pageinit.pageNum});
+                    $("input.zxfinput").val(cur);
                     if (typeof(pageinit.backfun)=="function") {
                         pageinit.backfun(current);
                     }
                 });
             }());
         }
-    }
+    };
     $.fn.createPage = function(options){
         var pageinit = $.extend({
             backfun : function(){}
