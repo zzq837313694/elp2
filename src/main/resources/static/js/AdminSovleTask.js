@@ -1,3 +1,14 @@
+
+/*分页*/
+
+$(".zxf_pagediv").createPage({
+    pageNum: $("#pageCount").val(),
+    current: $("#returnpageIndex").val(),
+    backfun: function(e) {
+    }
+});
+
+
 /*修改消缺任务*/
 function updateTask(obj) {
     alert("修改" + $(obj).parents("tr").find('td').eq(0).text());

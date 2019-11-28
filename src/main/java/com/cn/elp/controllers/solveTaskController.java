@@ -141,8 +141,12 @@ public class solveTaskController {
             for (int i = 0; i < workerArray.length; i++) {
                 rightWorker.add(workerinfoService.findAllWorker(workerArray[i]));
             }
-            for (Workerinfo worker : leftWorker) {
-                rightWorker.remove(worker);
+            for (Workerinfo rworker : rightWorker) {
+                for(Workerinfo lworker : rightWorker) {
+                    if(lworker.getUserNo().equals(rworker.getUserNo())){
+                        leftWorker.remove(lworker);
+                    }
+                }
             }
             workers.put("leftWorker", leftWorker);
             workers.put("rightWorker", rightWorker);
@@ -212,11 +216,11 @@ public class solveTaskController {
     @ResponseBody
     public String Search(Solvetaskinfo solveTask, String solveWorker, Model model) {
 
-        String[] worker = solveWorker.split(">");
+        String[] worker = solveWorker.split(" >");
         String finishiworkerId = "";
         for (int i = 0; i < worker.length; i++) {
             if (!"".equals(worker[i])) {
-                finishiworkerId += worker[i].split("--")[0] + ",";
+                finishiworkerId +=(","+worker[i].split("--")[0]);
             }
 
         }

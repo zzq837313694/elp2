@@ -12,15 +12,13 @@
     <script src="js/moment.js"></script>
     <script src="js/datepicker.js"></script>
     <script src="js/date.js"></script>
-    <!--分页js-->
-    <script src="js/ShowPage.js"></script>
+
     <!--模态框js-->
     <script src="js/chooseWorkerModal.js"></script>
     <!--//成功提示框-->
     <script src="js/dailog/zepto.js"></script>
     <script src="js/dailog/dialog.js"></script>
-<!--页面js-->
-    <script src="js/AdminSovleTask.js"></script>
+
 
     <link type="text/css" href="webjars/bootstrap" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}"
           rel="stylesheet">
@@ -37,7 +35,8 @@
     <span>&gt;&gt;&nbsp;</span>
     <span>消缺任务制定与分配</span>
 </p>
-
+<input id="pageCount" type="hidden" th:value="${data.getPageCount()}">
+<input id="returnpageIndex" type="hidden" th:value="${data.getPageIndex()}">
 <!-------筛选------->
 <div class="row ">
     <form action="AdminSolveTask.html" method="post">
@@ -584,5 +583,10 @@
     <div x-arrow="" class="popper__arrow" style="left: 35px;"></div>
 </div>
 <!--时间选取end-->
+
+<!--分页js-->
+<script src="js/ShowPage.js"></script>
+<!--页面js-->
+<script src="js/AdminSovleTask.js"></script>
 </body>
 </html>
