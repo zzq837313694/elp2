@@ -132,13 +132,4 @@ FlawCheck.pageSize!=null and FlawCheck.pageSize!=''">
     <select id="findChecktaskInfo" resultType="Checktaskinfo">
         select * from checktaskinfo;
     </select>
-
-
-
-
-
-
-
-
-
 </mapper>
