@@ -45,16 +45,23 @@ public class solveTaskController {
                                  @RequestParam(required = false, defaultValue = "1") int pageIndex) {
         //数据回显
         model.addAttribute("solveTask", solveTask);
-        if ("".equals(createDate_from))
+        if (!"".equals(createDate_from))
             model.addAttribute("data_from", createDate_from);
-        if ("".equals(createDate_to))
+        if (!"".equals(createDate_to))
             model.addAttribute("data_to", createDate_to);
-
-
         PageSurpport<Solvetaskinfo> ps = new PageSurpport<Solvetaskinfo>();
         ps.setPageIndex(pageIndex);
         ps.setTotalCount(solvetaskServices.countSolveTask());
         ps.setPageSize(8);
+
+        List<Workerinfo> allWorkerInfo = workerinfoService.findAllWorkers();
+        for (Workerinfo workerinfo : allWorkerInfo) {
+            if (workerinfo.getUserName().equals(solveTask.getCreaterName())) {
+                solveTask.setCreatBy(workerinfo.getUserNo());
+            }
+        }
+
+
         try {
             List<Solvetaskinfo> solveTasks = solvetaskServices.searchSolveTask(solveTask.getSolveTaskNo(), solveTask.getSolveTaskName()
                     , solveTask.getCreatBy(), solveTask.getStatus(), createDate_from, createDate_to, ps.getPageIndex());
@@ -134,8 +141,12 @@ public class solveTaskController {
             for (int i = 0; i < workerArray.length; i++) {
                 rightWorker.add(workerinfoService.findAllWorker(workerArray[i]));
             }
-            for (Workerinfo worker : leftWorker) {
-                rightWorker.remove(worker);
+            for (Workerinfo rworker : rightWorker) {
+                for(Workerinfo lworker : rightWorker) {
+                    if(lworker.getUserNo().equals(rworker.getUserNo())){
+                        leftWorker.remove(lworker);
+                    }
+                }
             }
             workers.put("leftWorker", leftWorker);
             workers.put("rightWorker", rightWorker);
@@ -149,6 +160,8 @@ public class solveTaskController {
     //添加消缺任务
     public String toAddSovleTaskPage(Model model) {
 
+       List<Workerinfo> lineAdmin=workerinfoService.findWorkerByRoleId(roleServices.findRoleByRoleName("线路管理员").getRoleId());
+        model.addAttribute("lineAdmin", lineAdmin);
         model.addAttribute("flawtypeList", flawTypeDao.findAllFlawType());
         Solvetaskinfo maxTaskInfo = solvetaskServices.FinfLastTask();//.getSolveTaskNo();
         String nextTaskNo;
@@ -165,28 +178,28 @@ public class solveTaskController {
     @ResponseBody
     /*缺陷信息表*/
     public List<Flawinfo> findFlaws(FlawInfoCondition condition, Model model) {
-       List<Flawinfo> allFlaws=new ArrayList<>();
-       allFlaws=flawinfoDao.findFlawForSovle(condition);
-       List<Solvetaskinfo> allSovleTask=solvetaskServices.findAllSolveTask();
-       if (allSovleTask==null||allSovleTask.size()==0){
-           return allFlaws;
-       }
-        StringBuffer sovleflaw=new StringBuffer();
-        for(Solvetaskinfo task:allSovleTask){
+        List<Flawinfo> allFlaws = new ArrayList<>();
+        allFlaws = flawinfoDao.findFlawForSovle(condition);
+        List<Solvetaskinfo> allSovleTask = solvetaskServices.findAllSolveTask();
+        if (allSovleTask == null || allSovleTask.size() == 0) {
+            return allFlaws;
+        }
+        StringBuffer sovleflaw = new StringBuffer();
+        for (Solvetaskinfo task : allSovleTask) {
             sovleflaw.append(task.getFloawList());
             sovleflaw.append(",");
         }
-        if (sovleflaw==null||sovleflaw.length()==0){
+        if (sovleflaw == null || sovleflaw.length() == 0) {
             return allFlaws;
         }
-        String[] sovleflawArray=sovleflaw.toString().split(",");
-        if (sovleflawArray.length==0){
+        String[] sovleflawArray = sovleflaw.toString().split(",");
+        if (sovleflawArray.length == 0) {
             return allFlaws;
         }
-        int i=0;
-        while(i<allFlaws.size()){
-            for (String flawNo:sovleflawArray){
-                if (allFlaws.get(i).getFlawNo().equals(flawNo)){
+        int i = 0;
+        while (i < allFlaws.size()) {
+            for (String flawNo : sovleflawArray) {
+                if (allFlaws.get(i).getFlawNo().equals(flawNo)) {
                     allFlaws.remove(i);
                     --i;
                     break;
@@ -201,22 +214,22 @@ public class solveTaskController {
 
     @RequestMapping("/saveSovleTask")
     @ResponseBody
-    public String Search(Solvetaskinfo solveTask, String solveWorker, Model model) {
+    public void Search(Solvetaskinfo solveTask, String solveWorker, Model model) {
 
-        String[] worker=solveWorker.split(">");
-        String finishiworkerId="";
-        for(int i=0;i<worker.length;i++){
-            if (!"".equals(worker[i])){
-                finishiworkerId+=worker[i].split("--")[0]+",";
+        String[] worker = solveWorker.split(" >");
+        String finishiworkerId = "";
+        for (int i = 0; i < worker.length; i++) {
+            if (!"".equals(worker[i])) {
+                finishiworkerId +=(","+worker[i].split("--")[0]);
             }
 
         }
         solveTask.setFinishiworkerId(finishiworkerId);
-        int r=solvetaskServices.addSovleTaskInfo(solveTask);
-        if(r==1){
+        int r = solvetaskServices.addSovleTaskInfo(solveTask);
+        if (r == 1) {
             System.out.println("添加成功");
         }
-        return "AdminSolveTask";
+        return ;
     }
 
 

@@ -60,6 +60,7 @@ public class MyWorkController {
                     condition.setWorkType("巡检任务");
                     condition.setWorkName(checktaskinfo.getJobName() + checktaskinfo.getStatus());
                     condition.setArriveTime(checktaskinfo.getCreateDate());
+                    condition.setRoleId(roleId);
                     listConditions.add(condition);
                 }
             }
@@ -70,6 +71,7 @@ public class MyWorkController {
                     condition.setWorkType("消缺任务");
                     condition.setWorkName(solvetaskinfo.getSolveTaskName()+solvetaskinfo.getStatus());
                     condition.setArriveTime(solvetaskinfo.getCreateDate());
+                    condition.setRoleId(roleId);
                     listConditions.add(condition);
                 }
             }
@@ -79,7 +81,8 @@ public class MyWorkController {
                     condition.setWorkType("缺陷管理");
                 Circuit oneCircuit = circuitService.findOneCircuit(flawinfoByStatu.getCircuitNo());
                 condition.setWorkName(oneCircuit.getCircuitName()+flawinfoByStatu.getTowerNo()+"缺陷等级确认");
-                    condition.setArriveTime(flawinfoByStatu.getCheckDate());
+                condition.setArriveTime(flawinfoByStatu.getCheckDate());
+                condition.setRoleId(roleId);
                     listConditions.add(condition);
             }
 
@@ -91,6 +94,7 @@ public class MyWorkController {
                     condition.setWorkType("巡检任务");
                     condition.setWorkName(checktaskinfo.getJobName()+checktaskinfo.getStatus());
                     condition.setArriveTime(checktaskinfo.getCreateDate());
+                    condition.setRoleId(roleId);
                     listConditions.add(condition);
                 }
             }
@@ -102,22 +106,12 @@ public class MyWorkController {
                     condition.setWorkType("消缺任务");
                     condition.setWorkName(solvetaskinfo.getSolveTaskName()+solvetaskinfo.getStatus());
                     condition.setArriveTime(solvetaskinfo.getCreateDate());
+                    condition.setRoleId(roleId);
                     listConditions.add(condition);
                 }
             }
         }
-
-
         model.addAttribute("listConditions",listConditions);
-
-
-
-
-
-
-
-
-
         return "todolists";
     }
 

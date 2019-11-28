@@ -6,6 +6,15 @@ public class TodoListCondition {
     private String workType;
     private String workName;
     private Date arriveTime;
+    private  int roleId;
+
+    public int getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
+    }
 
     public String getWorkType() {
         return workType;
