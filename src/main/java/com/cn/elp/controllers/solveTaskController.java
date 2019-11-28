@@ -139,19 +139,25 @@ public class solveTaskController {
         } else {
             String[] workerArray = nowWorker.split(",");
             for (int i = 0; i < workerArray.length; i++) {
-                rightWorker.add(workerinfoService.findAllWorker(workerArray[i]));
-            }
-            for (Workerinfo rworker : rightWorker) {
-                for(Workerinfo lworker : rightWorker) {
-                    if(lworker.getUserNo().equals(rworker.getUserNo())){
-                        leftWorker.remove(lworker);
-                    }
+                if(workerArray[i]!=null&&!"".equals(workerArray[i])) {
+                    rightWorker.add(workerinfoService.findAllWorker(workerArray[i]));
                 }
             }
+            no=0;
+          while(no<leftWorker.size()){
+              int j = 0;
+              while (j<rightWorker.size()){
+                  if(leftWorker.get(no).getUserNo().equals(rightWorker.get(j).getUserNo())){
+                      leftWorker.remove(no);
+                      j++;
+                      continue;
+                  }
+                  no++;
+              }
+          }
             workers.put("leftWorker", leftWorker);
             workers.put("rightWorker", rightWorker);
         }
-
         return workers;
     }
 
@@ -232,5 +238,21 @@ public class solveTaskController {
         return ;
     }
 
+    @RequestMapping("/updateSovleTaskfinishWorker")
+    @ResponseBody
+    public int updateSovleTaskfinishWorker(String TaskNo,String finishWorker ,Model model) {
+
+        return solvetaskServices.updateTaskinfoByWorker(TaskNo,finishWorker);
+    }
+    @RequestMapping("/updataTask")
+    public String updataTask(String taskNo,Model model) {
+        solvetaskServices.findSolveTaskByTaskNo(taskNo);
+        model.addAttribute("nextTaskNo", taskNo);
+        model.addAttribute("retentask", solvetaskServices.findSolveTaskByTaskNo(taskNo));
+        List<Workerinfo> lineAdmin=workerinfoService.findWorkerByRoleId(roleServices.findRoleByRoleName("线路管理员").getRoleId());
+        model.addAttribute("lineAdmin", lineAdmin);
+        model.addAttribute("flawtypeList", flawTypeDao.findAllFlawType());
+       return  "addSolveTask";
+    }
 
 }
