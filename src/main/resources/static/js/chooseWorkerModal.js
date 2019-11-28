@@ -34,7 +34,7 @@ function chooseWorker(obj) {
             });
             $.each(workMap.rightWorker, function (index, worker) {
                 var workerLi = "<li onclick=\"isCheack(this)\">"+worker.userNo+"--"+worker.userName+"</li>";
-                $('#modelLeft').append(workerLi)
+                $('#modelRight').append(workerLi)
             })
         }
     });
