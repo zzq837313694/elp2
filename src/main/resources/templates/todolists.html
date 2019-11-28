@@ -57,8 +57,11 @@
                     <input type="hidden" id="pageCount" >
                     <input type="hidden" id="returnpageIndex">
                     <td >
-
-                        <a  href="#">处理</a>
+                        <a th:if="${lists.workType=='巡检任务' && (lists.roleId==1 || lists.roleId==2)}"  href="checktaskPlan.html">处理</a>
+                        <a th:if="${lists.workType=='消缺任务' && (lists.roleId==1 || lists.roleId==2)}"  href="AdminSolveTask.html">处理</a>
+                        <a th:if="${lists.workType=='缺陷管理' && (lists.roleId==1 || lists.roleId==2)}"  href="flawLevel.html">处理</a>
+                        <a th:if="${lists.workType=='巡检任务' && lists.roleId== 3}"  href="checktaskBack.html">处理</a>
+                        <a th:if="${lists.workType=='消缺任务' && lists.roleId== 4}"  href="sovleTaskreceipt.html">处理</a>
                     </td>
                 </tr><!--<div class="zxf_pagediv">
 
