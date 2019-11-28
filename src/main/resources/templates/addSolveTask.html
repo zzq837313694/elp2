@@ -9,64 +9,15 @@
     <link rel="stylesheet" href="css/datepicker.css">
     <link rel="stylesheet" href="css/mymodal.css">
     <link rel="stylesheet" href="css/sovleTaskmModal.css">
-    <style>
-        html, body {
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            min-width: 500px;
-        }
-
-        #van {
-            padding: 20px;
-        }
-
-        .input-group {
-            margin: 5px;
-        }
-
-        .item {
-            margin: 0px;
-            width: 46%;
-            position: relative;
-            display: inline-block;
-            padding: 0px 10px;
-        }
-
-        textarea {
-            resize: none;
-        }
-
-        .modal-body {
-            position: relative;
-        }
-
-        #myModal {
-            min-width: 490px;
-        }
-
-        #flawListModal {
-            min-width: 500px;
-        }
-
-        #flawTable {
-            margin: 2px 10px;
-            width: 95%;
-        }
-
-        .modalFooter {
-            padding-left: 80%;
-            padding-top: 8px;
-
-        }
-
-    </style>
+    <link rel="stylesheet" href="css/dialog/dialog.css"/>
 </head>
 <script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
 <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}"></script>
 <script src="js/chooseWorkerModal.js"></script>
 <script rel="script" src="js/addSolveTask.js"></script>
+<!--//成功提示框-->
+<script src="js/dailog/zepto.js"></script>
+<script src="js/dailog/dialog.js"></script>
 <body>
 <!--导航栏-->
 <p id="van">
@@ -92,7 +43,8 @@
                 <div class="input-prepend input-group">
                     <span class="add-on input-group-addon">任务名称：</span>
                     <input type="text" name="sovleTaskName" id="sovleTaskName" class="form-control">
-                    <span id="sovleTaskNameError" style="color: red ;display: table-cell;vertical-align: middle;">*</span>
+                    <span id="sovleTaskNameError"
+                          style="color: red ;display: table-cell;vertical-align: middle;">*</span>
                 </div>
 
             </div>
@@ -114,7 +66,7 @@
             <div class="col-lg-4 col-sm-6 col-xs-12 ">
                 <div class="input-prepend input-group">
                     <span class="add-on input-group-addon">负责人：</span>
-                    <select  id="manager" name="manager" class="form-control">
+                    <select id="manager" name="manager" class="form-control">
                         <option value="">-请选择-</option>
                         <option th:each="admin:${lineAdmin}" th:value="${admin.getUserName()}"
                                 th:text="${admin.getUserName()}"></option>
@@ -153,9 +105,9 @@
                 <div class="input-prepend input-group">
                     <span class="add-on input-group-addon">消缺员：</span>
                     <textarea name="solveWorker" id="solveWorker" cols="110" rows="2" class="form-control"></textarea>
-                    <a id="" class="add-on glyphicon-zoom-in" data-toggle="modal" data-target="#myModal"
+                    <a id="" class="add-on input-group-addon" data-toggle="modal" data-target="#myModal"
                        onclick="chooseWorker(this)">
-                        <span class=" glyphicon  glyphicon-eye-open " aria-hidden="true"></span>
+                        <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
                     </a>
                 </div>
                 <p>

@@ -31,34 +31,49 @@ function flawInfoBackData() {
 
 //保存提交制定任务
 function saveSovleTask() {
+    var flag = true;
+    if (!checkdocument())
+        flag = false;
+    if (!checkManeger())
+        flag = false;
+    if (!checkaddTaskName())
+        flag = false;
+    if (flag) {
+        var sovleTaskNo = $('input[name="sovleTaskNo"]').val();
+        var sovleTaskName = $('input[name="sovleTaskName"]').val();
+        var documents = $('select[name="documents"]').val();
+        var manager = $('select[name="manager"]').val();
+        var creatBy = $('input[name="creatBy"]').val();
+        var creatDate = $('input[name="creatDate"]').val();
+        var describe = $('textarea[name="describe"]').val();
+        var comment = $('textarea[name="comment"]').val();
+        var solveWorker = $('textarea[name="solveWorker"]').val();
+        var floawList = "";
+        $("#sovleFlawTable tbody tr").each(function (index, item) {
+            floawList = floawList + $(item).children()[0].innerText + ",";
+        });
+        var requestData = "solveTaskNo=" + sovleTaskNo + "&solveTaskName=" + sovleTaskName + "&documents=" + documents
+            + "&manager=" + manager + "&creatBy=" + creatBy + "&createDate=" + creatDate + "&describe=" + describe + "&comment=" + comment
+            + "&solveWorker=" + solveWorker + "&floawList=" + floawList;
+        $.post({
+            url: "/saveSovleTask",
+            data: requestData,
+            dataType: 'text',
+            success: function (data) {
+                popup({
+                    type: 'success', msg: "添加成功", delay: 1000, callBack: function () {
+                        window.location.href = "/AdminSolveTask.html";
+                    }
+                });
 
-
-    var sovleTaskNo = $('input[name="sovleTaskNo"]').val();
-    var sovleTaskName = $('input[name="sovleTaskName"]').val();
-    var documents = $('select[name="documents"]').val();
-    var manager = $('select[name="manager"]').val();
-    var creatBy = $('input[name="creatBy"]').val();
-    var creatDate = $('input[name="creatDate"]').val();
-    var describe = $('textarea[name="describe"]').val();
-    var comment = $('textarea[name="comment"]').val();
-    var solveWorker = $('textarea[name="solveWorker"]').val();
-    var floawList = "";
-    $("#sovleFlawTable tbody tr").each(function (index, item) {
-        floawList = floawList + $(item).children()[0].innerText + ",";
-    });
-    var requestData = "solveTaskNo=" + sovleTaskNo + "&solveTaskName=" + sovleTaskName + "&documents=" + documents
-        + "&manager=" + manager + "&creatBy=" + creatBy + "&createDate=" + creatDate + "&describe=" + describe + "&comment=" + comment
-        + "&solveWorker=" + solveWorker + "&floawList=" + floawList;
-    $.post({
-        url: "/saveSovleTask",
-        data: requestData,
-        dataType: 'text',
-        success: function (data) {
-            window.location.href = "/AdminSolveTask.html";
-        },
-        error: function (erroMsg) {
-        }
-    });
+            },
+            error: function (erroMsg) {
+                popup({type:'error',msg:"操作失败",delay:2000,bg:true,clickDomCancel:true});
+            }
+        });
+    } else {
+        return false;
+    }
 }
 
 /*全选*/
@@ -114,6 +129,7 @@ function checkaddTaskName() {
 
 function checkdocument() {
     if ($("#documents").val() == null || $("#documents").val() == "") {
+        $("#documentsError").css("color", "red");
         $("#documentsError").text("请选择");
         return false;
     } else {
@@ -126,6 +142,7 @@ function checkdocument() {
 
 function checkManeger() {
     if ($("#manager").val() == null || $("#manager").val() == "") {
+        $("#managerError").css("color", "red");
         $("#managerError").text("请选择");
         return false;
     } else {

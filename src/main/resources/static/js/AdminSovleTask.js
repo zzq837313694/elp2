@@ -23,3 +23,8 @@ function review(obj) {
 function deleteTask(obj) {
     alert("删除" + $(obj).parents("tr").find('td').eq(0).text());
 }
+
+function updataTask(obj) {
+
+
+}

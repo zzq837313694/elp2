@@ -214,7 +214,7 @@ public class solveTaskController {
 
     @RequestMapping("/saveSovleTask")
     @ResponseBody
-    public String Search(Solvetaskinfo solveTask, String solveWorker, Model model) {
+    public void Search(Solvetaskinfo solveTask, String solveWorker, Model model) {
 
         String[] worker = solveWorker.split(" >");
         String finishiworkerId = "";
@@ -229,7 +229,7 @@ public class solveTaskController {
         if (r == 1) {
             System.out.println("添加成功");
         }
-        return "AdminSolveTask";
+        return ;
     }
 
 
