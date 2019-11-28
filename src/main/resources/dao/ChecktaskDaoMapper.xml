@@ -113,7 +113,7 @@ FlawCheck.pageSize!=null and FlawCheck.pageSize!=''">
     </sql>
 <insert id="addChecktaskinfo" parameterType="Checktaskinfo">
     insert into checktaskinfo values ('a',#{jobName},#{circuitNo},#{startNo},#{stopNo},
-    null,#{createBy},#{createDate},#{finishDate},#{comment},'待分配','否',0);
+    null,#{createBy},#{createDate},#{finishDate},#{comment},'待分配','否');
 </insert>
     <update id="updateCheck" parameterType="Checktaskinfo">
         update checktaskinfo set jobName=#{jobName},circuitNo=#{circuitNo},startNo=#{startNo}
