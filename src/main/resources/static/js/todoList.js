@@ -1,18 +1,15 @@
 
 function togo(obj){
+    // 先处理掉所有存在的节点,再判断是否存在
+    $('.icon3').hide();
+    $('.icon4').show();
     $(".icon5").hide();
     $('.coin11').hide();
     $('.coin22').show();
     $(obj).find('.coin11').show();
     $(obj).find('.coin22').hide();
-    $(".leftsidebar_box .cks").removeClass('menu_chioce2');
-    if ($(obj).find('.icon5').is(":hidden")) {
-        $(obj).addClass('menu_chioce2');
-        $(obj).find('.icon5').show();
-    } else {
-        $(obj).removeClass('menu_chioce2');
-        $(obj).find('.icon5').hide();
-    }
+    $(obj).children('.icon5').show();
+    $(obj).siblings('dt').find('.icon3');
 }
 
 function gotoPage(url) {

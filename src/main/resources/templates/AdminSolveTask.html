@@ -145,8 +145,8 @@
 
                     <span>|</span>
                     <span th:switch="${task.status}">
-                            <a th:case="待分配" th:href="'/updataTask?taskNo='+${task.solveTaskNo}" onclick="updataTask(this)">修改</a>
-                            <a th:case="已完成" th:href="'/review??taskNo='+${task.solveTaskNo}" onclick="review(this)">审查</a>
+                            <a th:case="待分配" th:href="'/updataTask?solveTaskNo='+${task.solveTaskNo}" >修改</a>
+                            <a th:case="已完成"   th:href="'sovleTaskInfo.html?taskNo='+${task.solveTaskNo}+'&c=s'">审查</a>
                             <span th:case="*" style="color: grey">修改</span>
                         </span>
                     <span>|</span>
