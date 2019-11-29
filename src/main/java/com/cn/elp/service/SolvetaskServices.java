@@ -82,4 +82,5 @@ public interface SolvetaskServices {
      */
     List<Solvetaskinfo> findSolveTaskInfoByUserNo(String userNo);
 
+
 }

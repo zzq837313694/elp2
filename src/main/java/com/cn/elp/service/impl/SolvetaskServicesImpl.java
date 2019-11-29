@@ -99,7 +99,11 @@ public class SolvetaskServicesImpl implements SolvetaskServices {
 
     @Override
     public int updateTaskinfoByWorker(String taskNo, String workerIds) {
-        return solveTaskInfoDao.updateTaskInfoByWorker(taskNo,workerIds);
+        Solvetaskinfo task = new Solvetaskinfo();
+        task.setSolveTaskNo(taskNo);
+        task.setFinishiworkerId(workerIds);
+        task.setStatus("已分配");
+        return solveTaskInfoDao.updateTaskInfo(task);
     }
 
     @Override

@@ -42,7 +42,8 @@
             <div class="col-lg-4 col-sm-6 col-xs-12 ">
                 <div class="input-prepend input-group">
                     <span class="add-on input-group-addon">任务名称：</span>
-                    <input type="text" name="sovleTaskName" id="sovleTaskName" class="form-control">
+
+                    <input type="text" name="sovleTaskName" id="sovleTaskName" class="form-control" th:value="${retentask.solveTaskName}">
                     <span id="sovleTaskNameError"
                           style="color: red ;display: table-cell;vertical-align: middle;">*</span>
                 </div>
@@ -55,8 +56,8 @@
                     <span class="add-on input-group-addon">工作单据：</span>
                     <select id="documents" name="documents" class="form-control">
                         <option value="">-请选择-</option>
-                        <option value="工作单">工作单</option>
-                        <option value="第一种单具">第一种单具</option>
+                        <option value="工作单">正常单</option>
+                        <option value="抢修单">抢修单</option>
                         <option value="第二种单据">第二种单据</option>
                     </select>
                     <span id="documentsError" style="color: red ;display: table-cell;vertical-align: middle;">*</span>
@@ -84,6 +85,8 @@
             <div class="col-lg-4 col-sm-6 col-xs-12 ">
                 <div class="input-prepend input-group">
                     <span class="add-on input-group-addon">下发日期：</span>
+                    <input type="text" name="creatDate" class="form-control" disabled
+                         th:if="${retentask.createDate!=null}"  th:value="${#dates.format(retentask.createDate,'yyyy-MM-dd')}">
                     <input type="text" name="creatDate" class="form-control" disabled
                            th:value="${#dates.format(#dates.createNow(),'yyyy-MM-dd')}">
                 </div>

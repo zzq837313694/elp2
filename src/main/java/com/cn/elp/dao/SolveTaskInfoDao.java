@@ -1,6 +1,7 @@
 package com.cn.elp.dao;
 
 import com.cn.elp.POJO.Solvetaskinfo;
+import com.cn.elp.POJO.Workerinfo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -52,7 +53,7 @@ public interface SolveTaskInfoDao {
 
 
 
-        int updateTaskInfoByWorker(@Param("taskNo") String taskNo,@Param("workerIds")String workerIds);
+        int updateTaskInfo(Solvetaskinfo solvetaskinfo);
 
 
         /**

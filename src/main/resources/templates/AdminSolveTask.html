@@ -35,8 +35,8 @@
     <span>&gt;&gt;&nbsp;</span>
     <span>消缺任务制定与分配</span>
 </p>
-<input id="pageCount" type="hidden" th:value="${data.getPageCount()}">
-<input id="returnpageIndex" type="hidden" th:value="${data.getPageIndex()}">
+<input id="pageCount" type="hidden" th:value="${data.pageCount}">
+<input id="returnpageIndex" type="hidden" th:value="${data.pageIndex}">
 <!-------筛选------->
 <div class="row ">
     <form action="AdminSolveTask.html" method="post">
@@ -134,17 +134,19 @@
                 <td>
                     <a th:href="'sovleTaskInfo.html?taskNo='+${task.solveTaskNo}" onclick="">查看</a>
                     <span>|</span>
-                    <span th:if="${task.status}=='待分配'">
-                        <a data-toggle="modal" data-target="#SolveTaskModel" th:id="${task.solveTaskNo}"
-                           onclick="chooseWorker(this)"> 分配任务</a>
-                    </span>
-                    <span th:if="${task.status}!='待分配'">
-                            <span style="color: grey">已分配</span>
-                        </span>
+
+                <span th:switch="${task.status}">
+                    <a th:case="待分配"  data-toggle="modal" data-target="#SolveTaskModel" th:id="${task.solveTaskNo}"
+                       onclick="chooseWorker(this)">分配任务</a>
+                    <a th:case="已分配" data-toggle="modal" data-target="#SolveTaskModel" th:id="${task.solveTaskNo}"
+                       onclick="chooseWorker(this)">重新分配</a>
+                    <a th:case="*" style='color:grey'>分配任务</a>
+                </span>
+
                     <span>|</span>
                     <span th:switch="${task.status}">
-                            <a th:case="待分配" href="" onclick="updateTask(this)">修改</a>
-                            <a th:case="已完成" href="" onclick="review(this)">审查</a>
+                            <a th:case="待分配" th:href="'/updataTask?taskNo='+${task.solveTaskNo}" onclick="updataTask(this)">修改</a>
+                            <a th:case="已完成" th:href="'/review??taskNo='+${task.solveTaskNo}" onclick="review(this)">审查</a>
                             <span th:case="*" style="color: grey">修改</span>
                         </span>
                     <span>|</span>
@@ -154,8 +156,6 @@
                     <span th:if="${task.status}!='待分配'">
                             <span style="color: grey">取消</span>
                         </span>
-                </td>
-
                 </td>
             </tr>
             </tbody>
@@ -198,7 +198,7 @@
                     <!--右边-->
                     <div id="modelRight"></div>
                     <div class="modalFooter">
-                        <button type="button" class="btn btn-primary " onclick="updataTask(this)"  data-dismiss="modal"  aria-label="Close">确认
+                        <button type="button" class="btn btn-primary " onclick="assigningTask(this)"  data-dismiss="modal"  aria-label="Close">确认
                         </button>
                     </div>
                 </div>
