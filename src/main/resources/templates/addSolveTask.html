@@ -10,6 +10,12 @@
     <link rel="stylesheet" href="css/mymodal.css">
     <link rel="stylesheet" href="css/sovleTaskmModal.css">
     <link rel="stylesheet" href="css/dialog/dialog.css"/>
+    <style>
+        .row>div>div{
+            margin-top: 8px;
+        }
+
+    </style>
 </head>
 <script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
 <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}"></script>
@@ -43,7 +49,7 @@
                 <div class="input-prepend input-group">
                     <span class="add-on input-group-addon">任务名称：</span>
 
-                    <input type="text" name="sovleTaskName" id="sovleTaskName" class="form-control" th:value="${retentask.solveTaskName}">
+                    <input type="text" name="sovleTaskName" id="sovleTaskName" class="form-control" th:value="${retentask?.solveTaskName}">
                     <span id="sovleTaskNameError"
                           style="color: red ;display: table-cell;vertical-align: middle;">*</span>
                 </div>
@@ -56,9 +62,9 @@
                     <span class="add-on input-group-addon">工作单据：</span>
                     <select id="documents" name="documents" class="form-control">
                         <option value="">-请选择-</option>
-                        <option value="工作单">正常单</option>
-                        <option value="抢修单">抢修单</option>
-                        <option value="第二种单据">第二种单据</option>
+                        <option value="工作单"  th:selected="${retentask?.documents=='工作单'?true:false}">正常单</option>
+                        <option value="抢修单" th:selected="${retentask?.documents=='抢修单'?true:false}">抢修单</option>
+                        <option value="第二种单据" th:selected="${retentask?.documents=='第二种单据'?true:false}">第二种单据</option>
                     </select>
                     <span id="documentsError" style="color: red ;display: table-cell;vertical-align: middle;">*</span>
                 </div>
@@ -69,8 +75,8 @@
                     <span class="add-on input-group-addon">负责人：</span>
                     <select id="manager" name="manager" class="form-control">
                         <option value="">-请选择-</option>
-                        <option th:each="admin:${lineAdmin}" th:value="${admin.getUserName()}"
-                                th:text="${admin.getUserName()}"></option>
+                        <option th:each="admin:${lineAdmin}" th:value="${admin.userName}"
+                                th:text="${admin.userName}" th:selected="${retentask?.manager==admin.userName?true:false}"></option>
                     </select>
                     <span id="managerError" style="color: red ;display: table-cell;vertical-align: middle;">*</span>
                 </div>
@@ -79,37 +85,34 @@
                 <div class="input-prepend input-group">
                     <span class="add-on input-group-addon">下发人：</span>
                     <input name="creatBy" class="form-control" disabled
-                           th:value="${session.worker.getUserNo()}">
+                           th:value="${retentask?.creatBy==null?session.worker.getUserNo():retentask?.creatBy}">
                 </div>
             </div>
             <div class="col-lg-4 col-sm-6 col-xs-12 ">
                 <div class="input-prepend input-group">
                     <span class="add-on input-group-addon">下发日期：</span>
                     <input type="text" name="creatDate" class="form-control" disabled
-                         th:if="${retentask.createDate!=null}"  th:value="${#dates.format(retentask.createDate,'yyyy-MM-dd')}">
-                    <input type="text" name="creatDate" class="form-control" disabled
-                           th:value="${#dates.format(#dates.createNow(),'yyyy-MM-dd')}">
+                          th:value="${#dates.format((retentask?.createDate==null?#dates.createNow():retentask?.createDate),'yyyy-MM-dd')}">
                 </div>
             </div>
 
             <div class="col-lg-6 col-sm-6 col-xs-12 ">
                 <div class="input-prepend input-group">
                     <span class="add-on input-group-addon">任务描述：</span>
-                    <textarea name="describe" cols="40" rows="5" class="form-control"></textarea>
+                    <textarea name="describe" cols="40" rows="5" class="form-control" th:text="${retentask?.describe}"></textarea>
                 </div>
             </div>
             <div class="col-lg-6 col-sm-6 col-xs-12 ">
                 <div class="input-prepend input-group">
                     <span class="add-on input-group-addon">备注：</span>
-                    <textarea name="comment" cols="40" rows="5" class="form-control"></textarea>
+                    <textarea name="comment" cols="40" rows="5" class="form-control" th:text="${retentask?.comment}" ></textarea>
                 </div>
             </div>
             <div class="col-lg-12 col-sm-12 col-xs-12 ">
                 <div class="input-prepend input-group">
                     <span class="add-on input-group-addon">消缺员：</span>
-                    <textarea name="solveWorker" id="solveWorker" cols="110" rows="2" class="form-control"></textarea>
-                    <a id="" class="add-on input-group-addon" data-toggle="modal" data-target="#myModal"
-                       onclick="chooseWorker(this)">
+                    <textarea name="solveWorker" id="solveWorker" cols="110" rows="2" class="form-control"th:text="${retentask?.finishiworkerId}" ></textarea>
+                    <a th:id="${nextTaskNo}" class="add-on input-group-addon" data-toggle="modal" data-target="#myModal"  onclick="chooseWorker(this)">
                         <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
                     </a>
                 </div>
@@ -133,12 +136,23 @@
                     </tr>
                     </thead>
                     <tbody>
-
+                    <tr th:each="flawinfo:${flawinfoList}">
+                        <td th:text="${flawinfo?.circuitNo}"></td>
+                        <td th:text="${flawinfo?.towerNo}"></td>
+                        <td th:text="${flawinfo?.flawLv}"></td>
+                        <td th:text="${flawinfo?.flawTypeId}"></td>
+                        <td th:text="${flawinfo?.comment}"></td>
+                        <td th:text="${flawinfo?.checkBy}"></td>
+                        <td th:text="${#dates.format(flawinfo?.checkDate,'yyyy-MM-dd')}"></td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
             <div class=" col-lg-4 col-sm-5 col-xs-7  col-lg-push-8 col-sm-push-7 col-xs-push-5 ">
-                <button type="button" class="btn btn-primary" onclick="saveSovleTask()">保存</button>
+                <button type="button" class="btn btn-primary"  th:text="${retentask?.solveTaskNo==null?'保存':'修改'}"
+                    onclick="saveSovleTask(this)"
+                ></button>
+
                 <button type="button" class="btn btn-primary"
                         onclick="window.location.href='/AdminSolveTask.html'">
                     返回

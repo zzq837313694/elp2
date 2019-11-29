@@ -30,7 +30,8 @@ function flawInfoBackData() {
 
 
 //保存提交制定任务
-function saveSovleTask() {
+function saveSovleTask(obj) {
+
     var flag = true;
     if (!checkdocument())
         flag = false;
@@ -55,25 +56,45 @@ function saveSovleTask() {
         var requestData = "solveTaskNo=" + sovleTaskNo + "&solveTaskName=" + sovleTaskName + "&documents=" + documents
             + "&manager=" + manager + "&creatBy=" + creatBy + "&createDate=" + creatDate + "&describe=" + describe + "&comment=" + comment
             + "&solveWorker=" + solveWorker + "&floawList=" + floawList;
-        $.post({
-            url: "/saveSovleTask",
-            data: requestData,
-            dataType: 'text',
-            success: function (data) {
-                popup({
-                    type: 'success', msg: "添加成功", delay: 1000, callBack: function () {
-                        window.location.href = "/AdminSolveTask.html";
-                    }
-                });
+        if ($(obj).text() == "保存") {
+            $.post({
+                url: "/saveSovleTask",
+                data: requestData,
+                dataType: 'text',
+                success: function (data) {
+                    popup({
+                        type: 'success', msg: "添加成功", delay: 1000, callBack: function () {
+                            window.location.href = "/AdminSolveTask.html";
+                        }
+                    });
 
-            },
-            error: function (erroMsg) {
-                popup({type:'error',msg:"操作失败",delay:2000,bg:true,clickDomCancel:true});
-            }
-        });
-    } else {
-        return false;
+                },
+                error: function (erroMsg) {
+                    popup({type: 'error', msg: "操作失败", delay: 2000, bg: true, clickDomCancel: true});
+                }
+            });
+        }else{
+            $.post({
+                url: "/updateSovleTask",
+                data: requestData,
+                dataType: 'text',
+                success: function (data) {
+                    popup({
+                        type: 'success', msg: "添加成功", delay: 1000, callBack: function () {
+                            window.location.href = "/AdminSolveTask.html";
+                        }
+                    });
+
+                },
+                error: function (erroMsg) {
+                    popup({type: 'error', msg: "操作失败", delay: 2000, bg: true, clickDomCancel: true});
+                }
+            });
+        }
+
+
     }
+
 }
 
 /*全选*/

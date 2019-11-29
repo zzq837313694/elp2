@@ -31,16 +31,13 @@ function assigningTask(obj) {
     if (worker != "") {
         $.post({
             url: "updateSovleTaskfinishWorker",
-            data: "TaskNo=" + $(obj).attr('name') + "&finishWorker=" + worker,
+            data: "solveTaskNo=" + $(obj).attr('name') + "&finishiworkerId=" + worker,
             success: function (data) {
-                if (data == 1) {
                     popup({
-                        type: 'success', msg: "添加成功", delay: 1000, callBack: function () {
+                        type: 'success', msg: "操作成功", delay: 1500, callBack: function () {
                             window.location.href = "/AdminSolveTask.html";
                         }
                     });
-
-                }
             }
 
         })

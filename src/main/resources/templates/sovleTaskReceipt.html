@@ -8,14 +8,32 @@
           rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/ShowPage.css"/>
     <script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
-    <script th:src="@{/webjars/bootstrap3.3.7/js/bootstrap.js}"></script>
+    <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}"></script>
     <script src="js/jsform.js" type="text/javascript"></script>
     <link rel="stylesheet" href="css/datepicker.css">
     <script src="js/moment.js"></script>
     <script src="js/datepicker.js"></script>
     <script src="js/date.js"></script>
+    <!--//成功提示框-->
+    <script src="js/dailog/zepto.js"></script>
+    <script src="js/dailog/dialog.js"></script>
+    <link rel="stylesheet" href="css/dialog/dialog.css"/>
     <script>
+        function doTask(obj) {
+            var taskNo = $(obj).attr('name');
+            $.post({
+                url: "doTask",
+                data: "solveTaskNo=" + taskNo,
+                success: function (da) {
+                    popup({
+                        type: 'success', msg: "操作成功", delay: 1500, callBack: function () {
+                            window.location.href = "/sovleTaskreceipt.html";
+                        }
+                    });
+                }
+            })
 
+        }
     </script>
 </head>
 <style>
@@ -122,24 +140,26 @@
                     <sapn th:case="已完成" style='color:green'>已完成</sapn>
                     <sapn th:case="*" th:text="${task.status}"></sapn>
                 </td>
+                <td th:text="${#dates.format(task.finishDate,'yyyy-MM-dd')}"></td>
                 <td>
                     <a th:href="'sovleTaskInfo.html?taskNo='+${task.solveTaskNo}" onclick="">查看</a>
                     <span>|</span>
                     <span th:if="${task.status}=='执行中'">
-                        <a data-toggle="modal" data-target="#SolveTaskModel" th:id="${task.solveTaskNo}"
-                           onclick=""> 回执录入</a>
+                        <a  th:id="${task.solveTaskNo}"
+                           th:href="'sovleTaskInfo.html?taskNo='+${task.solveTaskNo}+'&c=h'"
+                        > 回执录入</a>
                     </span>
                     <span th:if="${task.status}!='执行中'">
                             <span style="color: grey">回执录入</span>
                     </span>
                     <span>|</span>
                     <span th:switch="${task.status}">
-                            <a th:case="已分配" href="" onclick="">执行</a>
+                            <a th:case="已分配" th:name="${task.solveTaskNo}" onclick="doTask(this)">执行</a>
                             <span th:case="*" style="color: grey">执行</span>
                         </span>
                     <span>|</span>
                     <span th:if="${task.status}=='执行中'">
-                            <a href="" onclick="">异常报告</a>
+                            <a th:href="'sovleTaskInfo.html?taskNo='+${task.solveTaskNo}+'&c=e'" onclick="">异常报告</a>
                         </span>
                     <span th:if="${task.status}!='执行中'">
                             <span style="color: grey">异常报告</span>

@@ -12,6 +12,10 @@
     <script src="js/moment.js"></script>
     <script src="js/datepicker.js"></script>
     <script src="js/date.js"></script>
+    <!--//成功提示框-->
+    <script src="js/dailog/zepto.js"></script>
+    <script src="js/dailog/dialog.js"></script>
+    <link rel="stylesheet" href="css/dialog/dialog.css"/>
     <style>
         .row input[type='text']{
             width: 150px;
@@ -165,7 +169,7 @@
                     </td>
                     <td>
                         <div class="row">
-                            <button type="submit" id="save" class="btn btn-primary" th:flawLv="${flawinfo.flawLv}" th:flawNo="${flawinfo.flawNo}" onclick="save(this);">保存</button>
+                            <button type="submit" id="save" class="btn btn-primary" th:flawLv="${flawinfo.flawLv}" th:flawNo="${flawinfo.flawNo}" onclick="save(this);">确认</button>
                         </div>
                     </td>
                     <input type="hidden" id="returnpageIndex" th:value="${pageSurpport.pageIndex}">
@@ -196,10 +200,17 @@
         var data="flawNo="+flawNo+"&flawLv="+modifyLv;
         $.get("updateFlawLv.html",data,function(relData){
             if(relData>0){
-                alert("修改成功！")
-                window.location.reload();
+                popup({
+                    type: 'success', msg: "修改成功", delay: 2000, callBack: function () {
+                        window.location.reload();
+                    }
+                });
             }else {
-                alert("缺陷级别未确认！")
+                popup({
+                    type: 'success', msg: "缺陷级别未确认", delay: 2000, callBack: function () {
+                        window.location.reload();
+                    }
+                });
             }
         });
     }

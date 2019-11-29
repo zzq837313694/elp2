@@ -31,11 +31,6 @@
     position: relative;
 }
 
-.modalFooter {
-    padding-left: 80%;
-    padding-top: 8px;
-
-}
 .modalFooter button{
   margin-top: 8px;
 }

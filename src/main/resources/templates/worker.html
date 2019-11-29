@@ -13,6 +13,10 @@
     <script src="js/datepicker.js"></script>
     <script src="js/date.js"></script>
     <script src="js/jsform.js" type="text/javascript"></script>
+    <!--//成功提示框-->
+    <script src="js/dailog/zepto.js"></script>
+    <script src="js/dailog/dialog.js"></script>
+    <link rel="stylesheet" href="css/dialog/dialog.css"/>
 
     <style>
 
@@ -90,21 +94,21 @@
                                 <td>登录账号：</td>
                                 <td style="padding: 10px">
                                     <input type="text" name="userNo" id="addUserNo"  value="">
-                                    <span id="addUserNoSpan" class="isEmpty" style="color: red ;display: table-cell;vertical-align: middle;">*</span>
+                                    <span id="addUserNoSpan" class="isEmpty" style="color: red ;vertical-align: middle;">*</span>
                                 </td>
                             </tr>
                             <tr>
                                 <td>用户名称：</td>
                                 <td style="padding: 10px">
                                     <input type="text" name="userName" id="addUserName"  value="">
-                                    <span id="addUserNameSpan" class="isEmpty" style="color: red ;display: table-cell;vertical-align: middle;">*</span>
+                                    <span id="addUserNameSpan" class="isEmpty" style="color: red ;vertical-align: middle;">*</span>
                                 </td>
                             </tr>
                             <tr>
                                 <td>密码：</td>
                                 <td style="padding: 10px">
                                     <input type="text" name="password" id="addPassword"  value="">
-                                    <span id="addPasswordSpan" class="isEmpty" style="color: red ;display: table-cell;vertical-align: middle;">*</span>
+                                    <span id="addPasswordSpan" class="isEmpty" style="color: red;vertical-align: middle;">*</span>
                                 </td>
                             </tr>
                             <tr>
@@ -114,7 +118,7 @@
                                         <option value="">--请选择--</option>
                                         <option th:each="role:${roleList}" th:value="${role.roleId}" th:text="${role.roleName}"></option>
                                     </select>
-                                    <span id="addRole" class="isEmpty" style="color: red ;display: table-cell;vertical-align: middle;">*</span>
+                                    <span id="addRole" class="isEmpty" style="color: red ;vertical-align: middle;">*</span>
                                 </td>
                             </tr>
                             <tr>
@@ -344,8 +348,11 @@ function del(obj) {
         data="userNo="+userNo;
         $.post("delWorkerinfoByuserNo.html",data,function (delrel) {
             if (delrel>0){
-                alert("删除成功");
-                window.location.reload();
+                popup({
+                    type: 'success', msg: "刪除成功", delay: 1000, callBack: function () {
+                        window.location.reload();
+                    }
+                });
             } else {
                 alert("删除失败");
             }
