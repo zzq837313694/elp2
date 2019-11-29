@@ -21,7 +21,7 @@ function gotoPage(url) {
         if ($(item).find('a').attr('href') == url) {
             $(item).siblings('dt').click();
             togo(item);
-            window.location.href = "/" + url;
+            window.parent.frames[2].location.href = "/" + url;
 
         }
 

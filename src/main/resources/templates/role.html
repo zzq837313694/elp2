@@ -9,6 +9,10 @@
     <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}"></script>
     <link rel="stylesheet" href="css/datepicker.css">
     <link rel="stylesheet" type="text/css" href="css/ShowPage.css"/>
+    <!--//成功提示框-->
+    <script src="js/dailog/zepto.js"></script>
+    <script src="js/dailog/dialog.js"></script>
+    <link rel="stylesheet" href="css/dialog/dialog.css"/>
 
     <style>
 
@@ -212,9 +216,12 @@
         var data="roleId="+roleId;
         $.get("delRole.html",data,function(relData){
             if(relData>"0"){
-                alert("删除成功!");
-                //$(obj).parent().parent().remove();
-                window.location.reload();
+                popup({
+                    type: 'success', msg: "刪除成功", delay: 1000, callBack: function () {
+                        window.location.href = "/role.html";
+                    }
+                });
+                //$(obj).parent().parent().remove();window.location.reload();
             }else{
                 alert("删除失败!");
             }

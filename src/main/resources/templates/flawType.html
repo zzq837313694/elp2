@@ -8,6 +8,10 @@
     <link rel="stylesheet" type="text/css" href="css/ShowPage.css"/>
     <script th:src="@{/webjars/jquery/3.4.1/jquery.js}"></script>
     <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}"></script>
+    <!--//成功提示框-->
+    <script src="js/dailog/zepto.js"></script>
+    <script src="js/dailog/dialog.js"></script>
+    <link rel="stylesheet" href="css/dialog/dialog.css"/>
 </head>
 <body>
     <p style="text-indent: 2em">缺陷管理-->缺陷类型设值</p><br>
@@ -174,9 +178,11 @@
         var data="typeid="+typeid;
         $.get("delFlawType.html",data,function(relData){
             if(relData>"0"){
-                alert("删除成功!");
-                //$(obj).parent().parent().remove();
-                window.location.reload();
+                popup({
+                    type: 'success', msg: "删除成功", delay: 2000, callBack: function () {
+                        window.location.reload();
+                    }
+                });
             }else{
                 alert("删除失败!");
             }

@@ -21,12 +21,11 @@ function del(obj) {
     var data="towerNo="+no;
     $.get("delOneTower.html",data,function(relData){
         if(relData>"0"){
-            alert("删除成功!");
-            //刷新页面
-            //1.重新从服务器端加载新闻列表数据
-            //2.从客户端删除该条数据
-            $(obj).parent().parent().remove();
-            window.location.reload();
+            popup({
+                type: 'success', msg: "刪除成功", delay: 1000, callBack: function () {
+                    window.location.reload();
+                }
+            });
         }else{
             alert("删除失败!");
         }

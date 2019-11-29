@@ -21,13 +21,13 @@ ol {
 img {
   border: none;
 }
-input,
+/*input,
 select,
 textarea {
   outline: none;
   border: none;
   background: none;
-}
+}*/
 textarea {
   resize: none;
 }

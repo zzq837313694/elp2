@@ -5,8 +5,13 @@ function update(obj) {
     data="circuitNo="+No+"&useStatus="+text;
     $.get("updateStatusTwo.html",data,function (relData) {
         if (relData>0){
-            alert(No+"路线及其以下的杆塔已全部"+text);
-            window.location.reload();
+           /* alert(No+"路线及其以下的杆塔已全部"+text);
+            window.location.reload();*/
+            popup({
+                type: 'success', msg: No+"路线及其以下的杆塔已全部"+text, delay: 2000, callBack: function () {
+                    window.location.reload();
+                }
+            });
         } else{
             alert("失败")
         }
@@ -22,9 +27,14 @@ function del(obj) {
         //发送异步请求
         $.get("delOneTwo.html",data,function(relData){
             if(relData>"0"){
-                alert("该路线及其以下的杆塔删除成功!");
+                /*alert("该路线及其以下的杆塔删除成功!");
                 $(obj).parent().parent().remove();
-                window.location.reload();
+                window.location.reload();*/
+                popup({
+                    type: 'success', msg: "该路线及其以下的杆塔删除成功", delay: 2000, callBack: function () {
+                        window.location.reload();
+                    }
+                });
             }else{
                 alert("删除失败!");
             }
