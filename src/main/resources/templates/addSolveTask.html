@@ -43,7 +43,7 @@
                 <div class="input-prepend input-group">
                     <span class="add-on input-group-addon">任务名称：</span>
 
-                    <input type="text" name="sovleTaskName" id="sovleTaskName" class="form-control" th:value="${retentask.solveTaskName}">
+                    <input type="text" name="sovleTaskName" id="sovleTaskName" class="form-control" th:value="${retentask?.solveTaskName}">
                     <span id="sovleTaskNameError"
                           style="color: red ;display: table-cell;vertical-align: middle;">*</span>
                 </div>
@@ -56,9 +56,9 @@
                     <span class="add-on input-group-addon">工作单据：</span>
                     <select id="documents" name="documents" class="form-control">
                         <option value="">-请选择-</option>
-                        <option value="工作单">正常单</option>
-                        <option value="抢修单">抢修单</option>
-                        <option value="第二种单据">第二种单据</option>
+                        <option value="工作单"  th:selected="${retentask?.status=='工作单'?true:false}">正常单</option>
+                        <option value="抢修单" th:selected="${retentask?.status=='抢修单'?true:false}">抢修单</option>
+                        <option value="第二种单据" th:selected="${retentask?.status=='第二种单据'?true:false}">第二种单据</option>
                     </select>
                     <span id="documentsError" style="color: red ;display: table-cell;vertical-align: middle;">*</span>
                 </div>
@@ -86,22 +86,20 @@
                 <div class="input-prepend input-group">
                     <span class="add-on input-group-addon">下发日期：</span>
                     <input type="text" name="creatDate" class="form-control" disabled
-                         th:if="${retentask.createDate!=null}"  th:value="${#dates.format(retentask.createDate,'yyyy-MM-dd')}">
-                    <input type="text" name="creatDate" class="form-control" disabled
-                           th:value="${#dates.format(#dates.createNow(),'yyyy-MM-dd')}">
+                          th:value="${#dates.format((retentask?.createDate==null?#dates.createNow():retentask?.createDate),'yyyy-MM-dd')}">
                 </div>
             </div>
 
             <div class="col-lg-6 col-sm-6 col-xs-12 ">
                 <div class="input-prepend input-group">
                     <span class="add-on input-group-addon">任务描述：</span>
-                    <textarea name="describe" cols="40" rows="5" class="form-control"></textarea>
+                    <textarea name="describe" cols="40" rows="5" class="form-control" th:value="${retentask?.describe}"></textarea>
                 </div>
             </div>
             <div class="col-lg-6 col-sm-6 col-xs-12 ">
                 <div class="input-prepend input-group">
                     <span class="add-on input-group-addon">备注：</span>
-                    <textarea name="comment" cols="40" rows="5" class="form-control"></textarea>
+                    <textarea name="comment" cols="40" rows="5" class="form-control" th:value="${retentask?.comment}" ></textarea>
                 </div>
             </div>
             <div class="col-lg-12 col-sm-12 col-xs-12 ">
