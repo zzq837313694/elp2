@@ -33,14 +33,11 @@ function assigningTask(obj) {
             url: "updateSovleTaskfinishWorker",
             data: "solveTaskNo=" + $(obj).attr('name') + "&finishiworkerId=" + worker,
             success: function (data) {
-                if (data == 1) {
                     popup({
                         type: 'success', msg: "操作成功", delay: 1500, callBack: function () {
                             window.location.href = "/AdminSolveTask.html";
                         }
                     });
-
-                }
             }
 
         })

@@ -136,9 +136,9 @@
                     <span>|</span>
 
                 <span th:switch="${task.status}">
-                    <a th:case="待分配"  data-toggle="modal" data-target="#SolveTaskModel" th:id="${task.solveTaskNo}"
+                    <a th:case="待分配"  data-toggle="modal" data-target="#SolveTaskModel" th:name="${task.solveTaskNo}"
                        onclick="chooseWorker(this)">分配任务</a>
-                    <a th:case="已分配" data-toggle="modal" data-target="#SolveTaskModel" th:id="${task.solveTaskNo}"
+                    <a th:case="已分配" data-toggle="modal" data-target="#SolveTaskModel" th:name="${task.solveTaskNo}"
                        onclick="chooseWorker(this)">重新分配</a>
                     <a th:case="*" style='color:grey'>分配任务</a>
                 </span>
@@ -198,7 +198,8 @@
                     <!--右边-->
                     <div id="modelRight"></div>
                     <div class="modalFooter">
-                        <button type="button" class="btn btn-primary " onclick="assigningTask(this)"  data-dismiss="modal"  aria-label="Close">确认
+                        <button  class="btn btn-primary " onclick="assigningTask(this)"
+                                data-dismiss="modal" aria-label="Close">确认
                         </button>
                     </div>
                 </div>

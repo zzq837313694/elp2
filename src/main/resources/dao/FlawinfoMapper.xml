@@ -86,7 +86,7 @@
 
     <insert id="addFlawinfo" parameterType="Flawinfo">
         insert into flawinfo values ('q',#{checkJobNo},#{circuitNo},#{towerNo},#{flawTypeId},#{flawLv},#{checkBy},#{checkDate},
-        #{intcatRate},#{comment})
+        #{intcatRate},#{comment},0)
     </insert>
     <update id="updateFlawinfo" parameterType="flawinfo">
         update flawinfo set flawLV=#{flawLv}, flawTypeId=#{flawTypeId},intcatRate=#{intcatRate},comment=#{comment}  where flawNo=#{flawNo}

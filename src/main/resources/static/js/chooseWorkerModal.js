@@ -21,10 +21,10 @@ function removepeople(){
 /*模态框*/
 function chooseWorker(obj) {
     /*模态框显示*/
-    $('.modalFooter>button').attr("name",$(obj).attr("id"));
+    $('.modalFooter>button').attr("name",$(obj).attr("name"));
     $.post({
         url: "/chooseSolveWorker",
-        data: "taskNo=" + $(obj).attr("id"),
+        data: "taskNo=" + $(obj).attr("name"),
         dataType: "json",
         success: function (workMap) {
             $('#modelLeft li,#modelRight li').remove();

@@ -66,7 +66,7 @@
 
             </ol>
         </div>
-        <button  class="btn btn-primary" onclick="javascript:history.back(-1);">返回</button>
+        <button  class="btn btn-primary" onclick="history.back(-1);">返回</button>
         <form action="/changeStuts.html">
             <input hidden th:value="${Checktask.jobId}" name="jobId">
             <input hidden value="已完成" name="status">
@@ -81,7 +81,7 @@
         <form id="addFlawinfo">
             <div class="row" style="width: 500px;">
                 <div  class="col-lg-9 col-sm-9 col-xs-9 col-lg-push-2" >
-                    <div class="col-lg-6 col-sm-12 col-xs-12">
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
                         <div class="input-prepend input-group">
                             <input type="hidden" name="checkJobNo" th:value="${Checktask.jobId}">
                             <span class="add-on input-group-addon">线路编号：</span>
@@ -162,7 +162,7 @@
 
     $(function () {
         f();
-    })
+    });
     function f() {
         var index=$("#pageIndex").val();
         var circuitNo=$("#circuitNo").val();
@@ -183,10 +183,10 @@
                                 flawNo=obj2.flawNo;
                             }
                         }
-                    })
+                    });
                     str+="<li flawNo='"+flawNo+"' a='"+cla+"' style='color:"+color+";background-color:#FFFFFF' class='towerNoList' id='"+obj.towerNo+"'>"+obj.towerNo+"</li>"
                 }
-            })
+            });
             $("#towerls").html(str);
 
             if(data.ps.pageIndex<=1){
@@ -206,13 +206,13 @@
         var index=$("#pageIndex").val();
         $("#pageIndex").val(eval(index+"+"+"1"));
         f();
-    })
+    });
     $("#last").click(function () {
         var index=$("#pageIndex").val();
 
         $("#pageIndex").val(eval(index+"-"+"1"));
         f();
-    })
+    });
 
 
     $(document).on("click",".towerNoList",(function () {
@@ -236,17 +236,17 @@
             $("#update").attr("type","hidden");
         }
         $("[name='towerNo']").val($(this).text());
-    }))
+    }));
 
     $(function () {
         $.post("getflawTypeList.html",function (data) {
             var str="<option value='0'>"+"-请选择-"+"</option>";
             $.each(data,function (i,obj) {
                 str+="<option value='"+obj.flawTypeId+"'>"+obj.flawName+"</option>"
-            })
+            });
             $("#flawTypeId").html(str);
         },"json")
-    })
+    });
 
     $("#save").click(function () {
         submitt();
@@ -270,19 +270,19 @@
     });
     function getFlawinfo(flawNo) {
         $.get("getFlawinfo.html","flawNo="+flawNo,function (data) {
-            var flawName=""
-            var checkBy=""
+            var flawName="";
+            var checkBy="";
             $.each(data.workList,function (i,obj) {
                 if(obj.userNo==data.flawInfo.checkBy){
                     checkBy=obj.userName;
                 }
-            })
+            });
             $.each(data.flawTypeList,function (i,obj) {
                 if(obj.flawTypeId==data.flawInfo.flawTypeId){
                     flawName=obj.flawName;
                 }
-            })
-            $("#flawNo").val(data.flawInfo.flawNo)
+            });
+            $("#flawNo").val(data.flawInfo.flawNo);
             $("#intcatRate").val(data.flawInfo.intcatRate);
             $("#flawLv option[value="+data.flawInfo.flawLv+"]").prop("selected","selected");
             $("#flawTypeId option[value="+data.flawInfo.flawTypeId+"]").prop("selected","selected");
