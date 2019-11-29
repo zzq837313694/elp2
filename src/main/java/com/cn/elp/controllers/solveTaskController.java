@@ -61,7 +61,7 @@ public class solveTaskController {
             }
         }
 
-         List<Solvetaskinfo> solveTasks = solvetaskServices.searchSolveTask(solveTask.getSolveTaskNo(), solveTask.getSolveTaskName()
+        List<Solvetaskinfo> solveTasks = solvetaskServices.searchSolveTask(solveTask.getSolveTaskNo(), solveTask.getSolveTaskName()
                 , solveTask.getCreatBy(), solveTask.getStatus(), createDate_from, createDate_to, ps.getPageIndex());
         try {
 
@@ -72,7 +72,7 @@ public class solveTaskController {
 
         } catch (Exception e) {
             System.out.print(e);
-        }finally {
+        } finally {
             ps.setDataList(solveTasks);
         }
         model.addAttribute("data", ps);
@@ -133,34 +133,35 @@ public class solveTaskController {
             workers.put("rightWorker", rightWorker);
             return workers;
         }
-        Solvetaskinfo NowSolvetaskinfo=solvetaskServices.findSolveTaskByTaskNo(taskNo);
+        Solvetaskinfo NowSolvetaskinfo = solvetaskServices.findSolveTaskByTaskNo(taskNo);
         String nowWorker = null;
-        if(NowSolvetaskinfo!=null){
-             nowWorker = NowSolvetaskinfo.getFinishiworkerId();
+        if (NowSolvetaskinfo != null) {
+            nowWorker = NowSolvetaskinfo.getFinishiworkerId();
         }
-        if (NowSolvetaskinfo == null||nowWorker==null||nowWorker.length()==0 ) {
+        if (NowSolvetaskinfo == null || nowWorker == null || nowWorker.length() == 0) {
             workers.put("leftWorker", leftWorker);
             workers.put("rightWorker", rightWorker);
         } else {
 
             String[] workerArray = nowWorker.split(",");
             for (int i = 0; i < workerArray.length; i++) {
-                if(workerArray[i]!=null&&!"".equals(workerArray[i])) {
+                if (workerArray[i] != null && !"".equals(workerArray[i])) {
                     rightWorker.add(workerinfoService.findAllWorker(workerArray[i]));
                 }
             }
-            no=0;
-          while(no<leftWorker.size()){
-              int j = 0;
-              while (j<rightWorker.size()){
-                  if(leftWorker.get(no).getUserNo().equals(rightWorker.get(j).getUserNo())){
-                      leftWorker.remove(no);
-                      j++;
-                      continue;
-                  }
-                  no++;
-              }
-          }
+            no = 0;
+            while (no < leftWorker.size()) {
+                int j = 0;
+                while (j < rightWorker.size()) {
+                    if (leftWorker.get(no).getUserNo().equals(rightWorker.get(j).getUserNo())) {
+                        leftWorker.remove(no);
+                        j++;
+                        continue;
+                    }
+
+                }
+                no++;
+            }
             workers.put("leftWorker", leftWorker);
             workers.put("rightWorker", rightWorker);
         }
@@ -172,7 +173,7 @@ public class solveTaskController {
     //添加消缺任务
     public String toAddSovleTaskPage(Model model) {
 
-       List<Workerinfo> lineAdmin=workerinfoService.findWorkerByRoleId(roleServices.findRoleByRoleName("线路管理员").getRoleId());
+        List<Workerinfo> lineAdmin = workerinfoService.findWorkerByRoleId(roleServices.findRoleByRoleName("线路管理员").getRoleId());
         model.addAttribute("lineAdmin", lineAdmin);
         model.addAttribute("flawtypeList", flawTypeDao.findAllFlawType());
         Solvetaskinfo maxTaskInfo = solvetaskServices.FinfLastTask();//.getSolveTaskNo();
@@ -232,7 +233,7 @@ public class solveTaskController {
         String finishiworkerId = "";
         for (int i = 0; i < worker.length; i++) {
             if (!"".equals(worker[i])) {
-                finishiworkerId +=(","+worker[i].split("--")[0]);
+                finishiworkerId += ("," + worker[i].split("--")[0]);
             }
 
         }
@@ -241,21 +242,22 @@ public class solveTaskController {
         if (r == 1) {
             System.out.println("添加成功");
         }
-        return ;
+        return;
     }
 
     @RequestMapping("/updateSovleTaskfinishWorker")
     @ResponseBody
-    public int updateSovleTaskfinishWorker(String TaskNo,String finishWorker ,Model model) {
+    public int updateSovleTaskfinishWorker(String solveTaskNo, String finishiworkerId, Model model) {
 
-        return solvetaskServices.updateTaskinfoByWorker(TaskNo,finishWorker);
+        return solvetaskServices.updateTaskinfoByWorker(solveTaskNo, finishiworkerId);
     }
+
     @RequestMapping("/updataTask")
-    public String updataTask(Solvetaskinfo taskInfo,Model model) {
-        Solvetaskinfo solveTask=solvetaskServices.findSolveTaskByTaskNo(taskInfo.getSolveTaskNo());
+    public String updataTask(Solvetaskinfo taskInfo, Model model) {
+        Solvetaskinfo solveTask = solvetaskServices.findSolveTaskByTaskNo(taskInfo.getSolveTaskNo());
         model.addAttribute("nextTaskNo", taskInfo.getSolveTaskNo());
         model.addAttribute("retentask", solvetaskServices.findSolveTaskByTaskNo(taskInfo.getSolveTaskNo()));
-        List<Workerinfo> lineAdmin=workerinfoService.findWorkerByRoleId(roleServices.findRoleByRoleName("线路管理员").getRoleId());
+        List<Workerinfo> lineAdmin = workerinfoService.findWorkerByRoleId(roleServices.findRoleByRoleName("线路管理员").getRoleId());
         model.addAttribute("lineAdmin", lineAdmin);
         model.addAttribute("flawtypeList", flawTypeDao.findAllFlawType());
 
@@ -268,7 +270,7 @@ public class solveTaskController {
                 flawinfoList.add(flawinfo);
         }
         model.addAttribute("flawinfoList", flawinfoList);
-       return  "addSolveTask";
+        return "addSolveTask";
     }
 
 }
