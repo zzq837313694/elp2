@@ -3,7 +3,7 @@
     var Dialog = function (cfg) {
         this.config = {
             width: 180,
-            height: 150,
+            height: 180,
             msg: "操作成功",
             winDom: window,
             delay: 0,
